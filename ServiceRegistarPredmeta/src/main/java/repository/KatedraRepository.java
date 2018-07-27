@@ -21,12 +21,22 @@ public class KatedraRepository extends AbstractRepository {
     }
 
     public List<Katedra> getAll() {
-        TypedQuery<Katedra> query = em.createNamedQuery(Constants.KATEDRA_FIND_ALL, Katedra.class);
-        return query.getResultList();
+        try {
+            TypedQuery<Katedra> query = em.createNamedQuery(Constants.KATEDRA_FIND_ALL, Katedra.class);
+            return query.getResultList();
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
     public Katedra getById(int id) {
-        TypedQuery<Katedra> query = em.createNamedQuery(Constants.KATEDRA_FIND_BY_ID, Katedra.class);
-        return query.setParameter("katedraId", id).getSingleResult();
+        try {
+            TypedQuery<Katedra> query = em.createNamedQuery(Constants.KATEDRA_FIND_BY_ID, Katedra.class);
+            return query.setParameter("katedraId", id).getSingleResult();
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
+    
+    
 }

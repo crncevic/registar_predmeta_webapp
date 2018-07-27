@@ -17,12 +17,20 @@ import javax.persistence.TypedQuery;
 public class NastavnikRepository extends AbstractRepository {
 
     public List<Nastavnik> getAll() {
-        TypedQuery<Nastavnik> query = em.createNamedQuery(Constants.NASTAVNIK_FIND_ALL, Nastavnik.class);
-        return query.getResultList();
+        try {
+            TypedQuery<Nastavnik> query = em.createNamedQuery(Constants.NASTAVNIK_FIND_ALL, Nastavnik.class);
+            return query.getResultList();
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
     public Nastavnik getById(int id) {
-        TypedQuery<Nastavnik> query = em.createNamedQuery(Constants.NASTAVNIK_FIND_BY_ID, Nastavnik.class);
-        return query.setParameter("nastavnikId", id).getSingleResult();
+        try {
+            TypedQuery<Nastavnik> query = em.createNamedQuery(Constants.NASTAVNIK_FIND_BY_ID, Nastavnik.class);
+            return query.setParameter("nastavnikId", id).getSingleResult();
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 }

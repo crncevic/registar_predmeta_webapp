@@ -15,50 +15,72 @@ import javax.transaction.Transactional;
  *
  * @author Petar
  */
-
 public class KorisnikRepository extends AbstractRepository {
 
     public KorisnikRepository() {
         super();
     }
-    
+
     @Transactional
     public Korisnik create(Korisnik korisnik) {
-        em.persist(korisnik);
-        return korisnik;
+        try {
+            em.persist(korisnik);
+            return korisnik;
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
-    
+
     @Transactional
     public Korisnik update(Korisnik korisnik) {
-        em.merge(korisnik);
-        return korisnik;
+        try {
+            em.merge(korisnik);
+            return korisnik;
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
     @Transactional
     public Korisnik delete(int id) throws Exception {
+        try {
+            Korisnik korisnikFromDb = em.getReference(Korisnik.class, id);
+            if (korisnikFromDb == null) {
+                throw new Exception("Korisnik sa id:" + id + " ne postoji");
+            }
+            em.remove(korisnikFromDb);
 
-        Korisnik korisnikFromDb = em.getReference(Korisnik.class, id);
-        if (korisnikFromDb == null) {
-            throw new Exception("Korisnik sa id:" + id + " ne postoji");
+            return korisnikFromDb;
+        } catch (Exception ex) {
+            throw ex;
         }
-        em.remove(korisnikFromDb);
-        
-        return korisnikFromDb;
     }
-    
-    public List<Korisnik> getAll(){
-        TypedQuery<Korisnik> query = em.createNamedQuery(Constants.KORISNIK_FIND_ALL,Korisnik.class);
-        return query.getResultList();
+
+    public List<Korisnik> getAll() {
+        try {
+            TypedQuery<Korisnik> query = em.createNamedQuery(Constants.KORISNIK_FIND_ALL, Korisnik.class);
+            return query.getResultList();
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
-    
-    public Korisnik getById(int id){
-        TypedQuery<Korisnik> query = em.createNamedQuery(Constants.KORISNIK_FIND_BY_ID,Korisnik.class);
-        return query.setParameter("korisnikId", id).getSingleResult();
+
+    public Korisnik getById(int id) {
+        try {
+            TypedQuery<Korisnik> query = em.createNamedQuery(Constants.KORISNIK_FIND_BY_ID, Korisnik.class);
+            return query.setParameter("korisnikId", id).getSingleResult();
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
-    
-    public Korisnik getByUsername(String username){
-        TypedQuery<Korisnik> query = em.createNamedQuery(Constants.KORISNIK_FIND_BY_USERNAME,Korisnik.class);
-        return query.setParameter("username", username).getSingleResult();
+
+    public Korisnik getByUsername(String username) {
+        try {
+            TypedQuery<Korisnik> query = em.createNamedQuery(Constants.KORISNIK_FIND_BY_USERNAME, Korisnik.class);
+            return query.setParameter("username", username).getSingleResult();
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 
 }
