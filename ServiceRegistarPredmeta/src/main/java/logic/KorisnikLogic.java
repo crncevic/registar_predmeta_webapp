@@ -32,6 +32,8 @@ public class KorisnikLogic extends AbstractLogic {
             if (violations.size() > 0) {
                 throw new ConstraintViolationException(violations);
             }
+            
+            //TODO: strukturna ogranicenja
 
             return kr.create(korisnik);
 
@@ -48,7 +50,9 @@ public class KorisnikLogic extends AbstractLogic {
             if (violations.size() > 0) {
                 throw new ConstraintViolationException(violations);
             }
-
+  
+            //TODO strukturna ogranicenja
+            
             return kr.update(korisnik);
 
         } catch (ConstraintViolationException cve) {
@@ -60,6 +64,9 @@ public class KorisnikLogic extends AbstractLogic {
 
     public Korisnik delete(int id) throws Exception {
         try {
+            
+            //TODO strukturna ogranicenja
+            
             return kr.delete(id);
 
         } catch (Exception ex) {

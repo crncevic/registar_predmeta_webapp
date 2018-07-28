@@ -35,6 +35,8 @@ public class NastavnikNaPredmetuLogic extends AbstractLogic {
                 throw new ConstraintViolationException(violations);
             }
 
+            //TODO strukturna ogranicenja
+            
             return nnpr.create(nastavnikNaPredmetu);
         } catch (ConstraintViolationException cve) {
             throw cve;
@@ -45,6 +47,9 @@ public class NastavnikNaPredmetuLogic extends AbstractLogic {
 
     public NastavnikNaPredmetu delete(NastavnikNaPredmetuPK nastavnikNaPredmetuPK) throws Exception {
         try {
+            
+            //TODO strukturna ogranicenja
+            
             return nnpr.delete(nastavnikNaPredmetuPK);
         } catch (Exception e) {
             throw e;
