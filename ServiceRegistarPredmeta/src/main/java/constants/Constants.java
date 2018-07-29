@@ -10,9 +10,8 @@ package constants;
  * @author Petar
  */
 public class Constants {
-    
-    //Named queries
 
+    //Named queries
     //katedra
     public static final String KATEDRA_FIND_ALL = "Katedra.findAll";
     public static final String KATEDRA_FIND_BY_ID = "Katedra.findByKatedraId";
@@ -33,16 +32,22 @@ public class Constants {
 
     //osoba u vezi sa udzbenikom
     public static final String OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_OSOBA_ID = "OsobaUVeziSaUdzbenikom.findByOsobaId";
-    public static final String OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_ALL  = "OsobaUVeziSaUdzbenikom.findAll";
-    
+    public static final String OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_ALL = "OsobaUVeziSaUdzbenikom.findAll";
+
     //predmet
-    
     public static final String PREMDET_FIND_ALL = "Predmet.findAll";
     public static final String PREMDET_FIND_BY_ID = "Predmet.findByPredmetId";
-    
-    
+
     //status
-    
     public static final String STATUS_FIND_ALL = "Status.findAll";
     public static final String STATUS_FIND_BY_ID = "Status.findByStatusId";
+
+    //studijski program
+    public static final String STUDIJSKI_PROGRAM_FIND_ALL = "StudijskiProgram.findAll";
+    public static final String STUDIJSKI_PROGRAM_FIND_BY_ID = "StudijskiProgram.findByStudijskiProgramId";
+    
+    //tematska celina
+    
+    public static final String TEMATSKA_CELINA_FIND_ALL = "TematskaCelina.findAll";
+    public static final String TEMATSKA_CELINA_FIND_BY_ID = "TematskaCelina.findByTematskacelinaId";
 }
