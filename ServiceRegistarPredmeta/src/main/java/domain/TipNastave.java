@@ -109,6 +109,7 @@ public class TipNastave implements Serializable {
         if (!(object instanceof TipNastave)) {
             return false;
         }
+        
         TipNastave other = (TipNastave) object;
         if ((this.tipnastaveId == null && other.tipnastaveId != null) || (this.tipnastaveId != null && !this.tipnastaveId.equals(other.tipnastaveId))) {
             return false;
@@ -120,5 +121,9 @@ public class TipNastave implements Serializable {
     public String toString() {
         return "domain.TipNastave[ tipnastaveId=" + tipnastaveId + " ]";
     }
+
+   
+    
+   
     
 }

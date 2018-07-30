@@ -157,5 +157,7 @@ public class TematskaCelina implements Serializable {
     public String toString() {
         return "domain.TematskaCelina[ tematskacelinaId=" + tematskacelinaId + " ]";
     }
+
+   
     
 }

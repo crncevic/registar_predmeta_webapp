@@ -109,5 +109,7 @@ public class NastavnikNaPredmetu implements Serializable {
     public String toString() {
         return "domain.NastavnikNaPredmetu[ nastavnikNaPredmetuPK=" + nastavnikNaPredmetuPK + " ]";
     }
+
+   
     
 }

@@ -5,9 +5,10 @@
  */
 package logic;
 
+import constants.Constants;
 import domain.Status;
 import java.util.List;
-import repository.StatusRepository;
+import repository.GenericRepository;
 
 /**
  *
@@ -15,15 +16,15 @@ import repository.StatusRepository;
  */
 public class StatusLogic extends AbstractLogic {
 
-    private StatusRepository sr;
+    private GenericRepository<Status> gr;
 
     public StatusLogic() {
-        sr = new StatusRepository();
+        gr = new GenericRepository<>();
     }
 
     public List<Status> getAll() {
         try {
-            return sr.getAll();
+            return gr.getAll(Status.class, Constants.STATUS_FIND_ALL);
         } catch (Exception e) {
             throw e;
         }
@@ -31,7 +32,7 @@ public class StatusLogic extends AbstractLogic {
 
     public Status getById(int id) {
         try {
-            return sr.getById(id);
+            return gr.getSingleByParamFromNamedQuery(id, Status.class, Constants.STUDIJSKI_PROGRAM_FIND_BY_ID, Constants.STATUS_ID);
         } catch (Exception e) {
             throw e;
         }

@@ -5,10 +5,11 @@
  */
 package logic;
 
+import constants.Constants;
 import domain.Katedra;
 import java.util.List;
 import javax.transaction.Transactional;
-import repository.KatedraRepository;
+import repository.GenericRepository;
 
 /**
  *
@@ -16,20 +17,20 @@ import repository.KatedraRepository;
  */
 @Transactional
 public class KatedraLogic extends AbstractLogic {
-
-    private final KatedraRepository kr;
-
+    
+    private final GenericRepository<Katedra> gr;
+    
     public KatedraLogic() {
         super();
-        kr = new KatedraRepository();
+        gr = new GenericRepository<>();
     }
-
+    
     public List<Katedra> getAll() {
-        return kr.getAll();
+        return gr.getAll(Katedra.class, Constants.KATEDRA_FIND_ALL);
     }
-
+    
     public Katedra getById(int id) {
-        return kr.getById(id);
+        return gr.getSingleByParamFromNamedQuery(id, Katedra.class, Constants.KATEDRA_FIND_BY_ID, Constants.KATEDRA_ID);
     }
-
+    
 }

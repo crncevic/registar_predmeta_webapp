@@ -5,9 +5,10 @@
  */
 package logic;
 
+import constants.Constants;
 import domain.Nastavnik;
 import java.util.List;
-import repository.NastavnikRepository;
+import repository.GenericRepository;
 
 /**
  *
@@ -15,16 +16,16 @@ import repository.NastavnikRepository;
  */
 public class NastavnikLogic extends AbstractLogic {
 
-    private final NastavnikRepository nr;
+    private final GenericRepository<Nastavnik> gr;
 
     public NastavnikLogic() {
         super();
-        nr = new NastavnikRepository();
+        gr = new GenericRepository();
     }
 
     public List<Nastavnik> getAll() {
         try {
-            return nr.getAll();
+            return gr.getAll(Nastavnik.class, Constants.NASTAVNIK_FIND_ALL);
         } catch (Exception e) {
             throw e;
         }
@@ -32,7 +33,7 @@ public class NastavnikLogic extends AbstractLogic {
 
     public Nastavnik getById(int id) {
         try {
-            return nr.getById(id);
+            return gr.getSingleByParamFromNamedQuery(id, Nastavnik.class, Constants.NASTAVNIK_FIND_BY_ID, Constants.NASTAVNIK_ID);
         } catch (Exception e) {
             throw e;
         }

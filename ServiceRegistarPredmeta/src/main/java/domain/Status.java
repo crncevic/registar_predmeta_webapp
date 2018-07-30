@@ -110,5 +110,7 @@ public class Status implements Serializable {
     public String toString() {
         return "domain.Status[ statusId=" + statusId + " ]";
     }
+
+    
     
 }

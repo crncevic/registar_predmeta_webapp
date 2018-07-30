@@ -5,13 +5,14 @@
  */
 package logic;
 
+import constants.Constants;
 import domain.NastavnikNaPredmetu;
 import domain.NastavnikNaPredmetuPK;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import repository.NastavnikNaPredmetuRepository;
+import repository.GenericRepository;
 
 /**
  *
@@ -19,12 +20,12 @@ import repository.NastavnikNaPredmetuRepository;
  */
 public class NastavnikNaPredmetuLogic extends AbstractLogic {
 
-    private NastavnikNaPredmetuRepository nnpr;
+    private GenericRepository<NastavnikNaPredmetu> gr;
     private Set<ConstraintViolation<NastavnikNaPredmetu>> violations;
 
     public NastavnikNaPredmetuLogic() {
         super();
-        nnpr = new NastavnikNaPredmetuRepository();
+        gr = new GenericRepository<>();
     }
 
     public NastavnikNaPredmetu create(NastavnikNaPredmetu nastavnikNaPredmetu) throws Exception {
@@ -36,8 +37,7 @@ public class NastavnikNaPredmetuLogic extends AbstractLogic {
             }
 
             //TODO strukturna ogranicenja
-            
-            return nnpr.create(nastavnikNaPredmetu);
+            return gr.save(nastavnikNaPredmetu);
         } catch (ConstraintViolationException cve) {
             throw cve;
         } catch (Exception e) {
@@ -47,10 +47,9 @@ public class NastavnikNaPredmetuLogic extends AbstractLogic {
 
     public NastavnikNaPredmetu delete(NastavnikNaPredmetuPK nastavnikNaPredmetuPK) throws Exception {
         try {
-            
+
             //TODO strukturna ogranicenja
-            
-            return nnpr.delete(nastavnikNaPredmetuPK);
+            return gr.delete(nastavnikNaPredmetuPK, NastavnikNaPredmetu.class);
         } catch (Exception e) {
             throw e;
         }
@@ -58,7 +57,7 @@ public class NastavnikNaPredmetuLogic extends AbstractLogic {
 
     public List<NastavnikNaPredmetu> getAllByNastavnikId(int nastavnikId) {
         try {
-            return nnpr.getAllByNastavnikId(nastavnikId);
+            return gr.getListByParamFromNamedQuery(String.valueOf(nastavnikId), NastavnikNaPredmetu.class, Constants.NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_NASTAVNIK_ID, Constants.NASTAVNIK_ID);
         } catch (Exception e) {
             throw e;
         }
@@ -66,7 +65,8 @@ public class NastavnikNaPredmetuLogic extends AbstractLogic {
 
     public List<NastavnikNaPredmetu> getAllByPredmetId(int predmetId) {
         try {
-            return nnpr.getAllByPredmetId(predmetId);
+            return gr.getListByParamFromNamedQuery(predmetId, NastavnikNaPredmetu.class, Constants.NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID, Constants.PREDMET_ID);
+
         } catch (Exception e) {
             throw e;
         }
@@ -74,7 +74,7 @@ public class NastavnikNaPredmetuLogic extends AbstractLogic {
 
     public List<NastavnikNaPredmetu> getAllByTipNastaveId(int tipNastaveId) {
         try {
-            return nnpr.getAllByTipNastaveId(tipNastaveId);
+            return gr.getListByParamFromNamedQuery(tipNastaveId, NastavnikNaPredmetu.class, Constants.NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_TIP_NASTAVE_ID, Constants.TIP_NASTAVE_ID);
         } catch (Exception e) {
             throw e;
         }

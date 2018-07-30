@@ -147,5 +147,7 @@ public class OsobaUVeziSaUdzbenikom implements Serializable {
     public String toString() {
         return "domain.OsobaUVeziSaUdzbenikom[ osobaId=" + osobaId + " ]";
     }
+
     
+
 }

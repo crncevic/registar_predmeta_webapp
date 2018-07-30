@@ -168,5 +168,6 @@ public class Korisnik implements Serializable {
     public String toString() {
         return "domain.Korisnik[ korisnikId=" + korisnikId + " ]";
     }
-    
+
+   
 }

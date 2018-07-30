@@ -220,5 +220,7 @@ public class Nastavnik implements Serializable {
     public String toString() {
         return "domain.Nastavnik[ nastavnikId=" + nastavnikId + " ]";
     }
+
+    
     
 }

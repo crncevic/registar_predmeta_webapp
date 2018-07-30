@@ -5,12 +5,13 @@
  */
 package logic;
 
+import constants.Constants;
 import domain.TematskaCelina;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import repository.TematskaCelinaRepository;
+import repository.GenericRepository;
 
 /**
  *
@@ -18,12 +19,12 @@ import repository.TematskaCelinaRepository;
  */
 public class TematskaCelinaLogic extends AbstractLogic {
 
-    private TematskaCelinaRepository tcr;
+    private GenericRepository<TematskaCelina> gr;
     private Set<ConstraintViolation<TematskaCelina>> violations;
 
     public TematskaCelinaLogic() {
         super();
-        tcr = new TematskaCelinaRepository();
+        gr = new GenericRepository<>();
     }
 
     public TematskaCelina create(TematskaCelina tematskaCelina) {
@@ -35,8 +36,10 @@ public class TematskaCelinaLogic extends AbstractLogic {
             }
 
             //TODO : strukturna ogranicenja
-            return tcr.create(tematskaCelina);
+            return gr.save(tematskaCelina);
 
+        } catch (ConstraintViolationException cve) {
+            throw cve;
         } catch (Exception e) {
             throw e;
         }
@@ -51,8 +54,10 @@ public class TematskaCelinaLogic extends AbstractLogic {
             }
 
             //TODO : strukturna ogranicenja
-            return tcr.update(tematskaCelina);
+            return gr.update(tematskaCelina);
 
+        } catch (ConstraintViolationException cve) {
+            throw cve;
         } catch (Exception e) {
             throw e;
         }
@@ -62,7 +67,7 @@ public class TematskaCelinaLogic extends AbstractLogic {
         try {
 
             //TODO : strukturna ogranicenja
-            return tcr.delete(id);
+            return gr.delete(id, TematskaCelina.class);
 
         } catch (Exception e) {
             throw e;
@@ -71,7 +76,7 @@ public class TematskaCelinaLogic extends AbstractLogic {
 
     public List<TematskaCelina> getAll() {
         try {
-            return tcr.getAll();
+            return gr.getAll(TematskaCelina.class, Constants.TEMATSKA_CELINA_FIND_ALL);
         } catch (Exception e) {
             throw e;
         }
@@ -79,7 +84,7 @@ public class TematskaCelinaLogic extends AbstractLogic {
 
     public TematskaCelina getById(int id) {
         try {
-            return tcr.getById(id);
+            return gr.getSingleByParamFromNamedQuery(id, TematskaCelina.class, Constants.TEMATSKA_CELINA_FIND_BY_ID, Constants.TEMATSKA_CELINA_ID);
         } catch (Exception e) {
             throw e;
         }

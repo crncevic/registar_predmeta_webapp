@@ -140,5 +140,6 @@ public class PredmetNaStudijskomProgramu implements Serializable {
     public String toString() {
         return "domain.PredmetNaStudijskomProgramu[ predmetNaStudijskomProgramuPK=" + predmetNaStudijskomProgramuPK + " ]";
     }
-    
+
+   
 }

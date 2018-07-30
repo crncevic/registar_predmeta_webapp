@@ -274,5 +274,7 @@ public class Predmet implements Serializable {
     public String toString() {
         return "domain.Predmet[ predmetId=" + predmetId + " ]";
     }
+
     
+
 }

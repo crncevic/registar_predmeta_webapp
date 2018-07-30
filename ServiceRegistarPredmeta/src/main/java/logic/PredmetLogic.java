@@ -5,12 +5,13 @@
  */
 package logic;
 
+import constants.Constants;
 import domain.Predmet;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import repository.PredmetRepository;
+import repository.GenericRepository;
 
 /**
  *
@@ -18,12 +19,12 @@ import repository.PredmetRepository;
  */
 public class PredmetLogic extends AbstractLogic {
 
-    private final PredmetRepository pr;
+    private final GenericRepository<Predmet> gr;
     private Set<ConstraintViolation<Predmet>> violations;
 
     public PredmetLogic() {
         super();
-        pr = new PredmetRepository();
+        gr = new GenericRepository<>();
     }
 
     public Predmet create(Predmet predmet) {
@@ -35,7 +36,7 @@ public class PredmetLogic extends AbstractLogic {
             }
 
             //TODO : strukturna ogranicenja
-            return pr.create(predmet);
+            return gr.save(predmet);
         } catch (ConstraintViolationException cve) {
             throw cve;
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class PredmetLogic extends AbstractLogic {
             }
 
             //TODO : strukturna ogranicenja
-            return pr.update(predmet);
+            return gr.update(predmet);
         } catch (ConstraintViolationException cve) {
             throw cve;
         } catch (Exception e) {
@@ -64,7 +65,7 @@ public class PredmetLogic extends AbstractLogic {
         try {
 
             //TODO : strukturna ogranicenja
-            return pr.delete(id);
+            return gr.delete(id, Predmet.class);
 
         } catch (Exception e) {
             throw e;
@@ -73,7 +74,7 @@ public class PredmetLogic extends AbstractLogic {
 
     public List<Predmet> getAll() {
         try {
-            return pr.getAll();
+            return gr.getAll(Predmet.class,Constants.PREMDET_FIND_ALL);
         } catch (Exception e) {
             throw e;
         }
@@ -81,7 +82,7 @@ public class PredmetLogic extends AbstractLogic {
 
     public Predmet getById(int id) {
         try {
-            return pr.getById(id);
+            return gr.getSingleByParamFromNamedQuery(id, Predmet.class, Constants.PREMDET_FIND_BY_ID , Constants.PREDMET_ID);
         } catch (Exception e) {
             throw e;
         }

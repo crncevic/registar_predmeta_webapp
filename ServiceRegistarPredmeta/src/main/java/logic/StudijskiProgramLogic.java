@@ -5,9 +5,10 @@
  */
 package logic;
 
+import constants.Constants;
 import domain.StudijskiProgram;
 import java.util.List;
-import repository.StudijskiProgramRepository;
+import repository.GenericRepository;
 
 /**
  *
@@ -15,16 +16,16 @@ import repository.StudijskiProgramRepository;
  */
 public class StudijskiProgramLogic extends AbstractLogic {
 
-    private StudijskiProgramRepository spr;
+    private GenericRepository<StudijskiProgram> gr;
 
     public StudijskiProgramLogic() {
         super();
-        spr = new StudijskiProgramRepository();
+        gr = new GenericRepository<>();
     }
 
     public List<StudijskiProgram> getAll() {
         try {
-            return spr.getAll();
+            return gr.getAll(StudijskiProgram.class,Constants.STUDIJSKI_PROGRAM_FIND_ALL);
         } catch (Exception e) {
             throw e;
         }
@@ -32,7 +33,7 @@ public class StudijskiProgramLogic extends AbstractLogic {
 
     public StudijskiProgram getById(int id) {
         try {
-            return spr.getById(id);
+            return gr.getSingleByParamFromNamedQuery(id, StudijskiProgram.class, Constants.STUDIJSKI_PROGRAM_FIND_BY_ID, Constants.STUDIJSKI_PROGRAM_ID);
         } catch (Exception e) {
             throw e;
         }

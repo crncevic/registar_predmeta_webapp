@@ -146,5 +146,7 @@ public class Katedra implements Serializable {
     public String toString() {
         return "domain.Katedra[ katedraId=" + katedraId + " ]";
     }
-    
+
+   
+
 }

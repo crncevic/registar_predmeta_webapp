@@ -5,10 +5,37 @@
  */
 package logic;
 
+import constants.Constants;
+import domain.TipNastave;
+import java.util.List;
+import repository.GenericRepository;
+
 /**
  *
  * @author Petar
  */
-public class TipNastaveLogic extends AbstractLogic{
-    
+public class TipNastaveLogic extends AbstractLogic {
+
+    private GenericRepository<TipNastave> gr;
+
+    public TipNastaveLogic() {
+        gr = new GenericRepository<>();
+    }
+
+    public List<TipNastave> getAll() {
+        try {
+            return gr.getAll(TipNastave.class, Constants.TIP_NASTAVE_FIND_ALL);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public TipNastave getById(int id) {
+        try {
+            return gr.getSingleByParamFromNamedQuery(id, TipNastave.class, Constants.TIP_NASTAVE_FIND_BY_ID, Constants.TIP_NASTAVE_ID);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
 }

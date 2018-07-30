@@ -109,5 +109,7 @@ public class StudijskiProgram implements Serializable {
     public String toString() {
         return "domain.StudijskiProgram[ studijskiProgramId=" + studijskiProgramId + " ]";
     }
+
     
+
 }

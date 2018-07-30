@@ -45,9 +45,45 @@ public class Constants {
     //studijski program
     public static final String STUDIJSKI_PROGRAM_FIND_ALL = "StudijskiProgram.findAll";
     public static final String STUDIJSKI_PROGRAM_FIND_BY_ID = "StudijskiProgram.findByStudijskiProgramId";
-    
+
     //tematska celina
-    
     public static final String TEMATSKA_CELINA_FIND_ALL = "TematskaCelina.findAll";
     public static final String TEMATSKA_CELINA_FIND_BY_ID = "TematskaCelina.findByTematskacelinaId";
+
+    //tip nastave
+    public static final String TIP_NASTAVE_FIND_ALL = "TipNastave.findAll";
+    public static final String TIP_NASTAVE_FIND_BY_ID = "TipNastave.findByTipnastaveId";
+
+    //udzbenik 
+    public static final String UDZBENIK_FIND_ALL = "Udzbenik.findAll";
+    public static final String UDZBENIK_FIND_BY_ID = "Udzbenik.findByUdzbenikId";
+
+    //uloga
+    public static final String ULOGA_FIND_ALL = "Uloga.findAll";
+    public static final String ULOGA_FIND_BY_ID = "Uloga.findByUlogaId";
+
+    //uloga udzbenik
+    public static final String ULOGA_UDZBENIK_FIND_ALL = "UlogaUdzbenik.findAll";
+    public static final String ULOGA_UDZBENIK_FIND_BY_ID = "UlogaUdzbenik.findByUlogaId";
+
+    //vrsta i nivo studija
+    public static final String VRSTA_I_NIVO_STUDIJA_FIND_ALL = "VrstaINivoStudija.findAll";
+    public static final String VRSTA_I_NIVO_STUDIJA_FIND_BY_ID = "UlogaUdzbenik.findByVrstaId";
+
+    /*
+    params for named queries
+     */
+    public static final String KATEDRA_ID = "katedraId";
+    public static final String KORISNIK_ID = "korisnikId";
+    public static final String KORISNIK_USERNAME = "username";
+    public static final String NASTAVNIK_ID = "nastavnikId";
+    public static final String PREDMET_ID = "predmetId";
+    public static final String TIP_NASTAVE_ID = "tipnastaveId";
+    public static final String OSOBA_ID = "osobaId";
+    public static final String STATUS_ID = "statusId";
+    public static final String STUDIJSKI_PROGRAM_ID = "studijskiprogramId";
+    public static final String TEMATSKA_CELINA_ID = "tematskacelinaId";
+    public static final String UDZBENIK_ID = "udzbenikId";
+    public static final String ULOGA_ID = "ulogaId";
+    public static final String VRSTA_ID = "vrstaId";
 }

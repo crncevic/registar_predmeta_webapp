@@ -5,10 +5,37 @@
  */
 package logic;
 
+import constants.Constants;
+import domain.UlogaUdzbenik;
+import java.util.List;
+import repository.GenericRepository;
+
 /**
  *
  * @author Petar
  */
-public class UlogaUdzbenikLogic extends AbstractLogic{
-    
+public class UlogaUdzbenikLogic extends AbstractLogic {
+
+    private GenericRepository<UlogaUdzbenik> gr;
+
+    public UlogaUdzbenikLogic() {
+        gr = new GenericRepository<>();
+    }
+
+    public List<UlogaUdzbenik> getAll() {
+        try {
+            return gr.getAll(UlogaUdzbenik.class, Constants.ULOGA_UDZBENIK_FIND_ALL);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public UlogaUdzbenik getById(int id) {
+        try {
+            return gr.getSingleByParamFromNamedQuery(id, UlogaUdzbenik.class, Constants.ULOGA_FIND_BY_ID, Constants.ULOGA_ID);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
 }
