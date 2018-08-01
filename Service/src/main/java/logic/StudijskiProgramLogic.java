@@ -19,7 +19,7 @@ public class StudijskiProgramLogic extends AbstractLogic {
     private GenericRepository<StudijskiProgram> gr;
 
     public StudijskiProgramLogic() {
-        super();
+      
         gr = new GenericRepository<>();
     }
 

@@ -24,7 +24,7 @@ public class NastavnikNaPredmetuLogic extends AbstractLogic {
     private Set<ConstraintViolation<NastavnikNaPredmetu>> violations;
 
     public NastavnikNaPredmetuLogic() {
-        super();
+        
         gr = new GenericRepository<>();
     }
 

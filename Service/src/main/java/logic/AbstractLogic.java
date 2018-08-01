@@ -5,10 +5,10 @@
  */
 package logic;
 
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
@@ -17,17 +17,11 @@ import javax.validation.ValidatorFactory;
  * @author Petar
  */
 public abstract class AbstractLogic {
-     
-     @Inject
-     private ValidatorFactory vf;
-     
-     protected Validator validator;
 
-     
-    public AbstractLogic() {
-      validator = vf.getValidator();
-    }
-     
-     
-     
+    private ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
+
+    protected Validator validator =  vf.getValidator();
+
+    
+
 }

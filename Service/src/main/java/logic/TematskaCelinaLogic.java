@@ -6,7 +6,7 @@
 package logic;
 
 import constants.Constants;
-import domain.OsobaUVeziSaUdzbenikom;
+import domain.TematskaCelina;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
@@ -17,26 +17,27 @@ import repository.GenericRepository;
  *
  * @author Petar
  */
-public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogic {
+public class TematskaCelinaLogic extends AbstractLogic {
 
-    private GenericRepository<OsobaUVeziSaUdzbenikom> gr;
-    private Set<ConstraintViolation<OsobaUVeziSaUdzbenikom>> violations;
+    private GenericRepository<TematskaCelina> gr;
+    private Set<ConstraintViolation<TematskaCelina>> violations;
 
-    public OsobaUVeziSaUdzbenikomLogic() {
-        super();
+    public TematskaCelinaLogic() {
+       
         gr = new GenericRepository<>();
     }
 
-    public OsobaUVeziSaUdzbenikom create(OsobaUVeziSaUdzbenikom ouvsu) {
+    public TematskaCelina create(TematskaCelina tematskaCelina) {
         try {
-            violations = validator.validate(ouvsu);
+            violations = validator.validate(tematskaCelina);
 
             if (violations.size() > 0) {
                 throw new ConstraintViolationException(violations);
             }
 
-            //TODO strukturna ogranicenja
-            return gr.save(ouvsu);
+            //TODO : strukturna ogranicenja
+            return gr.save(tematskaCelina);
+
         } catch (ConstraintViolationException cve) {
             throw cve;
         } catch (Exception e) {
@@ -44,16 +45,17 @@ public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogic {
         }
     }
 
-    public OsobaUVeziSaUdzbenikom update(OsobaUVeziSaUdzbenikom ouvsu) {
+    public TematskaCelina update(TematskaCelina tematskaCelina) {
         try {
-            violations = validator.validate(ouvsu);
+            violations = validator.validate(tematskaCelina);
 
             if (violations.size() > 0) {
                 throw new ConstraintViolationException(violations);
             }
 
-            //TODO strukturna ogranicenja
-            return gr.update(ouvsu);
+            //TODO : strukturna ogranicenja
+            return gr.update(tematskaCelina);
+
         } catch (ConstraintViolationException cve) {
             throw cve;
         } catch (Exception e) {
@@ -61,26 +63,28 @@ public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogic {
         }
     }
 
-    public OsobaUVeziSaUdzbenikom delete(int id) {
+    public TematskaCelina delete(int id) {
         try {
-            //TODO strukturna ogranicenja
-            return gr.delete(id, OsobaUVeziSaUdzbenikom.class);
+
+            //TODO : strukturna ogranicenja
+            return gr.delete(id, TematskaCelina.class);
+
         } catch (Exception e) {
             throw e;
         }
     }
 
-    public OsobaUVeziSaUdzbenikom getById(int id) {
+    public List<TematskaCelina> getAll() {
         try {
-            return gr.getSingleByParamFromNamedQuery(id, OsobaUVeziSaUdzbenikom.class, Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_OSOBA_ID, Constants.OSOBA_ID);
+            return gr.getAll(TematskaCelina.class, Constants.TEMATSKA_CELINA_FIND_ALL);
         } catch (Exception e) {
             throw e;
         }
     }
 
-    public List<OsobaUVeziSaUdzbenikom> getAll() {
+    public TematskaCelina getById(int id) {
         try {
-            return gr.getAll(OsobaUVeziSaUdzbenikom.class, Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_ALL);
+            return gr.getSingleByParamFromNamedQuery(id, TematskaCelina.class, Constants.TEMATSKA_CELINA_FIND_BY_ID, Constants.TEMATSKA_CELINA_ID);
         } catch (Exception e) {
             throw e;
         }

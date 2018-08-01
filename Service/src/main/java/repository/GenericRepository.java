@@ -5,8 +5,11 @@
  */
 package repository;
 
+import domain.Katedra;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
@@ -17,10 +20,10 @@ import javax.transaction.Transactional;
  */
 public class GenericRepository<T> {
 
-    @PersistenceContext
-    private EntityManager em;
+    Persistence persistence = new Persistence();
+    private EntityManagerFactory emf = persistence.createEntityManagerFactory("SRP_PU");
+    private EntityManager em = emf.createEntityManager();
 
-    @Transactional
     public T save(T entity) {
 
         em.persist(entity);
@@ -28,13 +31,11 @@ public class GenericRepository<T> {
 
     }
 
-    @Transactional
     public T update(T entity) {
         em.merge(entity);
         return entity;
     }
 
-    @Transactional
     public T delete(Object id, Class c) {
         T entityFromDb = (T) em.getReference(c, id);
         em.remove(entityFromDb);
@@ -48,7 +49,12 @@ public class GenericRepository<T> {
 
     public T getSingleByParamFromNamedQuery(Object paramValue, Class c, String namedQuery, String paramName) {
         TypedQuery<T> query = em.createNamedQuery(namedQuery, c);
-        return query.setParameter(paramName, paramValue).getSingleResult();
+        List<T> result = query.setParameter(paramName, paramValue).getResultList();
+
+        if (result == null || result.isEmpty()) {
+            return null;
+        }
+        return result.get(0);
     }
 
     public List<T> getListByParamFromNamedQuery(Object paramValue, Class c, String namedQuery, String paramName) {

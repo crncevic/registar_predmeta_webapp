@@ -21,7 +21,7 @@ public class KatedraLogic extends AbstractLogic {
     private final GenericRepository<Katedra> gr;
     
     public KatedraLogic() {
-        super();
+       
         gr = new GenericRepository<>();
     }
     

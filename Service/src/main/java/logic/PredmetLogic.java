@@ -23,7 +23,7 @@ public class PredmetLogic extends AbstractLogic {
     private Set<ConstraintViolation<Predmet>> violations;
 
     public PredmetLogic() {
-        super();
+      
         gr = new GenericRepository<>();
     }
 

@@ -19,7 +19,7 @@ public class NastavnikLogic extends AbstractLogic {
     private final GenericRepository<Nastavnik> gr;
 
     public NastavnikLogic() {
-        super();
+       
         gr = new GenericRepository();
     }
 

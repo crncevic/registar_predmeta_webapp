@@ -23,7 +23,7 @@ public class KorisnikLogic extends AbstractLogic {
     private Set<ConstraintViolation<Korisnik>> violations;
 
     public KorisnikLogic() {
-        super();
+     
         gr = new GenericRepository<>();
     }
 
