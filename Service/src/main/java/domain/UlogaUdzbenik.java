@@ -42,7 +42,7 @@ public class UlogaUdzbenik implements Serializable {
     @Size(max = 100)
     @Column(name = "naziv")
     private String naziv;
-    @OneToMany(mappedBy = "ulogaId")
+    @OneToMany(mappedBy = "uloga")
     private List<OsobaUVeziSaUdzbenikom> osobaUVeziSaUdzbenikomList;
 
     public UlogaUdzbenik() {

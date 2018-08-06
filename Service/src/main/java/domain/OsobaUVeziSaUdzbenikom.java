@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "OsobaUVeziSaUdzbenikom.findByOsobaId", query = "SELECT o FROM OsobaUVeziSaUdzbenikom o WHERE o.osobaId = :osobaId")
     , @NamedQuery(name = "OsobaUVeziSaUdzbenikom.findByIme", query = "SELECT o FROM OsobaUVeziSaUdzbenikom o WHERE o.ime = :ime")
     , @NamedQuery(name = "OsobaUVeziSaUdzbenikom.findByPrezime", query = "SELECT o FROM OsobaUVeziSaUdzbenikom o WHERE o.prezime = :prezime")
-    , @NamedQuery(name = "OsobaUVeziSaUdzbenikom.findByTitula", query = "SELECT o FROM OsobaUVeziSaUdzbenikom o WHERE o.titula = :titula")})
+    , @NamedQuery(name = "OsobaUVeziSaUdzbenikom.findByTitula", query = "SELECT o FROM OsobaUVeziSaUdzbenikom o WHERE o.titula = :titula")
+    , @NamedQuery(name = "OsobaUVeziSaUdzbenikom.findByUdzbenikId", query = "SELECT o FROM OsobaUVeziSaUdzbenikom o WHERE o.udzbenik.udzbenikId = :udzbenikId")})
 public class OsobaUVeziSaUdzbenikom implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,10 +58,11 @@ public class OsobaUVeziSaUdzbenikom implements Serializable {
     private String titula;
     @JoinColumn(name = "ulogaId", referencedColumnName = "ulogaId")
     @ManyToOne
-    private UlogaUdzbenik ulogaId;
+    private UlogaUdzbenik uloga;
     @JoinColumn(name = "udzbenikId", referencedColumnName = "udzbenikId")
     @ManyToOne
-    private Udzbenik udzbenikId;
+    private Udzbenik udzbenik;
+    
 
     public OsobaUVeziSaUdzbenikom() {
     }
@@ -107,20 +109,20 @@ public class OsobaUVeziSaUdzbenikom implements Serializable {
         this.titula = titula;
     }
 
-    public UlogaUdzbenik getUlogaId() {
-        return ulogaId;
+    public UlogaUdzbenik getUloga() {
+        return uloga;
     }
 
-    public void setUlogaId(UlogaUdzbenik ulogaId) {
-        this.ulogaId = ulogaId;
+    public void setUloga(UlogaUdzbenik uloga) {
+        this.uloga = uloga;
     }
 
-    public Udzbenik getUdzbenikId() {
-        return udzbenikId;
+    public Udzbenik getUdzbenik() {
+        return udzbenik;
     }
 
-    public void setUdzbenikId(Udzbenik udzbenikId) {
-        this.udzbenikId = udzbenikId;
+    public void setUdzbenik(Udzbenik udzbenik) {
+        this.udzbenik = udzbenik;
     }
 
     @Override

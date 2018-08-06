@@ -44,7 +44,7 @@ public class Uloga implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "naziv")
     private String naziv;
-    @OneToMany(mappedBy = "ulogaId")
+    @OneToMany(mappedBy = "uloga")
     private List<Korisnik> korisnikList;
 
     public Uloga() {

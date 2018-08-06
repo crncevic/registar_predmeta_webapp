@@ -7,10 +7,13 @@ package logic;
 
 import constants.Constants;
 import domain.Korisnik;
+import dto.KorisnikDTO;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import mapper.Mapper;
 import repository.GenericRepository;
 
 /**
@@ -23,11 +26,11 @@ public class KorisnikLogic extends AbstractLogic {
     private Set<ConstraintViolation<Korisnik>> violations;
 
     public KorisnikLogic() {
-     
+
         gr = new GenericRepository<>();
     }
 
-    public Korisnik create(Korisnik korisnik) {
+    public KorisnikDTO create(Korisnik korisnik) throws Exception {
         try {
             violations = validator.validate(korisnik);
             if (violations.size() > 0) {
@@ -35,16 +38,17 @@ public class KorisnikLogic extends AbstractLogic {
             }
 
             //TODO: strukturna ogranicenja
-            return gr.save(korisnik);
+            Korisnik createdKorisnik = gr.save(korisnik);
+            return Mapper.toKorisnikDTO(createdKorisnik);
 
         } catch (ConstraintViolationException cve) {
             throw cve;
         } catch (Exception ex) {
-            throw ex;
+            throw new Exception("Dogodila se greska prilikom kreiranja korisnika {" + ex.getMessage() + "}");
         }
     }
 
-    public Korisnik update(Korisnik korisnik) {
+    public KorisnikDTO update(Korisnik korisnik) throws Exception {
         try {
             violations = validator.validate(korisnik);
             if (violations.size() > 0) {
@@ -52,47 +56,59 @@ public class KorisnikLogic extends AbstractLogic {
             }
 
             //TODO strukturna ogranicenja
-            return gr.update(korisnik);
+            Korisnik updatedKorisnik = gr.update(korisnik);
+            return Mapper.toKorisnikDTO(updatedKorisnik);
 
         } catch (ConstraintViolationException cve) {
             throw cve;
         } catch (Exception ex) {
-            throw ex;
+            throw new Exception("Dogodila se greska prilikom azuriranja korisnika {" + ex.getMessage() + "}");
         }
     }
 
-    public Korisnik delete(int id) throws Exception {
+    public KorisnikDTO delete(int id) throws Exception {
         try {
 
             //TODO strukturna ogranicenja
-            return gr.delete(id, Korisnik.class);
+            Korisnik deletedKorisnik = gr.delete(id, Korisnik.class);
+            return Mapper.toKorisnikDTO(deletedKorisnik);
 
         } catch (Exception ex) {
-            throw ex;
+            throw new Exception("Dogodila se greska prilikom brisanja sa id: " + id + " korisnika {" + ex.getMessage() + "}");
         }
     }
 
-    public List<Korisnik> getAll() {
+    public List<KorisnikDTO> getAll() throws Exception {
         try {
-            return gr.getAll(Korisnik.class, Constants.KORISNIK_FIND_ALL);
+            List<Korisnik> korisnici = gr.getAll(Korisnik.class, Constants.KORISNIK_FIND_ALL);
+            List<KorisnikDTO> korisniciDTO = new ArrayList<>();
+
+            for (Korisnik korisnik : korisnici) {
+                korisniciDTO.add(Mapper.toKorisnikDTO(korisnik));
+            }
+
+            return korisniciDTO;
         } catch (Exception ex) {
-            throw ex;
+            throw new Exception("Dogodila se greska prilikom ucitavanja svih korisnika {" + ex.getMessage() + "}");
         }
     }
 
-    public Korisnik getById(int id) {
+    public KorisnikDTO getById(int id) throws Exception {
         try {
-            return gr.getSingleByParamFromNamedQuery(id, Korisnik.class, Constants.KORISNIK_FIND_BY_ID, Constants.KORISNIK_ID);
+            Korisnik korisnikFromDb = gr.getSingleByParamFromNamedQuery(id, Korisnik.class, Constants.KORISNIK_FIND_BY_ID, Constants.KORISNIK_ID);
+            return Mapper.toKorisnikDTO(korisnikFromDb);
         } catch (Exception e) {
-            throw e;
+            throw new Exception("Dogodila se greska prilikom ucitavanja korisnika sa id: " + id + "{" + e.getMessage() + "}");
         }
     }
 
-    public Korisnik getByUsername(String username) {
+    public KorisnikDTO getByUsername(String username) throws Exception {
         try {
-            return gr.getSingleByParamFromNamedQuery(username,Korisnik.class,Constants.KORISNIK_FIND_ALL,Constants.KORISNIK_USERNAME);
+            Korisnik korisnikFromDb = gr.getSingleByParamFromNamedQuery(username, Korisnik.class, Constants.KORISNIK_FIND_ALL, Constants.KORISNIK_USERNAME);
+            return Mapper.toKorisnikDTO(korisnikFromDb);
         } catch (Exception e) {
-            throw e;
+            throw new Exception("Dogodila se greska prilikom ucitavanja korisnika sa username: " + username + "{" + e.getMessage() + "}");
+
         }
     }
 

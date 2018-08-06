@@ -30,7 +30,12 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(controllers.KatedraController.class);
+        resources.add(controllers.KorisnikController.class);
         resources.add(controllers.NastavnikController.class);
+        resources.add(controllers.OsobaUVeziSaUdzbenikomController.class);
+        resources.add(controllers.PredmetController.class);
     }
+    
+    
     
 }

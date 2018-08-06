@@ -68,7 +68,7 @@ public class Korisnik implements Serializable {
     private String password;
     @JoinColumn(name = "ulogaId", referencedColumnName = "ulogaId")
     @ManyToOne
-    private Uloga ulogaId;
+    private Uloga uloga;
     @OneToMany(mappedBy = "korisnikId")
     private List<Predmet> predmetList;
 
@@ -127,12 +127,12 @@ public class Korisnik implements Serializable {
         this.password = password;
     }
 
-    public Uloga getUlogaId() {
-        return ulogaId;
+    public Uloga getUloga() {
+        return uloga;
     }
 
-    public void setUlogaId(Uloga ulogaId) {
-        this.ulogaId = ulogaId;
+    public void setUloga(Uloga uloga) {
+        this.uloga = uloga;
     }
 
     @XmlTransient

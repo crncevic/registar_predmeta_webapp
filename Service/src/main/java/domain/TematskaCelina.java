@@ -54,7 +54,7 @@ public class TematskaCelina implements Serializable {
     private String opis;
     @JoinColumn(name = "tip_nastaveId", referencedColumnName = "tip_nastaveId")
     @ManyToOne
-    private TipNastave tipnastaveId;
+    private TipNastave tipNastave;
     @OneToMany(mappedBy = "nadredjenatematskacelinaId")
     private List<TematskaCelina> tematskaCelinaList;
     @JoinColumn(name = "nadredjena_tematska_celinaId", referencedColumnName = "tematska_celinaId")
@@ -100,12 +100,12 @@ public class TematskaCelina implements Serializable {
         this.opis = opis;
     }
 
-    public TipNastave getTipnastaveId() {
-        return tipnastaveId;
+    public TipNastave getTipNastave() {
+        return tipNastave;
     }
 
-    public void setTipnastaveId(TipNastave tipnastaveId) {
-        this.tipnastaveId = tipnastaveId;
+    public void setTipNastave(TipNastave tipNastave) {
+        this.tipNastave = tipNastave;
     }
 
     @XmlTransient

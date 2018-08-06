@@ -6,15 +6,8 @@
 package controllers;
 
 import domain.Katedra;
-import domain.Nastavnik;
-import java.util.ArrayList;
+import dto.KatedraDTO;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -23,7 +16,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import logic.KatedraLogic;
-import logic.NastavnikLogic;
 
 /**
  *
@@ -42,13 +34,13 @@ public class KatedraController {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
         try {
-            List<Katedra> katedre = kl.getAll();
+            List<KatedraDTO> katedreDTO = kl.getAll();
 
-            if (katedre.size() == 0) {
+            if (katedreDTO == null || katedreDTO.isEmpty()) {
                 return Response.noContent().build();
             }
 
-            return Response.ok(katedre).build();
+            return Response.ok(katedreDTO).build();
 
         } catch (Exception ex) {
             return Response.serverError().build();
@@ -61,13 +53,13 @@ public class KatedraController {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getById(@PathParam("id") @NotNull int id) {
         try {
-            Katedra katedra = kl.getById(id);
+            KatedraDTO katedraDTO = kl.getById(id);
 
-            if (katedra == null) {
+            if (katedraDTO == null) {
                 return Response.noContent().build();
             }
 
-            return Response.ok(katedra).build();
+            return Response.ok(katedraDTO).build();
 
         } catch (Exception e) {
             return Response.serverError().entity(e).build();

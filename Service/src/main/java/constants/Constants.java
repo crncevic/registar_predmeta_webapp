@@ -33,10 +33,16 @@ public class Constants {
     //osoba u vezi sa udzbenikom
     public static final String OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_OSOBA_ID = "OsobaUVeziSaUdzbenikom.findByOsobaId";
     public static final String OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_ALL = "OsobaUVeziSaUdzbenikom.findAll";
+    public static final String OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_UDZBENIK_ID = "OsobaUVeziSaUdzbenikom.findByUdzbenikId";
 
     //predmet
     public static final String PREMDET_FIND_ALL = "Predmet.findAll";
     public static final String PREMDET_FIND_BY_ID = "Predmet.findByPredmetId";
+
+    //predmet na studisjkom programu
+    
+    public static final String PREDMET_NA_STUDIJSKOM_PROGRAMU_FIND_BY_PREDMET_ID = "PredmetNaStudijskomProgramu.findByPredmetId";
+    
 
     //status
     public static final String STATUS_FIND_ALL = "Status.findAll";
@@ -70,6 +76,10 @@ public class Constants {
     public static final String VRSTA_I_NIVO_STUDIJA_FIND_ALL = "VrstaINivoStudija.findAll";
     public static final String VRSTA_I_NIVO_STUDIJA_FIND_BY_ID = "UlogaUdzbenik.findByVrstaId";
 
+    //udzbenik na predmetu
+    public static final String UDZBENIK_NA_PREDMETU_FIND_ALL_BY_UDZBENIK_ID = "UdzbenikNaPredmetu.findByUdzbenikId";
+    public static final String UDZBENIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID = "UdzbenikNaPredmetu.findByPredmetId";
+
     /*
     params for named queries
      */
@@ -81,7 +91,7 @@ public class Constants {
     public static final String TIP_NASTAVE_ID = "tipnastaveId";
     public static final String OSOBA_ID = "osobaId";
     public static final String STATUS_ID = "statusId";
-    public static final String STUDIJSKI_PROGRAM_ID = "studijskiprogramId";
+    public static final String STUDIJSKI_PROGRAM_ID = "studijskiProgramId";
     public static final String TEMATSKA_CELINA_ID = "tematskacelinaId";
     public static final String UDZBENIK_ID = "udzbenikId";
     public static final String ULOGA_ID = "ulogaId";

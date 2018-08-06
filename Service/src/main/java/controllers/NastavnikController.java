@@ -6,11 +6,15 @@
 package controllers;
 
 import domain.Katedra;
+import domain.Korisnik;
 import domain.Nastavnik;
+import dto.NastavnikDTO;
 import java.util.List;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -25,10 +29,9 @@ import logic.NastavnikLogic;
 @Path("nastavnik")
 public class NastavnikController {
 
- 
     private NastavnikLogic nl;
-    
-    public NastavnikController(){
+
+    public NastavnikController() {
         nl = new NastavnikLogic();
     }
 
@@ -36,33 +39,34 @@ public class NastavnikController {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
         try {
-            List<Nastavnik> nastavnici = nl.getAll();
+            List<NastavnikDTO> nastavniciDTO = nl.getAll();
 
-            if (nastavnici.isEmpty()) {
+            if (nastavniciDTO == null || nastavniciDTO.isEmpty()) {
                 return Response.noContent().build();
             }
 
-            return Response.ok(nastavnici).build();
+            return Response.ok(nastavniciDTO).build();
         } catch (Exception e) {
             return Response.serverError().entity(e).build();
         }
     }
-    
-     @GET
+
+    @GET
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getById(@PathParam("id") @NotNull int id) {
         try {
-            Nastavnik nastavnik = nl.getById(id);
+            NastavnikDTO nastavnikDTO = nl.getById(id);
 
-            if (nastavnik == null) {
+            if (nastavnikDTO == null) {
                 return Response.noContent().build();
             }
 
-            return Response.ok(nastavnik).build();
+            return Response.ok(nastavnikDTO).build();
 
         } catch (Exception e) {
             return Response.serverError().entity(e).build();
         }
     }
+
 }

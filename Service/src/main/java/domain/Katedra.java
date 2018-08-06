@@ -5,6 +5,7 @@
  */
 package domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -24,6 +25,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+
 /**
  *
  * @author Petar
@@ -31,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "katedra")
 @XmlRootElement
+@JsonSerialize
 @NamedQueries({
     @NamedQuery(name = "Katedra.findAll", query = "SELECT k FROM Katedra k")
     , @NamedQuery(name = "Katedra.findByKatedraId", query = "SELECT k FROM Katedra k WHERE k.katedraId = :katedraId")
@@ -49,8 +52,7 @@ public class Katedra implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "naziv")
     private String naziv;
-    @OneToMany(mappedBy = "katedraId")
-    private List<Nastavnik> nastavnikList;
+    
     @JoinColumn(name = "sef", referencedColumnName = "nastavnikId")
     @ManyToOne
     private Nastavnik sef;
@@ -89,14 +91,7 @@ public class Katedra implements Serializable {
         this.naziv = naziv;
     }
 
-    @XmlTransient
-    public List<Nastavnik> getNastavnikList() {
-        return nastavnikList;
-    }
-
-    public void setNastavnikList(List<Nastavnik> nastavnikList) {
-        this.nastavnikList = nastavnikList;
-    }
+   
 
     public Nastavnik getSef() {
         return sef;

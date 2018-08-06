@@ -5,14 +5,16 @@
  */
 package repository;
 
-import domain.Katedra;
+import domain.Predmet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
 /**
  *
@@ -21,24 +23,29 @@ import javax.transaction.Transactional;
 public class GenericRepository<T> {
 
     Persistence persistence = new Persistence();
-    private EntityManagerFactory emf = persistence.createEntityManagerFactory("SRP_PU");
-    private EntityManager em = emf.createEntityManager();
+    protected EntityManagerFactory emf = persistence.createEntityManagerFactory("SRP_PU");
+    protected EntityManager em = emf.createEntityManager();
+    protected EntityTransaction et = em.getTransaction();
 
     public T save(T entity) {
-
+        et.begin();
         em.persist(entity);
+        et.commit();
         return entity;
-
     }
 
     public T update(T entity) {
+        et.begin();
         em.merge(entity);
+        et.commit();
         return entity;
     }
 
     public T delete(Object id, Class c) {
-        T entityFromDb = (T) em.getReference(c, id);
+        et.begin();
+        T entityFromDb = (T) em.find(c, id);
         em.remove(entityFromDb);
+        et.commit();
         return entityFromDb;
     }
 
@@ -47,7 +54,8 @@ public class GenericRepository<T> {
         return query.getResultList();
     }
 
-    public T getSingleByParamFromNamedQuery(Object paramValue, Class c, String namedQuery, String paramName) {
+    public T getSingleByParamFromNamedQuery(Object paramValue, Class c, String namedQuery, String paramName) {       
+        
         TypedQuery<T> query = em.createNamedQuery(namedQuery, c);
         List<T> result = query.setParameter(paramName, paramValue).getResultList();
 

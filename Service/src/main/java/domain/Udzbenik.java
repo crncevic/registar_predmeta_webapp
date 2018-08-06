@@ -5,11 +5,15 @@
  */
 package domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.util.Converter;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +28,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 /**
  *
@@ -32,6 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "udzbenik")
 @XmlRootElement
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonSerialize
 @NamedQueries({
     @NamedQuery(name = "Udzbenik.findAll", query = "SELECT u FROM Udzbenik u")
     , @NamedQuery(name = "Udzbenik.findByUdzbenikId", query = "SELECT u FROM Udzbenik u WHERE u.udzbenikId = :udzbenikId")
@@ -69,12 +76,9 @@ public class Udzbenik implements Serializable {
     private Integer tiraz;
     @Column(name = "isbn")
     private Integer isbn;
-    @JoinTable(name = "udzbenik_na_predmetu", joinColumns = {
-        @JoinColumn(name = "udzbenikId", referencedColumnName = "udzbenikId")}, inverseJoinColumns = {
-        @JoinColumn(name = "predmetId", referencedColumnName = "predmetId")})
-    @ManyToMany
-    private List<Predmet> predmetList;
-    @OneToMany(mappedBy = "udzbenikId")
+    @OneToMany (cascade = CascadeType.ALL, mappedBy = "udzbenik",fetch = FetchType.LAZY)
+    private List<UdzbenikNaPredmetu> predmetList;
+    @OneToMany(mappedBy = "udzbenik")
     private List<OsobaUVeziSaUdzbenikom> osobaUVeziSaUdzbenikomList;
 
     public Udzbenik() {
@@ -154,11 +158,11 @@ public class Udzbenik implements Serializable {
     }
 
     @XmlTransient
-    public List<Predmet> getPredmetList() {
+    public List<UdzbenikNaPredmetu> getPredmetList() {
         return predmetList;
     }
 
-    public void setPredmetList(List<Predmet> predmetList) {
+    public void setPredmetList(List<UdzbenikNaPredmetu> predmetList) {
         this.predmetList = predmetList;
     }
 

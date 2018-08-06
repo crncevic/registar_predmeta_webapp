@@ -47,7 +47,7 @@ public class TipNastave implements Serializable {
     private String naziv;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipNastave")
     private List<NastavnikNaPredmetu> nastavnikNaPredmetuList;
-    @OneToMany(mappedBy = "tipnastaveId")
+    @OneToMany(mappedBy = "tipNastave")
     private List<TematskaCelina> tematskaCelinaList;
 
     public TipNastave() {
@@ -78,7 +78,7 @@ public class TipNastave implements Serializable {
         this.naziv = naziv;
     }
 
-    @XmlTransient
+   
     public List<NastavnikNaPredmetu> getNastavnikNaPredmetuList() {
         return nastavnikNaPredmetuList;
     }
@@ -87,7 +87,6 @@ public class TipNastave implements Serializable {
         this.nastavnikNaPredmetuList = nastavnikNaPredmetuList;
     }
 
-    @XmlTransient
     public List<TematskaCelina> getTematskaCelinaList() {
         return tematskaCelinaList;
     }

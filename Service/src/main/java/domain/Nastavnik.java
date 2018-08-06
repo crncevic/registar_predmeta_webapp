@@ -74,13 +74,8 @@ public class Nastavnik implements Serializable {
     private List<NastavnikNaPredmetu> nastavnikNaPredmetuList;
     @JoinColumn(name = "katedraId", referencedColumnName = "katedraId")
     @ManyToOne
-    private Katedra katedraId;
-    @OneToMany(mappedBy = "sef")
-    private List<Katedra> katedraList;
-    @OneToMany(mappedBy = "zamenikSefa")
-    private List<Katedra> katedraList1;
-    @OneToMany(mappedBy = "sekretar")
-    private List<Katedra> katedraList2;
+    private Katedra katedra;
+    
 
     public Nastavnik() {
     }
@@ -161,41 +156,15 @@ public class Nastavnik implements Serializable {
         this.nastavnikNaPredmetuList = nastavnikNaPredmetuList;
     }
 
-    public Katedra getKatedraId() {
-        return katedraId;
+    public Katedra getKatedra() {
+        return katedra;
     }
 
-    public void setKatedraId(Katedra katedraId) {
-        this.katedraId = katedraId;
+    public void setKatedra(Katedra katedra) {
+        this.katedra = katedra;
     }
 
-    @XmlTransient
-    public List<Katedra> getKatedraList() {
-        return katedraList;
-    }
-
-    public void setKatedraList(List<Katedra> katedraList) {
-        this.katedraList = katedraList;
-    }
-
-    @XmlTransient
-    public List<Katedra> getKatedraList1() {
-        return katedraList1;
-    }
-
-    public void setKatedraList1(List<Katedra> katedraList1) {
-        this.katedraList1 = katedraList1;
-    }
-
-    @XmlTransient
-    public List<Katedra> getKatedraList2() {
-        return katedraList2;
-    }
-
-    public void setKatedraList2(List<Katedra> katedraList2) {
-        this.katedraList2 = katedraList2;
-    }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;

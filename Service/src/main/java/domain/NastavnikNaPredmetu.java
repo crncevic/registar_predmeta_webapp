@@ -8,6 +8,7 @@ package domain;
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -33,13 +34,13 @@ public class NastavnikNaPredmetu implements Serializable {
     @EmbeddedId
     protected NastavnikNaPredmetuPK nastavnikNaPredmetuPK;
     @JoinColumn(name = "nastavnikId", referencedColumnName = "nastavnikId", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch = FetchType.LAZY)
     private Nastavnik nastavnik;
     @JoinColumn(name = "tipNastaveId", referencedColumnName = "tip_nastaveId", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch = FetchType.LAZY)
     private TipNastave tipNastave;
     @JoinColumn(name = "predmetId", referencedColumnName = "predmetId", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch = FetchType.LAZY)
     private Predmet predmet;
 
     public NastavnikNaPredmetu() {

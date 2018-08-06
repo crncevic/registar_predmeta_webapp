@@ -11,20 +11,27 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  *
@@ -32,9 +39,10 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "predmet")
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Predmet.findAll", query = "SELECT p FROM Predmet p")
+    @NamedQuery(name = "Predmet.findAll", query = "SELECT p FROM Predmet p ")
     , @NamedQuery(name = "Predmet.findByPredmetId", query = "SELECT p FROM Predmet p WHERE p.predmetId = :predmetId")
     , @NamedQuery(name = "Predmet.findByNaziv", query = "SELECT p FROM Predmet p WHERE p.naziv = :naziv")
     , @NamedQuery(name = "Predmet.findByBrCasovaPredavanjaNedeljno", query = "SELECT p FROM Predmet p WHERE p.brCasovaPredavanjaNedeljno = :brCasovaPredavanjaNedeljno")
@@ -46,6 +54,19 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Predmet.findByIshod", query = "SELECT p FROM Predmet p WHERE p.ishod = :ishod")
     , @NamedQuery(name = "Predmet.findByUslov", query = "SELECT p FROM Predmet p WHERE p.uslov = :uslov")
     , @NamedQuery(name = "Predmet.findBySadrzajTekst", query = "SELECT p FROM Predmet p WHERE p.sadrzajTekst = :sadrzajTekst")})
+@NamedEntityGraphs({
+    @NamedEntityGraph(name = "predmet.loadAllUdzbenik",
+            attributeNodes = @NamedAttributeNode(value = "udzbenikList", subgraph = "udzbenikList"),
+            subgraphs = @NamedSubgraph(name = "udzbenikList", attributeNodes = @NamedAttributeNode("udzbenik")))
+    ,
+    
+        @NamedEntityGraph(name = "predmet.loadAllNastavnik",
+            attributeNodes = @NamedAttributeNode(value = "nastavnikNaPredmetuList", subgraph = "nastavnikNaPredmetuList"),
+            subgraphs = @NamedSubgraph(name = "nastavnikNaPredmetuList", attributeNodes = {
+        @NamedAttributeNode("nastavnik")
+        ,@NamedAttributeNode("tipNastave")}))
+})
+
 public class Predmet implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -83,13 +104,13 @@ public class Predmet implements Serializable {
     @Size(max = 1000)
     @Column(name = "sadrzaj_tekst")
     private String sadrzajTekst;
-    @ManyToMany(mappedBy = "predmetList")
-    private List<Udzbenik> udzbenikList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "predmet")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "predmet", fetch = FetchType.LAZY)
+    private List<UdzbenikNaPredmetu> udzbenikList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nastavnik", fetch = FetchType.LAZY)
     private List<NastavnikNaPredmetu> nastavnikNaPredmetuList;
-    @OneToMany(mappedBy = "predmetId")
+    @OneToMany(mappedBy = "predmetId", fetch = FetchType.LAZY)
     private List<TematskaCelina> tematskaCelinaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "predmet")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "predmet", fetch = FetchType.LAZY)
     private List<PredmetNaStudijskomProgramu> predmetNaStudijskomProgramuList;
     @JoinColumn(name = "vrsta_i_nivo_studija", referencedColumnName = "vrstaId")
     @ManyToOne
@@ -199,11 +220,12 @@ public class Predmet implements Serializable {
     }
 
     @XmlTransient
-    public List<Udzbenik> getUdzbenikList() {
+    public List<UdzbenikNaPredmetu> getUdzbenikList() {
         return udzbenikList;
     }
 
-    public void setUdzbenikList(List<Udzbenik> udzbenikList) {
+   @XmlTransient
+    public void setUdzbenikList(List<UdzbenikNaPredmetu> udzbenikList) {
         this.udzbenikList = udzbenikList;
     }
 
@@ -274,7 +296,5 @@ public class Predmet implements Serializable {
     public String toString() {
         return "domain.Predmet[ predmetId=" + predmetId + " ]";
     }
-
-    
 
 }
