@@ -22,30 +22,24 @@ import javax.persistence.TypedQuery;
  */
 public class GenericRepository<T> {
 
-    Persistence persistence = new Persistence();
-    protected EntityManagerFactory emf = persistence.createEntityManagerFactory("SRP_PU");
-    protected EntityManager em = emf.createEntityManager();
-    protected EntityTransaction et = em.getTransaction();
+    protected static Persistence persistence = new Persistence();
+    protected static EntityManagerFactory emf = persistence.createEntityManagerFactory("SRP_PU");
+    protected static EntityManager em = emf.createEntityManager();
+    protected static EntityTransaction et ;
 
     public T save(T entity) {
-        et.begin();
         em.persist(entity);
-        et.commit();
         return entity;
     }
 
     public T update(T entity) {
-        et.begin();
         em.merge(entity);
-        et.commit();
         return entity;
     }
 
     public T delete(Object id, Class c) {
-        et.begin();
         T entityFromDb = (T) em.find(c, id);
         em.remove(entityFromDb);
-        et.commit();
         return entityFromDb;
     }
 
@@ -68,5 +62,12 @@ public class GenericRepository<T> {
     public List<T> getListByParamFromNamedQuery(Object paramValue, Class c, String namedQuery, String paramName) {
         TypedQuery<T> query = em.createNamedQuery(namedQuery, c);
         return query.setParameter(paramName, paramValue).getResultList();
+    }
+    
+    public static EntityTransaction getEntityTransactionInstance(){
+        if(et == null){
+           et = em.getTransaction();
+        }
+        return et;
     }
 }

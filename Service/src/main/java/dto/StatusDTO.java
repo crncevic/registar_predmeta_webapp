@@ -5,11 +5,13 @@
  */
 package dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Petar
  */
-public class StatusDTO {
+public class StatusDTO implements Serializable{
 
     private int statusId;
     private String naziv;

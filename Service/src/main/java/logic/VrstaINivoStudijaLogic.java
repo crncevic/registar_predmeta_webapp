@@ -14,7 +14,7 @@ import repository.GenericRepository;
  *
  * @author Petar
  */
-public class VrstaINivoStudijaLogic extends AbstractLogic {
+public class VrstaINivoStudijaLogic extends AbstractLogicClass {
 
     private GenericRepository<VrstaINivoStudija> gr;
 

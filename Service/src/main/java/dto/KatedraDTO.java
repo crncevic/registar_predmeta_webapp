@@ -5,6 +5,7 @@
  */
 package dto;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,7 +14,7 @@ import javax.validation.constraints.Size;
  *
  * @author Petar
  */
-public class KatedraDTO {
+public class KatedraDTO implements Serializable{
 
     private Integer katedraId;
 

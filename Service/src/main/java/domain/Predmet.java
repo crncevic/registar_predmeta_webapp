@@ -25,13 +25,12 @@ import javax.persistence.NamedQuery;
 import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 
 /**
  *
@@ -108,7 +107,7 @@ public class Predmet implements Serializable {
     private List<UdzbenikNaPredmetu> udzbenikList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nastavnik", fetch = FetchType.LAZY)
     private List<NastavnikNaPredmetu> nastavnikNaPredmetuList;
-    @OneToMany(mappedBy = "predmetId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "predmet", fetch = FetchType.LAZY)
     private List<TematskaCelina> tematskaCelinaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "predmet", fetch = FetchType.LAZY)
     private List<PredmetNaStudijskomProgramu> predmetNaStudijskomProgramuList;

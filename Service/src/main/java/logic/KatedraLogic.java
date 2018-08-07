@@ -19,7 +19,7 @@ import repository.GenericRepository;
  * @author Petar
  */
 @Transactional
-public class KatedraLogic extends AbstractLogic {
+public class KatedraLogic extends AbstractLogicClass {
 
     private final GenericRepository<Katedra> gr;
 
@@ -28,27 +28,20 @@ public class KatedraLogic extends AbstractLogic {
         gr = new GenericRepository<>();
     }
 
-    public List<KatedraDTO> getAll() throws Exception {
+    public List<Katedra> getAll() throws Exception {
         try {
 
-            List<Katedra> katedre = gr.getAll(Katedra.class, Constants.KATEDRA_FIND_ALL);
-            List<KatedraDTO> katedreDTO = new ArrayList<>();
+            return gr.getAll(Katedra.class, Constants.KATEDRA_FIND_ALL);
 
-            for (Katedra katedra : katedre) {
-                katedreDTO.add(Mapper.toKatedraDTO(katedra));
-            }
-
-            return katedreDTO;
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom ucitavanja svih katedri {" + e.getMessage() + "}");
         }
     }
 
-    public KatedraDTO getById(int id) throws Exception {
+    public Katedra getById(int id) throws Exception {
         try {
-            Katedra katedraFromDb = gr.getSingleByParamFromNamedQuery(id, Katedra.class, Constants.KATEDRA_FIND_BY_ID, Constants.KATEDRA_ID);
+            return gr.getSingleByParamFromNamedQuery(id, Katedra.class, Constants.KATEDRA_FIND_BY_ID, Constants.KATEDRA_ID);
 
-            return Mapper.toKatedraDTO(katedraFromDb);
         } catch (Exception ex) {
             throw new Exception("Dogodila se greska prilikom ucitavanja katedre sa id : " + id + " . {" + ex.getMessage() + "}");
         }

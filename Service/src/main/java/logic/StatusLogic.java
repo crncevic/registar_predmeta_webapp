@@ -14,7 +14,7 @@ import repository.GenericRepository;
  *
  * @author Petar
  */
-public class StatusLogic extends AbstractLogic {
+public class StatusLogic extends AbstractLogicClass {
 
     private GenericRepository<Status> gr;
 

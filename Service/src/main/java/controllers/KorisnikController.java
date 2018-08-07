@@ -8,6 +8,7 @@ package controllers;
 import domain.Korisnik;
 import dto.KorisnikDTO;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import logic.KorisnikLogic;
+import mapper.Mapper;
 
 /**
  *
@@ -40,10 +42,16 @@ public class KorisnikController {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
         try {
-            List<KorisnikDTO> korisniciDTO = kl.getAll();
+            List<Korisnik> korisnici = kl.getAll();
 
-            if (korisniciDTO == null || korisniciDTO.isEmpty()) {
+            if (korisnici == null || korisnici.isEmpty()) {
                 return Response.noContent().build();
+            }
+
+            List<KorisnikDTO> korisniciDTO = new ArrayList<>();
+
+            for (Korisnik korisnik : korisnici) {
+                korisniciDTO.add(Mapper.toKorisnikDTO(korisnik));
             }
 
             return Response.ok(korisniciDTO).build();
@@ -57,13 +65,13 @@ public class KorisnikController {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getById(@PathParam("id") @NotNull int id) {
         try {
-            KorisnikDTO korisnikDTO = kl.getById(id);
+            Korisnik korisnik = kl.getById(id);
 
-            if (korisnikDTO == null) {
+            if (korisnik == null) {
                 return Response.noContent().build();
             }
 
-            return Response.ok(korisnikDTO).build();
+            return Response.ok(Mapper.toKorisnikDTO(korisnik)).build();
 
         } catch (Exception e) {
             return Response.serverError().entity(e).build();
@@ -73,10 +81,11 @@ public class KorisnikController {
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response create(@NotNull Korisnik korisnik) {
+    public Response create(@NotNull KorisnikDTO korisnikDTO) {
         try {
-            KorisnikDTO korisnikDTO = kl.create(korisnik);
-            return Response.created(URI.create("api/korisnik")).entity(korisnikDTO).build();
+            Korisnik korisnik = Mapper.toKorisnik(korisnikDTO);
+            KorisnikDTO createdkorisnikDTO = Mapper.toKorisnikDTO(kl.create(korisnik));
+            return Response.created(URI.create("api/korisnik")).entity(createdkorisnikDTO).build();
         } catch (ConstraintViolationException cve) {
             return Response.status(Response.Status.BAD_REQUEST).entity(cve).build();
         } catch (Exception e) {
@@ -88,15 +97,16 @@ public class KorisnikController {
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    public Response update(@PathParam("id") @NotNull int id, @NotNull Korisnik korisnik) {
+    public Response update(@PathParam("id") @NotNull int id, @NotNull KorisnikDTO korisnikDTO) {
         try {
-            if (id != korisnik.getKorisnikId()) {
+            if (id != korisnikDTO.getKorisnikId()) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
 
-            KorisnikDTO korisnikDTO = kl.update(korisnik);
+            Korisnik korisnik = Mapper.toKorisnik(korisnikDTO);
+            KorisnikDTO updatedKorisnikDTO = Mapper.toKorisnikDTO(kl.update(korisnik));
 
-            return Response.ok(korisnikDTO).build();
+            return Response.ok(updatedKorisnikDTO).build();
         } catch (ConstraintViolationException cve) {
             return Response.status(Response.Status.BAD_REQUEST).entity(cve).build();
         } catch (Exception e) {
@@ -110,7 +120,7 @@ public class KorisnikController {
     public Response delete(@PathParam("id") @NotNull int id) {
         try {
 
-            KorisnikDTO korisnikDTO = kl.delete(id);
+            KorisnikDTO korisnikDTO = Mapper.toKorisnikDTO(kl.delete(id));
             return Response.ok(korisnikDTO).build();
 
         } catch (Exception e) {

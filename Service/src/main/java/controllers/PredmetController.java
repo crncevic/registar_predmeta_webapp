@@ -5,11 +5,11 @@
  */
 package controllers;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import domain.Predmet;
 import dto.PredmetDTO;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
@@ -24,7 +24,6 @@ import javax.ws.rs.core.Response;
 import logic.PredmetLogic;
 import mapper.Mapper;
 
-
 /**
  *
  * @author Petar
@@ -37,19 +36,25 @@ public class PredmetController {
 
     public PredmetController() {
         pl = new PredmetLogic();
-           
+
     }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    
+
     public Response getAll() {
         try {
-           
-            List<PredmetDTO> predmetiDTO = pl.getAll();
-         
-            if (predmetiDTO == null || predmetiDTO.isEmpty()) {
+
+            List<Predmet> predmeti = pl.getAll();
+
+            if (predmeti == null || predmeti.isEmpty()) {
                 return Response.noContent().build();
+            }
+
+            List<PredmetDTO> predmetiDTO = new ArrayList<>();
+
+            for (Predmet predmet : predmeti) {
+                predmetiDTO.add(Mapper.toPredmetDTO(predmet));
             }
 
             return Response.ok(predmetiDTO).build();
@@ -64,15 +69,14 @@ public class PredmetController {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getById(@PathParam("id") @NotNull int id) {
         try {
-            
-           
-            PredmetDTO predmetDTO = pl.getById(id);
 
-            if (predmetDTO == null) {
+            Predmet predmet = pl.getById(id);
+
+            if (predmet == null) {
                 return Response.noContent().build();
             }
 
-            return Response.ok(predmetDTO).build();
+            return Response.ok(Mapper.toPredmetDTO(predmet)).build();
 
         } catch (Exception e) {
             return Response.serverError().entity(e).build();
@@ -85,7 +89,7 @@ public class PredmetController {
     public Response create(@NotNull PredmetDTO predmetDTO) {
         try {
             Predmet predmet = Mapper.toPredmet(predmetDTO);
-            Predmet createdPredmet = pl.create(predmet);
+            PredmetDTO createdPredmet = Mapper.toPredmetDTO( pl.create(predmet));
             return Response.ok(createdPredmet).build();
         } catch (ConstraintViolationException cve) {
             return Response.status(Response.Status.BAD_REQUEST).entity(cve).build();

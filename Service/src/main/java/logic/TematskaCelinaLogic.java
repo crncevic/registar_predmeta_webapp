@@ -17,13 +17,13 @@ import repository.GenericRepository;
  *
  * @author Petar
  */
-public class TematskaCelinaLogic extends AbstractLogic {
+public class TematskaCelinaLogic extends AbstractLogicClass {
 
     private GenericRepository<TematskaCelina> gr;
     private Set<ConstraintViolation<TematskaCelina>> violations;
 
     public TematskaCelinaLogic() {
-       
+
         gr = new GenericRepository<>();
     }
 
@@ -36,7 +36,15 @@ public class TematskaCelinaLogic extends AbstractLogic {
             }
 
             //TODO : strukturna ogranicenja
-            return gr.save(tematskaCelina);
+            try {
+                et.begin();
+                TematskaCelina createdTematskaCelina = gr.save(tematskaCelina);
+                et.commit();
+                return createdTematskaCelina;
+            } catch (Exception ex) {
+                et.rollback();
+                throw ex;
+            }
 
         } catch (ConstraintViolationException cve) {
             throw cve;
@@ -54,7 +62,15 @@ public class TematskaCelinaLogic extends AbstractLogic {
             }
 
             //TODO : strukturna ogranicenja
-            return gr.update(tematskaCelina);
+            try {
+                et.begin();
+                TematskaCelina updatedTematskaCelina = gr.update(tematskaCelina);
+                et.commit();
+                return updatedTematskaCelina;
+            } catch (Exception ex) {
+                et.rollback();
+                throw ex;
+            }
 
         } catch (ConstraintViolationException cve) {
             throw cve;
@@ -67,7 +83,15 @@ public class TematskaCelinaLogic extends AbstractLogic {
         try {
 
             //TODO : strukturna ogranicenja
-            return gr.delete(id, TematskaCelina.class);
+            try {
+                et.begin();
+                TematskaCelina deletedTematskaCelina = gr.delete(id, TematskaCelina.class);
+                et.commit();
+                return deletedTematskaCelina;
+            } catch (Exception ex) {
+                et.rollback();
+                throw ex;
+            }
 
         } catch (Exception e) {
             throw e;

@@ -14,7 +14,7 @@ import repository.GenericRepository;
  *
  * @author Petar
  */
-public class StudijskiProgramLogic extends AbstractLogic {
+public class StudijskiProgramLogic extends AbstractLogicClass {
 
     private GenericRepository<StudijskiProgram> gr;
 

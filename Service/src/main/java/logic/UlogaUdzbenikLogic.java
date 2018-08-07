@@ -14,7 +14,7 @@ import repository.GenericRepository;
  *
  * @author Petar
  */
-public class UlogaUdzbenikLogic extends AbstractLogic {
+public class UlogaUdzbenikLogic extends AbstractLogicClass {
 
     private GenericRepository<UlogaUdzbenik> gr;
 

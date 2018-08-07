@@ -7,6 +7,7 @@ package controllers;
 
 import domain.OsobaUVeziSaUdzbenikom;
 import dto.OsobaUVeziSaUdzbenikomDTO;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
@@ -16,6 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import logic.OsobaUVeziSaUdzbenikomLogic;
+import mapper.Mapper;
 
 /**
  *
@@ -24,7 +26,7 @@ import logic.OsobaUVeziSaUdzbenikomLogic;
 @Path("osoba-udzbenik")
 public class OsobaUVeziSaUdzbenikomController {
 
-    private OsobaUVeziSaUdzbenikomLogic ouvsul;
+    private final OsobaUVeziSaUdzbenikomLogic ouvsul;
 
     public OsobaUVeziSaUdzbenikomController() {
         ouvsul = new OsobaUVeziSaUdzbenikomLogic();
@@ -34,10 +36,16 @@ public class OsobaUVeziSaUdzbenikomController {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
         try {
-            List<OsobaUVeziSaUdzbenikomDTO> osobeDTO = ouvsul.getAll();
+            List<OsobaUVeziSaUdzbenikom> osobe = ouvsul.getAll();
 
-            if (osobeDTO == null || osobeDTO.isEmpty()) {
+            if (osobe == null || osobe.isEmpty()) {
                 return Response.noContent().build();
+            }
+
+            List<OsobaUVeziSaUdzbenikomDTO> osobeDTO = new ArrayList<>();
+
+            for (OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom : osobe) {
+                osobeDTO.add(Mapper.toOsobaUVeziSaUzbenikDTO(osobaUVeziSaUdzbenikom));
             }
 
             return Response.ok(osobeDTO).build();
@@ -47,44 +55,47 @@ public class OsobaUVeziSaUdzbenikomController {
         }
 
     }
-    
+
     @GET
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getById(@PathParam("id") @NotNull int id) {
         try {
-            OsobaUVeziSaUdzbenikomDTO osobaUVeziSaUdzbenikomDTO = ouvsul.getById(id);
+            OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom = ouvsul.getById(id);
 
-            if (osobaUVeziSaUdzbenikomDTO == null) {
+            if (osobaUVeziSaUdzbenikom == null) {
                 return Response.noContent().build();
             }
 
-            return Response.ok(osobaUVeziSaUdzbenikomDTO).build();
+            return Response.ok(Mapper.toOsobaUVeziSaUzbenikDTO(osobaUVeziSaUdzbenikom)).build();
 
         } catch (Exception e) {
             return Response.serverError().entity(e).build();
         }
     }
-    
+
     @GET
     @Path("/udzbenik/{udzbenikId}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getOsobaByUdzbenikId(@PathParam("udzbenikId") @NotNull int udzbenikId) {
         try {
-            List<OsobaUVeziSaUdzbenikomDTO> osobeUVeziSaUdzbenikomDTO = ouvsul.getOsobaByUdzbenikId(udzbenikId);
+            List<OsobaUVeziSaUdzbenikom> osobeUVeziSaUdzbenikom = ouvsul.getOsobaByUdzbenikId(udzbenikId);
 
-            if (osobeUVeziSaUdzbenikomDTO== null || osobeUVeziSaUdzbenikomDTO.isEmpty()) {
+            if (osobeUVeziSaUdzbenikom == null || osobeUVeziSaUdzbenikom.isEmpty()) {
                 return Response.noContent().build();
             }
+            
+             List<OsobaUVeziSaUdzbenikomDTO> osobeDTO = new ArrayList<>();
 
-            return Response.ok(osobeUVeziSaUdzbenikomDTO).build();
+            for (OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom : osobeUVeziSaUdzbenikom) {
+                osobeDTO.add(Mapper.toOsobaUVeziSaUzbenikDTO(osobaUVeziSaUdzbenikom));
+            }
+
+            return Response.ok(osobeDTO).build();
 
         } catch (Exception e) {
             return Response.serverError().entity(e).build();
         }
     }
-    
-   
-            
 
 }

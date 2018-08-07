@@ -9,6 +9,7 @@ import domain.Katedra;
 import domain.Korisnik;
 import domain.Nastavnik;
 import dto.NastavnikDTO;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
@@ -21,6 +22,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import logic.NastavnikLogic;
+import mapper.Mapper;
 
 /**
  *
@@ -39,10 +41,16 @@ public class NastavnikController {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
         try {
-            List<NastavnikDTO> nastavniciDTO = nl.getAll();
+            List<Nastavnik> nastavnici = nl.getAll();
 
-            if (nastavniciDTO == null || nastavniciDTO.isEmpty()) {
+            if (nastavnici == null || nastavnici.isEmpty()) {
                 return Response.noContent().build();
+            }
+            
+            List<NastavnikDTO> nastavniciDTO = new ArrayList<>();
+            
+            for (Nastavnik nastavnik : nastavnici) {
+                nastavniciDTO.add(Mapper.toNastavnikDTO(nastavnik));
             }
 
             return Response.ok(nastavniciDTO).build();
@@ -56,13 +64,13 @@ public class NastavnikController {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getById(@PathParam("id") @NotNull int id) {
         try {
-            NastavnikDTO nastavnikDTO = nl.getById(id);
+            Nastavnik nastavnik = nl.getById(id);
 
-            if (nastavnikDTO == null) {
+            if (nastavnik == null) {
                 return Response.noContent().build();
             }
 
-            return Response.ok(nastavnikDTO).build();
+            return Response.ok(Mapper.toNastavnikDTO(nastavnik)).build();
 
         } catch (Exception e) {
             return Response.serverError().entity(e).build();

@@ -7,6 +7,7 @@ package controllers;
 
 import domain.Katedra;
 import dto.KatedraDTO;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
@@ -16,6 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import logic.KatedraLogic;
+import mapper.Mapper;
 
 /**
  *
@@ -34,10 +36,16 @@ public class KatedraController {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAll() {
         try {
-            List<KatedraDTO> katedreDTO = kl.getAll();
+            List<Katedra> katedre = kl.getAll();
 
-            if (katedreDTO == null || katedreDTO.isEmpty()) {
+            if (katedre == null || katedre.isEmpty()) {
                 return Response.noContent().build();
+            }
+
+            List<KatedraDTO> katedreDTO = new ArrayList<>();
+
+            for (Katedra katedra : katedre) {
+                katedreDTO.add(Mapper.toKatedraDTO(katedra));
             }
 
             return Response.ok(katedreDTO).build();
@@ -53,13 +61,13 @@ public class KatedraController {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getById(@PathParam("id") @NotNull int id) {
         try {
-            KatedraDTO katedraDTO = kl.getById(id);
+            Katedra katedra = kl.getById(id);
 
-            if (katedraDTO == null) {
+            if (katedra == null) {
                 return Response.noContent().build();
             }
 
-            return Response.ok(katedraDTO).build();
+            return Response.ok(Mapper.toKatedraDTO(katedra)).build();
 
         } catch (Exception e) {
             return Response.serverError().entity(e).build();

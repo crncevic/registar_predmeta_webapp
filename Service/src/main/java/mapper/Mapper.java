@@ -35,6 +35,7 @@ import dto.StudijskiProgramDTO;
 import dto.TematskaCelinaDTO;
 import dto.TipNastaveDTO;
 import dto.UdzbenikDTO;
+import dto.UdzbenikNaPredmetuDTO;
 import dto.UlogaDTO;
 import dto.UlogaUdzbenikDTO;
 import dto.VrstaINivoStudijaDTO;
@@ -50,7 +51,7 @@ public class Mapper {
     //*****************
     // ENTITY -> DTO  *
     //*****************
-    public static PredmetDTO toPredmetDTO(Predmet predmet, List<Udzbenik> udzbenici, List<NastavnikNaPredmetu> nastavniciNaPredmetu, List<PredmetNaStudijskomProgramu> predmetiNaStdProgramima, List<TematskaCelina> tematskeCeline) throws Exception {
+    public static PredmetDTO toPredmetDTO(Predmet predmet) throws Exception {
         try {
             if (predmet != null) {
                 PredmetDTO predmetDTO = new PredmetDTO();
@@ -65,12 +66,12 @@ public class Mapper {
                 predmetDTO.setDrugiObliciNastave(predmet.getDrugiObliciNastave());
                 predmetDTO.setVrstaINivoStudija(new VrstaINivoStudijaDTO(predmet.getVrstaINivoStudija().getVrstaId(), predmet.getVrstaINivoStudija().getNaziv()));
 
-                List<UdzbenikDTO> udzbeniciDTO = new ArrayList<>();
+                List<UdzbenikNaPredmetuDTO> udzbeniciDTO = new ArrayList<>();
 
-                if (udzbenici != null) {
+                if (predmet.getUdzbenikList() != null) {
 
-                    for (Udzbenik u : udzbenici) {
-                        udzbeniciDTO.add(toUdzbenikDTO(u, null));
+                    for (UdzbenikNaPredmetu u : predmet.getUdzbenikList()) {
+                        udzbeniciDTO.add(toUdzbenikNaPredmetuDTO(u));
                     }
                 }
 
@@ -78,9 +79,9 @@ public class Mapper {
 
                 List<NastavnikNaPredmetuDTO> nastavniciDTO = new ArrayList<>();
 
-                if (nastavniciNaPredmetu != null) {
+                if (predmet.getNastavnikNaPredmetuList() != null) {
 
-                    for (NastavnikNaPredmetu nastavnikNaPredmetu : nastavniciNaPredmetu) {
+                    for (NastavnikNaPredmetu nastavnikNaPredmetu : predmet.getNastavnikNaPredmetuList()) {
 
                         nastavniciDTO.add(toNastavnikNaPredmetuDTO(nastavnikNaPredmetu));
                     }
@@ -90,8 +91,8 @@ public class Mapper {
 
                 List<TematskaCelinaDTO> tematskeCelineDTO = new ArrayList<>();
 
-                if (tematskeCeline != null) {
-                    for (TematskaCelina tematskaCelina : tematskeCeline) {
+                if (predmet.getTematskaCelinaList() != null) {
+                    for (TematskaCelina tematskaCelina : predmet.getTematskaCelinaList()) {
                         tematskeCelineDTO.add(toTematskaCelinaDTO(tematskaCelina, null));
                     }
                 }
@@ -100,8 +101,8 @@ public class Mapper {
 
                 List<PredmetNaStudijskomProgramuDTO> studijskiProgramiDTO = new ArrayList<>();
 
-                if (predmetiNaStdProgramima != null) {
-                    for (PredmetNaStudijskomProgramu pnsp : predmetiNaStdProgramima) {
+                if (predmet.getPredmetNaStudijskomProgramuList() != null) {
+                    for (PredmetNaStudijskomProgramu pnsp : predmet.getPredmetNaStudijskomProgramuList()) {
                         studijskiProgramiDTO.add(toPredmetNaStudijskomProgramuDTO(pnsp));
                     }
                 }
@@ -117,7 +118,7 @@ public class Mapper {
         }
     }
 
-    public static UdzbenikDTO toUdzbenikDTO(Udzbenik udzbenik, List<OsobaUVeziSaUdzbenikom> osobaUVeziSaUdzbenikomList) throws Exception {
+    public static UdzbenikDTO toUdzbenikDTO(Udzbenik udzbenik) throws Exception {
         try {
             if (udzbenik != null) {
                 UdzbenikDTO udzbenikDTO = new UdzbenikDTO();
@@ -131,9 +132,9 @@ public class Mapper {
 
                 List<OsobaUVeziSaUdzbenikomDTO> osobaUVeziSaUdzbenikomDTOList = new ArrayList<>();
 
-                if (osobaUVeziSaUdzbenikomList != null) {
+                if (udzbenik.getOsobaUVeziSaUdzbenikomList() != null) {
 
-                    for (OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom : osobaUVeziSaUdzbenikomList) {
+                    for (OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom : udzbenik.getOsobaUVeziSaUdzbenikomList()) {
                         osobaUVeziSaUdzbenikomDTOList.add(toOsobaUVeziSaUzbenikDTO(osobaUVeziSaUdzbenikom));
                     }
                 }
@@ -426,6 +427,24 @@ public class Mapper {
         }
     }
 
+    private static UdzbenikNaPredmetuDTO toUdzbenikNaPredmetuDTO(UdzbenikNaPredmetu udzbenikNaPredmetu) throws Exception {
+        try {
+            if (udzbenikNaPredmetu != null) {
+                UdzbenikNaPredmetuDTO udzbenikNaPredmetuDTO = new UdzbenikNaPredmetuDTO();
+                if (udzbenikNaPredmetu.getUdzbenikNaPredmetuPK() != null) {
+                    udzbenikNaPredmetuDTO.setPredmetId(udzbenikNaPredmetu.getUdzbenikNaPredmetuPK().getPredmetId());
+                    udzbenikNaPredmetuDTO.setUdzbenikId(udzbenikNaPredmetu.getUdzbenikNaPredmetuPK().getUdzbenikId());
+                }
+                udzbenikNaPredmetuDTO.setUdzbenikDTO(toUdzbenikDTO(udzbenikNaPredmetu.getUdzbenik()));
+                return udzbenikNaPredmetuDTO;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new Exception("Greska u mapiranju udzbenikNaPredmetu->udzbenikNaPredmetuDTO {" + e.getMessage() + "}");
+        }
+    }
+
     //****************
     // DTO -> ENTITY *
     //****************
@@ -447,9 +466,9 @@ public class Mapper {
                 List<UdzbenikNaPredmetu> udzbeniciNaPredmetu = new ArrayList<>();
 
                 if (predmetDTO.getUdzbenici() != null) {
-                    for (UdzbenikDTO udzbenikDTO : predmetDTO.getUdzbenici()) {
+                    for (UdzbenikNaPredmetuDTO udzbenikNaPredmetuDTO : predmetDTO.getUdzbenici()) {
                         UdzbenikNaPredmetu unp = new UdzbenikNaPredmetu();
-                        unp.setUdzbenikNaPredmetuPK(new UdzbenikNaPredmetuPK(udzbenikDTO.getUdzbenikId(), 0));
+                        unp.setUdzbenikNaPredmetuPK(new UdzbenikNaPredmetuPK(udzbenikNaPredmetuDTO.getUdzbenikId(), 0));
                     }
                 }
 
@@ -705,4 +724,5 @@ public class Mapper {
             throw new Exception("Greska u mapiranju korisnik->korisnikDTO {" + e.getMessage() + "}");
         }
     }
+
 }

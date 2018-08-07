@@ -17,7 +17,7 @@ import repository.GenericRepository;
  *
  * @author Petar
  */
-public class NastavnikLogic extends AbstractLogic {
+public class NastavnikLogic extends AbstractLogicClass {
 
     private final GenericRepository<Nastavnik> gr;
 
@@ -26,25 +26,17 @@ public class NastavnikLogic extends AbstractLogic {
         gr = new GenericRepository();
     }
 
-    public List<NastavnikDTO> getAll() throws Exception {
+    public List<Nastavnik> getAll() throws Exception {
         try {
-            List<Nastavnik> nastavnici = gr.getAll(Nastavnik.class, Constants.NASTAVNIK_FIND_ALL);
-            List<NastavnikDTO> nastavniciDTO = new ArrayList<>();
-
-            for (Nastavnik nastavnik : nastavnici) {
-                nastavniciDTO.add(Mapper.toNastavnikDTO(nastavnik));
-            }
-
-            return nastavniciDTO;
+            return gr.getAll(Nastavnik.class, Constants.NASTAVNIK_FIND_ALL);
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom ucitavanja svih nastavnika  {" + e.getMessage() + "}");
         }
     }
 
-    public NastavnikDTO getById(int id) throws Exception {
+    public Nastavnik getById(int id) throws Exception {
         try {
-            Nastavnik nastavnikFromDb = gr.getSingleByParamFromNamedQuery(id, Nastavnik.class, Constants.NASTAVNIK_FIND_BY_ID, Constants.NASTAVNIK_ID);
-            return Mapper.toNastavnikDTO(nastavnikFromDb);
+            return gr.getSingleByParamFromNamedQuery(id, Nastavnik.class, Constants.NASTAVNIK_FIND_BY_ID, Constants.NASTAVNIK_ID);
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom ucitavanja nastavnika sa id : " + id + " {" + e.getMessage() + "}");
         }

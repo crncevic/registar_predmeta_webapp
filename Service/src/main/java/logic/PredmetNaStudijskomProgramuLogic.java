@@ -9,6 +9,6 @@ package logic;
  *
  * @author Petar
  */
-public class PredmetNaStudijskomProgramuLogic extends AbstractLogic{
+public class PredmetNaStudijskomProgramuLogic extends AbstractLogicClass{
     
 }

@@ -5,11 +5,13 @@
  */
 package dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Petar
  */
-public class NastavnikNaPredmetuDTO {
+public class NastavnikNaPredmetuDTO implements Serializable{
 
     private int nastavnikId;
     private int predmetId;

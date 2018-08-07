@@ -17,7 +17,7 @@ import repository.GenericRepository;
  *
  * @author Petar
  */
-public class UdzbenikLogic extends AbstractLogic {
+public class UdzbenikLogic extends AbstractLogicClass {
 
     private GenericRepository<Udzbenik> gr;
     private Set<ConstraintViolation<Udzbenik>> violations;
@@ -35,7 +35,15 @@ public class UdzbenikLogic extends AbstractLogic {
             }
 
             //TODO : strukturna ogranicenja
-            return gr.save(udzbenik);
+            try {
+                et.begin();
+                Udzbenik createdUdzbenik = gr.save(udzbenik);
+                et.commit();
+                return createdUdzbenik;
+            } catch (Exception ex) {
+                et.rollback();
+                throw ex;
+            }
 
         } catch (ConstraintViolationException cve) {
             throw cve;
@@ -53,7 +61,15 @@ public class UdzbenikLogic extends AbstractLogic {
             }
 
             //TODO : strukturna ogranicenja
-            return gr.update(udzbenik);
+            try {
+                et.begin();
+                Udzbenik updatedUdzbenik = gr.update(udzbenik);
+                et.commit();
+                return updatedUdzbenik;
+            } catch (Exception ex) {
+                et.rollback();
+                throw ex;
+            }
 
         } catch (ConstraintViolationException cve) {
             throw cve;
@@ -66,7 +82,15 @@ public class UdzbenikLogic extends AbstractLogic {
         try {
 
             //TODO : strukturna ogranicenja
-            return gr.delete(id, Udzbenik.class);
+            try {
+                et.begin();
+                Udzbenik deletedUdzbenik = gr.delete(id, Udzbenik.class);
+                et.commit();
+                return deletedUdzbenik;
+            } catch (Exception ex) {
+                et.rollback();
+                throw ex;
+            }
 
         } catch (Exception e) {
             throw e;

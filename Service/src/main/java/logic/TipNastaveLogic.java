@@ -14,7 +14,7 @@ import repository.GenericRepository;
  *
  * @author Petar
  */
-public class TipNastaveLogic extends AbstractLogic {
+public class TipNastaveLogic extends AbstractLogicClass {
 
     private GenericRepository<TipNastave> gr;
 

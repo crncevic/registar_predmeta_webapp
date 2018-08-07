@@ -10,8 +10,11 @@ package constants;
  * @author Petar
  */
 public class Constants {
-
-    //Named queries
+    
+    //*************************
+    //NAMED QUERIES CONSTANTS *
+    //*************************
+    
     //katedra
     public static final String KATEDRA_FIND_ALL = "Katedra.findAll";
     public static final String KATEDRA_FIND_BY_ID = "Katedra.findByKatedraId";
@@ -36,8 +39,9 @@ public class Constants {
     public static final String OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_UDZBENIK_ID = "OsobaUVeziSaUdzbenikom.findByUdzbenikId";
 
     //predmet
-    public static final String PREMDET_FIND_ALL = "Predmet.findAll";
-    public static final String PREMDET_FIND_BY_ID = "Predmet.findByPredmetId";
+    public static final String PREDMET_FIND_ALL = "Predmet.findAll";
+    public static final String PREDMET_FIND_BY_ID = "Predmet.findByPredmetId";
+     public static final String PREDMET_FIND_BY_NAZIV = "Predmet.findByNaziv";
 
     //predmet na studisjkom programu
     
@@ -55,6 +59,7 @@ public class Constants {
     //tematska celina
     public static final String TEMATSKA_CELINA_FIND_ALL = "TematskaCelina.findAll";
     public static final String TEMATSKA_CELINA_FIND_BY_ID = "TematskaCelina.findByTematskacelinaId";
+    public static final String TEMATSKA_CELINA_FIND_BY_PREDMET_ID = "TematskaCelina.findByPredmetId";
 
     //tip nastave
     public static final String TIP_NASTAVE_FIND_ALL = "TipNastave.findAll";
@@ -80,14 +85,16 @@ public class Constants {
     public static final String UDZBENIK_NA_PREDMETU_FIND_ALL_BY_UDZBENIK_ID = "UdzbenikNaPredmetu.findByUdzbenikId";
     public static final String UDZBENIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID = "UdzbenikNaPredmetu.findByPredmetId";
 
-    /*
-    params for named queries
-     */
+   //************************************
+   //PARAMS FOR NAMED QUERIES CONSTANTS *
+   //************************************ 
+    
     public static final String KATEDRA_ID = "katedraId";
     public static final String KORISNIK_ID = "korisnikId";
     public static final String KORISNIK_USERNAME = "username";
     public static final String NASTAVNIK_ID = "nastavnikId";
     public static final String PREDMET_ID = "predmetId";
+    public static final String PREDMET_NAZIV = "naziv";
     public static final String TIP_NASTAVE_ID = "tipnastaveId";
     public static final String OSOBA_ID = "osobaId";
     public static final String STATUS_ID = "statusId";

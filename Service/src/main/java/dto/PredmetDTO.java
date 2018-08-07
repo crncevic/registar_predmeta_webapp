@@ -5,6 +5,7 @@
  */
 package dto;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,7 +16,7 @@ import javax.validation.constraints.Size;
  *
  * @author Petar
  */
-public class PredmetDTO {
+public class PredmetDTO implements Serializable{
 
     private Integer predmetId;
 
@@ -39,7 +40,7 @@ public class PredmetDTO {
     @Size(max = 1000)
     @Column(name = "sadrzaj_tekst")
     private String sadrzajTekst;
-    private List<UdzbenikDTO> udzbenici;
+    private List<UdzbenikNaPredmetuDTO> udzbeniciNaPredmetu;
     private List<NastavnikNaPredmetuDTO> nastavniciNaPredmetu;
    
     private List<TematskaCelinaDTO> tematskaCeline;
@@ -137,12 +138,12 @@ public class PredmetDTO {
         this.sadrzajTekst = sadrzajTekst;
     }
 
-    public List<UdzbenikDTO> getUdzbenici() {
-        return udzbenici;
+    public List<UdzbenikNaPredmetuDTO> getUdzbenici() {
+        return udzbeniciNaPredmetu;
     }
 
-    public void setUdzbenici(List<UdzbenikDTO> udzbenici) {
-        this.udzbenici = udzbenici;
+    public void setUdzbenici(List<UdzbenikNaPredmetuDTO> udzbeniciNaPredmetu) {
+        this.udzbeniciNaPredmetu = udzbeniciNaPredmetu;
     }
 
     public List<NastavnikNaPredmetuDTO> getNastavnici() {

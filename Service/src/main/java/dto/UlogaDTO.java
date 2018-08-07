@@ -5,11 +5,13 @@
  */
 package dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Petar
  */
-public class UlogaDTO {
+public class UlogaDTO implements Serializable{
     private int ulogaId;
     private String naziv;
 

@@ -35,7 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TematskaCelina.findAll", query = "SELECT t FROM TematskaCelina t")
     , @NamedQuery(name = "TematskaCelina.findByTematskacelinaId", query = "SELECT t FROM TematskaCelina t WHERE t.tematskacelinaId = :tematskacelinaId")
     , @NamedQuery(name = "TematskaCelina.findByNaziv", query = "SELECT t FROM TematskaCelina t WHERE t.naziv = :naziv")
-    , @NamedQuery(name = "TematskaCelina.findByOpis", query = "SELECT t FROM TematskaCelina t WHERE t.opis = :opis")})
+    , @NamedQuery(name = "TematskaCelina.findByOpis", query = "SELECT t FROM TematskaCelina t WHERE t.opis = :opis")
+    , @NamedQuery(name = "TematskaCelina.findByPredmetId", query = "SELECT t FROM TematskaCelina t WHERE t.predmet.predmetId = :predmetId")
+})
 public class TematskaCelina implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,7 +64,7 @@ public class TematskaCelina implements Serializable {
     private TematskaCelina nadredjenaTematskaCelina;
     @JoinColumn(name = "predmetId", referencedColumnName = "predmetId")
     @ManyToOne
-    private Predmet predmetId;
+    private Predmet predmet;
 
     public TematskaCelina() {
     }
@@ -125,12 +127,12 @@ public class TematskaCelina implements Serializable {
         this.nadredjenaTematskaCelina = nadredjenaTematskaCelina;
     }
 
-    public Predmet getPredmetId() {
-        return predmetId;
+    public Predmet getPredmet() {
+        return predmet;
     }
 
-    public void setPredmetId(Predmet predmetId) {
-        this.predmetId = predmetId;
+    public void setPredmet(Predmet predmet) {
+        this.predmet = predmet;
     }
 
     @Override

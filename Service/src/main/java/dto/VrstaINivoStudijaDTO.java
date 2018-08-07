@@ -5,14 +5,21 @@
  */
 package dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Petar
  */
-public class VrstaINivoStudijaDTO {
+public class VrstaINivoStudijaDTO implements Serializable{
 
     private int vrstaId;
     private String naziv;
+
+    public VrstaINivoStudijaDTO() {
+    }
+    
+    
 
     public VrstaINivoStudijaDTO(int vrstaId, String naziv) {
         this.vrstaId = vrstaId;

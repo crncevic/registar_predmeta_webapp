@@ -12,19 +12,20 @@ import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import mapper.Mapper;
 import repository.GenericRepository;
 
 /**
  *
  * @author Petar
  */
-public class NastavnikNaPredmetuLogic extends AbstractLogic {
+public class NastavnikNaPredmetuLogic extends AbstractLogicClass {
 
     private GenericRepository<NastavnikNaPredmetu> gr;
     private Set<ConstraintViolation<NastavnikNaPredmetu>> violations;
 
     public NastavnikNaPredmetuLogic() {
-        
+
         gr = new GenericRepository<>();
     }
 
@@ -37,7 +38,17 @@ public class NastavnikNaPredmetuLogic extends AbstractLogic {
             }
 
             //TODO strukturna ogranicenja
-            return gr.save(nastavnikNaPredmetu);
+            try {
+
+                et.begin();
+                NastavnikNaPredmetu nnp = gr.save(nastavnikNaPredmetu);
+                et.commit();
+                return nnp;
+            } catch (Exception ex) {
+                et.rollback();
+                throw ex;
+            }
+
         } catch (ConstraintViolationException cve) {
             throw cve;
         } catch (Exception e) {
@@ -49,7 +60,15 @@ public class NastavnikNaPredmetuLogic extends AbstractLogic {
         try {
 
             //TODO strukturna ogranicenja
-            return gr.delete(nastavnikNaPredmetuPK, NastavnikNaPredmetu.class);
+            try {
+                et.begin();
+                NastavnikNaPredmetu nnp = gr.delete(nastavnikNaPredmetuPK, NastavnikNaPredmetu.class);
+                et.commit();
+                return nnp;
+            } catch (Exception ex) {
+                et.rollback();
+                throw ex;
+            }
         } catch (Exception e) {
             throw e;
         }

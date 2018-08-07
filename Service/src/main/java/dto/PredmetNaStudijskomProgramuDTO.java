@@ -5,11 +5,13 @@
  */
 package dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Petar
  */
-public class PredmetNaStudijskomProgramuDTO {
+public class PredmetNaStudijskomProgramuDTO implements Serializable{
 
     private int predmetId;
     private int studijskiProgramId;

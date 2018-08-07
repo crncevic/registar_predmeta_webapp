@@ -5,6 +5,7 @@
  */
 package dto;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.validation.constraints.Size;
 
@@ -12,7 +13,7 @@ import javax.validation.constraints.Size;
  *
  * @author Petar
  */
-public class UlogaUdzbenikDTO {
+public class UlogaUdzbenikDTO implements Serializable{
 
     private Integer ulogaId;
     @Size(max = 100)

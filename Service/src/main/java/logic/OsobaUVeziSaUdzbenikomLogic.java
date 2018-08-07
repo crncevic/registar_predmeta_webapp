@@ -20,7 +20,7 @@ import repository.GenericRepository;
  *
  * @author Petar
  */
-public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogic {
+public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogicClass {
 
     private GenericRepository<OsobaUVeziSaUdzbenikom> gr;
     private Set<ConstraintViolation<OsobaUVeziSaUdzbenikom>> violations;
@@ -30,7 +30,7 @@ public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogic {
         gr = new GenericRepository<>();
     }
 
-    public OsobaUVeziSaUdzbenikomDTO create(OsobaUVeziSaUdzbenikom ouvsu) throws Exception {
+    public OsobaUVeziSaUdzbenikom create(OsobaUVeziSaUdzbenikom ouvsu) throws Exception {
         try {
             violations = validator.validate(ouvsu);
 
@@ -39,8 +39,15 @@ public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogic {
             }
 
             //TODO strukturna ogranicenja
-            OsobaUVeziSaUdzbenikom createdOsoba = gr.save(ouvsu);
-            return Mapper.toOsobaUVeziSaUzbenikDTO(ouvsu);
+            try {
+                et.begin();
+                OsobaUVeziSaUdzbenikom createdOsoba = gr.save(ouvsu);
+                et.commit();
+                return createdOsoba;
+            } catch (Exception ex) {
+                et.rollback();
+                throw ex;
+            }
         } catch (ConstraintViolationException cve) {
             throw cve;
         } catch (Exception e) {
@@ -48,7 +55,7 @@ public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogic {
         }
     }
 
-    public OsobaUVeziSaUdzbenikomDTO update(OsobaUVeziSaUdzbenikom ouvsu) throws Exception {
+    public OsobaUVeziSaUdzbenikom update(OsobaUVeziSaUdzbenikom ouvsu) throws Exception {
         try {
             violations = validator.validate(ouvsu);
 
@@ -57,8 +64,16 @@ public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogic {
             }
 
             //TODO strukturna ogranicenja
-            OsobaUVeziSaUdzbenikom updatedOsoba = gr.update(ouvsu);
-            return Mapper.toOsobaUVeziSaUzbenikDTO(ouvsu);
+            try {
+                et.begin();
+                OsobaUVeziSaUdzbenikom updatedOsoba = gr.update(ouvsu);
+                et.commit();
+                return updatedOsoba;
+            } catch (Exception e) {
+                et.rollback();
+                throw e;
+            }
+
         } catch (ConstraintViolationException cve) {
             throw cve;
         } catch (Exception e) {
@@ -66,53 +81,47 @@ public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogic {
         }
     }
 
-    public OsobaUVeziSaUdzbenikomDTO delete(int id) throws Exception {
+    public OsobaUVeziSaUdzbenikom delete(int id) throws Exception {
         try {
             //TODO strukturna ogranicenja
-            OsobaUVeziSaUdzbenikom deletedOsoba = gr.delete(id, OsobaUVeziSaUdzbenikom.class);
-            return Mapper.toOsobaUVeziSaUzbenikDTO(deletedOsoba);
+            try {
+                et.begin();
+                OsobaUVeziSaUdzbenikom deletedOsoba = gr.delete(id, OsobaUVeziSaUdzbenikom.class);
+                et.commit();
+                return deletedOsoba;
+            } catch (Exception ex) {
+                et.rollback();
+                throw ex;
+            }
+
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom brisanja osobe ! {" + e.getMessage() + "}");
         }
     }
 
-    public OsobaUVeziSaUdzbenikomDTO getById(int id) throws Exception {
+    public OsobaUVeziSaUdzbenikom getById(int id) throws Exception {
         try {
-            OsobaUVeziSaUdzbenikom osobaFromDb
-                    = gr.getSingleByParamFromNamedQuery(id, OsobaUVeziSaUdzbenikom.class, Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_OSOBA_ID, Constants.OSOBA_ID);
-            return Mapper.toOsobaUVeziSaUzbenikDTO(osobaFromDb);
+
+            return gr.getSingleByParamFromNamedQuery(id, OsobaUVeziSaUdzbenikom.class, Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_OSOBA_ID, Constants.OSOBA_ID);
+
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom ucitavanja osobe sa id:{" + e.getMessage() + "} ! {" + e.getMessage() + "}");
         }
     }
 
-    public List<OsobaUVeziSaUdzbenikomDTO> getOsobaByUdzbenikId(int udzbenikId) throws Exception {
+    public List<OsobaUVeziSaUdzbenikom> getOsobaByUdzbenikId(int udzbenikId) throws Exception {
         try {
-            List<OsobaUVeziSaUdzbenikom> osobe = gr.getListByParamFromNamedQuery(udzbenikId, OsobaUVeziSaUdzbenikom.class, Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_UDZBENIK_ID, Constants.UDZBENIK_ID);
-            List<OsobaUVeziSaUdzbenikomDTO> osobeDTO = new ArrayList<>();
-
-            for (OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom : osobe) {
-                osobeDTO.add(Mapper.toOsobaUVeziSaUzbenikDTO(osobaUVeziSaUdzbenikom));
-            }
-
-            return osobeDTO;
+            return gr.getListByParamFromNamedQuery(udzbenikId, OsobaUVeziSaUdzbenikom.class, Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_UDZBENIK_ID, Constants.UDZBENIK_ID);
 
         } catch (Exception e) {
-            throw new Exception("Dogodila se greska prilikom ucitavanja svih osoba za udzbenik sa id:"+udzbenikId+" ! {" + e.getMessage() + "}");
+            throw new Exception("Dogodila se greska prilikom ucitavanja svih osoba za udzbenik sa id:" + udzbenikId + " ! {" + e.getMessage() + "}");
         }
     }
 
-    public List<OsobaUVeziSaUdzbenikomDTO> getAll() throws Exception {
+    public List<OsobaUVeziSaUdzbenikom> getAll() throws Exception {
         try {
-            List<OsobaUVeziSaUdzbenikom> osobe = gr.getAll(OsobaUVeziSaUdzbenikom.class, Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_ALL);
-            
-            List<OsobaUVeziSaUdzbenikomDTO> osobeDTO = new ArrayList<>();
+            return gr.getAll(OsobaUVeziSaUdzbenikom.class, Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_ALL);
 
-            for (OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom : osobe) {
-                osobeDTO.add(Mapper.toOsobaUVeziSaUzbenikDTO(osobaUVeziSaUdzbenikom));
-            }
-
-            return osobeDTO;
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom ucitavanja svih osoba ! {" + e.getMessage() + "}");
         }

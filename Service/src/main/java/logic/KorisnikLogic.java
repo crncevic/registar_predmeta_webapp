@@ -20,7 +20,7 @@ import repository.GenericRepository;
  *
  * @author Petar
  */
-public class KorisnikLogic extends AbstractLogic {
+public class KorisnikLogic extends AbstractLogicClass {
 
     private GenericRepository<Korisnik> gr;
     private Set<ConstraintViolation<Korisnik>> violations;
@@ -30,7 +30,7 @@ public class KorisnikLogic extends AbstractLogic {
         gr = new GenericRepository<>();
     }
 
-    public KorisnikDTO create(Korisnik korisnik) throws Exception {
+    public Korisnik create(Korisnik korisnik) throws Exception {
         try {
             violations = validator.validate(korisnik);
             if (violations.size() > 0) {
@@ -38,8 +38,15 @@ public class KorisnikLogic extends AbstractLogic {
             }
 
             //TODO: strukturna ogranicenja
-            Korisnik createdKorisnik = gr.save(korisnik);
-            return Mapper.toKorisnikDTO(createdKorisnik);
+            try {
+                et.begin();
+                Korisnik createdKorisnik = gr.save(korisnik);
+                et.commit();
+                return createdKorisnik;
+            } catch (Exception ex) {
+                et.rollback();
+                throw ex;
+            }
 
         } catch (ConstraintViolationException cve) {
             throw cve;
@@ -48,7 +55,7 @@ public class KorisnikLogic extends AbstractLogic {
         }
     }
 
-    public KorisnikDTO update(Korisnik korisnik) throws Exception {
+    public Korisnik update(Korisnik korisnik) throws Exception {
         try {
             violations = validator.validate(korisnik);
             if (violations.size() > 0) {
@@ -56,8 +63,15 @@ public class KorisnikLogic extends AbstractLogic {
             }
 
             //TODO strukturna ogranicenja
-            Korisnik updatedKorisnik = gr.update(korisnik);
-            return Mapper.toKorisnikDTO(updatedKorisnik);
+            try {
+                et.begin();
+                Korisnik updatedKorisnik = gr.update(korisnik);
+                et.commit();
+                return updatedKorisnik;
+            } catch (Exception ex) {
+                et.rollback();
+                throw ex;
+            }
 
         } catch (ConstraintViolationException cve) {
             throw cve;
@@ -66,49 +80,49 @@ public class KorisnikLogic extends AbstractLogic {
         }
     }
 
-    public KorisnikDTO delete(int id) throws Exception {
+    public Korisnik delete(int id) throws Exception {
         try {
 
             //TODO strukturna ogranicenja
-            Korisnik deletedKorisnik = gr.delete(id, Korisnik.class);
-            return Mapper.toKorisnikDTO(deletedKorisnik);
+            try {
+                et.begin();
+                Korisnik deletedKorisnik = gr.delete(id, Korisnik.class);
+                et.commit();
+                return deletedKorisnik;
+
+            } catch (Exception ex) {
+                et.rollback();
+                throw ex;
+            }
 
         } catch (Exception ex) {
             throw new Exception("Dogodila se greska prilikom brisanja sa id: " + id + " korisnika {" + ex.getMessage() + "}");
         }
     }
 
-    public List<KorisnikDTO> getAll() throws Exception {
+    public List<Korisnik> getAll() throws Exception {
         try {
-            List<Korisnik> korisnici = gr.getAll(Korisnik.class, Constants.KORISNIK_FIND_ALL);
-            List<KorisnikDTO> korisniciDTO = new ArrayList<>();
+            return gr.getAll(Korisnik.class, Constants.KORISNIK_FIND_ALL);
 
-            for (Korisnik korisnik : korisnici) {
-                korisniciDTO.add(Mapper.toKorisnikDTO(korisnik));
-            }
-
-            return korisniciDTO;
         } catch (Exception ex) {
             throw new Exception("Dogodila se greska prilikom ucitavanja svih korisnika {" + ex.getMessage() + "}");
         }
     }
 
-    public KorisnikDTO getById(int id) throws Exception {
+    public Korisnik getById(int id) throws Exception {
         try {
-            Korisnik korisnikFromDb = gr.getSingleByParamFromNamedQuery(id, Korisnik.class, Constants.KORISNIK_FIND_BY_ID, Constants.KORISNIK_ID);
-            return Mapper.toKorisnikDTO(korisnikFromDb);
+            return gr.getSingleByParamFromNamedQuery(id, Korisnik.class, Constants.KORISNIK_FIND_BY_ID, Constants.KORISNIK_ID);
+
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom ucitavanja korisnika sa id: " + id + "{" + e.getMessage() + "}");
         }
     }
 
-    public KorisnikDTO getByUsername(String username) throws Exception {
+    public Korisnik getByUsername(String username) throws Exception {
         try {
-            Korisnik korisnikFromDb = gr.getSingleByParamFromNamedQuery(username, Korisnik.class, Constants.KORISNIK_FIND_ALL, Constants.KORISNIK_USERNAME);
-            return Mapper.toKorisnikDTO(korisnikFromDb);
+            return gr.getSingleByParamFromNamedQuery(username, Korisnik.class, Constants.KORISNIK_FIND_ALL, Constants.KORISNIK_USERNAME);
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom ucitavanja korisnika sa username: " + username + "{" + e.getMessage() + "}");
-
         }
     }
 
