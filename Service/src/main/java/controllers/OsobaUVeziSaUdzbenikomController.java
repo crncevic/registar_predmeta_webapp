@@ -84,8 +84,8 @@ public class OsobaUVeziSaUdzbenikomController {
             if (osobeUVeziSaUdzbenikom == null || osobeUVeziSaUdzbenikom.isEmpty()) {
                 return Response.noContent().build();
             }
-            
-             List<OsobaUVeziSaUdzbenikomDTO> osobeDTO = new ArrayList<>();
+
+            List<OsobaUVeziSaUdzbenikomDTO> osobeDTO = new ArrayList<>();
 
             for (OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom : osobeUVeziSaUdzbenikom) {
                 osobeDTO.add(Mapper.toOsobaUVeziSaUzbenikDTO(osobaUVeziSaUdzbenikom));
