@@ -22,6 +22,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import logic.PredmetLogic;
+import mapper.Mapper;
 
 
 /**
@@ -81,8 +82,9 @@ public class PredmetController {
     @POST
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response create(@NotNull Predmet predmet) {
+    public Response create(@NotNull PredmetDTO predmetDTO) {
         try {
+            Predmet predmet = Mapper.toPredmet(predmetDTO);
             Predmet createdPredmet = pl.create(predmet);
             return Response.ok(createdPredmet).build();
         } catch (ConstraintViolationException cve) {

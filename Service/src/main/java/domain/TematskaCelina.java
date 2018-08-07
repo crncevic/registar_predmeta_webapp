@@ -55,11 +55,11 @@ public class TematskaCelina implements Serializable {
     @JoinColumn(name = "tip_nastaveId", referencedColumnName = "tip_nastaveId")
     @ManyToOne
     private TipNastave tipNastave;
-    @OneToMany(mappedBy = "nadredjenatematskacelinaId")
+    @OneToMany(mappedBy = "nadredjenaTematskaCelina")
     private List<TematskaCelina> tematskaCelinaList;
     @JoinColumn(name = "nadredjena_tematska_celinaId", referencedColumnName = "tematska_celinaId")
     @ManyToOne
-    private TematskaCelina nadredjenatematskacelinaId;
+    private TematskaCelina nadredjenaTematskaCelina;
     @JoinColumn(name = "predmetId", referencedColumnName = "predmetId")
     @ManyToOne
     private Predmet predmetId;
@@ -117,12 +117,12 @@ public class TematskaCelina implements Serializable {
         this.tematskaCelinaList = tematskaCelinaList;
     }
 
-    public TematskaCelina getNadredjenatematskacelinaId() {
-        return nadredjenatematskacelinaId;
+    public TematskaCelina getNadredjenaTematskaCelina() {
+        return nadredjenaTematskaCelina;
     }
 
-    public void setNadredjenatematskacelinaId(TematskaCelina nadredjenatematskacelinaId) {
-        this.nadredjenatematskacelinaId = nadredjenatematskacelinaId;
+    public void setNadredjenaTematskaCelina(TematskaCelina nadredjenaTematskaCelina) {
+        this.nadredjenaTematskaCelina = nadredjenaTematskaCelina;
     }
 
     public Predmet getPredmetId() {

@@ -8,9 +8,6 @@ package dto;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -43,9 +40,10 @@ public class PredmetDTO {
     @Column(name = "sadrzaj_tekst")
     private String sadrzajTekst;
     private List<UdzbenikDTO> udzbenici;
-    private List<NastavnikDTO> nastavnici;
+    private List<NastavnikNaPredmetuDTO> nastavniciNaPredmetu;
+   
     private List<TematskaCelinaDTO> tematskaCeline;
-    private List<StudijskiProgramDTO> studijskiProgrami;
+    private List<PredmetNaStudijskomProgramuDTO> predmetiNaStudijskimProgramima;
 
     private VrstaINivoStudijaDTO vrstaINivoStudija;
 
@@ -147,12 +145,12 @@ public class PredmetDTO {
         this.udzbenici = udzbenici;
     }
 
-    public List<NastavnikDTO> getNastavnici() {
-        return nastavnici;
+    public List<NastavnikNaPredmetuDTO> getNastavnici() {
+        return nastavniciNaPredmetu;
     }
 
-    public void setNastavnici(List<NastavnikDTO> nastavnici) {
-        this.nastavnici = nastavnici;
+    public void setNastavnici(List<NastavnikNaPredmetuDTO> nastavnici) {
+        this.nastavniciNaPredmetu = nastavnici;
     }
 
     public List<TematskaCelinaDTO> getTematskaCeline() {
@@ -163,12 +161,12 @@ public class PredmetDTO {
         this.tematskaCeline = tematskaCeline;
     }
 
-    public List<StudijskiProgramDTO> getStudijskiProgrami() {
-        return studijskiProgrami;
+    public List<PredmetNaStudijskomProgramuDTO> getPredmetiNaStudijskimProgramima() {
+        return predmetiNaStudijskimProgramima;
     }
 
-    public void setStudijskiProgrami(List<StudijskiProgramDTO> studijskiProgrami) {
-        this.studijskiProgrami = studijskiProgrami;
+    public void setPredmetiNaStudijskimProgramima(List<PredmetNaStudijskomProgramuDTO> studijskiProgrami) {
+        this.predmetiNaStudijskimProgramima = studijskiProgrami;
     }
 
     public VrstaINivoStudijaDTO getVrstaINivoStudija() {

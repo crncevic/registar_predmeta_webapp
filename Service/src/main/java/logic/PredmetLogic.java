@@ -125,23 +125,7 @@ public class PredmetLogic extends AbstractLogic {
                 udzbenici.add(gru.getSingleByParamFromNamedQuery(udzbenikNaPredmetu.getUdzbenikNaPredmetuPK().getUdzbenikId(), Udzbenik.class, Constants.UDZBENIK_FIND_BY_ID, Constants.UDZBENIK_ID));
             }
 
-            List<Nastavnik> nastavnici = new ArrayList<>();
-
-            if (nastavniciNaPredmetu != null) {
-                for (NastavnikNaPredmetu nastavnikNaPredmetu : nastavniciNaPredmetu) {
-                    nastavnici.add(grn.getSingleByParamFromNamedQuery(nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getNastavnikId(), Nastavnik.class, Constants.NASTAVNIK_FIND_BY_ID, Constants.NASTAVNIK_ID));
-                }
-            }
-
-            List<StudijskiProgram> stdProgrami = new ArrayList<>();
-
-            if (predmetiNaStudijskomProgramu != null) {
-                for (PredmetNaStudijskomProgramu predmetNaStudijskomProgramu : predmetiNaStudijskomProgramu) {
-                    stdProgrami.add(grsp.getSingleByParamFromNamedQuery(predmetNaStudijskomProgramu.getPredmetNaStudijskomProgramuPK().getStudijskiprogramId(), StudijskiProgram.class, Constants.STUDIJSKI_PROGRAM_FIND_BY_ID, Constants.STUDIJSKI_PROGRAM_ID));
-                }
-            }
-
-            return Mapper.toPredmetDTO(predmet, udzbenici, nastavnici, stdProgrami, null);
+            return Mapper.toPredmetDTO(predmet, udzbenici, nastavniciNaPredmetu, predmetiNaStudijskomProgramu, null);
         } catch (Exception e) {
             throw e;
         }
