@@ -87,7 +87,6 @@ public class UdzbenikNaPredmetu implements Serializable {
         }
         if (getClass() != obj.getClass()) {
             return false;
-           
         }
         final UdzbenikNaPredmetu other = (UdzbenikNaPredmetu) obj;
         if (!Objects.equals(this.udzbenikNaPredmetuPK, other.udzbenikNaPredmetuPK)) {
@@ -95,4 +94,6 @@ public class UdzbenikNaPredmetu implements Serializable {
         }
         return true;
     }
+
+  
 }

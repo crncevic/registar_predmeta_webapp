@@ -6,6 +6,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -94,17 +95,24 @@ public class NastavnikNaPredmetu implements Serializable {
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof NastavnikNaPredmetu)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        NastavnikNaPredmetu other = (NastavnikNaPredmetu) object;
-        if ((this.nastavnikNaPredmetuPK == null && other.nastavnikNaPredmetuPK != null) || (this.nastavnikNaPredmetuPK != null && !this.nastavnikNaPredmetuPK.equals(other.nastavnikNaPredmetuPK))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final NastavnikNaPredmetu other = (NastavnikNaPredmetu) obj;
+        if (!Objects.equals(this.nastavnikNaPredmetuPK, other.nastavnikNaPredmetuPK)) {
             return false;
         }
         return true;
     }
+
+ 
 
     @Override
     public String toString() {

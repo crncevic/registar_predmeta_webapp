@@ -33,7 +33,7 @@ public class KatedraController {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
     public Response getAll() {
         try {
             List<Katedra> katedre = kl.getAll();
@@ -51,14 +51,14 @@ public class KatedraController {
             return Response.ok(katedreDTO).build();
 
         } catch (Exception ex) {
-            return Response.serverError().build();
+            return Response.serverError().type(MediaType.TEXT_PLAIN).entity(ex).build();
         }
 
     }
 
     @GET
     @Path("/{id}")
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
     public Response getById(@PathParam("id") @NotNull int id) {
         try {
             Katedra katedra = kl.getById(id);
@@ -70,7 +70,7 @@ public class KatedraController {
             return Response.ok(Mapper.toKatedraDTO(katedra)).build();
 
         } catch (Exception e) {
-            return Response.serverError().entity(e).build();
+            return Response.serverError().type(MediaType.TEXT_PLAIN).entity(e).build();
         }
     }
 

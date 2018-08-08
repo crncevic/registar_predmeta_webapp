@@ -7,6 +7,7 @@ package domain;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -65,6 +67,8 @@ public class TematskaCelina implements Serializable {
     @JoinColumn(name = "predmetId", referencedColumnName = "predmetId")
     @ManyToOne
     private Predmet predmet;
+
+  
 
     public TematskaCelina() {
     }
@@ -135,6 +139,8 @@ public class TematskaCelina implements Serializable {
         this.predmet = predmet;
     }
 
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -143,23 +149,30 @@ public class TematskaCelina implements Serializable {
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TematskaCelina)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        TematskaCelina other = (TematskaCelina) object;
-        if ((this.tematskacelinaId == null && other.tematskacelinaId != null) || (this.tematskacelinaId != null && !this.tematskacelinaId.equals(other.tematskacelinaId))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TematskaCelina other = (TematskaCelina) obj;
+        if (!Objects.equals(this.tematskacelinaId, other.tematskacelinaId)) {
             return false;
         }
         return true;
     }
+
+   
+
+   
 
     @Override
     public String toString() {
         return "domain.TematskaCelina[ tematskacelinaId=" + tematskacelinaId + " ]";
     }
 
-   
-    
 }

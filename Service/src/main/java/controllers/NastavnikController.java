@@ -38,7 +38,7 @@ public class NastavnikController {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
     public Response getAll() {
         try {
             List<Nastavnik> nastavnici = nl.getAll();
@@ -55,13 +55,13 @@ public class NastavnikController {
 
             return Response.ok(nastavniciDTO).build();
         } catch (Exception e) {
-            return Response.serverError().entity(e).build();
+            return Response.serverError().type(MediaType.TEXT_PLAIN).entity(e).build();
         }
     }
 
     @GET
     @Path("/{id}")
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
     public Response getById(@PathParam("id") @NotNull int id) {
         try {
             Nastavnik nastavnik = nl.getById(id);
@@ -73,7 +73,7 @@ public class NastavnikController {
             return Response.ok(Mapper.toNastavnikDTO(nastavnik)).build();
 
         } catch (Exception e) {
-            return Response.serverError().entity(e).build();
+            return Response.serverError().type(MediaType.TEXT_PLAIN).entity(e).build();
         }
     }
 

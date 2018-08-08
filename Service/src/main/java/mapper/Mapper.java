@@ -469,6 +469,7 @@ public class Mapper {
                     for (UdzbenikNaPredmetuDTO udzbenikNaPredmetuDTO : predmetDTO.getUdzbenici()) {
                         UdzbenikNaPredmetu unp = new UdzbenikNaPredmetu();
                         unp.setUdzbenikNaPredmetuPK(new UdzbenikNaPredmetuPK(udzbenikNaPredmetuDTO.getUdzbenikId(), 0));
+                        udzbeniciNaPredmetu.add(unp);
                     }
                 }
 
@@ -480,6 +481,7 @@ public class Mapper {
 
                     for (NastavnikNaPredmetuDTO nnpdto : predmetDTO.getNastavnici()) {
                         NastavnikNaPredmetu nnp = new NastavnikNaPredmetu(nnpdto.getNastavnikId(), 0, nnpdto.getTipNastaveId());
+                        nastavniciNaPredmetu.add(nnp);
                     }
                 }
 

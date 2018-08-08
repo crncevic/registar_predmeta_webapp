@@ -39,7 +39,7 @@ public class KorisnikController {
     }
 
     @GET
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
     public Response getAll() {
         try {
             List<Korisnik> korisnici = kl.getAll();
@@ -56,13 +56,13 @@ public class KorisnikController {
 
             return Response.ok(korisniciDTO).build();
         } catch (Exception e) {
-            return Response.serverError().build();
+            return Response.serverError().type(MediaType.TEXT_PLAIN).entity(e).build();
         }
     }
 
     @GET
     @Path("/{id}")
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
     public Response getById(@PathParam("id") @NotNull int id) {
         try {
             Korisnik korisnik = kl.getById(id);
@@ -74,29 +74,29 @@ public class KorisnikController {
             return Response.ok(Mapper.toKorisnikDTO(korisnik)).build();
 
         } catch (Exception e) {
-            return Response.serverError().entity(e).build();
+            return Response.serverError().type(MediaType.TEXT_PLAIN).entity(e).build();
         }
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
     public Response create(@NotNull KorisnikDTO korisnikDTO) {
         try {
             Korisnik korisnik = Mapper.toKorisnik(korisnikDTO);
             KorisnikDTO createdkorisnikDTO = Mapper.toKorisnikDTO(kl.create(korisnik));
             return Response.created(URI.create("api/korisnik")).entity(createdkorisnikDTO).build();
         } catch (ConstraintViolationException cve) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(cve).build();
+            return Response.status(Response.Status.BAD_REQUEST).type(MediaType.TEXT_PLAIN).entity(cve).build();
         } catch (Exception e) {
-            return Response.serverError().entity(e).build();
+            return Response.serverError().type(MediaType.TEXT_PLAIN).entity(e).build();
         }
     }
 
     @PUT
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
     public Response update(@PathParam("id") @NotNull int id, @NotNull KorisnikDTO korisnikDTO) {
         try {
             if (id != korisnikDTO.getKorisnikId()) {
@@ -108,15 +108,15 @@ public class KorisnikController {
 
             return Response.ok(updatedKorisnikDTO).build();
         } catch (ConstraintViolationException cve) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(cve).build();
+            return Response.status(Response.Status.BAD_REQUEST).type(MediaType.TEXT_PLAIN).entity(cve).build();
         } catch (Exception e) {
-            return Response.serverError().entity(e).build();
+            return Response.serverError().type(MediaType.TEXT_PLAIN).entity(e).build();
         }
     }
 
     @DELETE
     @Path("/{id}")
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
     public Response delete(@PathParam("id") @NotNull int id) {
         try {
 
@@ -124,7 +124,7 @@ public class KorisnikController {
             return Response.ok(korisnikDTO).build();
 
         } catch (Exception e) {
-            return Response.serverError().entity(e).build();
+            return Response.serverError().type(MediaType.TEXT_PLAIN).entity(e).build();
         }
     }
 
