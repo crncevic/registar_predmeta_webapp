@@ -93,7 +93,7 @@ public class Mapper {
 
                 if (predmet.getTematskaCelinaList() != null) {
                     for (TematskaCelina tematskaCelina : predmet.getTematskaCelinaList()) {
-                        tematskeCelineDTO.add(toTematskaCelinaDTO(tematskaCelina, null));
+                        tematskeCelineDTO.add(toTematskaCelinaDTO(tematskaCelina));
                     }
                 }
 
@@ -122,6 +122,7 @@ public class Mapper {
         try {
             if (udzbenik != null) {
                 UdzbenikDTO udzbenikDTO = new UdzbenikDTO();
+                udzbenikDTO.setUdzbenikId(udzbenik.getUdzbenikId());
                 udzbenikDTO.setNaziv(udzbenik.getNaziv());
                 udzbenikDTO.setIzdavac(udzbenik.getIzdavac());
                 udzbenikDTO.setUdzbenikId(udzbenik.getUdzbenikId());
@@ -147,7 +148,7 @@ public class Mapper {
             }
 
         } catch (Exception e) {
-            throw new Exception("Greska u mapiranju predmet->predmetDTO {" + e.getMessage() + "}");
+            throw new Exception("Greska u mapiranju udzbenik->udzbenikDTO {" + e.getMessage() + "}");
         }
     }
 
@@ -179,7 +180,7 @@ public class Mapper {
         }
     }
 
-    public static TematskaCelinaDTO toTematskaCelinaDTO(TematskaCelina tematskaCelina, List<TematskaCelina> tematskeCeline) throws Exception {
+    public static TematskaCelinaDTO toTematskaCelinaDTO(TematskaCelina tematskaCelina) throws Exception {
         try {
             if (tematskaCelina != null) {
                 TematskaCelinaDTO tematskaCelinaDTO = new TematskaCelinaDTO();
@@ -195,8 +196,8 @@ public class Mapper {
 
                 List<TematskaCelinaDTO> tematskeCelineDTO = new ArrayList<>();
 
-                if (tematskeCeline != null) {
-                    for (TematskaCelina tc1 : tematskeCeline) {
+                if (tematskaCelina.getTematskaCelinaList() != null) {
+                    for (TematskaCelina tc1 : tematskaCelina.getTematskaCelinaList()) {
                         TematskaCelinaDTO tcDTO1 = new TematskaCelinaDTO();
 
                         tcDTO1.setTematskacelinaId(tc1.getTematskacelinaId());
@@ -355,7 +356,7 @@ public class Mapper {
         }
     }
 
-    private static UlogaDTO toUlogaDTO(Uloga uloga) throws Exception {
+    public static UlogaDTO toUlogaDTO(Uloga uloga) throws Exception {
         try {
             if (uloga != null) {
                 UlogaDTO ulogaDTO = new UlogaDTO();
@@ -443,6 +444,24 @@ public class Mapper {
         } catch (Exception e) {
             throw new Exception("Greska u mapiranju udzbenikNaPredmetu->udzbenikNaPredmetuDTO {" + e.getMessage() + "}");
         }
+    }
+
+    public static VrstaINivoStudijaDTO toVrstaINivoStudijaDTO(VrstaINivoStudija vrstaINivoStudija) throws Exception {
+        try {
+            if (vrstaINivoStudija != null) {
+                VrstaINivoStudijaDTO vrstaINivoStudijaDTO = new VrstaINivoStudijaDTO();
+                vrstaINivoStudijaDTO.setVrstaId(vrstaINivoStudija.getVrstaId());
+                vrstaINivoStudijaDTO.setNaziv(vrstaINivoStudija.getNaziv());
+
+                return vrstaINivoStudijaDTO;
+            } else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Greska u mapiranju vrstaINivoStudija->vrstaINivoStudijaDTO {" + e.getMessage() + "}");
+        }
+
     }
 
     //****************

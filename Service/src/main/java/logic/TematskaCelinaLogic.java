@@ -113,4 +113,13 @@ public class TematskaCelinaLogic extends AbstractLogicClass {
             throw e;
         }
     }
+
+    public List<TematskaCelina> getByPredmetId(int predmetId) {
+        try {
+            return gr.getListByParamFromNamedQuery(predmetId, TematskaCelina.class, Constants.TEMATSKA_CELINA_FIND_BY_PREDMET_ID, Constants.PREDMET_ID);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
 }

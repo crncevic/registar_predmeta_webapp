@@ -34,6 +34,14 @@ public class ApplicationConfig extends Application {
         resources.add(controllers.NastavnikController.class);
         resources.add(controllers.OsobaUVeziSaUdzbenikomController.class);
         resources.add(controllers.PredmetController.class);
+        resources.add(controllers.StatusPredmetaController.class);
+        resources.add(controllers.StudijskiProgramController.class);
+        resources.add(controllers.TematskaCelinaController.class);
+        resources.add(controllers.TipNastaveController.class);
+        resources.add(controllers.UdzbenikController.class);
+        resources.add(controllers.UlogaController.class);
+        resources.add(controllers.UlogaUdzbenikController.class);
+        resources.add(controllers.VrstaINivoStudijaController.class);
     }
     
     
