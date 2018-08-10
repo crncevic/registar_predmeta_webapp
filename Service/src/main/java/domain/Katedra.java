@@ -6,6 +6,7 @@
 package domain;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.swagger.annotations.Api;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;

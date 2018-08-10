@@ -37,7 +37,7 @@ public class UdzbenikLogic extends AbstractLogicClass {
             if (violations.size() > 0) {
                 throw new ConstraintViolationException(violations);
             }
-
+            
             //TODO : strukturna ogranicenja
             try {
                 et.begin();

@@ -10,11 +10,10 @@ package constants;
  * @author Petar
  */
 public class Constants {
-    
+
     //*************************
     //NAMED QUERIES CONSTANTS *
     //*************************
-    
     //katedra
     public static final String KATEDRA_FIND_ALL = "Katedra.findAll";
     public static final String KATEDRA_FIND_BY_ID = "Katedra.findByKatedraId";
@@ -41,12 +40,10 @@ public class Constants {
     //predmet
     public static final String PREDMET_FIND_ALL = "Predmet.findAll";
     public static final String PREDMET_FIND_BY_ID = "Predmet.findByPredmetId";
-     public static final String PREDMET_FIND_BY_NAZIV = "Predmet.findByNaziv";
+    public static final String PREDMET_FIND_BY_NAZIV = "Predmet.findByNaziv";
 
     //predmet na studisjkom programu
-    
     public static final String PREDMET_NA_STUDIJSKOM_PROGRAMU_FIND_BY_PREDMET_ID = "PredmetNaStudijskomProgramu.findByPredmetId";
-    
 
     //status
     public static final String STATUS_FIND_ALL = "Status.findAll";
@@ -68,6 +65,7 @@ public class Constants {
     //udzbenik 
     public static final String UDZBENIK_FIND_ALL = "Udzbenik.findAll";
     public static final String UDZBENIK_FIND_BY_ID = "Udzbenik.findByUdzbenikId";
+    public static final String UDZBENIK_FIND_BY_NAZIV = "Udzbenik.findByNaziv";
 
     //uloga
     public static final String ULOGA_FIND_ALL = "Uloga.findAll";
@@ -85,10 +83,9 @@ public class Constants {
     public static final String UDZBENIK_NA_PREDMETU_FIND_ALL_BY_UDZBENIK_ID = "UdzbenikNaPredmetu.findByUdzbenikId";
     public static final String UDZBENIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID = "UdzbenikNaPredmetu.findByPredmetId";
 
-   //************************************
-   //PARAMS FOR NAMED QUERIES CONSTANTS *
-   //************************************ 
-    
+    //************************************
+    //PARAMS FOR NAMED QUERIES CONSTANTS *
+    //************************************ 
     public static final String KATEDRA_ID = "katedraId";
     public static final String KORISNIK_ID = "korisnikId";
     public static final String KORISNIK_USERNAME = "username";
@@ -101,6 +98,7 @@ public class Constants {
     public static final String STUDIJSKI_PROGRAM_ID = "studijskiProgramId";
     public static final String TEMATSKA_CELINA_ID = "tematskacelinaId";
     public static final String UDZBENIK_ID = "udzbenikId";
+    public static final String UDZBENIK_NAZIV = "naziv";
     public static final String ULOGA_ID = "ulogaId";
     public static final String VRSTA_ID = "vrstaId";
 }

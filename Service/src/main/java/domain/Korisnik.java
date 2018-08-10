@@ -48,22 +48,22 @@ public class Korisnik implements Serializable {
     private Integer korisnikId;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 3, max = 100)
     @Column(name = "ime")
     private String ime;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 3, max = 100)
     @Column(name = "prezime")
     private String prezime;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 3, max = 100)
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 3, max = 100)
     @Column(name = "password")
     private String password;
     @JoinColumn(name = "ulogaId", referencedColumnName = "ulogaId")
