@@ -5,9 +5,7 @@
  */
 package controllers;
 
-import domain.UlogaUdzbenik;
 import domain.VrstaINivoStudija;
-import dto.UlogaUdzbenikDTO;
 import dto.VrstaINivoStudijaDTO;
 import java.util.ArrayList;
 import java.util.List;

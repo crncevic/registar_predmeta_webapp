@@ -19,12 +19,12 @@ paths:
   /katedra:
     get:
       tags:
-      - "katedra"
+        - "katedra"
       summary: "Find all katedra"
       description: "Multiple status values can be provided with comma separated strings"
       operationId: "getAll"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "successful operation"
@@ -32,3 +32,766 @@ paths:
             type: "array"
         500:
           description: "Server error"
+          
+  /katedra/{id}:
+      get:
+          tags:
+            - "katedra"
+          summary: "Find katedra by id"
+          description: "Returns a single katedra"
+          operationId: "getById"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "id"
+             in: "path"
+             description: "ID of katedra to return"
+             required: true
+             type: "integer"
+             format: "int32"
+          responses:
+             200:
+                description: "successful operation"
+             204:
+                description: "No content"
+             500:
+                description: "Server error"
+  /nastavnik:
+      get:
+          tags:
+              - "nastavnik"
+          summary: "Find all nastavnik"
+          description: "Multiple status values can be provided with comma separated strings"
+          operationId: "getAll"
+          produces:
+            - "application/json"
+          responses:
+            200:
+               description: "successful operation"
+               schema:
+                 type: "array"
+            500:
+               description: "Server error"
+  /nastavnik/{id}:
+      get:
+          tags:
+            - "nastavnik"
+          summary: "Find nastavnik by id"
+          description: "Returns a single nastavnik"
+          operationId: "getById"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "id"
+             in: "path"
+             description: "ID of nastavnik to return"
+             required: true
+             type: "integer"
+             format: "int32"
+          responses:
+              200:
+                 description: "successful operation"
+              204:
+                 description: "No content"
+              500:
+                 description: "Server error"
+  /korisnik:
+      get:
+          tags:
+            - "korisnik"
+          summary: "Find all korisnik"
+          description: "Multiple status values can be provided with comma separated strings"
+          operationId: "getAll"
+          produces:
+            - "application/json"
+          responses:
+            200:
+               description: "successful operation"
+               schema:
+                 type: "array"
+            500:
+               description: "Server error"
+          
+      post:
+          
+          tags:
+            - "korisnik"
+          summary: "Creates korisnik with form data"
+          description: ""
+          operationId: "create"
+          consumes:
+            - "application/json"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "korisnikDTO"
+             in: "formData"
+             description: "Data for new korisnik"
+             required: true
+             type: "KorisnikDTO"
+          responses:
+             200:
+               description: "korisnik succesfully created"
+             400:
+               description: "Bad request. Model constraints are not satisfied"
+             500:
+               description: "Server error"
+          
+        
+      
+          
+  /korisnik/{id}:
+      get:
+          tags:
+            - "korisnik"
+          summary: "Find korisnik by id"
+          description: "Returns a single korisnik"
+          operationId: "getById"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "id"
+             in: "path"
+             description: "ID of korisnik to return"
+             required: true
+             type: "integer"
+             format: "int64"
+          responses:
+            200:
+              description: "successful operation"
+            204:
+              description: "No content"
+            500:
+              description: "Server error"
+      
+      
+      delete:
+          
+           tags:
+             - "korisnik"
+           summary: "Deletes korisnik"
+           description: ""
+           operationId: "delete"
+           produces:
+             - "application/json"
+           parameters:
+            - name: "id"
+              in: "path"
+              description: "Korisnik id to delete"
+              required: true
+              type: "integer"
+              format: "int32"
+           responses:
+             200:
+               description: "Korisnik succesfully deleted"
+             400:
+               description: "Bad request. Model constraints are not satisfied"
+             500:
+               description: "Server error"
+          
+      put:
+          tags:
+            - "korisnik"
+          summary: "Updates korisnik with form data"
+          description: ""
+          operationId: "update"
+          consumes:
+            - "application/json"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "korisnikDTO"
+             in: "formData"
+             description: "Updated data for korisnik"
+             required: true
+             type: "KorisnikDTO"
+        
+           - name: "id"
+             in: "path"
+             description: "ID of korisnik for update"
+             required: true
+             type: "int32"
+          responses:
+            200:
+              description: "korisnik succesfully updated"
+            400:
+              description: "Bad request. Model constraints are not satisfied"
+            500:
+              description: "Server error"
+
+  /osoba-udzbenik:
+      get:
+          tags:
+            - "osoba-udzbenik"
+          summary: "Find all osoba na udzbenik"
+          description: "Multiple status values can be provided with comma separated strings"
+          operationId: "getAll"
+          produces:
+              - "application/json"
+          responses:
+            200:
+              description: "successful operation"
+              schema:
+                type: "array"
+            500:
+              description: "Server error"
+  
+  /osoba-udzbenik/{id}:
+      get:
+          tags:
+            - "osoba-udzbenik"
+          summary: "Find osoba na udzbeniku by id"
+          description: "Returns a single osoba na udzbeniku"
+          operationId: "getById"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "id"
+             in: "path"
+             description: "ID of osoba to return"
+             required: true
+             type: "integer"
+             format: "int32"
+          responses:
+            200:
+              description: "successful operation"
+            204:
+              description: "No content"
+            500:
+              description: "Server error"
+  /osoba-udzbenik/udzbenik/{udzbenikId}:
+      get:
+          tags:
+            - "osoba-udzbenik"
+          summary: "Find osoba na udzbeniku for udzbenikId"
+          description: "Returns a list of osoba na udzbeniku for given udzbenikID"
+          operationId: "getOsobaByUdzbenikId"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "udzbenikId"
+             in: "path"
+             description: "ID of udzbenik"
+             required: true
+             type: "integer"
+             format: "int32"
+          responses:
+            200:
+              description: "successful operation"
+            204:
+              description: "No content"
+            500:
+              description: "Server error"
+          
+  /predmet:
+      get:
+          tags:
+            - "predmet"
+          summary: "Find all predmet"
+          description: "Multiple status values can be provided with comma separated strings"
+          operationId: "getAll"
+          produces:
+            - "application/json"
+          responses:
+           200:
+              description: "successful operation"
+              schema:
+                type: "array"
+           500:
+              description: "Server error"
+          
+      post:
+          tags:
+            - "predmet"
+          summary: "Creates predmet with form data"
+          description: ""
+          operationId: "create"
+          consumes:
+            - "application/json"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "predmetDTO"
+             in: "formData"
+             description: "Data for new predmet"
+             required: true
+             type: "PredmetDTO"
+          responses:
+            200:
+               description: "Predmet succesfully created"
+            400:
+               description: "Bad request. Model constraints are not satisfied"
+            500:
+               description: "Server error"
+          
+  /predmet/{id}:
+      get:
+          tags:
+            - "predmet"
+          summary: "Find predmet by id"
+          description: "Returns a single predmet"
+          operationId: "getById"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "id"
+             in: "path"
+             description: "ID of predmet to return"
+             required: true
+             type: "integer"
+             format: "int32"
+          responses:
+           200:
+               description: "successful operation"
+           204:
+               description: "No content"
+           500:
+               description: "Server error"
+          
+      put:
+          tags:
+            - "predmet"
+          summary: "Updates predmet with form data"
+          description: ""
+          operationId: "update"
+          consumes:
+            - "application/json"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "predmetDTO"
+             in: "formData"
+             description: "Updated data for predmet"
+             required: true
+             type: "PredmetDTO"
+        
+           - name: "id"
+             in: "path"
+             description: "ID of predmet for update"
+             required: true
+             type: "int32"
+          responses:
+            200:
+              description: "predmet succesfully updated"
+            400:
+              description: "Bad request. Model constraints are not satisfied"
+            500:
+              description: "Server error"
+          
+      delete:
+          tags:
+            - "predmet"
+          summary: "Deletes predmet with all udzbenik na predmetnu , nastavnik na predmetu and predmet na studijskom programu!"
+          description: ""
+          operationId: "delete"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "id"
+             in: "path"
+             description: "Predmet id to delete"
+             required: true
+             type: "integer"
+             format: "int32"
+          responses:
+            200:
+              description: "Predmet succesfully deleted"
+            400:
+              description: "Bad request. Model constraints are not satisfied"
+            500:
+              description: "Server error"
+          
+  /status:
+      get:
+          tags:
+            - "status"
+          summary: "Find all status predmeta"
+          description: "Multiple status values can be provided with comma separated strings"
+          operationId: "getAll"
+          produces:
+            - "application/json"
+          responses:
+            200:
+               description: "successful operation"
+               schema:
+                 type: "array"
+            500:
+               description: "Server error"
+ 
+  /status/{id}:
+      get:
+          tags:
+            - "status"
+          summary: "Find status predmeta by id"
+          description: "Returns a single status"
+          operationId: "getById"
+          produces:
+            - "application/json"
+          parameters:
+            - name: "id"
+              in: "path"
+              description: "ID of status to return"
+              required: true
+              type: "integer"
+              format: "int32"
+          responses:
+            200:
+               description: "successful operation"
+            204:
+               description: "No content"
+            500:
+               description: "Server error"
+          
+  /studijski-program:
+      get:
+          tags:
+            - "studijski-program"
+          summary: "Find all studijski program"
+          description: "Multiple status values can be provided with comma separated strings"
+          operationId: "getAll"
+          produces:
+              - "application/json"
+          responses:
+            200:
+               description: "successful operation"
+               schema:
+                 type: "array"
+            500:
+               description: "Server error"
+          
+  /studijski-program/{id}:
+      get:
+          tags:
+            - "studijski-program"
+          summary: "Find studijski program by id"
+          description: "Returns a single studijski program"
+          operationId: "getById"
+          produces:
+              - "application/json"
+          parameters:
+           - name: "id"
+             in: "path"
+             description: "ID of studijski program to return"
+             required: true
+             type: "integer"
+             format: "int32"
+          responses:
+            200:
+               description: "successful operation"
+            204:
+               description: "No content"
+            500:
+               description: "Server error"
+
+  /tip-nastave:
+      get:
+          tags:
+            - "tip-nastave"
+          summary: "Find all tip nastave"
+          description: "Multiple status values can be provided with comma separated strings"
+          operationId: "getAll"
+          produces:
+            - "application/json"
+          responses:
+            200:
+               description: "successful operation"
+               schema:
+                 type: "array"
+            500:
+               description: "Server error"
+      
+  /tip-nastave/{id}:
+      get:
+         tags:
+            - "tip-nastave"
+         summary: "Find tip nastave by id"
+         description: "Returns a single tip nastave"
+         operationId: "getById"
+         produces:
+           - "application/json"
+         parameters:
+          - name: "id"
+            in: "path"
+            description: "ID of tip nastave to return"
+            required: true
+            type: "integer"
+            format: "int32"
+         responses:
+           200:
+              description: "successful operation"
+           204:
+              description: "No content"
+           500:
+              description: "Server error"
+          
+  /uloga:
+      get:
+          tags:
+            - "uloga"
+          summary: "Find all uloga(role) for korisnik(user)"
+          description: "Multiple status values can be provided with comma separated strings"
+          operationId: "getAll"
+          produces:
+            - "application/json"
+          responses:
+            200:
+               description: "successful operation"
+               schema:
+                 type: "array"
+            500:
+               description: "Server error"
+        
+  /uloga/{id}:
+      get:
+          tags:
+            - "uloga"
+          summary: "Find uloga(role) for korisnik(user) by id"
+          description: "Returns a single uloga(role) for korisnik(user)"
+          operationId: "getById"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "id"
+             in: "path"
+             description: "ID of uloga(role) to return"
+             required: true
+             type: "integer"
+             format: "int32"
+          responses:
+            200:
+               description: "successful operation"
+            204:
+               description: "No content"
+            500:
+               description: "Server error"
+          
+  /uloga-udzbenik:
+      get:
+          tags:
+            - "uloga-udzbenik"
+          summary: "Find all uloga(role) for udzbenik"
+          description: "Multiple status values can be provided with comma separated strings"
+          operationId: "getAll"
+          produces:
+            - "application/json"
+          responses:
+            200:
+               description: "successful operation"
+               schema:
+                 type: "array"
+            500:
+               description: "Server error"
+        
+  /uloga-udzbenik/{id}:
+      get:
+          tags:
+            - "tip-nastave"
+          summary: "Find uloga(role) for udzbenik by id"
+          description: "Returns a single uloga(role) for udzbenik"
+          operationId: "getById"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "id"
+             in: "path"
+             description: "ID of uloga(role) for udzbenik to return"
+             required: true
+             type: "integer"
+             format: "int32"
+          responses:
+            200:
+               description: "successful operation"
+            204:
+               description: "No content"
+            500:
+               description: "Server error"
+
+  /vrsta-i-nivo-studija:
+      get:
+          tags:
+            - "vrsta-i-nivo-studija"
+          summary: "Find all vrsta i nivo studija"
+          description: "Multiple status values can be provided with comma separated strings"
+          operationId: "getAll"
+          produces:
+            - "application/json"
+          responses:
+            200:
+               description: "successful operation"
+               schema:
+                 type: "array"
+            500:
+               description: "Server error"
+          
+  /vrsta-i-nivo-studija/{id}:
+      get:
+          tags:
+            - "vrsta-i-nivo-studija"
+          summary: "Find vrsta i nivo studija by id"
+          description: "Returns a single vrsta i nivo studija for udzbenik"
+          operationId: "getById"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "id"
+             in: "path"
+             description: "ID of vrsta i nivo studija to return"
+             required: true
+             type: "integer"
+             format: "int32"
+          responses:
+            200:
+               description: "successful operation"
+            204:
+               description: "No content"
+            500:
+               description: "Server error"
+
+  /tematska-celina/{id}:
+      get:
+          tags:
+            - "tematska-celina"
+          summary: "Find tematska celina by id"
+          description: "Returns a single tematska celina for udzbenik"
+          operationId: "getById"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "id"
+             in: "path"
+             description: "ID of tematska celina to return"
+             required: true
+             type: "integer"
+             format: "int32"
+          responses:
+            200:
+               description: "successful operation"
+            204:
+               description: "No content"
+            500:
+               description: "Server error"
+          
+  /tematska-celina/predmet/{predmetId}:
+      get:
+          tags:
+            - "tematska-celina"
+          summary: "Find all tematska celina by predmetId"
+          description: "Returns a list of tematska celina for predmet"
+          operationId: "getByPredmetId"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "predmetId"
+             in: "path"
+             description: "ID of predmet to return tematske-celine"
+             required: true
+             type: "integer"
+             format: "int32"
+          responses:
+            200:
+               description: "successful operation"
+            204:
+               description: "No content"
+            500:
+               description: "Server error"
+
+  /udzbenik:
+      get:
+          tags:
+            - "udzbenik"
+          summary: "Find all udzbenik"
+          description: "Multiple status values can be provided with comma separated strings"
+          operationId: "getAll"
+          produces:
+            - "application/json"
+          responses:
+            200:
+              description: "successful operation"
+              schema:
+                type: "array"
+            500:
+              description: "Server error"
+          
+  /udzbenik/{id}:
+      get:
+          tags:
+            - "udzbenik"
+          summary: "Find udzbenik by id"
+          description: "Returns a single udzbenik wiyh all soba na udzbeniku"
+          operationId: "getById"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "id"
+             in: "path"
+             description: "ID of udzbenik to return"
+             required: true
+             type: "integer"
+             format: "int32"
+          responses:
+            200:
+               description: "successful operation"
+            204:
+               description: "No content"
+            500:
+               description: "Server error"
+          
+      put:
+          tags:
+            - "udzbenik"
+          summary: "Updates udzbenik with form data"
+          description: ""
+          operationId: "update"
+          consumes:
+            - "application/json"
+          produces:
+            - "application/json"
+          parameters:
+           - name: "udzbenikDTO"
+             in: "formData"
+             description: "Updated data for udzbenik"
+             required: true
+             type: "UdzbenikDTO"
+        
+           - name: "id"
+             in: "path"
+             description: "ID of udzbenik for update"
+             required: true
+             type: "int32"
+          responses:
+            200:
+               description: "udzbenik succesfully updated"
+            400:
+               description: "Bad request. Model constraints are not satisfied"
+            500:
+               description: "Server error"
+          
+      delete:
+         tags:
+           - "udzbenik"
+         summary: "Deletes udzbenik with all soaba na udzbeniku"
+         description: ""
+         operationId: "delete"
+         produces:
+           - "application/json"
+         parameters:
+          - name: "id"
+            in: "path"
+            description: "Udzbenik id to delete"
+            required: true
+            type: "integer"
+            format: "int32"
+         responses:
+           200:
+             description: "Predmet succesfully deleted"
+           400:
+             description: "Bad request. Model constraints are not satisfied"
+           500:
+             description: "Server error"
+      
+      
+      
+      
+      
+      
+          
