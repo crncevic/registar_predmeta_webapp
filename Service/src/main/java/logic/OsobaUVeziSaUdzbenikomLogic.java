@@ -11,6 +11,7 @@ import dto.OsobaUVeziSaUdzbenikomDTO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import mapper.Mapper;
@@ -22,13 +23,9 @@ import repository.GenericRepository;
  */
 public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogicClass {
 
+    @Inject
     private GenericRepository<OsobaUVeziSaUdzbenikom> gr;
     private Set<ConstraintViolation<OsobaUVeziSaUdzbenikom>> violations;
-
-    public OsobaUVeziSaUdzbenikomLogic() {
-
-        gr = new GenericRepository<>();
-    }
 
     public OsobaUVeziSaUdzbenikom create(OsobaUVeziSaUdzbenikom ouvsu) throws Exception {
         try {

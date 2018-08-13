@@ -11,6 +11,7 @@ import domain.Udzbenik;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import repository.GenericRepository;
@@ -21,14 +22,13 @@ import repository.GenericRepository;
  */
 public class UdzbenikLogic extends AbstractLogicClass {
 
+    @Inject
     private GenericRepository<Udzbenik> gru;
+    @Inject
     private GenericRepository<OsobaUVeziSaUdzbenikom> grouvsu;
     private Set<ConstraintViolation<Udzbenik>> violations;
 
-    public UdzbenikLogic() {
-        gru = new GenericRepository<>();
-        grouvsu = new GenericRepository<>();
-    }
+    
 
     public Udzbenik create(Udzbenik udzbenik) {
         try {

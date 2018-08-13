@@ -9,6 +9,7 @@ import domain.Katedra;
 import dto.KatedraDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,11 +27,9 @@ import mapper.Mapper;
 @Path("katedra")
 public class KatedraController {
 
+    @Inject
     private KatedraLogic kl;
 
-    public KatedraController() {
-        kl = new KatedraLogic();
-    }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})

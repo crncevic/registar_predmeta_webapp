@@ -9,6 +9,7 @@ import domain.OsobaUVeziSaUdzbenikom;
 import dto.OsobaUVeziSaUdzbenikomDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,11 +27,10 @@ import mapper.Mapper;
 @Path("osoba-udzbenik")
 public class OsobaUVeziSaUdzbenikomController {
 
-    private final OsobaUVeziSaUdzbenikomLogic ouvsul;
+    @Inject
+    private OsobaUVeziSaUdzbenikomLogic ouvsul;
 
-    public OsobaUVeziSaUdzbenikomController() {
-        ouvsul = new OsobaUVeziSaUdzbenikomLogic();
-    }
+    
 
     @GET
     @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})

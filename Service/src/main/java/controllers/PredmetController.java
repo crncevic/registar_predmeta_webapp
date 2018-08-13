@@ -9,6 +9,7 @@ import domain.Predmet;
 import dto.PredmetDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
@@ -32,12 +33,10 @@ import mapper.Mapper;
 
 public class PredmetController {
 
-    private final PredmetLogic pl;
+    @Inject
+    private PredmetLogic pl;
 
-    public PredmetController() {
-        pl = new PredmetLogic();
-
-    }
+    
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})

@@ -9,6 +9,7 @@ import domain.Status;
 import dto.StatusDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,11 +27,10 @@ import mapper.Mapper;
 @Path("status")
 public class StatusPredmetaController {
 
-    private final StatusLogic sl;
+    @Inject
+    private StatusLogic sl;
 
-    public StatusPredmetaController() {
-        sl = new StatusLogic();
-    }
+   
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})

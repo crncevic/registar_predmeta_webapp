@@ -9,6 +9,7 @@ import domain.StudijskiProgram;
 import dto.StudijskiProgramDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,11 +27,8 @@ import mapper.Mapper;
 @Path("studijski-program")
 public class StudijskiProgramController {
 
-    private final StudijskiProgramLogic spl;
-
-    public StudijskiProgramController() {
-        this.spl = new StudijskiProgramLogic();
-    }
+    @Inject
+    private StudijskiProgramLogic spl;
     
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})

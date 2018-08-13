@@ -31,11 +31,10 @@ import mapper.Mapper;
 @Path("nastavnik")
 public class NastavnikController {
 
+    @Inject
     private NastavnikLogic nl;
 
-    public NastavnikController() {
-        nl = new NastavnikLogic();
-    }
+    
 
     @GET
     @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})

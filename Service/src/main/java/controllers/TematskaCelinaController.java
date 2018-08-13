@@ -9,6 +9,7 @@ import domain.TematskaCelina;
 import dto.TematskaCelinaDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -25,12 +26,9 @@ import mapper.Mapper;
  */
 @Path("tematska-celina")
 public class TematskaCelinaController {
-
-    private final TematskaCelinaLogic tcl;
-
-    public TematskaCelinaController() {
-        this.tcl = new TematskaCelinaLogic();
-    }
+ 
+    @Inject
+    private TematskaCelinaLogic tcl;
 
     @GET
     @Path("predmet/{predmetId}")

@@ -9,6 +9,7 @@ import constants.Constants;
 import domain.TematskaCelina;
 import java.util.List;
 import java.util.Set;
+import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import repository.GenericRepository;
@@ -19,13 +20,10 @@ import repository.GenericRepository;
  */
 public class TematskaCelinaLogic extends AbstractLogicClass {
 
+    @Inject
     private GenericRepository<TematskaCelina> gr;
     private Set<ConstraintViolation<TematskaCelina>> violations;
 
-    public TematskaCelinaLogic() {
-
-        gr = new GenericRepository<>();
-    }
 
     public TematskaCelina create(TematskaCelina tematskaCelina) {
         try {

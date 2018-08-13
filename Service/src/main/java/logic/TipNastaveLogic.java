@@ -8,6 +8,7 @@ package logic;
 import constants.Constants;
 import domain.TipNastave;
 import java.util.List;
+import javax.inject.Inject;
 import repository.GenericRepository;
 
 /**
@@ -16,11 +17,10 @@ import repository.GenericRepository;
  */
 public class TipNastaveLogic extends AbstractLogicClass {
 
+    @Inject
     private GenericRepository<TipNastave> gr;
 
-    public TipNastaveLogic() {
-        gr = new GenericRepository<>();
-    }
+    
 
     public List<TipNastave> getAll() {
         try {

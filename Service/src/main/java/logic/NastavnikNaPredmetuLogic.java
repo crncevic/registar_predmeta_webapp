@@ -10,6 +10,7 @@ import domain.NastavnikNaPredmetu;
 import domain.NastavnikNaPredmetuPK;
 import java.util.List;
 import java.util.Set;
+import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import mapper.Mapper;
@@ -21,13 +22,9 @@ import repository.GenericRepository;
  */
 public class NastavnikNaPredmetuLogic extends AbstractLogicClass {
 
+    @Inject
     private GenericRepository<NastavnikNaPredmetu> gr;
     private Set<ConstraintViolation<NastavnikNaPredmetu>> violations;
-
-    public NastavnikNaPredmetuLogic() {
-
-        gr = new GenericRepository<>();
-    }
 
     public NastavnikNaPredmetu create(NastavnikNaPredmetu nastavnikNaPredmetu) throws Exception {
         try {

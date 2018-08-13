@@ -5,12 +5,11 @@
  */
 package controllers;
 
-import domain.Uloga;
 import domain.UlogaUdzbenik;
-import dto.UlogaDTO;
 import dto.UlogaUdzbenikDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -28,11 +27,8 @@ import mapper.Mapper;
 @Path("uloga-udzbenik")
 public class UlogaUdzbenikController {
 
-    private final UlogaUdzbenikLogic uul;
-
-    public UlogaUdzbenikController() {
-        this.uul = new UlogaUdzbenikLogic();
-    }
+    @Inject
+    private UlogaUdzbenikLogic uul;
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})

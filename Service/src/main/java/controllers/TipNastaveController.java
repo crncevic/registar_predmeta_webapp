@@ -5,9 +5,7 @@
  */
 package controllers;
 
-import domain.StudijskiProgram;
 import domain.TipNastave;
-import dto.StudijskiProgramDTO;
 import dto.TipNastaveDTO;
 import java.util.ArrayList;
 import java.util.List;

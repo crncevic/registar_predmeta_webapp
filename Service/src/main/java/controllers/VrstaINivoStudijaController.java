@@ -9,6 +9,7 @@ import domain.VrstaINivoStudija;
 import dto.VrstaINivoStudijaDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,12 +27,9 @@ import mapper.Mapper;
 @Path("vrsta-i-nivo-studija")
 public class VrstaINivoStudijaController {
     
-    private final VrstaINivoStudijaLogic vinsl;
+    @Inject
+    private VrstaINivoStudijaLogic vinsl;
 
-    public VrstaINivoStudijaController() {
-        this.vinsl = new VrstaINivoStudijaLogic();
-    }
-    
     
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})

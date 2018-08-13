@@ -75,7 +75,6 @@
         <dependency>
             <groupId>org.jboss.shrinkwrap</groupId>
             <artifactId>shrinkwrap-api</artifactId>
-            <version>1.2.3</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
@@ -99,6 +98,18 @@
             <scope>provided</scope>
         </dependency>
         
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.2.4.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap</groupId>
+            <artifactId>shrinkwrap-depchain</artifactId>
+           
+            <type>pom</type>
+        </dependency>
+
  
        
         
@@ -159,7 +170,7 @@
                     </compilerArguments>
                 </configuration>
             </plugin>
-
+           
 
             <plugin>
                 <groupId>org.apache2.maven.plugins</groupId>

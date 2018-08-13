@@ -10,6 +10,7 @@ import domain.Nastavnik;
 import dto.NastavnikDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import mapper.Mapper;
 import repository.GenericRepository;
 
@@ -19,12 +20,8 @@ import repository.GenericRepository;
  */
 public class NastavnikLogic extends AbstractLogicClass {
 
-    private final GenericRepository<Nastavnik> gr;
-
-    public NastavnikLogic() {
-
-        gr = new GenericRepository();
-    }
+    @Inject
+    private GenericRepository<Nastavnik> gr;
 
     public List<Nastavnik> getAll() throws Exception {
         try {

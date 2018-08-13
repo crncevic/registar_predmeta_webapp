@@ -7,26 +7,22 @@ package logic;
 
 import constants.Constants;
 import domain.Katedra;
-import dto.KatedraDTO;
-import java.util.ArrayList;
 import java.util.List;
-import javax.transaction.Transactional;
-import mapper.Mapper;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import repository.GenericRepository;
 
 /**
  *
  * @author Petar
  */
-@Transactional
+@RequestScoped
 public class KatedraLogic extends AbstractLogicClass {
 
-    private final GenericRepository<Katedra> gr;
+    @Inject
+    private GenericRepository<Katedra> gr;
 
-    public KatedraLogic() {
-
-        gr = new GenericRepository<>();
-    }
+   
 
     public List<Katedra> getAll() throws Exception {
         try {

@@ -9,6 +9,8 @@ import domain.Predmet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,6 +22,7 @@ import javax.persistence.TypedQuery;
  *
  * @author Petar
  */
+
 public class GenericRepository<T> {
 
     protected static Persistence persistence = new Persistence();

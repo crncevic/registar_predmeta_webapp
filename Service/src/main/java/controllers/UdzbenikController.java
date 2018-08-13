@@ -11,6 +11,7 @@ import dto.TipNastaveDTO;
 import dto.UdzbenikDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
@@ -33,12 +34,9 @@ import mapper.Mapper;
 @Path("udzbenik")
 public class UdzbenikController {
 
-    private final UdzbenikLogic ul;
-
-    public UdzbenikController() {
-        this.ul = new UdzbenikLogic();
-    }
-
+    @Inject
+    private UdzbenikLogic ul;
+    
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     public Response getAll() {

@@ -20,7 +20,7 @@ import repository.GenericRepository;
  */
 public abstract class AbstractLogicClass {
 
-    private ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
+    private final ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
 
     protected Validator validator =  vf.getValidator();
     

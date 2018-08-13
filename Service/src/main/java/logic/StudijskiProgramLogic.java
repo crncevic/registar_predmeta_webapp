@@ -8,6 +8,7 @@ package logic;
 import constants.Constants;
 import domain.StudijskiProgram;
 import java.util.List;
+import javax.inject.Inject;
 import repository.GenericRepository;
 
 /**
@@ -16,12 +17,8 @@ import repository.GenericRepository;
  */
 public class StudijskiProgramLogic extends AbstractLogicClass {
 
+    @Inject
     private GenericRepository<StudijskiProgram> gr;
-
-    public StudijskiProgramLogic() {
-      
-        gr = new GenericRepository<>();
-    }
 
     public List<StudijskiProgram> getAll() {
         try {

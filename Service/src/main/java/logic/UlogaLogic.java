@@ -8,6 +8,7 @@ package logic;
 import constants.Constants;
 import domain.Uloga;
 import java.util.List;
+import javax.inject.Inject;
 import repository.GenericRepository;
 
 /**
@@ -16,11 +17,9 @@ import repository.GenericRepository;
  */
 public class UlogaLogic extends AbstractLogicClass {
 
+    @Inject
     private GenericRepository<Uloga> gr;
 
-    public UlogaLogic() {
-        gr = new GenericRepository<>();
-    }
 
     public List<Uloga> getAll() {
         try {

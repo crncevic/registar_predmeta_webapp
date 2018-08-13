@@ -17,6 +17,7 @@ import domain.UdzbenikNaPredmetu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import repository.GenericRepository;
@@ -27,28 +28,20 @@ import repository.GenericRepository;
  */
 public class PredmetLogic extends AbstractLogicClass {
 
-    private final GenericRepository<Predmet> grp;
-    private final GenericRepository<UdzbenikNaPredmetu> grunp;
-    private final GenericRepository<NastavnikNaPredmetu> grnnp;
-    private final GenericRepository<Udzbenik> gru;
-    private final GenericRepository<Nastavnik> grn;
-    private final GenericRepository<PredmetNaStudijskomProgramu> grpnsp;
-    private final GenericRepository<StudijskiProgram> grsp;
-    private final GenericRepository<TematskaCelina> grtc;
+    @Inject
+    private GenericRepository<Predmet> grp;
+    @Inject
+    private GenericRepository<UdzbenikNaPredmetu> grunp;
+    @Inject
+    private GenericRepository<NastavnikNaPredmetu> grnnp;
+    @Inject
+    private GenericRepository<Nastavnik> grn;
+    @Inject
+    private GenericRepository<PredmetNaStudijskomProgramu> grpnsp;
+    @Inject
+    private GenericRepository<TematskaCelina> grtc;
 
     private Set<ConstraintViolation<Predmet>> violations;
-
-    public PredmetLogic() {
-
-        grp = new GenericRepository<>();
-        grunp = new GenericRepository<>();
-        gru = new GenericRepository<>();
-        grn = new GenericRepository<>();
-        grnnp = new GenericRepository<>();
-        grpnsp = new GenericRepository<>();
-        grsp = new GenericRepository<>();
-        grtc = new GenericRepository<>();
-    }
 
     public Predmet create(Predmet predmet) throws Exception {
         try {

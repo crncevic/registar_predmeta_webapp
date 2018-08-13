@@ -9,6 +9,7 @@ import domain.Uloga;
 import dto.UlogaDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,11 +27,10 @@ import mapper.Mapper;
 @Path("uloga")
 public class UlogaController {
 
-    private final UlogaLogic ul;
+    @Inject
+    private UlogaLogic ul;
 
-    public UlogaController() {
-        this.ul = new UlogaLogic();
-    }
+    
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})

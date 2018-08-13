@@ -8,6 +8,7 @@ package logic;
 import constants.Constants;
 import domain.Status;
 import java.util.List;
+import javax.inject.Inject;
 import repository.GenericRepository;
 
 /**
@@ -16,11 +17,8 @@ import repository.GenericRepository;
  */
 public class StatusLogic extends AbstractLogicClass {
 
+    @Inject
     private GenericRepository<Status> gr;
-
-    public StatusLogic() {
-        gr = new GenericRepository<>();
-    }
 
     public List<Status> getAll() {
         try {

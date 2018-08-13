@@ -10,6 +10,7 @@ import dto.KorisnikDTO;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
@@ -32,11 +33,10 @@ import mapper.Mapper;
 @Path("korisnik")
 public class KorisnikController {
 
+    @Inject
     private KorisnikLogic kl;
 
-    public KorisnikController() {
-        kl = new KorisnikLogic();
-    }
+   
 
     @GET
     @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})

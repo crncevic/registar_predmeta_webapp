@@ -7,13 +7,11 @@ package logic;
 
 import constants.Constants;
 import domain.Korisnik;
-import dto.KorisnikDTO;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import mapper.Mapper;
 import repository.GenericRepository;
 
 /**
@@ -22,13 +20,9 @@ import repository.GenericRepository;
  */
 public class KorisnikLogic extends AbstractLogicClass {
 
+    @Inject
     private GenericRepository<Korisnik> gr;
     private Set<ConstraintViolation<Korisnik>> violations;
-
-    public KorisnikLogic() {
-
-        gr = new GenericRepository<>();
-    }
 
     public Korisnik create(Korisnik korisnik) throws Exception {
         try {
@@ -102,6 +96,7 @@ public class KorisnikLogic extends AbstractLogicClass {
 
     public List<Korisnik> getAll() throws Exception {
         try {
+           
             return gr.getAll(Korisnik.class, Constants.KORISNIK_FIND_ALL);
 
         } catch (Exception ex) {
