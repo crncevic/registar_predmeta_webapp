@@ -11,44 +11,30 @@
         <meta name="description" content=""></meta>
         <meta name="author" content=""></meta>
 
-    <title>Scrolling Nav - Start Bootstrap Template</title>
+        <title>Registar predmeta</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+        <!-- Bootstrap core CSS -->
+        <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
 
-    <!-- Custom styles for this template -->
-    <link href="resources/css/scrolling-nav.css" rel="stylesheet"></link>
+        <!-- Custom styles for this template -->
+        <link href="resources/css/scrolling-nav.css" rel="stylesheet"></link>
     </h:head>
-  <h:body id="page-top">
+    <h:body id="page-top">
 
-    <!-- Navigation -->
-    <ui:include src="header.xhtml"/>
+        <ui:composition template="templ.xhtml">
 
-    <header class="bg-primary text-white">
-      <div class="container text-center">
-        <h1>Dobro dosli na registar predmeta </h1>
-        <p class="lead">A landing page template freshly redesigned for Bootstrap 4</p>
-      </div>
-    </header>
+            <ui:define name="content">
+                <header class="bg-primary text-white">
+                    <div class="container text-center">
+                        <h1>Dobro dosli na registar predmeta </h1>
+                        <p class="lead">A landing page template freshly redesigned for Bootstrap 4</p>
+                    </div>
+                </header>
+            </ui:define>
 
-   
+        </ui:composition>
 
-    <!-- Footer -->
-    <ui:include src="footer.xhtml"/>
-        
-  
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom JavaScript for this theme -->
-    <script src="js/scrolling-nav.js"></script>
-
-  </h:body>
+    </h:body>
 </html>
 
 

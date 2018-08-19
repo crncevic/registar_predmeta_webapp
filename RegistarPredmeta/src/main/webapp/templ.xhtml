@@ -9,8 +9,8 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      >
-    <head>
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
 
 
         <meta charset="utf-8"></meta>
@@ -18,39 +18,64 @@ and open the template in the editor.
         <meta name="description" content=""></meta>
         <meta name="author" content=""></meta>
 
-        
+
 
         <!-- Bootstrap core CSS -->
         <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
 
         <!-- Custom styles for this template -->
         <link href="resources/css/scrolling-nav.css" rel="stylesheet"></link>
-    </head>
-    <body>
+        <link href="resources/css/app.css" rel="stylesheet"></link>
+        
+    </h:head>
+    <h:body>
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Registar predmeta</a>
+                <a class="navbar-brand js-scroll-trigger" href="index.xhtml">Registar predmeta</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                            <p:link outcome="udzbenik_index.xhtml" value="Predmeti" class="nav-link js-scroll-trigger">
+
+                            </p:link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+                            <p:link outcome="udzbenik_index.xhtml" value="Udzbenici" class="nav-link js-scroll-trigger">
+
+                            </p:link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                            <p:link outcome="udzbenik_index.xhtml" value="Nastavnici" class="nav-link js-scroll-trigger">
+
+                            </p:link>
+                        </li>
+                        <li class="nav-item">
+                            <p:link  outcome="udzbenik_index.xhtml" value="Katedre" class="nav-link js-scroll-trigger">
+
+                            </p:link>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
         
-         <!-- Bootstrap core JavaScript -->
+        <ui:insert name="content"/>
+        
+        
+         <footer class="bg-dark">
+            <div class="container" id="fot">
+                <p class="m-0 text-center text-white"> Registar predmeta web app</p>
+            </div>
+            <!-- /.container -->
+        </footer>
+
+
+
+        <!-- Bootstrap core JavaScript -->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -59,5 +84,5 @@ and open the template in the editor.
 
         <!-- Custom JavaScript for this theme -->
         <script src="js/scrolling-nav.js"></script>
-    </body>
+    </h:body>
 </html>
