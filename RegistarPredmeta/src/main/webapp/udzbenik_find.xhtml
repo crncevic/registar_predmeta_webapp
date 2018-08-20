@@ -5,12 +5,71 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      >
+    <h:head>
+        <title>Udzbenik</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="templ.xhtml">
+
+            <ui:define name="content">
+
+                <h:form id="udzbenikForm">
+                    <p:outputLabel class="udzbenikTitle">Udzbenik</p:outputLabel>
+                    <div>
+                        <p:outputLabel class="udzbenikTitle"  value="Id"/>
+                        <p:inputText class="inputUdzbenikId" value="#{findUdzbenik.udzbenik.udzbenikId}" disabled="true"/>
+                    </div>
+                    
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Naziv"/>
+                        <p:inputText class="inputUdzbenikNaziv"  value="#{findUdzbenik.udzbenik.naziv}"/>
+                    </div>
+                    
+                     <div>
+                        <p:outputLabel class="udzbenikTitle" value="Godina izdanja"/>
+                        <p:inputText class="inputUdzbenikGodinaIzdanja"  value="#{findUdzbenik.udzbenik.godinaIzdanja}"/>
+                    </div>
+                    
+                     <div>
+                        <p:outputLabel class="udzbenikTitle" value="Izdavac"/>
+                        <p:inputText class="inputUdzbenikIzdavac" value="#{findUdzbenik.udzbenik.izdavac}"/>
+                    </div>
+                    
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Rbr izdanja"/>
+                        <p:inputText  class="inputUdzbenikRbrIzdanja" value="#{findUdzbenik.udzbenik.rbrIzdanja}"/>
+                    </div>
+                    
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Stampa"/>
+                        <p:inputText class="inputUdzbenikStampa" value="#{findUdzbenik.udzbenik.stampa}"/>
+                    </div>
+                    
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Tiraz"/>
+                        <p:inputText class="inputUdzbenikTiraz" value="#{findUdzbenik.udzbenik.tiraz}"/>
+                    </div>
+                    
+                     <div>
+                        <p:outputLabel class="udzbenikTitle" value="ISBN"/>
+                        <p:inputText class="inputUdzbenikISBN" value="#{findUdzbenik.udzbenik.isbn}"/>
+                    </div>
+                    
+                    
+                    
+                   
+
+                </h:form>
+
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>

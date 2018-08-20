@@ -17,15 +17,15 @@
                 <p:dataTable var="udzbenik" value="#{allUdzbeniks.udzbenici}" 
                              paginator="true" styleClass="udzbenikDataTable" scrollable="true" rows="5"
                              rowsPerPageTemplate="5,10,15">
-                    <p:column headerText="Id" class="datatableColumn">
+                    <p:column headerText="Id" class="datatableColumn"  >
                         <h:outputText value="#{udzbenik.udzbenikId}" />
                     </p:column>
 
-                    <p:column headerText="Naziv" class="datatableColumn">
+                    <p:column headerText="Naziv" class="datatableColumn" >
                         <h:outputText value="#{udzbenik.naziv}" />
                     </p:column>
 
-                    <p:column headerText="Godina izdanja" class="datatableColumn">
+                    <p:column headerText="Godina izdanja" class="datatableColumn" >
                         <h:outputText value="#{udzbenik.godinaIzdanja}" />
                     </p:column>
 
@@ -34,9 +34,9 @@
                     </p:column>
 
                     <p:column headerText="Detaljnije" class="datatableColumn" width="20px">
-
-                        <p:button outcome="udzbenik_find.xhtml" icon="ui-icon-search">
-                            <f:param name="udzbenikId" value="10" />
+                      
+                        <p:button outcome="find"  icon="ui-icon-search" >
+                            <f:param name="udzbenikId" value="#{udzbenik.udzbenikId}"/>
                         </p:button>
                        
                     </p:column>
