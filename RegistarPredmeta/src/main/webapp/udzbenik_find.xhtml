@@ -20,50 +20,102 @@ and open the template in the editor.
             <ui:define name="content">
 
                 <h:form id="udzbenikForm">
+                    <p:growl id="msgs" showDetail="true"/>
                     <p:outputLabel class="udzbenikTitle">Udzbenik</p:outputLabel>
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Id"/>
                         <p:inputText class="inputUdzbenikId" value="#{findUdzbenik.udzbenik.udzbenikId}" disabled="true"/>
                     </div>
-                    
+
                     <div>
                         <p:outputLabel class="udzbenikTitle" value="Naziv"/>
                         <p:inputText class="inputUdzbenikNaziv"  value="#{findUdzbenik.udzbenik.naziv}"/>
                     </div>
-                    
-                     <div>
+
+                    <div>
                         <p:outputLabel class="udzbenikTitle" value="Godina izdanja"/>
                         <p:inputText class="inputUdzbenikGodinaIzdanja"  value="#{findUdzbenik.udzbenik.godinaIzdanja}"/>
                     </div>
-                    
-                     <div>
+
+                    <div>
                         <p:outputLabel class="udzbenikTitle" value="Izdavac"/>
                         <p:inputText class="inputUdzbenikIzdavac" value="#{findUdzbenik.udzbenik.izdavac}"/>
                     </div>
-                    
+
                     <div>
                         <p:outputLabel class="udzbenikTitle" value="Rbr izdanja"/>
                         <p:inputText  class="inputUdzbenikRbrIzdanja" value="#{findUdzbenik.udzbenik.rbrIzdanja}"/>
                     </div>
-                    
+
                     <div>
                         <p:outputLabel class="udzbenikTitle" value="Stampa"/>
                         <p:inputText class="inputUdzbenikStampa" value="#{findUdzbenik.udzbenik.stampa}"/>
                     </div>
-                    
+
                     <div>
                         <p:outputLabel class="udzbenikTitle" value="Tiraz"/>
                         <p:inputText class="inputUdzbenikTiraz" value="#{findUdzbenik.udzbenik.tiraz}"/>
                     </div>
-                    
-                     <div>
+
+                    <div>
                         <p:outputLabel class="udzbenikTitle" value="ISBN"/>
                         <p:inputText class="inputUdzbenikISBN" value="#{findUdzbenik.udzbenik.isbn}"/>
                     </div>
-                    
-                    
-                    
-                   
+
+
+                    <p:outputLabel class="udzbenikTitle" value="Autori i recenzenti"/>
+                    <p:dataTable var="osoba" class="osobaUVezuSaUdzbenikomDataTable"
+                                 value="#{findUdzbenik.udzbenik.osobaUVeziSaUdzbenikomList}" editable="true">
+
+                        <p:ajax event="rowEdit" listener="#{findUdzbenik.onRowEdit}" update=":udzbenikForm:msgs" />
+                        <p:ajax event="rowEditCancel" listener="#{findUdzbenik.onRowCancel}" update=":udzbenikForm:msgs" />
+
+                        <p:column headerText="Id">
+                            <h:outputText value="#{osoba.osobaId}" />
+                        </p:column>
+
+                        <p:column headerText="Ime">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{osoba.ime}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{osoba.ime}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Prezime">
+
+                            <p:cellEditor>
+                                <f:facet name="output"> <h:outputText value="#{osoba.prezime}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{osoba.prezime}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+
+                        </p:column>
+
+                        <p:column headerText="Titula">
+                            <p:cellEditor>
+                                <f:facet name="output"> <h:outputText value="#{osoba.titula}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{osoba.titula}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Uloga">
+                            <p:cellEditor>
+                                <f:facet name="output"> <h:outputText value="#{osoba.ulogaDTO.naziv}" /></f:facet>
+                                <f:facet name="input">
+                                    <h:selectOneMenu value="#{osoba.ulogaDTO.naziv}" style="width:100%">
+                                        <f:selectItems value="#{findUdzbenik.ulogeNaUdzbeniku}" var="uloga" itemLabel="#{uloga}" itemValue="#{uloga.naziv}" />
+                                    </h:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                    </p:dataTable>
+
+                    <div class="ui-g">
+                        <div class="ui-g-12">
+                            <p:commandButton value="Add new row" styleClass="ui-priority-primary" process="@this" update=":udzbenikForm:msgs"
+                                             actionListener="#{findUdzbenik.onAddNew()}" />
+                        </div>
+                    </div>
+                    <div class="emptyDiv"></div>
 
                 </h:form>
 

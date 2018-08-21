@@ -6,6 +6,7 @@
 package mapper;
 
 import dto.UdzbenikDTO;
+import dto.UlogaUdzbenikDTO;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -35,17 +36,5 @@ public class JSONMapper {
         }
     }
 
-    public static List<UdzbenikDTO> jsonToListUdzbenikDTO(List<LinkedHashMap<String, String>> jsonListUdzbenik) throws Exception {
-        try {
-            List<UdzbenikDTO> listUdzbenikDTO = new ArrayList<>();
-
-            for (LinkedHashMap<String, String> jsonUdzbenik : jsonListUdzbenik) {
-                listUdzbenikDTO.add(jsonToUdzbenikDTO(jsonUdzbenik));
-            }
-
-            return listUdzbenikDTO;
-        } catch (Exception e) {
-            throw new Exception("Greska u mapiranju json->udzbenikList.{" + e.getMessage() + "}");
-        }
-    }
+//   public static UlogaUdzbenikDTO jsonToUlogaUdzbenikDTO()
 }
