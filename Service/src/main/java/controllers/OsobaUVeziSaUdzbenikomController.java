@@ -10,8 +10,12 @@ import dto.OsobaUVeziSaUdzbenikomDTO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -30,10 +34,8 @@ public class OsobaUVeziSaUdzbenikomController {
     @Inject
     private OsobaUVeziSaUdzbenikomLogic ouvsul;
 
-    
-
     @GET
-    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     public Response getAll() {
         try {
             List<OsobaUVeziSaUdzbenikom> osobe = ouvsul.getAll();
@@ -58,7 +60,7 @@ public class OsobaUVeziSaUdzbenikomController {
 
     @GET
     @Path("/{id}")
-    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     public Response getById(@PathParam("id") @NotNull int id) {
         try {
             OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom = ouvsul.getById(id);
@@ -76,7 +78,7 @@ public class OsobaUVeziSaUdzbenikomController {
 
     @GET
     @Path("/udzbenik/{udzbenikId}")
-    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     public Response getOsobaByUdzbenikId(@PathParam("udzbenikId") @NotNull int udzbenikId) {
         try {
             List<OsobaUVeziSaUdzbenikom> osobeUVeziSaUdzbenikom = ouvsul.getOsobaByUdzbenikId(udzbenikId);
@@ -93,6 +95,38 @@ public class OsobaUVeziSaUdzbenikomController {
 
             return Response.ok(osobeDTO).build();
 
+        } catch (Exception e) {
+            return Response.serverError().type(MediaType.TEXT_PLAIN).entity(e).build();
+        }
+    }
+
+    @POST
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response create(@NotNull OsobaUVeziSaUdzbenikomDTO osobaUVeziSaUdzbenikomDTO) {
+        try {
+            OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom
+                    = ouvsul.create(Mapper.toOsobaUVeziSaUdzbenikom(osobaUVeziSaUdzbenikomDTO));
+
+            return Response.ok(osobaUVeziSaUdzbenikomDTO).build();
+        } catch (ConstraintViolationException cve) {
+            return Response.status(Response.Status.BAD_REQUEST).type(MediaType.TEXT_PLAIN).entity(cve).build();
+        } catch (Exception e) {
+            return Response.serverError().type(MediaType.TEXT_PLAIN).entity(e).build();
+        }
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+    public Response delete(@PathParam("id") @NotNull int id) {
+        try {
+            OsobaUVeziSaUdzbenikomDTO osobaUVeziSaUdzbenikomDTO
+                    = Mapper.toOsobaUVeziSaUzbenikDTO(ouvsul.delete(id));
+            
+             return Response.ok(osobaUVeziSaUdzbenikomDTO).build();
+        } catch (ConstraintViolationException cve) {
+            return Response.status(Response.Status.BAD_REQUEST).type(MediaType.TEXT_PLAIN).entity(cve).build();
         } catch (Exception e) {
             return Response.serverError().type(MediaType.TEXT_PLAIN).entity(e).build();
         }

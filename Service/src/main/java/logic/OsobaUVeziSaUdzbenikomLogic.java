@@ -109,7 +109,6 @@ public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogicClass {
     public List<OsobaUVeziSaUdzbenikom> getOsobaByUdzbenikId(int udzbenikId) throws Exception {
         try {
             return gr.getListByParamFromNamedQuery(udzbenikId, OsobaUVeziSaUdzbenikom.class, Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_UDZBENIK_ID, Constants.UDZBENIK_ID);
-
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom ucitavanja svih osoba za udzbenik sa id:" + udzbenikId + " ! {" + e.getMessage() + "}");
         }

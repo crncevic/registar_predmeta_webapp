@@ -65,7 +65,8 @@ and open the template in the editor.
 
                     <p:outputLabel class="udzbenikTitle" value="Autori i recenzenti"/>
                     <p:dataTable var="osoba" class="osobaUVezuSaUdzbenikomDataTable"
-                                 value="#{findUdzbenik.udzbenik.osobaUVeziSaUdzbenikomList}" editable="true">
+                                 value="#{findUdzbenik.udzbenik.osobaUVeziSaUdzbenikomList}" editable="true"
+                                 id="dt" widgetVar="dt">
 
                         <p:ajax event="rowEdit" listener="#{findUdzbenik.onRowEdit}" update=":udzbenikForm:msgs" />
                         <p:ajax event="rowEditCancel" listener="#{findUdzbenik.onRowCancel}" update=":udzbenikForm:msgs" />
@@ -102,17 +103,21 @@ and open the template in the editor.
                                 <f:facet name="output"> <h:outputText value="#{osoba.ulogaDTO.naziv}" /></f:facet>
                                 <f:facet name="input">
                                     <h:selectOneMenu value="#{osoba.ulogaDTO.naziv}" style="width:100%">
-                                        <f:selectItems value="#{findUdzbenik.ulogeNaUdzbeniku}" var="uloga" itemLabel="#{uloga}" itemValue="#{uloga.naziv}" />
+                                        <f:selectItems value="#{findUdzbenik.ulogeNaUdzbeniku}" var="uloga" itemLabel="#{uloga.naziv}" itemValue="#{uloga.naziv}" />
                                     </h:selectOneMenu>
                                 </f:facet>
                             </p:cellEditor>
+                        </p:column>
+
+                        <p:column style="width:32px">
+                            <p:rowEditor />
                         </p:column>
                     </p:dataTable>
 
                     <div class="ui-g">
                         <div class="ui-g-12">
-                            <p:commandButton value="Add new row" styleClass="ui-priority-primary" process="@this" update=":udzbenikForm:msgs"
-                                             actionListener="#{findUdzbenik.onAddNew()}" />
+                            <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":udzbenikForm:msgs"
+                                           class="dodajOsobuNaUdzbeniku"  actionListener="#{findUdzbenik.onAddNew()}" oncomplete="PF('dt').addRow();" />
                         </div>
                     </div>
                     <div class="emptyDiv"></div>

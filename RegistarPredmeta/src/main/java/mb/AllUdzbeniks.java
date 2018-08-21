@@ -11,12 +11,13 @@ import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
-import mapper.JSONMapper;
+
 import ws.client.RestWSClient;
 
 /**
@@ -25,7 +26,7 @@ import ws.client.RestWSClient;
  */
 @ManagedBean
 @Named(value = "allUdzbeniks")
-@SessionScoped
+@RequestScoped
 public class AllUdzbeniks {
 
     /**
