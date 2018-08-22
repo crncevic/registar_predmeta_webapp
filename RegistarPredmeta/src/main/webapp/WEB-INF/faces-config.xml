@@ -12,5 +12,14 @@
             <to-view-id>/udzbenik_find.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/udzbenik_find.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{findUdzbenik.onUpdate}</from-action>
+            <from-outcome>success-update</from-outcome>
+            <to-view-id>/udzbenik_index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 
 </faces-config>

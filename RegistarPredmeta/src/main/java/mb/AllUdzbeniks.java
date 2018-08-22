@@ -5,18 +5,12 @@
  */
 package mb;
 
-import dto.KatedraDTO;
 import dto.UdzbenikDTO;
+import java.io.Serializable;
 import java.util.List;
+import javax.annotation.ManagedBean;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.inject.Inject;
-import javax.json.Json;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.MediaType;
 
 import ws.client.RestWSClient;
 
@@ -25,9 +19,9 @@ import ws.client.RestWSClient;
  * @author Petar
  */
 @ManagedBean
-@Named(value = "allUdzbeniks")
-@RequestScoped
-public class AllUdzbeniks {
+@ViewScoped
+@Named("allUdzbeniks")
+public class AllUdzbeniks implements Serializable{
 
     /**
      * Creates a new instance of AllUdzbeniks

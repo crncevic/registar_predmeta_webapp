@@ -130,6 +130,7 @@ public class Mapper {
                 udzbenikDTO.setIsbn(udzbenik.getIsbn());
                 udzbenikDTO.setRbrIzdanja(udzbenik.getRbrIzdanja());
                 udzbenikDTO.setStampa(udzbenik.getStampa());
+                udzbenikDTO.setGodinaIzdanja(udzbenik.getGodinaIzdanja());
 
                 List<OsobaUVeziSaUdzbenikomDTO> osobaUVeziSaUdzbenikomDTOList = new ArrayList<>();
 
@@ -558,9 +559,10 @@ public class Mapper {
             if (udzbenikDTO != null) {
                 Udzbenik udzbenik = new Udzbenik();
 
+                udzbenik.setUdzbenikId(udzbenikDTO.getUdzbenikId());
                 udzbenik.setNaziv(udzbenikDTO.getNaziv());
                 udzbenik.setIzdavac(udzbenikDTO.getIzdavac());
-                udzbenik.setRbrIzdanja(udzbenikDTO.getGodinaIzdanja());
+                udzbenik.setRbrIzdanja(udzbenikDTO.getRbrIzdanja());
                 udzbenik.setStampa(udzbenikDTO.getStampa());
                 udzbenik.setTiraz(udzbenikDTO.getTiraz());
                 udzbenik.setIsbn(udzbenikDTO.getIsbn());

@@ -6,6 +6,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -133,17 +134,24 @@ public class OsobaUVeziSaUdzbenikom implements Serializable {
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OsobaUVeziSaUdzbenikom)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        OsobaUVeziSaUdzbenikom other = (OsobaUVeziSaUdzbenikom) object;
-        if ((this.osobaId == null && other.osobaId != null) || (this.osobaId != null && !this.osobaId.equals(other.osobaId))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final OsobaUVeziSaUdzbenikom other = (OsobaUVeziSaUdzbenikom) obj;
+        if (!Objects.equals(this.osobaId, other.osobaId)) {
             return false;
         }
         return true;
     }
+
+ 
 
     @Override
     public String toString() {

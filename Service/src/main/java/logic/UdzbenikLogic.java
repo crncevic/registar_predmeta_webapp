@@ -119,6 +119,7 @@ public class UdzbenikLogic extends AbstractLogicClass {
                 }
 
                 //</editor-fold>
+               
                 Udzbenik updatedUdzbenik = gru.update(udzbenik);
 
                 et.commit();
