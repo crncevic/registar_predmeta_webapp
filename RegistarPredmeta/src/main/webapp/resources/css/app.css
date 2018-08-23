@@ -25,6 +25,18 @@ footer {
 .udzbenikDataTable{
     height: 400px;
     width: 70%;
+    margin: 0 0 100px 200px;
+}
+
+.nastavnikDataTable{
+    height: 400px;
+    width: 70%;
+    margin: 100px 0 100px 200px;
+}
+
+.katedraDataTable{
+    height: 400px;
+    width: 70%;
     margin: 100px 0 100px 200px;
 }
 
@@ -54,30 +66,41 @@ footer {
 
 .inputUdzbenikId{
     margin-left: 110px;
+    width: 250px;
 }
 
 .inputUdzbenikNaziv{
     margin-left: 80px;
+    width: 250px;
+}
+
+.inputUdzbenikGodinaIzdanja{
+    width: 250px;
 }
 
 .inputUdzbenikIzdavac{
     margin-left: 62.5px;
+    width: 250px;
 }
 
 .inputUdzbenikRbrIzdanja{
     margin-left: 30px;
+    width: 250px;
 }
 
 .inputUdzbenikStampa{
     margin-left: 61px;
+    width: 250px;
 }
 
 .inputUdzbenikTiraz{
     margin-left: 83.5px;
+    width: 250px;
 }
 
 .inputUdzbenikISBN{
     margin-left: 83.5px;
+    width: 250px;
 }
 
 .osobaUVezuSaUdzbenikomDataTable{
@@ -87,10 +110,12 @@ footer {
 
 .emptyDiv{
     height: 30px;
+
 }
 
 .dodajOsobuNaUdzbeniku{
     margin-left: 40px;
+
 }
 
 #nastavnikSection{
@@ -104,13 +129,13 @@ footer {
 /*nastavnik-find*/
 
 .outputNastavnikId{
-   margin-left: 115px;
-   width: 250px;
+    margin-left: 115px;
+    width: 250px;
 }
 
 .outputNastavnikImePrezime{
-   margin-left: 15px;
-   width: 250px;
+    margin-left: 15px;
+    width: 250px;
 }
 
 .outputNastavnikZvanje{
@@ -119,8 +144,8 @@ footer {
 }
 
 .outputNastavnikKatedra{
-   margin-left: 64px;
-   width: 250px;
+    margin-left: 64px;
+    width: 250px;
 }
 
 .outputNastavnikTelefon{

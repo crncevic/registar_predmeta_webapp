@@ -28,7 +28,7 @@ import ws.client.RestWSClient;
 @ManagedBean
 @ViewScoped
 @Named("findUdzbenik")
-public class FindUdzbenik implements Serializable{
+public class FindUdzbenik implements Serializable {
 
     /**
      * Creates a new instance of FindUdzbenik
@@ -90,6 +90,14 @@ public class FindUdzbenik implements Serializable{
     }
 
     public void onAddNew() {
+
+        if (udzbenik.getOsobaUVeziSaUdzbenikomList().size() > 0 && isLastOsobaEmpty(udzbenik.getOsobaUVeziSaUdzbenikomList())) {
+            FacesMessage msg = new FacesMessage("Niste uneli podatke!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            udzbenik.getOsobaUVeziSaUdzbenikomList().remove(udzbenik.getOsobaUVeziSaUdzbenikomList().size()-1);
+            return;
+        }
+
         int temporaryId = 0;
         while (true) {
             temporaryId = (new Random()).nextInt();
@@ -115,11 +123,9 @@ public class FindUdzbenik implements Serializable{
 
     public void onDeleteRow(OsobaUVeziSaUdzbenikomDTO ouvsudto) {
 
-        
-
         FacesMessage msg = new FacesMessage("Red x izbrisan");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        
+
         udzbenik.getOsobaUVeziSaUdzbenikomList().remove(ouvsudto);
     }
 
@@ -164,6 +170,17 @@ public class FindUdzbenik implements Serializable{
         FacesMessage msg = new FacesMessage("Greska  prilikom  brisanja udzbenika");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         return "failure-delete";
+    }
+
+    private boolean isLastOsobaEmpty(List<OsobaUVeziSaUdzbenikomDTO> osobaUVeziSaUdzbenikomList) {
+        OsobaUVeziSaUdzbenikomDTO ouvsudto = osobaUVeziSaUdzbenikomList.get(osobaUVeziSaUdzbenikomList.size() - 1);
+
+        if ( (ouvsudto.getIme()==null || ouvsudto.getIme().trim().length() == 0) && (ouvsudto.getPrezime() == null || ouvsudto.getPrezime().trim().length() == 0)
+                && (ouvsudto.getTitula() == null || ouvsudto.getTitula().trim().length() == 0)) {
+            return true;
+        }
+
+        return false;
     }
 
 }

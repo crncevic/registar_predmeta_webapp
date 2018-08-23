@@ -29,5 +29,19 @@
             <to-view-id>/nastavnik_find.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/udzbenik_create.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{createUdzbenik.createUdzbenik}</from-action>
+            <from-outcome>success-create</from-outcome>
+            <to-view-id>/udzbenik_index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{createUdzbenik.createUdzbenik}</from-action>
+            <from-outcome>failure-create</from-outcome>
+            <to-view-id>/udzbenik_create.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 
 </faces-config>

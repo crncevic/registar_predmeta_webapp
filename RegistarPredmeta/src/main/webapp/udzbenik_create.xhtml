@@ -12,65 +12,64 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       >
     <h:head>
-        <title>Udzbenik</title>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
         <ui:composition template="templ.xhtml">
-
             <ui:define name="content">
-
                 <h:form id="udzbenikForm">
                     <p:growl id="msgs" showDetail="true"/>
-                    <p:outputLabel class="udzbenikTitle">Udzbenik</p:outputLabel>
+                    <p:outputLabel class="udzbenikTitle">Kreiraj udzbenik</p:outputLabel>
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Id"/>
-                        <p:inputText class="inputUdzbenikId" value="#{findUdzbenik.udzbenik.udzbenikId}" disabled="true"/>
+                        <p:inputText class="inputUdzbenikId" value="#{createUdzbenik.newUdzbenik.udzbenikId}" disabled="true"/>
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle" value="Naziv"/>
-                        <p:inputText class="inputUdzbenikNaziv"  value="#{findUdzbenik.udzbenik.naziv}"/>
+                        <p:inputText class="inputUdzbenikNaziv"  value="#{createUdzbenik.newUdzbenik.naziv}"/>
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle" value="Godina izdanja"/>
-                        <p:inputText class="inputUdzbenikGodinaIzdanja"  value="#{findUdzbenik.udzbenik.godinaIzdanja}"/>
+                        <p:inputText class="inputUdzbenikGodinaIzdanja"  value="#{createUdzbenik.newUdzbenik.godinaIzdanja}"/>
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle" value="Izdavac"/>
-                        <p:inputText class="inputUdzbenikIzdavac" value="#{findUdzbenik.udzbenik.izdavac}"/>
+                        <p:inputText class="inputUdzbenikIzdavac" value="#{createUdzbenik.newUdzbenik.izdavac}"/>
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle" value="Rbr izdanja"/>
-                        <p:inputText  class="inputUdzbenikRbrIzdanja" value="#{findUdzbenik.udzbenik.rbrIzdanja}"/>
+                        <p:inputText  class="inputUdzbenikRbrIzdanja" value="#{createUdzbenik.newUdzbenik.rbrIzdanja}"/>
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle" value="Stampa"/>
-                        <p:inputText class="inputUdzbenikStampa" value="#{findUdzbenik.udzbenik.stampa}"/>
+                        <p:inputText class="inputUdzbenikStampa" value="#{createUdzbenik.newUdzbenik.stampa}"/>
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle" value="Tiraz"/>
-                        <p:inputText class="inputUdzbenikTiraz" value="#{findUdzbenik.udzbenik.tiraz}"/>
+                        <p:inputText class="inputUdzbenikTiraz" value="#{createUdzbenik.newUdzbenik.tiraz}"/>
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle" value="ISBN"/>
-                        <p:inputText class="inputUdzbenikISBN" value="#{findUdzbenik.udzbenik.isbn}"/>
+                        <p:inputText class="inputUdzbenikISBN" value="#{createUdzbenik.newUdzbenik.isbn}"/>
                     </div>
 
 
                     <p:outputLabel class="udzbenikTitle" value="Autori i recenzenti"/>
                     <p:outputLabel value="*** Autori i recenzenti koji su novi na udzbeniku dobijaju privremeni ID, on ce se promeniti kada promene budu zapamcene"/>  
                     <p:dataTable var="osoba" class="osobaUVezuSaUdzbenikomDataTable"
-                                 value="#{findUdzbenik.udzbenik.osobaUVeziSaUdzbenikomList}" editable="true"
+                                 value="#{createUdzbenik.newUdzbenik.osobaUVeziSaUdzbenikomList}" editable="true"
                                  id="dt" widgetVar="dt">
 
-                        <p:ajax event="rowEdit" process="@this" listener="#{findUdzbenik.onRowEdit}" update=":udzbenikForm:msgs"  />
-                        <p:ajax event="rowEditCancel" process="@this" listener="#{findUdzbenik.onRowCancel}" update=":udzbenikForm:msgs" />
+                        <p:ajax event="rowEdit" process="@this" listener="#{createUdzbenik.onRowEdit}" update=":udzbenikForm:msgs"  />
+                        <p:ajax event="rowEditCancel" process="@this" listener="#{createUdzbenik.onRowCancel}" update=":udzbenikForm:msgs" />
 
                         <p:column headerText="Id">
                             <h:outputText value="#{osoba.osobaId}" />
@@ -122,7 +121,7 @@ and open the template in the editor.
                     <div class="ui-g">
                         <div class="ui-g-12">
                             <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":udzbenikForm:msgs dt"
-                                          class="dodajOsobuNaUdzbeniku"  actionListener="#{findUdzbenik.onAddNew()}"  />
+                                             class="dodajOsobuNaUdzbeniku"  actionListener="#{findUdzbenik.onAddNew()}"  />
 
                         </div>
                     </div>
@@ -130,13 +129,10 @@ and open the template in the editor.
 
                     <hr  />
 
-                    <p:commandButton type="submit" actionListener="#{findUdzbenik.onUpdate}" value="Azuriraj" styleClass="ui-priority-primary" class="btn btn-primary" style="margin: 0 0 20px 120px" />
-                    <p:commandButton type="submit" actionListener="#{findUdzbenik.onDelete}" value="Obrisi" styleClass="ui-priority-primary" class="btn btn-danger" style="margin: 0 0 20px 70px" />
+                    <p:commandButton type="submit" actionListener="#{createUdzbenik.createUdzbenik()}" value="Sacuvaj" styleClass="ui-priority-primary" class="btn btn-success" style="margin: 0 0 20px 120px" />
+
                     <p:button outcome="udzbenik_index.xhtml" value="Odustani" styleClass="ui-priority-primary" class="btn btn-secondstyleClassary" style="margin: 0 0 20px 70px" />
                 </h:form>
-
-
-
             </ui:define>
         </ui:composition>
     </h:body>
