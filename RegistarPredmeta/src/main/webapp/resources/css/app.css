@@ -25,7 +25,7 @@ footer {
 .udzbenikDataTable{
     height: 400px;
     width: 70%;
-    margin: 100px 0 100px 100px;
+    margin: 100px 0 100px 200px;
 }
 
 .datatableColumn{
@@ -86,10 +86,54 @@ footer {
 }
 
 .emptyDiv{
-    height: 50px;
+    height: 30px;
 }
 
 .dodajOsobuNaUdzbeniku{
     margin-left: 40px;
 }
 
+#nastavnikSection{
+    height: 650px;
+    width:600px;
+    margin: -100px 0 100px 400px;
+    background-color: #9999ff; 
+}
+
+
+/*nastavnik-find*/
+
+.outputNastavnikId{
+   margin-left: 115px;
+   width: 250px;
+}
+
+.outputNastavnikImePrezime{
+   margin-left: 15px;
+   width: 250px;
+}
+
+.outputNastavnikZvanje{
+    margin-left: 73px;
+    width: 250px;
+}
+
+.outputNastavnikKatedra{
+   margin-left: 64px;
+   width: 250px;
+}
+
+.outputNastavnikTelefon{
+    margin-left: 67.5px;
+    width: 250px;
+}
+
+.outputNastavnikEPosta{
+    margin-left: 67.5px;
+    width: 250px;
+}
+
+.outputNastavnikKabinet{
+    margin-left:65px;
+    width: 250px;
+}

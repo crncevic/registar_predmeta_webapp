@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Nastavnik</title>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="templ.xhtml">
+            <ui:define name="content">
+                <section id="nastavnikSection">
+
+                    <p:outputLabel class="udzbenikTitle">Nastavnik</p:outputLabel>
+                    <div>
+                        <p:outputLabel class="udzbenikTitle"  value="Id"/>
+                        <p:inputText class="outputNastavnikId" value="#{findNastavnik.nastavnik.nastavnikId}" disabled="true"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Ime i prezime"/>
+                        <p:inputText class="outputNastavnikImePrezime"  value="#{findNastavnik.nastavnik.ime} #{findNastavnik.nastavnik.prezime}"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Zvanje"/>
+                        <p:inputText class="outputNastavnikZvanje"  value="#{findNastavnik.nastavnik.zvanje}"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Katedra"/>
+                        <p:inputText class="outputNastavnikKatedra" value="#{findNastavnik.nastavnik.katedraDTO.naziv}"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Telefon"/>
+                        <p:inputText  class="outputNastavnikTelefon" value="#{findNastavnik.nastavnik.telefon}"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="E posta"/>
+                        <p:inputText class="outputNastavnikEPosta" value="#{findNastavnik.nastavnik.ePosta}"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Kabinet"/>
+                        <p:inputText class="outputNastavnikKabinet" value="#{findNastavnik.nastavnik.kabinet}"/>
+                    </div>
+
+                    <div class="emptyDiv">
+                        <p:button outcome="nastavnik_index.xhtml" value="Nazad" style="margin: 20px 0 0 20px"> </p:button>
+                    </div>
+                </section>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>

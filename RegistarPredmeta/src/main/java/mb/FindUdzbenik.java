@@ -14,11 +14,6 @@ import java.util.Map;
 import java.util.Random;
 import javax.faces.application.FacesMessage;
 import javax.annotation.ManagedBean;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -147,12 +142,12 @@ public class FindUdzbenik implements Serializable{
         Response response = restWSClient.update_JSON(udzbenik, udzbenik.getUdzbenikId().toString());
 
         if (response.getStatusInfo() == Response.Status.OK) {
-//            FacesMessage msg = new FacesMessage("Udzbenik uspesno azuriran");
-//            FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage("Udzbenik uspesno azuriran");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
             return "success-update";
         }
-//        FacesMessage msg = new FacesMessage("Greska prilikom azuriranja udzbenika!");
-//        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesMessage msg = new FacesMessage("Greska prilikom azuriranja udzbenika!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
         return "failure-update";
 
     }
@@ -162,12 +157,12 @@ public class FindUdzbenik implements Serializable{
         Response response = restWSClient.delete(udzbenik.getUdzbenikId().toString());
 
         if (response.getStatusInfo() == Response.Status.OK) {
-//            FacesMessage msg = new FacesMessage("Udzbenik uspesno obrisan");
-//            FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage("Udzbenik uspesno obrisan");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
             return "success-delete";
         }
-//        FacesMessage msg = new FacesMessage("Greska  prilikom  brisanja udzbenika");
-//        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesMessage msg = new FacesMessage("Greska  prilikom  brisanja udzbenika");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
         return "failure-delete";
     }
 

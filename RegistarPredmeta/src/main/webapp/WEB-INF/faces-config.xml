@@ -17,8 +17,16 @@
         <from-view-id>/udzbenik_find.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{findUdzbenik.onUpdate}</from-action>
-            <from-outcome>success-update</from-outcome>
+            <from-outcome>successupdate</from-outcome>
             <to-view-id>/udzbenik_index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/nastavnik_index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>find</from-outcome>
+            <to-view-id>/nastavnik_find.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

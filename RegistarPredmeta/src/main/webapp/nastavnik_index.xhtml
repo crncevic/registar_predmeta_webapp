@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Nastavnici</title>
+       
+    </h:head>
+    <h:body>
+        <ui:composition template="templ.xhtml">
+            
+            <ui:define name="content">
+                <p:dataTable class="udzbenikDataTable" var="nastavnik" value="#{allNastavnik.nastavnici}"
+                             paginator="true" scrollable="true" rows="5"
+                             rowsPerPageTemplate="5,10,15"
+                             >
+                    <p:column headerText="Id" class="datatableColumn">
+                        <h:outputText value="#{nastavnik.nastavnikId}" />
+                    </p:column>
+
+                    <p:column headerText="Ime i prezime" class="datatableColumn">
+                        <h:outputText value="#{nastavnik.ime} #{nastavnik.prezime}" />
+                    </p:column>
+                    
+                     <p:column headerText="Zvanje" class="datatableColumn">
+                         <h:outputText value="#{nastavnik.zvanje}" />
+                    </p:column>
+
+                    <p:column headerText="Katedra" class="datatableColumn">
+                        <h:outputText value="#{nastavnik.katedraDTO.naziv}" />
+                    </p:column>
+                    
+                    <p:column headerText="Detaljnije" class="datatableColumn" width="20px">
+                      
+                        <p:button outcome="find"  icon="ui-icon-search" >
+                            <f:param name="nastavnikId" value="#{nastavnik.nastavnikId}"/>
+                        </p:button>
+                       
+                    </p:column>
+      
+                </p:dataTable>
+            </ui:define>
+            
+        </ui:composition>
+    </h:body>
+</html>

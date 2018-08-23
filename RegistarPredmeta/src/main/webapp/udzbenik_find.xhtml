@@ -69,7 +69,7 @@ and open the template in the editor.
                                  value="#{findUdzbenik.udzbenik.osobaUVeziSaUdzbenikomList}" editable="true"
                                  id="dt" widgetVar="dt">
 
-                        <p:ajax event="rowEdit" process="@this" listener="#{findUdzbenik.onRowEdit}" update=":udzbenikForm:msgs" />
+                        <p:ajax event="rowEdit" process="@this" listener="#{findUdzbenik.onRowEdit}" update=":udzbenikForm:msgs"  />
                         <p:ajax event="rowEditCancel" process="@this" listener="#{findUdzbenik.onRowCancel}" update=":udzbenikForm:msgs" />
 
                         <p:column headerText="Id">
@@ -115,14 +115,14 @@ and open the template in the editor.
                         </p:column>
 
                         <p:column style="width:32px">
-                            <p:commandLink value="X" timeout="2000" action="#{findUdzbenik.onDeleteRow(osoba)}" update="dt" process="@this" oncomplete="PF('dt').hide();" ajax="true" />
+                            <p:commandLink value="X" timeout="2000" action="#{findUdzbenik.onDeleteRow(osoba)}" update="dt" process="@this" />
                         </p:column>
                     </p:dataTable>
 
                     <div class="ui-g">
                         <div class="ui-g-12">
                             <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":udzbenikForm:msgs"
-                                             class="dodajOsobuNaUdzbeniku"  actionListener="#{findUdzbenik.onAddNew()}" oncomplete="PF('dt').addRow();" />
+                                          class="dodajOsobuNaUdzbeniku"  actionListener="#{findUdzbenik.onAddNew()}" oncomplete="PF('dt').addRow();" />
 
                         </div>
                     </div>

@@ -5,10 +5,13 @@
  */
 package mb;
 
+import dto.KatedraDTO;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import ws.client.RestWSClient;
 
 /**
  *
@@ -22,7 +25,23 @@ public class AllKatedra implements Serializable{
     /**
      * Creates a new instance of AllKatedra
      */
+    
+    private RestWSClient restWSClient;
+    private List<KatedraDTO> katedre;
+    
     public AllKatedra() {
+        restWSClient = new RestWSClient("katedra");
+        katedre = restWSClient.getAll_JSON(List.class);
     }
+
+    public List<KatedraDTO> getKatedre() {
+        return katedre;
+    }
+
+    public void setKatedre(List<KatedraDTO> katedre) {
+        this.katedre = katedre;
+    }
+    
+    
     
 }
