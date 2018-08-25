@@ -9,6 +9,7 @@ import domain.TipNastave;
 import dto.TipNastaveDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,11 +27,9 @@ import mapper.Mapper;
 @Path("tip-nastave")
 public class TipNastaveController {
 
-    private final TipNastaveLogic tnl;
+    @Inject
+    private  TipNastaveLogic tnl;
 
-    public TipNastaveController() {
-        this.tnl = new TipNastaveLogic();
-    }
 
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})

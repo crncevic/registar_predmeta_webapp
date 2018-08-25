@@ -94,7 +94,9 @@ public class FindUdzbenik implements Serializable {
         if (udzbenik.getOsobaUVeziSaUdzbenikomList().size() > 0 && isLastOsobaEmpty(udzbenik.getOsobaUVeziSaUdzbenikomList())) {
             FacesMessage msg = new FacesMessage("Niste uneli podatke!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            if(udzbenik.getOsobaUVeziSaUdzbenikomList().size() > 1){
             udzbenik.getOsobaUVeziSaUdzbenikomList().remove(udzbenik.getOsobaUVeziSaUdzbenikomList().size()-1);
+            }
             return;
         }
 

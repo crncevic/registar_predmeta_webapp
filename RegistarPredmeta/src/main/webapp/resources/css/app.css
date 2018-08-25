@@ -40,6 +40,12 @@ footer {
     margin: 100px 0 100px 200px;
 }
 
+.predmetDataTable{
+    height: 400px;
+    width: 70%;
+    margin: 100px 0 100px 200px;
+}
+
 .datatableColumn{
     text-align: center;
 }
@@ -63,6 +69,15 @@ footer {
     margin: 65px 0 100px 400px;
     background-color: #9999ff; 
 }
+
+#predmetForm{
+     height: 120%;
+    width:800px;
+    margin: 65px 0 100px 300px;
+    background-color: #9999ff; 
+}
+
+/* udzbenik form*/
 
 .inputUdzbenikId{
     margin-left: 110px;
@@ -161,4 +176,72 @@ footer {
 .outputNastavnikKabinet{
     margin-left:65px;
     width: 250px;
+}
+
+.growl{
+    z-index:0;
+}
+
+
+/* predmet form */
+
+.inputPredmetId{
+    margin-left: 265px;
+    width: 300px;
+}
+
+.inputPredmetNaziv{
+    margin-left: 235px;
+    width: 300px;
+}
+
+.inputPredmetUslov{
+    margin-left: 235px;
+    width: 300px;
+}
+
+.inputPredmetBrCasPredavanja{
+    margin-left: 5px;
+}
+
+.inputPredmetBrCasVezbi{
+     margin-left: 55px;
+}
+
+.inputPredmetOstaliCasovi{
+    margin-left: 175px;
+}
+
+.inputPredmetStdIstrRad{
+     margin-left: 75px;
+     width: 300px;
+}
+
+.inputPredmetDrObliciNastave{
+    margin-left: 115px;
+     width: 300px;
+}
+
+.inputPredmetCilj{
+     margin-left: 135px;
+}
+
+.inputPredmetVrstaINivoStudija{
+    width:300px;
+    margin: 15px 0 0 125px;
+}
+
+.NastavnikNaPredmetuDataTable{
+   margin:20px 0 20px 135px;
+    width:500px;
+}
+
+.inputPredmetNastavnikNaPredmetuSelectItem{
+    margin-top: 10px;
+    margin-left: -35px;
+}
+
+.inputPredmetTipNastave{
+    margin-top: 10px;
+    margin-left: -35px;
 }

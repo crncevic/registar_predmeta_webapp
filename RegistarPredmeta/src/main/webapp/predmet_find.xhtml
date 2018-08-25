@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Predmet</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="templ.xhtml">
+            <ui:define name="content">
+
+                <h:form id="predmetForm"> 
+                    <p:growl class="growl" id="msgs"  showDetail="true"/>
+
+                    <p:outputLabel class="udzbenikTitle">Predmet</p:outputLabel>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle"  value="Id"/>
+                        <p:inputText class="inputPredmetId" value="#{findPredmet.predmet.predmetId}" disabled="true"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle"  value="Naziv"/>
+                        <p:inputText class="inputPredmetNaziv" value="#{findPredmet.predmet.naziv}"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle"  value="Uslov"/>
+                        <p:inputText class="inputPredmetUslov" value="#{findPredmet.predmet.uslov}" />
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle"  value="Broj casova predavanja nedeljno"/>
+                        <p:spinner class="inputPredmetBrCasPredavanja" value="#{findPredmet.predmet.brCasovaPredavanjaNedeljno}" />
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle"  value="Broj casova vezbi nedeljno"/>
+                        <p:spinner class="inputPredmetBrCasVezbi" value="#{findPredmet.predmet.brCasovaVezbiNedeljno}" />
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle"  value="Ostali casovi"/>
+                        <p:spinner class="inputPredmetOstaliCasovi" value="#{findPredmet.predmet.ostaliCasovi}" />
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle"  value="Studijski istrazivacki rad"/>
+                        <p:inputText class="inputPredmetStdIstrRad" value="#{findPredmet.predmet.studijskiIstrazivackiRad}" />
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle"  value="Drugi oblici nastave"/>
+                        <p:inputText class="inputPredmetDrObliciNastave" value="#{findPredmet.predmet.drugiObliciNastave}" />
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Vrsta i nivo studija" />
+                        <p:selectOneMenu class="inputPredmetVrstaINivoStudija" value="#{findPredmet.predmet.vrstaINivoStudija.naziv}" >
+                            <f:selectItems value="#{findPredmet.vrsteINivoiStudija}" var="vrsta" itemLabel="#{vrsta.naziv}" itemValue="#{vrsta.naziv}" />
+                        </p:selectOneMenu>
+
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle"  value="Cilj"/>
+                        <div>
+                            <p:inputTextarea class="inputPredmetCilj" rows="8" cols="70" counter="display1" maxlength="500" counterTemplate="{0} characters remaining." autoResize="false" value="#{findPredmet.predmet.cilj}"/>
+                        </div>
+                        <h:outputText class="inputPredmetCilj" id="display1" />
+
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle"  value="Ishod"/>
+                        <div>
+                            <p:inputTextarea class="inputPredmetCilj" id="inputPredmetIshod" rows="8" cols="70" counter="display2" maxlength="500" counterTemplate="{0} characters remaining." autoResize="false" value="#{findPredmet.predmet.ishod}"/>
+                        </div>
+                        <h:outputText class="inputPredmetCilj" id="display2" />
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle"  value="Sadrzaj tekst"/>
+                        <div>
+                            <p:inputTextarea class="inputPredmetCilj" id="inputPredmetSadrzajTekst" rows="10" cols="70" counter="display3" maxlength="1000" counterTemplate="{0} characters remaining." autoResize="false" value="#{findPredmet.predmet.tematskaCeline}"/>
+                        </div>
+                        <h:outputText class="inputPredmetCilj" id="display3" />
+                    </div>
+
+
+                    <p:outputLabel class="udzbenikTitle"  value="Nastavnici na predmetu"/>
+
+                    <div class="ui-g">
+                        <div class="ui-g-12">
+
+
+
+                            <p:outputLabel class="udzbenikTitle" value="Nastavnik: " />
+                            <p:selectOneMenu class="inputPredmetNastavnikNaPredmetuSelectItem"  id="inputPredmetNastavnik"
+                                             value="#{findPredmet.selectedNastavnik}" converter="nastavnikConverter">
+                                <f:selectItem itemLabel="Izaberite nastavnika" itemValue="" />
+                                <f:selectItems value="#{findPredmet.nastavnici}" var="nastavnik" itemLabel="#{nastavnik.ime} #{nastavnik.prezime}" itemValue="#{nastavnik}" />
+                                <p:ajax event="change" listener="#{findPredmet.selectedNastavnikListener}" process="@this" immediate="true"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel class="udzbenikTitle" value="Tip nastave:" />
+                            <p:selectOneMenu class="inputPredmetTipNastave"  id="inputPredmetTipNastave" 
+                                             value="#{findPredmet.selectedTipNastave}" converter="tipNastaveConverter" > 
+
+                                <f:selectItem itemLabel="Izaberite tip nastave" itemValue="" />
+                                <f:selectItems value="#{findPredmet.tipoviNastave}"  id="inputPredmetTipNastaveItem"  var="tip" itemLabel="#{tip.naziv}" itemValue="#{tip}" >
+                                    <f:param name="tipid" id ="tipid" value="#{tip.tipnastaveId}" />
+                                </f:selectItems>
+
+
+                                <p:ajax event="change" listener="#{findPredmet.selectedTipNastaveListener}" process="@this" immediate="true"/>
+                            </p:selectOneMenu> 
+
+
+                            <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetForm:msgs dt"
+                                             class="dodajOsobuNaUdzbeniku"  actionListener="#{findPredmet.onAddNewNastavnikNaPredmetu()}"  />
+
+
+                        </div>
+                    </div>
+
+                    <p:dataTable var="nastavnikNaPredmetu" class="NastavnikNaPredmetuDataTable"
+                                 value="#{findPredmet.predmet.nastavnici}" editable="false"
+                                 id="dt" widgetVar="dt">
+
+                        <p:column headerText="Ime">
+
+                            <h:outputText value="#{nastavnikNaPredmetu.nastavnikDTO.ime}" />
+
+                        </p:column>
+
+                        <p:column headerText="Prezime">
+
+                            <h:outputText value="#{nastavnikNaPredmetu.nastavnikDTO.prezime}" />
+
+                        </p:column>
+
+                        <p:column headerText="Tip nastave">
+
+                            <h:outputText value="#{nastavnikNaPredmetu.tipNastaveDTO.naziv}" />
+
+
+                        </p:column>
+
+                        <p:column style="width:32px">
+                            <p:commandLink value="X" timeout="2000" action="#{findPredmet.onDeleteNastavnikNaPredmetu(nastavnikNaPredmetu)}" update=":predmetForm:msgs dt" process="@this" />
+                        </p:column>
+
+
+                    </p:dataTable>
+
+
+                    <div class="emptyDiv"></div>
+
+                    <p:dataTable var="udzbenik" class="osobaUVezuSaUdzbenikomDataTable"
+                                 value="#{findPredmet.predmet.udzbenici}" editable="false"
+                                 id="dt2" widgetVar="dt2">
+
+
+
+                        <p:column headerText="Naziv">
+                            <h:outputText value="#{udzbenik.udzbenikDTO.naziv}" />
+                        </p:column>
+
+                        <p:column headerText="Godina izdanja">
+
+                            <h:outputText value="#{udzbenik.udzbenikDTO.godinaIzdanja}" />
+
+                        </p:column>
+
+                        <p:column headerText="Izdavac">
+                            <h:outputText value="#{udzbenik.udzbenikDTO.izdavac}" />
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <div class="emptyDiv"></div>
+
+
+
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
