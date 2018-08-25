@@ -71,7 +71,7 @@ footer {
 }
 
 #predmetForm{
-     height: 120%;
+    height: 120%;
     width:800px;
     margin: 65px 0 100px 300px;
     background-color: #9999ff; 
@@ -129,7 +129,7 @@ footer {
 }
 
 .dodajOsobuNaUdzbeniku{
-    margin-left: 40px;
+    margin:0 0 0px 50px;
 
 }
 
@@ -205,7 +205,7 @@ footer {
 }
 
 .inputPredmetBrCasVezbi{
-     margin-left: 55px;
+    margin-left: 55px;
 }
 
 .inputPredmetOstaliCasovi{
@@ -213,17 +213,17 @@ footer {
 }
 
 .inputPredmetStdIstrRad{
-     margin-left: 75px;
-     width: 300px;
+    margin-left: 75px;
+    width: 300px;
 }
 
 .inputPredmetDrObliciNastave{
     margin-left: 115px;
-     width: 300px;
+    width: 300px;
 }
 
 .inputPredmetCilj{
-     margin-left: 135px;
+    margin-left: 135px;
 }
 
 .inputPredmetVrstaINivoStudija{
@@ -232,16 +232,41 @@ footer {
 }
 
 .NastavnikNaPredmetuDataTable{
-   margin:20px 0 20px 135px;
+    margin:0 0 20px 135px;
     width:500px;
 }
 
 .inputPredmetNastavnikNaPredmetuSelectItem{
     margin-top: 10px;
     margin-left: -35px;
+    width:200px;
 }
 
 .inputPredmetTipNastave{
     margin-top: 10px;
     margin-left: -35px;
+    width:200px;
+}
+
+.inputPredmetUdbzenikDataTable{
+    margin:20px 0 20px 135px;
+    width:500px;
+}
+
+.inputPredmetUdzbenik{
+    margin-top: 10px;
+    margin-left: -35px;
+    width:250px;
+}
+
+.nastavnikTitle{
+    margin: 20px 40px 0 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.tipNastaveTitle{
+    margin: 20px 40px 0 0;
+    font-size: 18px;
+    font-weight: bold;
 }

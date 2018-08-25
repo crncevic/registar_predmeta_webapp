@@ -9,21 +9,18 @@ import dto.NastavnikDTO;
 import dto.NastavnikNaPredmetuDTO;
 import dto.PredmetDTO;
 import dto.TipNastaveDTO;
+import dto.UdzbenikDTO;
+import dto.UdzbenikNaPredmetuDTO;
 import dto.VrstaINivoStudijaDTO;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.ManagedBean;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
-import javax.faces.component.UIOutput;
-import javax.faces.component.UISelectItems;
-import javax.faces.component.UISelectOne;
 import javax.inject.Named;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.view.ViewScoped;
 import ws.client.RestWSClient;
 
@@ -41,9 +38,11 @@ public class FindPredmet implements Serializable {
     private List<VrstaINivoStudijaDTO> vrsteINivoiStudija;
     private List<NastavnikDTO> nastavnici;
     private List<TipNastaveDTO> tipoviNastave;
+    private List<UdzbenikDTO> udzbenici;
 
     private NastavnikDTO selectedNastavnik;
     private TipNastaveDTO selectedTipNastave;
+    private UdzbenikDTO selectedUdzbenik;
 
     public FindPredmet() {
 
@@ -60,6 +59,16 @@ public class FindPredmet implements Serializable {
 
     public void setPredmet(PredmetDTO predmet) {
         this.predmet = predmet;
+    }
+
+    public List<UdzbenikDTO> getUdzbenici() {
+        restWSClient = new RestWSClient("udzbenik");
+        udzbenici = restWSClient.getAll_JSON(List.class);
+        return udzbenici;
+    }
+
+    public void setUdzbenici(List<UdzbenikDTO> udzbenici) {
+        this.udzbenici = udzbenici;
     }
 
     public List<VrstaINivoStudijaDTO> getVrsteINivoiStudija() {
@@ -97,6 +106,14 @@ public class FindPredmet implements Serializable {
         this.selectedNastavnik = selectedNastavnik;
     }
 
+    public UdzbenikDTO getSelectedUdzbenik() {
+        return selectedUdzbenik;
+    }
+
+    public void setSelectedUdzbenik(UdzbenikDTO selectedUdzbenik) {
+        this.selectedUdzbenik = selectedUdzbenik;
+    }
+
     public void selectedTipNastaveListener(AjaxBehaviorEvent event) {
         String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetForm:inputPredmetTipNastave")).getSubmittedValue();
         restWSClient = new RestWSClient("tip-nastave");
@@ -107,6 +124,12 @@ public class FindPredmet implements Serializable {
         String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetForm:inputPredmetNastavnik")).getSubmittedValue();
         restWSClient = new RestWSClient("nastavnik");
         this.selectedNastavnik = restWSClient.getById_JSON(NastavnikDTO.class, id);
+    }
+
+    public void selectedUdzbenikListener(AjaxBehaviorEvent event) {
+        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetForm:inputPredmetUdzbenik")).getSubmittedValue();
+        restWSClient = new RestWSClient("udzbenik");
+        this.selectedUdzbenik = restWSClient.getById_JSON(UdzbenikDTO.class, id);
     }
 
     public TipNastaveDTO getSelectedTipNastave() {
@@ -151,17 +174,48 @@ public class FindPredmet implements Serializable {
 
         predmet.getNastavnici().add(nnpdto);
 
+        FacesMessage msg = new FacesMessage(nnpdto.getNastavnikDTO().getIme() + " " + nnpdto.getNastavnikDTO().getPrezime() + " drzi " + nnpdto.getTipNastaveDTO().getNaziv());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+
     }
 
     public void onDeleteNastavnikNaPredmetu(NastavnikNaPredmetuDTO nnpdto) {
-        for (NastavnikNaPredmetuDTO nastavnikNaPredmetuDTO : predmet.getNastavnici()) {
-            if (nastavnikNaPredmetuDTO.equals(nnpdto)) {
-                predmet.getNastavnici().remove(nastavnikNaPredmetuDTO);
+
+        predmet.getNastavnici().remove(nnpdto);
+
+        FacesMessage msg = new FacesMessage(nnpdto.getNastavnikDTO().getIme() + " " + nnpdto.getNastavnikDTO().getPrezime() + " vise ne drzi " + nnpdto.getTipNastaveDTO().getNaziv());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+
+    }
+
+    public void onAddNewUdzbenikNaPredmetu() {
+        if (selectedUdzbenik == null) {
+            FacesMessage msg = new FacesMessage("Niste izabrali udzbenik");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return;
+        }
+
+        UdzbenikNaPredmetuDTO unpdto = new UdzbenikNaPredmetuDTO();
+        unpdto.setUdzbenikDTO(selectedUdzbenik);
+
+        for (UdzbenikNaPredmetuDTO udzbenikNaPredmetuDTO : predmet.getUdzbenici()) {
+            if (udzbenikNaPredmetuDTO.getUdzbenikDTO().getUdzbenikId() == unpdto.getUdzbenikDTO().getUdzbenikId()) {
+                FacesMessage msg = new FacesMessage(unpdto.getUdzbenikDTO().getNaziv() + " vec postoji na predmetu  " + predmet.getNaziv());
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+                return;
             }
         }
 
-        FacesMessage msg = new FacesMessage("Nastavnik : " + nnpdto.getNastavnikDTO().getIme() + nnpdto.getNastavnikDTO().getPrezime()
-                + " koji drzi " + nnpdto.getTipNastaveDTO().getNaziv() + " izbrisan");
+        predmet.getUdzbenici().add(unpdto);
+        FacesMessage msg = new FacesMessage(unpdto.getUdzbenikDTO().getNaziv() + " dodat na predmet : " + predmet.getNaziv());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onDeleteUdzbenikNaPredmetu(UdzbenikNaPredmetuDTO udzbenikDTO) {
+        udzbenikDTO.setPredmetId(predmet.getPredmetId());
+
+        predmet.getUdzbenici().remove(udzbenikDTO);
+        FacesMessage msg = new FacesMessage(udzbenikDTO.getUdzbenikDTO().getNaziv() + " izbrisan sa predmeta : " + udzbenikDTO.getUdzbenikDTO().getNaziv());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 

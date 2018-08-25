@@ -103,8 +103,9 @@ and open the template in the editor.
                         <div class="ui-g-12">
 
 
-
-                            <p:outputLabel class="udzbenikTitle" value="Nastavnik: " />
+                           
+                            <p:outputLabel class="nastavnikTitle" value="Nastavnik: " />
+                           
                             <p:selectOneMenu class="inputPredmetNastavnikNaPredmetuSelectItem"  id="inputPredmetNastavnik"
                                              value="#{findPredmet.selectedNastavnik}" converter="nastavnikConverter">
                                 <f:selectItem itemLabel="Izaberite nastavnika" itemValue="" />
@@ -112,7 +113,7 @@ and open the template in the editor.
                                 <p:ajax event="change" listener="#{findPredmet.selectedNastavnikListener}" process="@this" immediate="true"/>
                             </p:selectOneMenu>
 
-                            <p:outputLabel class="udzbenikTitle" value="Tip nastave:" />
+                            <p:outputLabel class="tipNastaveTitle" value="Tip nastave:" />
                             <p:selectOneMenu class="inputPredmetTipNastave"  id="inputPredmetTipNastave" 
                                              value="#{findPredmet.selectedTipNastave}" converter="tipNastaveConverter" > 
 
@@ -125,10 +126,10 @@ and open the template in the editor.
                                 <p:ajax event="change" listener="#{findPredmet.selectedTipNastaveListener}" process="@this" immediate="true"/>
                             </p:selectOneMenu> 
 
-
-                            <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetForm:msgs dt"
-                                             class="dodajOsobuNaUdzbeniku"  actionListener="#{findPredmet.onAddNewNastavnikNaPredmetu()}"  />
-
+                           
+                                <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetForm:msgs dt"
+                                                 class="dodajOsobuNaUdzbeniku"  actionListener="#{findPredmet.onAddNewNastavnikNaPredmetu()}"  />
+                           
 
                         </div>
                     </div>
@@ -156,8 +157,8 @@ and open the template in the editor.
 
                         </p:column>
 
-                        <p:column style="width:32px">
-                            <p:commandLink value="X" timeout="2000" action="#{findPredmet.onDeleteNastavnikNaPredmetu(nastavnikNaPredmetu)}" update=":predmetForm:msgs dt" process="@this" />
+                        <p:column style="width:70px">
+                            <p:commandButton value="X" styleClass="ui-priority-primary" process="@this"  actionListener="#{findPredmet.onDeleteNastavnikNaPredmetu(nastavnikNaPredmetu)}" update=":predmetForm:msgs dt"  />
                         </p:column>
 
 
@@ -166,7 +167,29 @@ and open the template in the editor.
 
                     <div class="emptyDiv"></div>
 
-                    <p:dataTable var="udzbenik" class="osobaUVezuSaUdzbenikomDataTable"
+                    <div class="ui-g">
+                        <div class="ui-g-12">
+
+                            <p:outputLabel class="udzbenikTitle" value="Udzbenici:" />
+                            <p:selectOneMenu class="inputPredmetUdzbenik"  id="inputPredmetUdzbenik" 
+                                             value="#{findPredmet.selectedUdzbenik}" converter="udzbenikConverter" > 
+
+                                <f:selectItem itemLabel="Izaberite udzbenik" itemValue="" />
+                                <f:selectItems value="#{findPredmet.udzbenici}"  id="inputPredmetUdzbenikItem"  var="udzbenik" itemLabel="#{udzbenik.naziv}" itemValue="#{udzbenik}" >
+
+                                </f:selectItems>
+
+
+                                <p:ajax event="change" listener="#{findPredmet.selectedUdzbenikListener}" process="@this" immediate="true"/>
+                            </p:selectOneMenu> 
+                            
+                             <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetForm:msgs dt2"
+                                              class="dodajOsobuNaUdzbeniku"  actionListener="#{findPredmet.onAddNewUdzbenikNaPredmetu()}"  />
+
+                        </div>
+                    </div>
+
+                    <p:dataTable var="udzbenik" class="inputPredmetUdbzenikDataTable"
                                  value="#{findPredmet.predmet.udzbenici}" editable="false"
                                  id="dt2" widgetVar="dt2">
 
@@ -184,6 +207,10 @@ and open the template in the editor.
 
                         <p:column headerText="Izdavac">
                             <h:outputText value="#{udzbenik.udzbenikDTO.izdavac}" />
+                        </p:column>
+                        
+                         <p:column style="width:70px">
+                             <p:commandButton value="X" styleClass="ui-priority-primary" process="@this"  actionListener="#{findPredmet.onDeleteUdzbenikNaPredmetu(udzbenik)}" update=":predmetForm:msgs dt2"  />
                         </p:column>
 
                     </p:dataTable>
