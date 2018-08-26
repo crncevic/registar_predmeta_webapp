@@ -5,6 +5,7 @@
  */
 package mb;
 
+import constants.Constants;
 import dto.KatedraDTO;
 import java.io.Serializable;
 import java.util.List;
@@ -30,7 +31,7 @@ public class AllKatedra implements Serializable{
     private List<KatedraDTO> katedre;
     
     public AllKatedra() {
-        restWSClient = new RestWSClient("katedra");
+        restWSClient = new RestWSClient(Constants.KATEDRA_CONTROLLER);
         katedre = restWSClient.getAll_JSON(List.class);
     }
 

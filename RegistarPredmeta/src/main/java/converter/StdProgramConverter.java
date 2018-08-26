@@ -5,11 +5,9 @@
  */
 package converter;
 
-import dto.NastavnikDTO;
+import constants.Constants;
 import dto.StudijskiProgramDTO;
 import java.util.LinkedHashMap;
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -25,16 +23,14 @@ import ws.client.RestWSClient;
 @FacesConverter("stdProgramConverter")
 public class StdProgramConverter implements Converter {
 
-    /**
-     * Creates a new instance of StdProgramConverter
-     */
+    
     public StdProgramConverter() {
     }
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         try {
-            RestWSClient restWSClient = new RestWSClient("studijski-program");
+            RestWSClient restWSClient = new RestWSClient(Constants.STUDIJSKI_PROGRAM_CONTROLLER);
 
             if (value != null && value.trim().length() > 0) {
                 try {
@@ -55,7 +51,7 @@ public class StdProgramConverter implements Converter {
     public String getAsString(FacesContext context, UIComponent component, Object value) {
    try{
         if (value != null) {
-            String naziv =  String.valueOf((Integer)((LinkedHashMap) value).get("studijskiProgramId"));
+            String naziv =  String.valueOf((Integer)((LinkedHashMap) value).get(Constants.STUDIJSKI_PROGRAM_ID));
             return naziv;
         } else {
             return null;

@@ -16,8 +16,14 @@ and open the template in the editor.
       
     </h:head>
     <h:body>
+        
+        
+        
         <ui:composition  template="templ.xhtml">
             <ui:define name="content">
+                
+                  <p:button styleClass="ui-priority-primary" style="margin: 70px 0 20px 200px;display: inline" class="btn btn-primary" value="Kreiraj" outcome="predmet_create.xhtml"/>
+                
                 <p:dataTable var="predmet" value="#{allPredmet.predmeti}" 
                              paginator="true" styleClass="predmetDataTable" scrollable="true" rows="5"
                              rowsPerPageTemplate="5,10,15">

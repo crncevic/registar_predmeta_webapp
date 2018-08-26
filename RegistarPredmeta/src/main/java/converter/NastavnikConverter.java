@@ -5,6 +5,7 @@
  */
 package converter;
 
+import constants.Constants;
 import dto.NastavnikDTO;
 import dto.TipNastaveDTO;
 import java.util.LinkedHashMap;
@@ -34,7 +35,7 @@ public class NastavnikConverter implements Converter{
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         try {
-            RestWSClient restWSClient = new RestWSClient("nastavnik");
+            RestWSClient restWSClient = new RestWSClient(Constants.NASTAVNIK_CONTROLLER);
             
             if (value != null && value.trim().length() > 0) {
             try {
@@ -55,7 +56,7 @@ public class NastavnikConverter implements Converter{
     public String getAsString(FacesContext context, UIComponent component, Object value) {
    try{
         if (value != null) {
-            String naziv =  String.valueOf((Integer)((LinkedHashMap) value).get("nastavnikId"));
+            String naziv =  String.valueOf((Integer)((LinkedHashMap) value).get(Constants.NASTAVNIK_ID));
             return naziv;
         } else {
             return null;

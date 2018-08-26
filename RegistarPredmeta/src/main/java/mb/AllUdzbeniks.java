@@ -5,6 +5,7 @@
  */
 package mb;
 
+import constants.Constants;
 import dto.UdzbenikDTO;
 import java.io.Serializable;
 import java.util.List;
@@ -31,7 +32,7 @@ public class AllUdzbeniks implements Serializable{
     private List<UdzbenikDTO> udzbenici;
     
     public AllUdzbeniks() {
-        restWSClient = new RestWSClient("udzbenik");
+        restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
         udzbenici =  restWSClient.getAll_JSON(List.class);
     }
 

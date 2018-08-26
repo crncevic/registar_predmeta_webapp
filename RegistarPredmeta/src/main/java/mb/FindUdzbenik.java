@@ -5,6 +5,7 @@
  */
 package mb;
 
+import constants.Constants;
 import dto.OsobaUVeziSaUdzbenikomDTO;
 import dto.UdzbenikDTO;
 import dto.UlogaUdzbenikDTO;
@@ -40,13 +41,13 @@ public class FindUdzbenik implements Serializable {
 
     public FindUdzbenik() {
 
-        restWSClient = new RestWSClient("udzbenik");
+        restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        int udzbenikId = Integer.parseInt(params.get("udzbenikId"));
+        int udzbenikId = Integer.parseInt(params.get(Constants.UDZBENIK_ID));
         udzbenik = restWSClient.getById_JSON(UdzbenikDTO.class, String.valueOf(udzbenikId));
 
         //uloge udzbenik
-        restWSClient = new RestWSClient("uloga-udzbenik");
+        restWSClient = new RestWSClient(Constants.ULOGA_UDZBENIK_CONTROLLER);
         ulogeNaUdzbeniku = restWSClient.getAll_JSON(List.class);
         oldOsobe = udzbenik.getOsobaUVeziSaUdzbenikomList();
     }
@@ -132,7 +133,7 @@ public class FindUdzbenik implements Serializable {
     }
 
     public String onUpdate() {
-        restWSClient = new RestWSClient("udzbenik");
+        restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
 
         //brisanje privremenih ID-eva
         for (OsobaUVeziSaUdzbenikomDTO osobaUVeziSaUdzbenikomDTO : udzbenik.getOsobaUVeziSaUdzbenikomList()) {
@@ -161,7 +162,7 @@ public class FindUdzbenik implements Serializable {
     }
 
     public String onDelete() {
-        restWSClient = new RestWSClient("udzbenik");
+        restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
         Response response = restWSClient.delete(udzbenik.getUdzbenikId().toString());
 
         if (response.getStatusInfo() == Response.Status.OK) {

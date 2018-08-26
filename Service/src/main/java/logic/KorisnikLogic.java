@@ -80,7 +80,7 @@ public class KorisnikLogic extends AbstractLogicClass {
             //TODO strukturna ogranicenja
             try {
                 et.begin();
-                Korisnik deletedKorisnik = gr.delete(id, Korisnik.class);
+                Korisnik deletedKorisnik = gr.delete_SingleKey(id, Korisnik.class);
                 et.commit();
                 return deletedKorisnik;
 

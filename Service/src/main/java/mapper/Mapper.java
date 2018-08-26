@@ -60,11 +60,16 @@ public class Mapper {
                 predmetDTO.setNaziv(predmet.getNaziv());
                 predmetDTO.setBrCasovaPredavanjaNedeljno(predmet.getBrCasovaPredavanjaNedeljno());
                 predmetDTO.setBrCasovaVezbiNedeljno(predmet.getBrCasovaVezbiNedeljno());
+                predmetDTO.setOstaliCasovi(predmet.getOstaliCasovi());
                 predmetDTO.setCilj(predmet.getCilj());
                 predmetDTO.setUslov(predmet.getUslov());
                 predmetDTO.setIshod(predmet.getIshod());
                 predmetDTO.setDrugiObliciNastave(predmet.getDrugiObliciNastave());
-                predmetDTO.setVrstaINivoStudija(new VrstaINivoStudijaDTO(predmet.getVrstaINivoStudija().getVrstaId(), predmet.getVrstaINivoStudija().getNaziv()));
+                predmetDTO.setStudijskiIstrazivackiRad(predmet.getStudijskiIstrazivackiRad());
+                predmetDTO.setSadrzajTekst(predmet.getSadrzajTekst());
+                predmetDTO.setVrstaINivoStudija(
+                        new VrstaINivoStudijaDTO(predmet.getVrstaINivoStudija()== null ? 0:predmet.getVrstaINivoStudija().getVrstaId()
+                                , predmet.getVrstaINivoStudija() == null ?  "" : predmet.getVrstaINivoStudija().getNaziv()));
 
                 List<UdzbenikNaPredmetuDTO> udzbeniciDTO = new ArrayList<>();
 
@@ -472,6 +477,7 @@ public class Mapper {
         try {
             if (predmetDTO != null) {
                 Predmet predmet = new Predmet();
+                predmet.setPredmetId(predmetDTO.getPredmetId());
                 predmet.setNaziv(predmetDTO.getNaziv());
                 predmet.setBrCasovaPredavanjaNedeljno(predmetDTO.getBrCasovaPredavanjaNedeljno());
                 predmet.setBrCasovaVezbiNedeljno(predmetDTO.getBrCasovaVezbiNedeljno());
@@ -488,7 +494,7 @@ public class Mapper {
                 if (predmetDTO.getUdzbenici() != null) {
                     for (UdzbenikNaPredmetuDTO udzbenikNaPredmetuDTO : predmetDTO.getUdzbenici()) {
                         UdzbenikNaPredmetu unp = new UdzbenikNaPredmetu();
-                        unp.setUdzbenikNaPredmetuPK(new UdzbenikNaPredmetuPK(udzbenikNaPredmetuDTO.getUdzbenikId(), 0));
+                        unp.setUdzbenikNaPredmetuPK(new UdzbenikNaPredmetuPK(udzbenikNaPredmetuDTO.getUdzbenikId(), predmet.getPredmetId()));
                         udzbeniciNaPredmetu.add(unp);
                     }
                 }
@@ -500,7 +506,7 @@ public class Mapper {
                 if (predmetDTO.getNastavnici() != null) {
 
                     for (NastavnikNaPredmetuDTO nnpdto : predmetDTO.getNastavnici()) {
-                        NastavnikNaPredmetu nnp = new NastavnikNaPredmetu(nnpdto.getNastavnikId(), 0, nnpdto.getTipNastaveId());
+                        NastavnikNaPredmetu nnp = new NastavnikNaPredmetu(nnpdto.getNastavnikId(), predmet.getPredmetId(), nnpdto.getNastavnikId());
                         nastavniciNaPredmetu.add(nnp);
                     }
                 }

@@ -5,6 +5,7 @@
  */
 package mb;
 
+import constants.Constants;
 import dto.NastavnikDTO;
 import java.io.Serializable;
 import java.util.Map;
@@ -29,9 +30,9 @@ public class FindNastavnik implements Serializable{
     
     
     public FindNastavnik() {
-        restWSClient = new RestWSClient("nastavnik");
+        restWSClient = new RestWSClient(Constants.NASTAVNIK_CONTROLLER);
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        int nastavnikId = Integer.parseInt(params.get("nastavnikId"));
+        int nastavnikId = Integer.parseInt(params.get(Constants.NASTAVNIK_ID));
         nastavnik = restWSClient.getById_JSON(NastavnikDTO.class, String.valueOf(nastavnikId));
     }
 

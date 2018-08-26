@@ -59,7 +59,7 @@ public class NastavnikNaPredmetuLogic extends AbstractLogicClass {
             //TODO strukturna ogranicenja
             try {
                 et.begin();
-                NastavnikNaPredmetu nnp = gr.delete(nastavnikNaPredmetuPK, NastavnikNaPredmetu.class);
+                NastavnikNaPredmetu nnp = gr.delete_SingleKey(nastavnikNaPredmetuPK, NastavnikNaPredmetu.class);
                 et.commit();
                 return nnp;
             } catch (Exception ex) {

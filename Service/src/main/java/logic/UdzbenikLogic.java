@@ -110,7 +110,7 @@ public class UdzbenikLogic extends AbstractLogicClass {
 
                 //brisanje izbacenih prilikom azuriranja
                 for (OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom : osobeForDeleting) {
-                    grouvsu.delete(osobaUVeziSaUdzbenikom.getOsobaId(), OsobaUVeziSaUdzbenikom.class);
+                    grouvsu.delete_SingleKey(osobaUVeziSaUdzbenikom.getOsobaId(), OsobaUVeziSaUdzbenikom.class);
                 }
 
                 //dodavanje novih prilikom azuriranja
@@ -147,10 +147,10 @@ public class UdzbenikLogic extends AbstractLogicClass {
                         = grouvsu.getListByParamFromNamedQuery(id, OsobaUVeziSaUdzbenikom.class, Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_UDZBENIK_ID, Constants.UDZBENIK_ID);
 
                 for (OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom : osobeForDeleting) {
-                    grouvsu.delete(osobaUVeziSaUdzbenikom.getOsobaId(), OsobaUVeziSaUdzbenikom.class);
+                    grouvsu.delete_SingleKey(osobaUVeziSaUdzbenikom.getOsobaId(), OsobaUVeziSaUdzbenikom.class);
                 }
 
-                Udzbenik deletedUdzbenik = gru.delete(id, Udzbenik.class);
+                Udzbenik deletedUdzbenik = gru.delete_SingleKey(id, Udzbenik.class);
                 et.commit();
                 return deletedUdzbenik;
             } catch (Exception ex) {

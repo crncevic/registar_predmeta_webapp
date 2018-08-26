@@ -12,12 +12,14 @@ import domain.Predmet;
 import domain.PredmetNaStudijskomProgramu;
 import domain.StudijskiProgram;
 import domain.TematskaCelina;
+import domain.TipNastave;
 import domain.Udzbenik;
 import domain.UdzbenikNaPredmetu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.persistence.TypedQuery;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import repository.GenericRepository;
@@ -40,6 +42,10 @@ public class PredmetLogic extends AbstractLogicClass {
     private GenericRepository<PredmetNaStudijskomProgramu> grpnsp;
     @Inject
     private GenericRepository<TematskaCelina> grtc;
+    @Inject
+    private GenericRepository<Udzbenik> gru;
+    @Inject
+    private GenericRepository<TipNastave> grtn;
 
     private Set<ConstraintViolation<Predmet>> violations;
 
@@ -111,7 +117,6 @@ public class PredmetLogic extends AbstractLogicClass {
                 throw new ConstraintViolationException(violations);
             }
 
-            
             //TODO : strukturna ogranicenja
             try {
                 et.begin();
@@ -125,7 +130,8 @@ public class PredmetLogic extends AbstractLogicClass {
                 for (UdzbenikNaPredmetu oldUdzbenik : oldUdzbenici) {
                     int counter = 0;
                     for (UdzbenikNaPredmetu newUdzbenik : predmet.getUdzbenikList()) {
-                        if (oldUdzbenik.equals(newUdzbenik)) {
+                        if (oldUdzbenik.getUdzbenikNaPredmetuPK().getPredmetId() == newUdzbenik.getUdzbenikNaPredmetuPK().getPredmetId()
+                                && oldUdzbenik.getUdzbenikNaPredmetuPK().getUdzbenikId() == newUdzbenik.getUdzbenikNaPredmetuPK().getUdzbenikId()) {
                             counter++;
                         }
                     }
@@ -138,7 +144,8 @@ public class PredmetLogic extends AbstractLogicClass {
                 for (UdzbenikNaPredmetu newUdzbenik : predmet.getUdzbenikList()) {
                     int counter = 0;
                     for (UdzbenikNaPredmetu oldUdzbenik : oldUdzbenici) {
-                        if (oldUdzbenik.equals(newUdzbenik)) {
+                        if (oldUdzbenik.getUdzbenikNaPredmetuPK().getPredmetId() == newUdzbenik.getUdzbenikNaPredmetuPK().getPredmetId()
+                                && oldUdzbenik.getUdzbenikNaPredmetuPK().getUdzbenikId() == newUdzbenik.getUdzbenikNaPredmetuPK().getUdzbenikId()) {
                             counter++;
                         }
                     }
@@ -150,7 +157,9 @@ public class PredmetLogic extends AbstractLogicClass {
 
                 //brisanje izbacenih iz agregacije
                 for (UdzbenikNaPredmetu udzbenikNaPredmetu : udzbeniciForDeletening) {
-                    grunp.delete(udzbenikNaPredmetu.getUdzbenikNaPredmetuPK(), UdzbenikNaPredmetu.class);
+                    grunp.delete_CompositeKey(Constants.UDZBENIK_NA_PREDMETU_DELETE,
+                            new String[]{Constants.UDZBENIK_ID, Constants.PREDMET_ID},
+                            new int[]{udzbenikNaPredmetu.getUdzbenikNaPredmetuPK().getUdzbenikId(), udzbenikNaPredmetu.getUdzbenikNaPredmetuPK().getPredmetId()});
                 }
 
                 // dodavanje novih udzbenika na predmetu
@@ -169,7 +178,9 @@ public class PredmetLogic extends AbstractLogicClass {
                 for (NastavnikNaPredmetu oldNastavnik : oldNastavniciNaPredmetu) {
                     int counter = 0;
                     for (NastavnikNaPredmetu newNastavnik : predmet.getNastavnikNaPredmetuList()) {
-                        if (oldNastavnik.equals(newNastavnik)) {
+                        if (oldNastavnik.getNastavnikNaPredmetuPK().getNastavnikId() == newNastavnik.getNastavnikNaPredmetuPK().getNastavnikId()
+                                && oldNastavnik.getNastavnikNaPredmetuPK().getPredmetId() == newNastavnik.getNastavnikNaPredmetuPK().getPredmetId()
+                                && oldNastavnik.getNastavnikNaPredmetuPK().getTipNastaveId() == newNastavnik.getNastavnikNaPredmetuPK().getTipNastaveId()) {
                             counter++;
                         }
                     }
@@ -181,7 +192,9 @@ public class PredmetLogic extends AbstractLogicClass {
                 for (NastavnikNaPredmetu newNastavnik : predmet.getNastavnikNaPredmetuList()) {
                     int counter = 0;
                     for (NastavnikNaPredmetu oldNastavnik : oldNastavniciNaPredmetu) {
-                        if (oldNastavnik.equals(newNastavnik)) {
+                        if (oldNastavnik.getNastavnikNaPredmetuPK().getNastavnikId() == newNastavnik.getNastavnikNaPredmetuPK().getNastavnikId()
+                                && oldNastavnik.getNastavnikNaPredmetuPK().getPredmetId() == newNastavnik.getNastavnikNaPredmetuPK().getPredmetId()
+                                && oldNastavnik.getNastavnikNaPredmetuPK().getTipNastaveId() == newNastavnik.getNastavnikNaPredmetuPK().getTipNastaveId()) {
                             counter++;
                         }
                     }
@@ -192,7 +205,9 @@ public class PredmetLogic extends AbstractLogicClass {
 
                 //brisanje iz agregacije 
                 for (NastavnikNaPredmetu nastavnikNaPredmetu : nastavniciForDeleting) {
-                    grnnp.delete(nastavnikNaPredmetu.getNastavnikNaPredmetuPK(), NastavnikNaPredmetu.class);
+                    grnnp.delete_CompositeKey(Constants.NASTAVNIK_NA_PREDMETU_DELETE,
+                            new String[]{Constants.NASTAVNIK_ID, Constants.PREDMET_ID, Constants.TIP_NASTAVE_ID},
+                            new int[]{nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getNastavnikId(), nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getPredmetId(), nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getTipNastaveId()});
                 }
 
                 //dodavanje u agregaciju novih nastavnika na predmetu
@@ -236,7 +251,7 @@ public class PredmetLogic extends AbstractLogicClass {
 
                 // brisanje izbacenih tematskih celina
                 for (TematskaCelina tematskaCelina : tematskeCelineForDeleting) {
-                    grtc.delete(tematskaCelina.getTematskacelinaId(), TematskaCelina.class);
+                    grtc.delete_SingleKey(tematskaCelina.getTematskacelinaId(), TematskaCelina.class);
                 }
 
                 //dodavanje novih tematskih celina u agregaciju
@@ -246,48 +261,47 @@ public class PredmetLogic extends AbstractLogicClass {
 
                 //</editor-fold>
                 //<editor-fold defaultstate="collapsed" desc="Azuriranje agregacije PredmetNaStudijskomProgramu">
-                List<PredmetNaStudijskomProgramu> predmetNaStudijskomProgramuForInserting = new ArrayList<>();
-                List<PredmetNaStudijskomProgramu> predmetNaStudijskomProgramuForDeleting = new ArrayList<>();
-
-                List<PredmetNaStudijskomProgramu> oldPredmetiNaStudiskomProgramu
-                        = grpnsp.getListByParamFromNamedQuery(predmet.getPredmetId(), PredmetNaStudijskomProgramu.class, Constants.PREDMET_NA_STUDIJSKOM_PROGRAMU_FIND_BY_PREDMET_ID, Constants.PREDMET_ID);
-
-                for (PredmetNaStudijskomProgramu oldPredmetNaStudijskomProgramu : oldPredmetiNaStudiskomProgramu) {
-                    int counter = 0;
-                    for (PredmetNaStudijskomProgramu newPredmetNaStudijskomProgramu : predmet.getPredmetNaStudijskomProgramuList()) {
-                        if (oldPredmetNaStudijskomProgramu.equals(newPredmetNaStudijskomProgramu)) {
-                            counter++;
-                        }
-                    }
-
-                    if (counter == 0) {
-                        predmetNaStudijskomProgramuForDeleting.add(oldPredmetNaStudijskomProgramu);
-                    }
-                }
-
-                for (PredmetNaStudijskomProgramu newPredmetNaStudijskomProgramu : predmet.getPredmetNaStudijskomProgramuList()) {
-                    int counter = 0;
-                    for (PredmetNaStudijskomProgramu oldPredmetNaStudijskomProgramu : oldPredmetiNaStudiskomProgramu) {
-                        if (oldPredmetNaStudijskomProgramu.equals(newPredmetNaStudijskomProgramu)) {
-                            counter++;
-                        }
-                    }
-
-                    if (counter == 0) {
-                        predmetNaStudijskomProgramuForInserting.add(newPredmetNaStudijskomProgramu);
-                    }
-                }
-
-                //brisanje iz agregacije
-                for (PredmetNaStudijskomProgramu predmetNaStudijskomProgramu : predmetNaStudijskomProgramuForDeleting) {
-                    grpnsp.delete(predmetNaStudijskomProgramu.getPredmetNaStudijskomProgramuPK(), PredmetNaStudijskomProgramu.class);
-                }
-
-                //dodavanje novih u agregaciju 
-                for (PredmetNaStudijskomProgramu predmetNaStudijskomProgramu : predmetNaStudijskomProgramuForInserting) {
-                    grpnsp.update(predmetNaStudijskomProgramu);
-                }
-
+//                List<PredmetNaStudijskomProgramu> predmetNaStudijskomProgramuForInserting = new ArrayList<>();
+//                List<PredmetNaStudijskomProgramu> predmetNaStudijskomProgramuForDeleting = new ArrayList<>();
+//
+//                List<PredmetNaStudijskomProgramu> oldPredmetiNaStudiskomProgramu
+//                        = grpnsp.getListByParamFromNamedQuery(predmet.getPredmetId(), PredmetNaStudijskomProgramu.class, Constants.PREDMET_NA_STUDIJSKOM_PROGRAMU_FIND_BY_PREDMET_ID, Constants.PREDMET_ID);
+//
+//                for (PredmetNaStudijskomProgramu oldPredmetNaStudijskomProgramu : oldPredmetiNaStudiskomProgramu) {
+//                    int counter = 0;
+//                    for (PredmetNaStudijskomProgramu newPredmetNaStudijskomProgramu : predmet.getPredmetNaStudijskomProgramuList()) {
+//                        if (oldPredmetNaStudijskomProgramu.equals(newPredmetNaStudijskomProgramu)) {
+//                            counter++;
+//                        }
+//                    }
+//
+//                    if (counter == 0) {
+//                        predmetNaStudijskomProgramuForDeleting.add(oldPredmetNaStudijskomProgramu);
+//                    }
+//                }
+//
+//                for (PredmetNaStudijskomProgramu newPredmetNaStudijskomProgramu : predmet.getPredmetNaStudijskomProgramuList()) {
+//                    int counter = 0;
+//                    for (PredmetNaStudijskomProgramu oldPredmetNaStudijskomProgramu : oldPredmetiNaStudiskomProgramu) {
+//                        if (oldPredmetNaStudijskomProgramu.equals(newPredmetNaStudijskomProgramu)) {
+//                            counter++;
+//                        }
+//                    }
+//
+//                    if (counter == 0) {
+//                        predmetNaStudijskomProgramuForInserting.add(newPredmetNaStudijskomProgramu);
+//                    }
+//                }
+//
+//                //brisanje iz agregacije
+//                for (PredmetNaStudijskomProgramu predmetNaStudijskomProgramu : predmetNaStudijskomProgramuForDeleting) {
+//                    grpnsp.delete_SingleKey(predmetNaStudijskomProgramu.getPredmetNaStudijskomProgramuPK(), PredmetNaStudijskomProgramu.class);
+//                }
+//
+//                //dodavanje novih u agregaciju 
+//                for (PredmetNaStudijskomProgramu predmetNaStudijskomProgramu : predmetNaStudijskomProgramuForInserting) {
+//                    grpnsp.update(predmetNaStudijskomProgramu);
+//                }
                 //</editor-fold>
                 Predmet updatedPredmet = grp.update(predmet);
                 et.commit();
@@ -312,22 +326,22 @@ public class PredmetLogic extends AbstractLogicClass {
                 et.begin();
 
                 for (UdzbenikNaPredmetu udzbenikNaPredmetu : deletedPredmet.getUdzbenikList()) {
-                    grunp.delete(udzbenikNaPredmetu.getUdzbenikNaPredmetuPK(), UdzbenikNaPredmetu.class);
+                    grunp.delete_SingleKey(udzbenikNaPredmetu.getUdzbenikNaPredmetuPK(), UdzbenikNaPredmetu.class);
                 }
 
                 for (NastavnikNaPredmetu nastavnikNaPredmetu : deletedPredmet.getNastavnikNaPredmetuList()) {
-                    grnnp.delete(nastavnikNaPredmetu.getNastavnikNaPredmetuPK(), NastavnikNaPredmetu.class);
+                    grnnp.delete_SingleKey(nastavnikNaPredmetu.getNastavnikNaPredmetuPK(), NastavnikNaPredmetu.class);
                 }
 
                 for (TematskaCelina tematskaCelina : deletedPredmet.getTematskaCelinaList()) {
-                    grtc.delete(tematskaCelina.getTematskacelinaId(), TematskaCelina.class);
+                    grtc.delete_SingleKey(tematskaCelina.getTematskacelinaId(), TematskaCelina.class);
                 }
 
                 for (PredmetNaStudijskomProgramu predmetNaStudijskomProgramu : deletedPredmet.getPredmetNaStudijskomProgramuList()) {
-                    grpnsp.delete(predmetNaStudijskomProgramu.getPredmetNaStudijskomProgramuPK(), PredmetNaStudijskomProgramu.class);
+                    grpnsp.delete_SingleKey(predmetNaStudijskomProgramu.getPredmetNaStudijskomProgramuPK(), PredmetNaStudijskomProgramu.class);
                 }
 
-                grp.delete(id, Predmet.class);
+                grp.delete_SingleKey(id, Predmet.class);
                 et.commit();
                 return deletedPredmet;
             } catch (Exception ex) {
@@ -358,9 +372,18 @@ public class PredmetLogic extends AbstractLogicClass {
                 predmet.setUdzbenikList(grunp.getListByParamFromNamedQuery(id, UdzbenikNaPredmetu.class, Constants.UDZBENIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID, Constants.PREDMET_ID));
                 predmet.setNastavnikNaPredmetuList(grnnp.getListByParamFromNamedQuery(id, NastavnikNaPredmetu.class, Constants.NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID, Constants.PREDMET_ID));
 
+                for (UdzbenikNaPredmetu udzbenikNaPredmetu : predmet.getUdzbenikList()) {
+                    udzbenikNaPredmetu.setUdzbenik(
+                            gru.getSingleByParamFromNamedQuery(
+                                    udzbenikNaPredmetu.getUdzbenikNaPredmetuPK().getUdzbenikId(), Udzbenik.class, Constants.UDZBENIK_FIND_BY_ID, Constants.UDZBENIK_ID));
+                }
+
                 for (NastavnikNaPredmetu nastavnikNaPredmetu : predmet.getNastavnikNaPredmetuList()) {
                     nastavnikNaPredmetu.setNastavnik(
                             grn.getSingleByParamFromNamedQuery(nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getNastavnikId(), Nastavnik.class, Constants.NASTAVNIK_FIND_BY_ID, Constants.NASTAVNIK_ID));
+                    nastavnikNaPredmetu.setTipNastave(
+                            grtn.getSingleByParamFromNamedQuery(
+                                    nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getTipNastaveId(), TipNastave.class, Constants.TIP_NASTAVE_FIND_BY_ID, Constants.TIP_NASTAVE_ID));
                 }
 
                 predmet.setPredmetNaStudijskomProgramuList(grpnsp.getListByParamFromNamedQuery(id, PredmetNaStudijskomProgramu.class, Constants.PREDMET_NA_STUDIJSKOM_PROGRAMU_FIND_BY_PREDMET_ID, Constants.PREDMET_ID));

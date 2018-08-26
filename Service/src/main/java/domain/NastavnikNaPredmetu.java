@@ -28,20 +28,21 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "NastavnikNaPredmetu.findAll", query = "SELECT n FROM NastavnikNaPredmetu n")
     , @NamedQuery(name = "NastavnikNaPredmetu.findByNastavnikId", query = "SELECT n FROM NastavnikNaPredmetu n WHERE n.nastavnikNaPredmetuPK.nastavnikId = :nastavnikId")
     , @NamedQuery(name = "NastavnikNaPredmetu.findByPredmetId", query = "SELECT n FROM NastavnikNaPredmetu n WHERE n.nastavnikNaPredmetuPK.predmetId = :predmetId")
-    , @NamedQuery(name = "NastavnikNaPredmetu.findByTipNastaveId", query = "SELECT n FROM NastavnikNaPredmetu n WHERE n.nastavnikNaPredmetuPK.tipNastaveId = :tipNastaveId")})
+    , @NamedQuery(name = "NastavnikNaPredmetu.findByTipNastaveId", query = "SELECT n FROM NastavnikNaPredmetu n WHERE n.nastavnikNaPredmetuPK.tipNastaveId = :tipNastaveId")
+    , @NamedQuery(name = "NastavnikNaPredmetu.delete", query = "DELETE FROM NastavnikNaPredmetu nnp WHERE nnp.nastavnikNaPredmetuPK.nastavnikId=:nastavnikId AND nnp.nastavnikNaPredmetuPK.predmetId=:predmetId AND nnp.nastavnikNaPredmetuPK.tipNastaveId=:tipNastaveId")})
 public class NastavnikNaPredmetu implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected NastavnikNaPredmetuPK nastavnikNaPredmetuPK;
     @JoinColumn(name = "nastavnikId", referencedColumnName = "nastavnikId", insertable = false, updatable = false)
-    @ManyToOne(optional = false,fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Nastavnik nastavnik;
     @JoinColumn(name = "tipNastaveId", referencedColumnName = "tip_nastaveId", insertable = false, updatable = false)
-    @ManyToOne(optional = false,fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TipNastave tipNastave;
     @JoinColumn(name = "predmetId", referencedColumnName = "predmetId", insertable = false, updatable = false)
-    @ManyToOne(optional = false,fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Predmet predmet;
 
     public NastavnikNaPredmetu() {
@@ -112,13 +113,9 @@ public class NastavnikNaPredmetu implements Serializable {
         return true;
     }
 
- 
-
     @Override
     public String toString() {
         return "domain.NastavnikNaPredmetu[ nastavnikNaPredmetuPK=" + nastavnikNaPredmetuPK + " ]";
     }
 
-   
-    
 }

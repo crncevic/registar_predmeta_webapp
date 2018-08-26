@@ -83,7 +83,7 @@ public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogicClass {
             //TODO strukturna ogranicenja
             try {
                 et.begin();
-                OsobaUVeziSaUdzbenikom deletedOsoba = gr.delete(id, OsobaUVeziSaUdzbenikom.class);
+                OsobaUVeziSaUdzbenikom deletedOsoba = gr.delete_SingleKey(id, OsobaUVeziSaUdzbenikom.class);
                 et.commit();
                 return deletedOsoba;
             } catch (Exception ex) {

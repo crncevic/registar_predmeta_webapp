@@ -31,6 +31,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 @NamedQueries({
     @NamedQuery(name = "UdzbenikNaPredmetu.findByUdzbenikId",query = "SELECT up FROM UdzbenikNaPredmetu up WHERE up.udzbenik.udzbenikId=:udzbenikId"),
     @NamedQuery(name = "UdzbenikNaPredmetu.findByPredmetId",query = "SELECT up FROM UdzbenikNaPredmetu up WHERE up.predmet.predmetId=:predmetId"),
+    @NamedQuery(name = "UdzbenikNaPredmetu.delete",query = "DELETE FROM UdzbenikNaPredmetu unp WHERE unp.udzbenikNaPredmetuPK.predmetId=:predmetId AND unp.udzbenikNaPredmetuPK.udzbenikId=:udzbenikId")
 })
 public class UdzbenikNaPredmetu implements Serializable {
 
@@ -94,6 +95,8 @@ public class UdzbenikNaPredmetu implements Serializable {
         }
         return true;
     }
+
+    
 
   
 }

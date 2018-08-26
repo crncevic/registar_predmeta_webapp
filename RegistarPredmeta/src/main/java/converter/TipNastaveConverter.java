@@ -5,6 +5,7 @@
  */
 package converter;
 
+import constants.Constants;
 import dto.TipNastaveDTO;
 import java.util.LinkedHashMap;
 import javax.inject.Named;
@@ -32,7 +33,7 @@ public class TipNastaveConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        RestWSClient restWSClient = new RestWSClient("tip-nastave");
+        RestWSClient restWSClient = new RestWSClient(Constants.TIP_NASTAVE_CONTROLLER);
         if (value != null && value.trim().length() > 0) {
             try {
 
@@ -49,7 +50,7 @@ public class TipNastaveConverter implements Converter {
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         try{
         if (value != null) {
-            String naziv =  String.valueOf((Integer)((LinkedHashMap) value).get("tipnastaveId"));
+            String naziv =  String.valueOf((Integer)((LinkedHashMap) value).get(Constants.TIP_NASTAVE_ID));
             return naziv;
         } else {
             return null;

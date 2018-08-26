@@ -9,24 +9,20 @@ import constants.Constants;
 import dto.NastavnikDTO;
 import dto.NastavnikNaPredmetuDTO;
 import dto.PredmetDTO;
-import dto.PredmetNaStudijskomProgramuDTO;
-import dto.StatusDTO;
-import dto.StudijskiProgramDTO;
 import dto.TipNastaveDTO;
 import dto.UdzbenikDTO;
 import dto.UdzbenikNaPredmetuDTO;
 import dto.VrstaINivoStudijaDTO;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.ManagedBean;
+import javax.inject.Named;
+import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
-import javax.inject.Named;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
-import javax.ws.rs.core.Response;
 import ws.client.RestWSClient;
 
 /**
@@ -34,36 +30,31 @@ import ws.client.RestWSClient;
  * @author Petar
  */
 @ManagedBean
-@Named(value = "findPredmet")
+@Named(value = "createPredmet")
 @ViewScoped
-public class FindPredmet implements Serializable {
+public class CreatePredmet implements Serializable{
 
-    private PredmetDTO predmet;
     private RestWSClient restWSClient;
-    private List<VrstaINivoStudijaDTO> vrsteINivoiStudija;
-    private List<NastavnikDTO> nastavnici;
-    private List<TipNastaveDTO> tipoviNastave;
+    private PredmetDTO predmet;
     private List<UdzbenikDTO> udzbenici;
-
+    private List<NastavnikDTO> nastavnici;
+    private List<VrstaINivoStudijaDTO> vrsteINivoiStudija;
+    private List<TipNastaveDTO> tipoviNastave;
+    
+    private UdzbenikDTO selectedUdzbenik;
     private NastavnikDTO selectedNastavnik;
     private TipNastaveDTO selectedTipNastave;
-    private UdzbenikDTO selectedUdzbenik;
     private VrstaINivoStudijaDTO selectedVrstaINivoStudija;
-
-    public FindPredmet() {
-
-        restWSClient = new RestWSClient(Constants.PREDMET_CONTROLLER);
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        int predmetId = Integer.parseInt(params.get(Constants.PREDMET_ID));
-        predmet = restWSClient.getById_JSON(PredmetDTO.class, String.valueOf(predmetId));
-        
-        
-        selectedVrstaINivoStudija = predmet.getVrstaINivoStudija();
-    //  ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetForm:inputPredmetVrstaINivoStudija")).setSubmittedValue(selectedVrstaINivoStudija.getNaziv());
-
+    
+    
+    public CreatePredmet() {
     }
-
+    
+    
     //<editor-fold defaultstate="collapsed" desc="Getters and setters">
+    
+
+
     public PredmetDTO getPredmet() {
         return predmet;
     }
@@ -73,13 +64,23 @@ public class FindPredmet implements Serializable {
     }
 
     public List<UdzbenikDTO> getUdzbenici() {
-        restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
+        restWSClient  = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
         udzbenici = restWSClient.getAll_JSON(List.class);
         return udzbenici;
     }
 
     public void setUdzbenici(List<UdzbenikDTO> udzbenici) {
         this.udzbenici = udzbenici;
+    }
+
+    public List<NastavnikDTO> getNastavnici() {
+        restWSClient = new RestWSClient(Constants.NASTAVNIK_CONTROLLER);
+        nastavnici = restWSClient.getAll_JSON(List.class);
+        return nastavnici;
+    }
+
+    public void setNastavnici(List<NastavnikDTO> nastavnici) {
+        this.nastavnici = nastavnici;
     }
 
     public List<VrstaINivoStudijaDTO> getVrsteINivoiStudija() {
@@ -92,29 +93,14 @@ public class FindPredmet implements Serializable {
         this.vrsteINivoiStudija = vrsteINivoiStudija;
     }
 
-    public List<NastavnikDTO> getNastavnici() {
-        restWSClient = new RestWSClient(Constants.NASTAVNIK_CONTROLLER);
-        nastavnici = restWSClient.getAll_JSON(List.class);
-
-        return nastavnici;
-    }
-
-    public void setNastavnici(List<NastavnikDTO> nastavnici) {
-        this.nastavnici = nastavnici;
-    }
-
     public List<TipNastaveDTO> getTipoviNastave() {
         restWSClient = new RestWSClient(Constants.TIP_NASTAVE_CONTROLLER);
         tipoviNastave = restWSClient.getAll_JSON(List.class);
         return tipoviNastave;
     }
 
-    public NastavnikDTO getSelectedNastavnik() {
-        return selectedNastavnik;
-    }
-
-    public void setSelectedNastavnik(NastavnikDTO selectedNastavnik) {
-        this.selectedNastavnik = selectedNastavnik;
+    public void setTipoviNastave(List<TipNastaveDTO> tipoviNastave) {
+        this.tipoviNastave = tipoviNastave;
     }
 
     public UdzbenikDTO getSelectedUdzbenik() {
@@ -125,16 +111,20 @@ public class FindPredmet implements Serializable {
         this.selectedUdzbenik = selectedUdzbenik;
     }
 
+    public NastavnikDTO getSelectedNastavnik() {
+        return selectedNastavnik;
+    }
+
+    public void setSelectedNastavnik(NastavnikDTO selectedNastavnik) {
+        this.selectedNastavnik = selectedNastavnik;
+    }
+
     public TipNastaveDTO getSelectedTipNastave() {
         return selectedTipNastave;
     }
 
     public void setSelectedTipNastave(TipNastaveDTO selectedTipNastave) {
         this.selectedTipNastave = selectedTipNastave;
-    }
-
-    public void setTipoviNastave(List<TipNastaveDTO> tipoviNastave) {
-        this.tipoviNastave = tipoviNastave;
     }
 
     public VrstaINivoStudijaDTO getSelectedVrstaINivoStudija() {
@@ -146,12 +136,13 @@ public class FindPredmet implements Serializable {
     }
     
     
-
-    //</editor-fold>
+    
+     //</editor-fold>
     
     
     //<editor-fold defaultstate="collapsed" desc="Listeneri">
-    public void selectedTipNastaveListener(AjaxBehaviorEvent event) {
+    
+     public void selectedTipNastaveListener(AjaxBehaviorEvent event) {
         String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetForm:inputPredmetTipNastave")).getSubmittedValue();
         restWSClient = new RestWSClient(Constants.TIP_NASTAVE_CONTROLLER);
         this.selectedTipNastave = restWSClient.getById_JSON(TipNastaveDTO.class, id);
@@ -174,11 +165,11 @@ public class FindPredmet implements Serializable {
         restWSClient = new RestWSClient(Constants.VRSTA_I_NIVO_STUDIJA_CONTROLLER);
         this.selectedVrstaINivoStudija = restWSClient.getById_JSON(VrstaINivoStudijaDTO.class, id);
     }
-
-    //</editor-fold>
     
+  //</editor-fold>
     
-    public void onAddNewNastavnikNaPredmetu() {
+    //<editor-fold defaultstate="collapsed" desc="Metode">
+     public void onAddNewNastavnikNaPredmetu() {
 
         if (selectedNastavnik == null) {
             FacesMessage msg = new FacesMessage("Niste izabrali nastavnika");
@@ -257,38 +248,10 @@ public class FindPredmet implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    public String onUpdate() {
-        restWSClient = new RestWSClient(Constants.PREDMET_CONTROLLER);
-
-        predmet.setVrstaINivoStudija(selectedVrstaINivoStudija);
-
-        Response response = restWSClient.update_JSON(predmet, String.valueOf(predmet.getPredmetId()));
-
-        if (response.getStatusInfo() == Response.Status.OK) {
-            FacesMessage msg = new FacesMessage("Predmet uspesno azuriran!");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "success";
-        }
-
-        FacesMessage msg = new FacesMessage("Dogodila se greska prilikom azuriranja!Greska:" + response.getEntity().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        return "failure";
+    //</editor-fold>
+    
+    public void onCreate(){
+        
     }
-
-    public String onDelete() {
-        restWSClient = new RestWSClient(Constants.PREDMET_CONTROLLER);
-
-        Response response = restWSClient.delete(String.valueOf(predmet.getPredmetId()));
-
-        if (response.getStatusInfo() == Response.Status.OK) {
-            FacesMessage msg = new FacesMessage("Predmet uspesno obrisan!");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "success";
-        }
-
-        FacesMessage msg = new FacesMessage("Dogodila se greska prilikom brisanja! Greska: " + response.getEntity().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        return "failure";
-    }
-
+    
 }

@@ -30,7 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "PredmetNaStudijskomProgramu.findByPredmetId", query = "SELECT p FROM PredmetNaStudijskomProgramu p WHERE p.predmetNaStudijskomProgramuPK.predmetId = :predmetId")
     , @NamedQuery(name = "PredmetNaStudijskomProgramu.findByStudijskiprogramId", query = "SELECT p FROM PredmetNaStudijskomProgramu p WHERE p.predmetNaStudijskomProgramuPK.studijskiprogramId = :studijskiprogramId")
     , @NamedQuery(name = "PredmetNaStudijskomProgramu.findByEspb", query = "SELECT p FROM PredmetNaStudijskomProgramu p WHERE p.espb = :espb")
-    , @NamedQuery(name = "PredmetNaStudijskomProgramu.findBySemestar", query = "SELECT p FROM PredmetNaStudijskomProgramu p WHERE p.semestar = :semestar")})
+    , @NamedQuery(name = "PredmetNaStudijskomProgramu.findBySemestar", query = "SELECT p FROM PredmetNaStudijskomProgramu p WHERE p.semestar = :semestar")
+    , @NamedQuery(name = "PredmetNaStudijskomProgramu.delete",query = "DELETE FROM PredmetNaStudijskomProgramu pnsp WHERE pnsp.predmetNaStudijskomProgramuPK.predmetId=:predmetId AND pnsp.predmetNaStudijskomProgramuPK.studijskiprogramId=:studijskiProgramId")    
+})
 public class PredmetNaStudijskomProgramu implements Serializable {
 
     private static final long serialVersionUID = 1L;

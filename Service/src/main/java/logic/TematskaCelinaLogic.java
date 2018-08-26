@@ -83,7 +83,7 @@ public class TematskaCelinaLogic extends AbstractLogicClass {
             //TODO : strukturna ogranicenja
             try {
                 et.begin();
-                TematskaCelina deletedTematskaCelina = gr.delete(id, TematskaCelina.class);
+                TematskaCelina deletedTematskaCelina = gr.delete_SingleKey(id, TematskaCelina.class);
                 et.commit();
                 return deletedTematskaCelina;
             } catch (Exception ex) {

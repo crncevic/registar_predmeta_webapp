@@ -31,7 +31,8 @@ public class Constants {
     public static final String NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_NASTAVNIK_ID = "NastavnikNaPredmetu.findByNastavnikId";
     public static final String NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID = "NastavnikNaPredmetu.findByPredmetId";
     public static final String NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_TIP_NASTAVE_ID = "NastavnikNaPredmetu.findByTipNastaveId";
-
+    public static final String NASTAVNIK_NA_PREDMETU_DELETE = "NastavnikNaPredmetu.delete";
+    
     //osoba u vezi sa udzbenikom
     public static final String OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_OSOBA_ID = "OsobaUVeziSaUdzbenikom.findByOsobaId";
     public static final String OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_ALL = "OsobaUVeziSaUdzbenikom.findAll";
@@ -44,7 +45,7 @@ public class Constants {
 
     //predmet na studisjkom programu
     public static final String PREDMET_NA_STUDIJSKOM_PROGRAMU_FIND_BY_PREDMET_ID = "PredmetNaStudijskomProgramu.findByPredmetId";
-
+    public static final String PREDMET_NA_STUDIJSKOM_PROGRAMU_DELETE ="PredmetNaStudijskomProgramu.delete";
     //status
     public static final String STATUS_FIND_ALL = "Status.findAll";
     public static final String STATUS_FIND_BY_ID = "Status.findByStatusId";
@@ -82,6 +83,7 @@ public class Constants {
     //udzbenik na predmetu
     public static final String UDZBENIK_NA_PREDMETU_FIND_ALL_BY_UDZBENIK_ID = "UdzbenikNaPredmetu.findByUdzbenikId";
     public static final String UDZBENIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID = "UdzbenikNaPredmetu.findByPredmetId";
+    public static final String  UDZBENIK_NA_PREDMETU_DELETE = "UdzbenikNaPredmetu.delete";
 
     //************************************
     //PARAMS FOR NAMED QUERIES CONSTANTS *

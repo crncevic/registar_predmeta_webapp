@@ -5,6 +5,7 @@
  */
 package mb;
 
+import constants.Constants;
 import dto.OsobaUVeziSaUdzbenikomDTO;
 import dto.UdzbenikDTO;
 import java.io.Serializable;
@@ -31,7 +32,7 @@ public class CreateUdzbenik implements  Serializable{
     private RestWSClient restWSClient;
 
     public CreateUdzbenik() {
-        restWSClient = new RestWSClient("udzbenik");
+        restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
         newUdzbenik = new UdzbenikDTO();
     }
 

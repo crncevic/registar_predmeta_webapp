@@ -5,6 +5,7 @@
  */
 package mb;
 
+import constants.Constants;
 import dto.PredmetDTO;
 import java.io.Serializable;
 import java.util.List;
@@ -26,7 +27,7 @@ public class AllPredmet implements Serializable{
     private RestWSClient restWSClient;
     
     public AllPredmet() {
-        restWSClient = new RestWSClient("predmet");
+        restWSClient = new RestWSClient(Constants.PREDMET_CONTROLLER);
         predmeti = restWSClient.getAll_JSON(List.class);
     }
 
