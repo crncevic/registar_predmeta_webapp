@@ -270,3 +270,48 @@ footer {
     font-size: 18px;
     font-weight: bold;
 }
+
+.inputPredmetStdProgram{
+      margin-top: 10px;
+    margin-left: -35px;
+}
+
+.espbTitle{
+     margin: 20px 40px 0 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.inputPredmetESPB{
+  margin: 0 0 20px -30px;
+}
+
+.stdProgramTitle{
+    margin: 20px 40px 0 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.inputPredmetUdbzenikDataTable{
+    
+}
+
+.statusTitle{
+     margin: 20px 40px 0 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.inputPredmetStdProgramStatus{
+    margin-top: 10px;
+    margin-left: -15px;
+    width:250px;
+}
+
+.dodajStdProgramNaPredmet{
+    margin-left: 30px;
+}
+
+.divStdProgram{
+    margin-bottom: 20px;
+}

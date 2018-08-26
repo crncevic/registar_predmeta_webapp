@@ -111,12 +111,7 @@ public class PredmetLogic extends AbstractLogicClass {
                 throw new ConstraintViolationException(violations);
             }
 
-            Predmet sameNamePredmet = grp.getSingleByParamFromNamedQuery(predmet.getNaziv(), Predmet.class, Constants.PREDMET_FIND_BY_NAZIV, Constants.PREDMET_NAZIV);
-
-            if (sameNamePredmet != null) {
-                throw new ConstraintViolationException("Predmet sa nazivom : " + predmet.getNaziv() + " vec postoji u bazi!", null);
-            }
-
+            
             //TODO : strukturna ogranicenja
             try {
                 et.begin();

@@ -18,44 +18,44 @@ and open the template in the editor.
         <ui:composition template="templ.xhtml">
             <ui:define name="content">
 
-                <h:form id="predmetForm"> 
+                <h:form id="predmetForm" > 
                     <p:growl class="growl" id="msgs"  showDetail="true"/>
 
                     <p:outputLabel class="udzbenikTitle">Predmet</p:outputLabel>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Id"/>
-                        <p:inputText class="inputPredmetId" value="#{findPredmet.predmet.predmetId}" disabled="true"/>
+                        <p:inputText class="inputPredmetId" id="predmetId" value="#{findPredmet.predmet.predmetId}" disabled="true"/>
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Naziv"/>
-                        <p:inputText class="inputPredmetNaziv" value="#{findPredmet.predmet.naziv}"/>
+                        <p:inputText class="inputPredmetNaziv" id="predmetNaziv" value="#{findPredmet.predmet.naziv}"/>
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Uslov"/>
-                        <p:inputText class="inputPredmetUslov" value="#{findPredmet.predmet.uslov}" />
+                        <p:inputText class="inputPredmetUslov" id="predmetUslov" value="#{findPredmet.predmet.uslov}" />
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Broj casova predavanja nedeljno"/>
-                        <p:spinner class="inputPredmetBrCasPredavanja" value="#{findPredmet.predmet.brCasovaPredavanjaNedeljno}" />
+                        <p:spinner class="inputPredmetBrCasPredavanja" id="predmetBrPredavanja" value="#{findPredmet.predmet.brCasovaPredavanjaNedeljno}" />
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Broj casova vezbi nedeljno"/>
-                        <p:spinner class="inputPredmetBrCasVezbi" value="#{findPredmet.predmet.brCasovaVezbiNedeljno}" />
+                        <p:spinner class="inputPredmetBrCasVezbi" id="predmetBrVezbi" value="#{findPredmet.predmet.brCasovaVezbiNedeljno}" />
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Ostali casovi"/>
-                        <p:spinner class="inputPredmetOstaliCasovi" value="#{findPredmet.predmet.ostaliCasovi}" />
+                        <p:spinner class="inputPredmetOstaliCasovi" id="predmetBrOstali" value="#{findPredmet.predmet.ostaliCasovi}" />
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Studijski istrazivacki rad"/>
-                        <p:inputText class="inputPredmetStdIstrRad" value="#{findPredmet.predmet.studijskiIstrazivackiRad}" />
+                        <p:inputText class="inputPredmetStdIstrRad" id="predmetStdIstrRad"   value="#{findPredmet.predmet.studijskiIstrazivackiRad}" />
                     </div>
 
                     <div>
@@ -96,16 +96,13 @@ and open the template in the editor.
                         <h:outputText class="inputPredmetCilj" id="display3" />
                     </div>
 
-
                     <p:outputLabel class="udzbenikTitle"  value="Nastavnici na predmetu"/>
 
                     <div class="ui-g">
                         <div class="ui-g-12">
 
-
-                           
                             <p:outputLabel class="nastavnikTitle" value="Nastavnik: " />
-                           
+
                             <p:selectOneMenu class="inputPredmetNastavnikNaPredmetuSelectItem"  id="inputPredmetNastavnik"
                                              value="#{findPredmet.selectedNastavnik}" converter="nastavnikConverter">
                                 <f:selectItem itemLabel="Izaberite nastavnika" itemValue="" />
@@ -118,18 +115,14 @@ and open the template in the editor.
                                              value="#{findPredmet.selectedTipNastave}" converter="tipNastaveConverter" > 
 
                                 <f:selectItem itemLabel="Izaberite tip nastave" itemValue="" />
-                                <f:selectItems value="#{findPredmet.tipoviNastave}"  id="inputPredmetTipNastaveItem"  var="tip" itemLabel="#{tip.naziv}" itemValue="#{tip}" >
-                                    <f:param name="tipid" id ="tipid" value="#{tip.tipnastaveId}" />
-                                </f:selectItems>
+                                <f:selectItems value="#{findPredmet.tipoviNastave}"  id="inputPredmetTipNastaveItem"  var="tip" itemLabel="#{tip.naziv}" itemValue="#{tip}" />
 
-
-                                <p:ajax event="change" listener="#{findPredmet.selectedTipNastaveListener}" process="@this" immediate="true"/>
+                                <p:ajax event="change" listener="#{findPredmet.selectedTipNastaveListener}" process="@this" immediate="true" />
                             </p:selectOneMenu> 
 
-                           
-                                <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetForm:msgs dt"
-                                                 class="dodajOsobuNaUdzbeniku"  actionListener="#{findPredmet.onAddNewNastavnikNaPredmetu()}"  />
-                           
+
+                            <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetForm:msgs dt"
+                                             class="dodajOsobuNaUdzbeniku"  actionListener="#{findPredmet.onAddNewNastavnikNaPredmetu()}"  />
 
                         </div>
                     </div>
@@ -175,19 +168,19 @@ and open the template in the editor.
                                              value="#{findPredmet.selectedUdzbenik}" converter="udzbenikConverter" > 
 
                                 <f:selectItem itemLabel="Izaberite udzbenik" itemValue="" />
-                                <f:selectItems value="#{findPredmet.udzbenici}"  id="inputPredmetUdzbenikItem"  var="udzbenik" itemLabel="#{udzbenik.naziv}" itemValue="#{udzbenik}" >
-
-                                </f:selectItems>
-
+                                <f:selectItems value="#{findPredmet.udzbenici}"  id="inputPredmetUdzbenikItem"  var="udzbenik" itemLabel="#{udzbenik.naziv}" itemValue="#{udzbenik}" />
 
                                 <p:ajax event="change" listener="#{findPredmet.selectedUdzbenikListener}" process="@this" immediate="true"/>
                             </p:selectOneMenu> 
-                            
-                             <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetForm:msgs dt2"
-                                              class="dodajOsobuNaUdzbeniku"  actionListener="#{findPredmet.onAddNewUdzbenikNaPredmetu()}"  />
+
+                            <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetForm:msgs dt2"
+                                             class="dodajOsobuNaUdzbeniku"  actionListener="#{findPredmet.onAddNewUdzbenikNaPredmetu()}"  />
 
                         </div>
                     </div>
+
+
+
 
                     <p:dataTable var="udzbenik" class="inputPredmetUdbzenikDataTable"
                                  value="#{findPredmet.predmet.udzbenici}" editable="false"
@@ -208,14 +201,22 @@ and open the template in the editor.
                         <p:column headerText="Izdavac">
                             <h:outputText value="#{udzbenik.udzbenikDTO.izdavac}" />
                         </p:column>
-                        
-                         <p:column style="width:70px">
-                             <p:commandButton value="X" styleClass="ui-priority-primary" process="@this"  actionListener="#{findPredmet.onDeleteUdzbenikNaPredmetu(udzbenik)}" update=":predmetForm:msgs dt2"  />
+
+                        <p:column style="width:70px">
+                            <p:commandButton value="X" styleClass="ui-priority-primary" process="@this"  actionListener="#{findPredmet.onDeleteUdzbenikNaPredmetu(udzbenik)}" update=":predmetForm:msgs dt2"  />
                         </p:column>
 
                     </p:dataTable>
 
-                    <div class="emptyDiv"></div>
+                    <hr/>
+
+                    <p:commandButton type="submit" process="@this"  actionListener="#{findPredmet.onUpdate}" value="Azuriraj" styleClass="ui-priority-primary" class="btn btn-primary" style="margin: 0 0 20px 120px" >
+                        <f:ajax execute="@form" render="@form" />
+                    </p:commandButton>
+                    <p:commandButton type="submit" process="@this" actionListener="#{findPredmet.onDelete}" value="Obrisi" styleClass="ui-priority-primary" class="btn btn-danger" style="margin: 0 0 20px 70px" >
+                        <f:ajax execute="@form" render="@form" />                    
+                    </p:commandButton>
+                    <p:button outcome="predmet_index.xhtml" value="Odustani" styleClass="ui-priority-primary" class="btn btn-secondstyleClassary" style="margin: 0 0 20px 70px" />
 
 
 

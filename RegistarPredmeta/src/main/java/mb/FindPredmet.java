@@ -8,6 +8,9 @@ package mb;
 import dto.NastavnikDTO;
 import dto.NastavnikNaPredmetuDTO;
 import dto.PredmetDTO;
+import dto.PredmetNaStudijskomProgramuDTO;
+import dto.StatusDTO;
+import dto.StudijskiProgramDTO;
 import dto.TipNastaveDTO;
 import dto.UdzbenikDTO;
 import dto.UdzbenikNaPredmetuDTO;
@@ -22,6 +25,7 @@ import javax.inject.Named;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
+import javax.ws.rs.core.Response;
 import ws.client.RestWSClient;
 
 /**
@@ -53,6 +57,7 @@ public class FindPredmet implements Serializable {
 
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Getters and setters">
     public PredmetDTO getPredmet() {
         return predmet;
     }
@@ -114,6 +119,20 @@ public class FindPredmet implements Serializable {
         this.selectedUdzbenik = selectedUdzbenik;
     }
 
+    public TipNastaveDTO getSelectedTipNastave() {
+        return selectedTipNastave;
+    }
+
+    public void setSelectedTipNastave(TipNastaveDTO selectedTipNastave) {
+        this.selectedTipNastave = selectedTipNastave;
+    }
+
+    public void setTipoviNastave(List<TipNastaveDTO> tipoviNastave) {
+        this.tipoviNastave = tipoviNastave;
+    }
+
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Listeneri">
     public void selectedTipNastaveListener(AjaxBehaviorEvent event) {
         String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetForm:inputPredmetTipNastave")).getSubmittedValue();
         restWSClient = new RestWSClient("tip-nastave");
@@ -132,18 +151,7 @@ public class FindPredmet implements Serializable {
         this.selectedUdzbenik = restWSClient.getById_JSON(UdzbenikDTO.class, id);
     }
 
-    public TipNastaveDTO getSelectedTipNastave() {
-        return selectedTipNastave;
-    }
-
-    public void setSelectedTipNastave(TipNastaveDTO selectedTipNastave) {
-        this.selectedTipNastave = selectedTipNastave;
-    }
-
-    public void setTipoviNastave(List<TipNastaveDTO> tipoviNastave) {
-        this.tipoviNastave = tipoviNastave;
-    }
-
+    //</editor-fold>
     public void onAddNewNastavnikNaPredmetu() {
 
         if (selectedNastavnik == null) {
@@ -217,6 +225,38 @@ public class FindPredmet implements Serializable {
         predmet.getUdzbenici().remove(udzbenikDTO);
         FacesMessage msg = new FacesMessage(udzbenikDTO.getUdzbenikDTO().getNaziv() + " izbrisan sa predmeta : " + udzbenikDTO.getUdzbenikDTO().getNaziv());
         FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onUpdate() {
+        restWSClient = new RestWSClient("predmet");
+
+        Response response = restWSClient.update_JSON(predmet, String.valueOf(predmet.getPredmetId()));
+
+        if (response.getStatusInfo() == Response.Status.OK) {
+            FacesMessage msg = new FacesMessage("Predmet uspesno azuriran!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return;
+        }
+
+        FacesMessage msg = new FacesMessage("Dogodila se greska prilikom azuriranja!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+
+    }
+
+    public void onDelete() {
+        restWSClient = new RestWSClient("predmet");
+
+        Response response = restWSClient.delete(String.valueOf(predmet.getPredmetId()));
+
+        if (response.getStatusInfo() == Response.Status.OK) {
+            FacesMessage msg = new FacesMessage("Predmet uspesno azuriran!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return;
+        }
+
+        FacesMessage msg = new FacesMessage("Dogodila se greska prilikom azuriranja!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+
     }
 
 }
