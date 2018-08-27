@@ -326,11 +326,16 @@ public class PredmetLogic extends AbstractLogicClass {
                 et.begin();
 
                 for (UdzbenikNaPredmetu udzbenikNaPredmetu : deletedPredmet.getUdzbenikList()) {
-                    grunp.delete_SingleKey(udzbenikNaPredmetu.getUdzbenikNaPredmetuPK(), UdzbenikNaPredmetu.class);
+                    grunp.delete_CompositeKey(Constants.UDZBENIK_NA_PREDMETU_DELETE,
+                            new String[]{Constants.UDZBENIK_ID, Constants.PREDMET_ID},
+                            new int[]{udzbenikNaPredmetu.getUdzbenikNaPredmetuPK().getUdzbenikId(), udzbenikNaPredmetu.getUdzbenikNaPredmetuPK().getPredmetId()});
                 }
 
                 for (NastavnikNaPredmetu nastavnikNaPredmetu : deletedPredmet.getNastavnikNaPredmetuList()) {
-                    grnnp.delete_SingleKey(nastavnikNaPredmetu.getNastavnikNaPredmetuPK(), NastavnikNaPredmetu.class);
+                    grnnp.delete_CompositeKey(Constants.NASTAVNIK_NA_PREDMETU_DELETE,
+                            new String[]{Constants.NASTAVNIK_ID, Constants.PREDMET_ID, Constants.TIP_NASTAVE_ID},
+                            new int[]{nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getNastavnikId(),
+                                nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getPredmetId(), nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getTipNastaveId()});
                 }
 
                 for (TematskaCelina tematskaCelina : deletedPredmet.getTematskaCelinaList()) {
@@ -338,7 +343,10 @@ public class PredmetLogic extends AbstractLogicClass {
                 }
 
                 for (PredmetNaStudijskomProgramu predmetNaStudijskomProgramu : deletedPredmet.getPredmetNaStudijskomProgramuList()) {
-                    grpnsp.delete_SingleKey(predmetNaStudijskomProgramu.getPredmetNaStudijskomProgramuPK(), PredmetNaStudijskomProgramu.class);
+                    grpnsp.delete_CompositeKey(Constants.PREDMET_NA_STUDIJSKOM_PROGRAMU_DELETE,
+                            new String[]{Constants.PREDMET_ID, Constants.STUDIJSKI_PROGRAM_ID},
+                            new int[]{predmetNaStudijskomProgramu.getPredmetNaStudijskomProgramuPK().getPredmetId(),
+                                predmetNaStudijskomProgramu.getPredmetNaStudijskomProgramuPK().getStudijskiprogramId()});
                 }
 
                 grp.delete_SingleKey(id, Predmet.class);

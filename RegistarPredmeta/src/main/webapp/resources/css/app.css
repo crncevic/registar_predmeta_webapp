@@ -315,3 +315,30 @@ footer {
 .divStdProgram{
     margin-bottom: 20px;
 }
+
+.vinsValue{
+     margin: 20px 40px 0 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.inputPredmetVrstaINivoStudijaTitle{
+    margin: 20px 20px 0 30px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.inputPredmetVrstaINivoStudija{
+    margin: 10px 0px 0 0px;
+    width:280px;
+}
+
+#predmetFormCreate{
+    
+    height: 120%;
+    width:800px;
+    margin: 65px 0 100px 300px;
+    background-color: #9999ff; 
+
+}
+

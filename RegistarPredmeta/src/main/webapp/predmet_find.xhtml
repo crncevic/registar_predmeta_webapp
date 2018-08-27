@@ -64,12 +64,13 @@ and open the template in the editor.
                     </div>
 
                     <div>
-                        <p:outputLabel class="udzbenikTitle" value="Vrsta i nivo studija" />
+                        <p:outputLabel class="inputPredmetVrstaINivoStudijaTitle" value="Vrsta i nivo studija:"  />
+                        <p:outputLabel class="vinsValue" id="vinsValue" value="#{findPredmet.selectedVrstaINivoStudija.naziv}"  />
                         <p:selectOneMenu class="inputPredmetVrstaINivoStudija" value="#{findPredmet.selectedVrstaINivoStudija}"
-                                       id="inputPredmetVrstaINivoStudija"  converter="vrstaINivoStudijaConverter">
-                           
+                                         id="inputPredmetVrstaINivoStudija"  converter="vrstaINivoStudijaConverter">
+
                             <f:selectItems  value="#{findPredmet.vrsteINivoiStudija}"  var="vrsta" itemLabel="#{vrsta.naziv}" itemValue="#{vrsta}" />
-                            <p:ajax event="change" listener="#{findPredmet.selectedVrstaINivoStudijaListener}" process="@this" immediate="true" />
+                            <p:ajax event="change" listener="#{findPredmet.selectedVrstaINivoStudijaListener}" update=":predmetForm:vinsValue" process="@this" immediate="true" />
                         </p:selectOneMenu>
 
                     </div>
@@ -220,6 +221,8 @@ and open the template in the editor.
                         <f:ajax execute="@form"  render="@form" />                    
                     </p:commandButton>
                     <p:button outcome="predmet_index.xhtml" value="Odustani" styleClass="ui-priority-primary" class="btn btn-secondstyleClassary" style="margin: 0 0 20px 70px" />
+
+
 
 
 

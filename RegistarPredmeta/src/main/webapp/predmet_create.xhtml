@@ -18,44 +18,44 @@ and open the template in the editor.
         <ui:composition template="templ.xhtml">
             <ui:define name="content">
 
-                <h:form id="predmetForm" > 
+                <h:form id="predmetFormCreate" > 
                     <p:growl class="growl" id="msgs"  showDetail="true"/>
 
                     <p:outputLabel class="udzbenikTitle">Predmet</p:outputLabel>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Id"/>
-                        <p:inputText class="inputPredmetId" id="predmetId" value="#{createPredmet.predmet.predmetId}" disabled="true"/>
+                        <p:inputText class="inputPredmetId" id="createPredmetId" value="#{createPredmet.predmet.predmetId}" disabled="true"/>
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Naziv"/>
-                        <p:inputText class="inputPredmetNaziv" id="predmetNaziv" value="#{createPredmet.predmet.naziv}"/>
+                        <p:inputText class="inputPredmetNaziv" id="createPredmetNaziv" value="#{createPredmet.predmet.naziv}"/>
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Uslov"/>
-                        <p:inputText class="inputPredmetUslov" id="predmetUslov" value="#{createPredmet.predmet.uslov}" />
+                        <p:inputText class="inputPredmetUslov" id="createPredmetUslov" value="#{createPredmet.predmet.uslov}" />
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Broj casova predavanja nedeljno"/>
-                        <p:spinner class="inputPredmetBrCasPredavanja" id="predmetBrPredavanja" value="#{createPredmet.predmet.brCasovaPredavanjaNedeljno}" />
+                        <p:spinner class="inputPredmetBrCasPredavanja" id="createPredmetBrPredavanja" value="#{createPredmet.predmet.brCasovaPredavanjaNedeljno}" />
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Broj casova vezbi nedeljno"/>
-                        <p:spinner class="inputPredmetBrCasVezbi" id="predmetBrVezbi" value="#{createPredmet.predmet.brCasovaVezbiNedeljno}" />
+                        <p:spinner class="inputPredmetBrCasVezbi" id="createPredmetBrVezbi" value="#{createPredmet.predmet.brCasovaVezbiNedeljno}" />
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Ostali casovi"/>
-                        <p:spinner class="inputPredmetOstaliCasovi" id="predmetBrOstali" value="#{createPredmet.predmet.ostaliCasovi}" />
+                        <p:spinner class="inputPredmetOstaliCasovi" id="createPredmetBrOstali" value="#{createPredmet.predmet.ostaliCasovi}" />
                     </div>
 
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Studijski istrazivacki rad"/>
-                        <p:inputText class="inputPredmetStdIstrRad" id="predmetStdIstrRad"   value="#{createPredmet.predmet.studijskiIstrazivackiRad}" />
+                        <p:inputText class="inputPredmetStdIstrRad" id="createPredmetStdIstrRad"   value="#{createPredmet.predmet.studijskiIstrazivackiRad}" />
                     </div>
 
                     <div>
@@ -66,7 +66,7 @@ and open the template in the editor.
                     <div>
                         <p:outputLabel class="udzbenikTitle" value="Vrsta i nivo studija" />
                         <p:selectOneMenu class="inputPredmetVrstaINivoStudija" value="#{createPredmet.selectedVrstaINivoStudija}"
-                                       id="inputPredmetVrstaINivoStudija"  converter="vrstaINivoStudijaConverter">
+                                       id="createInputPredmetVrstaINivoStudija"  converter="vrstaINivoStudijaConverter">
                            
                             <f:selectItems  value="#{createPredmet.vrsteINivoiStudija}"  var="vrsta" itemLabel="#{vrsta.naziv}" itemValue="#{vrsta}" />
                             <p:ajax event="change" listener="#{createPredmet.selectedVrstaINivoStudijaListener}" process="@this" immediate="true" />
@@ -86,7 +86,7 @@ and open the template in the editor.
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Ishod"/>
                         <div>
-                            <p:inputTextarea class="inputPredmetCilj" id="inputPredmetIshod" rows="8" cols="70" counter="display2" maxlength="500" counterTemplate="{0} characters remaining." autoResize="false" value="#{createPredmet.predmet.ishod}"/>
+                            <p:inputTextarea class="inputPredmetCilj" id="createInputPredmetIshod" rows="8" cols="70" counter="display2" maxlength="500" counterTemplate="{0} characters remaining." autoResize="false" value="#{createPredmet.predmet.ishod}"/>
                         </div>
                         <h:outputText class="inputPredmetCilj" id="display2" />
                     </div>
@@ -94,7 +94,7 @@ and open the template in the editor.
                     <div>
                         <p:outputLabel class="udzbenikTitle"  value="Sadrzaj tekst"/>
                         <div>
-                            <p:inputTextarea class="inputPredmetCilj" id="inputPredmetSadrzajTekst" rows="10" cols="70" counter="display3" maxlength="1000" counterTemplate="{0} characters remaining." autoResize="false" value="#{createPredmet.predmet.sadrzajTekst}"/>
+                            <p:inputTextarea class="inputPredmetCilj" id="createInputPredmetSadrzajTekst" rows="10" cols="70" counter="display3" maxlength="1000" counterTemplate="{0} characters remaining." autoResize="false" value="#{createPredmet.predmet.sadrzajTekst}"/>
                         </div>
                         <h:outputText class="inputPredmetCilj" id="display3" />
                     </div>
@@ -106,7 +106,7 @@ and open the template in the editor.
 
                             <p:outputLabel class="nastavnikTitle" value="Nastavnik: " />
 
-                            <p:selectOneMenu class="inputPredmetNastavnikNaPredmetuSelectItem"  id="inputPredmetNastavnik"
+                            <p:selectOneMenu class="inputPredmetNastavnikNaPredmetuSelectItem"  id="createInputPredmetNastavnik"
                                              value="#{createPredmet.selectedNastavnik}" converter="nastavnikConverter">
                                 <f:selectItem itemLabel="Izaberite nastavnika" itemValue="" />
                                 <f:selectItems value="#{createPredmet.nastavnici}" var="nastavnik" itemLabel="#{nastavnik.ime} #{nastavnik.prezime}" itemValue="#{nastavnik}" />
@@ -114,25 +114,25 @@ and open the template in the editor.
                             </p:selectOneMenu>
 
                             <p:outputLabel class="tipNastaveTitle" value="Tip nastave:" />
-                            <p:selectOneMenu class="inputPredmetTipNastave"  id="inputPredmetTipNastave" 
+                            <p:selectOneMenu class="inputPredmetTipNastave"  id="createInputPredmetTipNastave" 
                                              value="#{createPredmet.selectedTipNastave}" converter="tipNastaveConverter" > 
 
                                 <f:selectItem itemLabel="Izaberite tip nastave" itemValue="" />
-                                <f:selectItems value="#{createPredmet.tipoviNastave}"  id="inputPredmetTipNastaveItem"  var="tip" itemLabel="#{tip.naziv}" itemValue="#{tip}" />
+                                <f:selectItems value="#{createPredmet.tipoviNastave}"  id="createInputPredmetTipNastaveItem"  var="tip" itemLabel="#{tip.naziv}" itemValue="#{tip}" />
 
                                 <p:ajax event="change" listener="#{createPredmet.selectedTipNastaveListener}" process="@this" immediate="true" />
                             </p:selectOneMenu> 
 
 
-                            <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetForm:msgs dt"
+                            <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetFormCreate:msgs nnpdt"
                                              class="dodajOsobuNaUdzbeniku"  actionListener="#{createPredmet.onAddNewNastavnikNaPredmetu()}"  />
 
                         </div>
                     </div>
 
                     <p:dataTable var="nastavnikNaPredmetu" class="NastavnikNaPredmetuDataTable"
-                                 value="#{findPredmet.predmet.nastavnici}" editable="false"
-                                 id="dt" widgetVar="dt">
+                                 value="#{createPredmet.predmet.nastavnici}" editable="false"
+                                 id="nnpdt" widgetVar="nnpdt">
 
                         <p:column headerText="Ime">
 
@@ -154,7 +154,7 @@ and open the template in the editor.
                         </p:column>
 
                         <p:column style="width:70px">
-                            <p:commandButton value="X" styleClass="ui-priority-primary" process="@this"  actionListener="#{createPredmet.onDeleteNastavnikNaPredmetu(nastavnikNaPredmetu)}" update=":predmetForm:msgs dt"  />
+                            <p:commandButton value="X" styleClass="ui-priority-primary" process="@this"  actionListener="#{createPredmet.onDeleteNastavnikNaPredmetu(nastavnikNaPredmetu)}" update=":predmetFormCreate:msgs nnpdt"  />
                         </p:column>
 
 
@@ -167,17 +167,17 @@ and open the template in the editor.
                         <div class="ui-g-12">
 
                             <p:outputLabel class="udzbenikTitle" value="Udzbenici:" />
-                            <p:selectOneMenu class="inputPredmetUdzbenik"  id="inputPredmetUdzbenik" 
-                                             value="#{findPredmet.selectedUdzbenik}" converter="udzbenikConverter" > 
+                            <p:selectOneMenu class="inputPredmetUdzbenik"  id="createInputPredmetUdzbenik" 
+                                             value="#{createPredmet.selectedUdzbenik}" converter="udzbenikConverter" > 
 
                                 <f:selectItem itemLabel="Izaberite udzbenik" itemValue="" />
-                                <f:selectItems value="#{findPredmet.udzbenici}"  id="inputPredmetUdzbenikItem"  var="udzbenik" itemLabel="#{udzbenik.naziv}" itemValue="#{udzbenik}" />
+                                <f:selectItems value="#{createPredmet.udzbenici}"  id="inputPredmetUdzbenikItem"  var="udzbenik" itemLabel="#{udzbenik.naziv}" itemValue="#{udzbenik}" />
 
-                                <p:ajax event="change" listener="#{findPredmet.selectedUdzbenikListener}" process="@this" immediate="true"/>
+                                <p:ajax event="change" listener="#{createPredmet.selectedUdzbenikListener}" process="@this" immediate="true"/>
                             </p:selectOneMenu> 
 
-                            <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetForm:msgs dt2"
-                                             class="dodajOsobuNaUdzbeniku"  actionListener="#{findPredmet.onAddNewUdzbenikNaPredmetu()}"  />
+                            <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetFormCreate:msgs unpdt"
+                                             class="dodajOsobuNaUdzbeniku"  actionListener="#{createPredmet.onAddNewUdzbenikNaPredmetu()}"  />
 
                         </div>
                     </div>
@@ -187,7 +187,7 @@ and open the template in the editor.
 
                     <p:dataTable var="udzbenik" class="inputPredmetUdbzenikDataTable"
                                  value="#{createPredmet.predmet.udzbenici}" editable="false"
-                                 id="dt2" widgetVar="dt2">
+                                 id="unpdt" widgetVar="unpdt">
 
 
 
@@ -206,14 +206,14 @@ and open the template in the editor.
                         </p:column>
 
                         <p:column style="width:70px">
-                            <p:commandButton value="X" styleClass="ui-priority-primary" process="@this"  actionListener="#{findPredmet.onDeleteUdzbenikNaPredmetu(udzbenik)}" update=":predmetForm:msgs dt2"  />
+                            <p:commandButton value="X" styleClass="ui-priority-primary" process="@this"  actionListener="#{createPredmet.onDeleteUdzbenikNaPredmetu(udzbenik)}" update=":predmetFormCreate:msgs unpdt"  />
                         </p:column>
 
                     </p:dataTable>
 
                     <hr/>
 
-                    <p:commandButton type="submit" process="@this"  actionListener="#{createPredmet.onCreate()}" value="Kreiraj" styleClass="ui-priority-primary" class="btn btn-success" style="margin: 0 0 20px 120px" >
+                    <p:commandButton type="submit" process="@this" onclick="submit()" actionListener="#{createPredmet.onCreate()}" value="Kreiraj" styleClass="ui-priority-primary" class="btn btn-success" style="margin: 0 0 20px 120px" >
                         <f:ajax execute="@form" render="@form" />
                     </p:commandButton>
                     

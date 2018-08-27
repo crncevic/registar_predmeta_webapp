@@ -78,7 +78,7 @@ public class Constants {
 
     //vrsta i nivo studija
     public static final String VRSTA_I_NIVO_STUDIJA_FIND_ALL = "VrstaINivoStudija.findAll";
-    public static final String VRSTA_I_NIVO_STUDIJA_FIND_BY_ID = "UlogaUdzbenik.findByVrstaId";
+    public static final String VRSTA_I_NIVO_STUDIJA_FIND_BY_ID = "VrstaINivoStudija.findByVrstaId";
 
     //udzbenik na predmetu
     public static final String UDZBENIK_NA_PREDMETU_FIND_ALL_BY_UDZBENIK_ID = "UdzbenikNaPredmetu.findByUdzbenikId";

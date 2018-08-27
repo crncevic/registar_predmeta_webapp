@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "NastavnikNaPredmetu.findByNastavnikId", query = "SELECT n FROM NastavnikNaPredmetu n WHERE n.nastavnikNaPredmetuPK.nastavnikId = :nastavnikId")
     , @NamedQuery(name = "NastavnikNaPredmetu.findByPredmetId", query = "SELECT n FROM NastavnikNaPredmetu n WHERE n.nastavnikNaPredmetuPK.predmetId = :predmetId")
     , @NamedQuery(name = "NastavnikNaPredmetu.findByTipNastaveId", query = "SELECT n FROM NastavnikNaPredmetu n WHERE n.nastavnikNaPredmetuPK.tipNastaveId = :tipNastaveId")
-    , @NamedQuery(name = "NastavnikNaPredmetu.delete", query = "DELETE FROM NastavnikNaPredmetu nnp WHERE nnp.nastavnikNaPredmetuPK.nastavnikId=:nastavnikId AND nnp.nastavnikNaPredmetuPK.predmetId=:predmetId AND nnp.nastavnikNaPredmetuPK.tipNastaveId=:tipNastaveId")})
+    , @NamedQuery(name = "NastavnikNaPredmetu.delete", query = "DELETE FROM NastavnikNaPredmetu nnp WHERE nnp.nastavnikNaPredmetuPK.nastavnikId=:nastavnikId AND nnp.nastavnikNaPredmetuPK.predmetId=:predmetId AND nnp.nastavnikNaPredmetuPK.tipNastaveId=:tipnastaveId")})
 public class NastavnikNaPredmetu implements Serializable {
 
     private static final long serialVersionUID = 1L;

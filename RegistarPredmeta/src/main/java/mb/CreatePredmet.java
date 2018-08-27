@@ -14,6 +14,7 @@ import dto.UdzbenikDTO;
 import dto.UdzbenikNaPredmetuDTO;
 import dto.VrstaINivoStudijaDTO;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.inject.Named;
@@ -23,6 +24,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
+import javax.ws.rs.core.Response;
 import ws.client.RestWSClient;
 
 /**
@@ -32,7 +34,7 @@ import ws.client.RestWSClient;
 @ManagedBean
 @Named(value = "createPredmet")
 @ViewScoped
-public class CreatePredmet implements Serializable{
+public class CreatePredmet implements Serializable {
 
     private RestWSClient restWSClient;
     private PredmetDTO predmet;
@@ -40,21 +42,22 @@ public class CreatePredmet implements Serializable{
     private List<NastavnikDTO> nastavnici;
     private List<VrstaINivoStudijaDTO> vrsteINivoiStudija;
     private List<TipNastaveDTO> tipoviNastave;
-    
+
     private UdzbenikDTO selectedUdzbenik;
     private NastavnikDTO selectedNastavnik;
     private TipNastaveDTO selectedTipNastave;
     private VrstaINivoStudijaDTO selectedVrstaINivoStudija;
-    
-    
+
     public CreatePredmet() {
+        predmet = new PredmetDTO();
+        predmet.setUdzbenici(new ArrayList());
+        predmet.setNastavnici(new ArrayList());
+        predmet.setTematskaCeline(new ArrayList());
+        predmet.setVrstaINivoStudija(new VrstaINivoStudijaDTO());
+
     }
-    
-    
+
     //<editor-fold defaultstate="collapsed" desc="Getters and setters">
-    
-
-
     public PredmetDTO getPredmet() {
         return predmet;
     }
@@ -64,7 +67,7 @@ public class CreatePredmet implements Serializable{
     }
 
     public List<UdzbenikDTO> getUdzbenici() {
-        restWSClient  = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
+        restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
         udzbenici = restWSClient.getAll_JSON(List.class);
         return udzbenici;
     }
@@ -134,42 +137,36 @@ public class CreatePredmet implements Serializable{
     public void setSelectedVrstaINivoStudija(VrstaINivoStudijaDTO selectedVrstaINivoStudija) {
         this.selectedVrstaINivoStudija = selectedVrstaINivoStudija;
     }
-    
-    
-    
-     //</editor-fold>
-    
-    
+
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Listeneri">
-    
-     public void selectedTipNastaveListener(AjaxBehaviorEvent event) {
-        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetForm:inputPredmetTipNastave")).getSubmittedValue();
+    public void selectedTipNastaveListener(AjaxBehaviorEvent event) {
+        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetFormCreate:createInputPredmetTipNastave")).getSubmittedValue();
         restWSClient = new RestWSClient(Constants.TIP_NASTAVE_CONTROLLER);
         this.selectedTipNastave = restWSClient.getById_JSON(TipNastaveDTO.class, id);
     }
 
     public void selectedNastavnikListener(AjaxBehaviorEvent event) {
-        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetForm:inputPredmetNastavnik")).getSubmittedValue();
+        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetFormCreate:createInputPredmetNastavnik")).getSubmittedValue();
         restWSClient = new RestWSClient(Constants.NASTAVNIK_CONTROLLER);
         this.selectedNastavnik = restWSClient.getById_JSON(NastavnikDTO.class, id);
     }
 
     public void selectedUdzbenikListener(AjaxBehaviorEvent event) {
-        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetForm:inputPredmetUdzbenik")).getSubmittedValue();
+        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetFormCreate:createInputPredmetUdzbenik")).getSubmittedValue();
         restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
         this.selectedUdzbenik = restWSClient.getById_JSON(UdzbenikDTO.class, id);
     }
 
     public void selectedVrstaINivoStudijaListener(AjaxBehaviorEvent event) {
-        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetForm:inputPredmetVrstaINivoStudija")).getSubmittedValue();
+        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetFormCreate:createInputPredmetVrstaINivoStudija")).getSubmittedValue();
         restWSClient = new RestWSClient(Constants.VRSTA_I_NIVO_STUDIJA_CONTROLLER);
         this.selectedVrstaINivoStudija = restWSClient.getById_JSON(VrstaINivoStudijaDTO.class, id);
     }
-    
-  //</editor-fold>
-    
+
+    //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Metode">
-     public void onAddNewNastavnikNaPredmetu() {
+    public void onAddNewNastavnikNaPredmetu() {
 
         if (selectedNastavnik == null) {
             FacesMessage msg = new FacesMessage("Niste izabrali nastavnika");
@@ -188,7 +185,6 @@ public class CreatePredmet implements Serializable{
         nnpdto.setTipNastaveDTO(selectedTipNastave);
         nnpdto.setNastavnikId(selectedNastavnik.getNastavnikId());
         nnpdto.setTipNastaveId(selectedTipNastave.getTipnastaveId());
-        nnpdto.setPredmetId(predmet.getPredmetId());
 
         for (NastavnikNaPredmetuDTO nastavnikNaPredmetuDTO : predmet.getNastavnici()) {
             if (nastavnikNaPredmetuDTO.getNastavnikDTO().getNastavnikId() == nnpdto.getNastavnikDTO().getNastavnikId()
@@ -225,33 +221,46 @@ public class CreatePredmet implements Serializable{
         UdzbenikNaPredmetuDTO unpdto = new UdzbenikNaPredmetuDTO();
         unpdto.setUdzbenikDTO(selectedUdzbenik);
         unpdto.setUdzbenikId(selectedUdzbenik.getUdzbenikId());
-        unpdto.setPredmetId(predmet.getPredmetId());
+    
 
         for (UdzbenikNaPredmetuDTO udzbenikNaPredmetuDTO : predmet.getUdzbenici()) {
             if (udzbenikNaPredmetuDTO.getUdzbenikDTO().getUdzbenikId() == unpdto.getUdzbenikDTO().getUdzbenikId()) {
-                FacesMessage msg = new FacesMessage(unpdto.getUdzbenikDTO().getNaziv() + " vec postoji na predmetu  " + predmet.getNaziv());
+                FacesMessage msg = new FacesMessage(unpdto.getUdzbenikDTO().getNaziv() + " vec postoji na predmetu !");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return;
             }
         }
 
         predmet.getUdzbenici().add(unpdto);
-        FacesMessage msg = new FacesMessage(unpdto.getUdzbenikDTO().getNaziv() + " dodat na predmet : " + predmet.getNaziv());
+        FacesMessage msg = new FacesMessage(unpdto.getUdzbenikDTO().getNaziv() + " dodat na predmet");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void onDeleteUdzbenikNaPredmetu(UdzbenikNaPredmetuDTO udzbenikDTO) {
-        udzbenikDTO.setPredmetId(predmet.getPredmetId());
-
+        
         predmet.getUdzbenici().remove(udzbenikDTO);
-        FacesMessage msg = new FacesMessage(udzbenikDTO.getUdzbenikDTO().getNaziv() + " izbrisan sa predmeta : " + udzbenikDTO.getUdzbenikDTO().getNaziv());
+        FacesMessage msg = new FacesMessage(udzbenikDTO.getUdzbenikDTO().getNaziv() + " izbrisan sa predmeta! ");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     //</editor-fold>
-    
-    public void onCreate(){
-        
+    public String onCreate() {
+        restWSClient = new RestWSClient(Constants.PREDMET_CONTROLLER);
+        setValues();
+        Response response = restWSClient.create_JSON(predmet);
+
+        if (response.getStatusInfo() == Response.Status.OK) {
+            FacesMessage msg = new FacesMessage("Predmet uspesno kreiran!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return "success";
+        }
+        FacesMessage msg = new FacesMessage("Dogodila se greska prilikom kreiranja predmeta!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        return "failure";
     }
     
+    private void setValues(){
+        predmet.setNaziv(((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetFormCreate:createPredmetNaziv")).getValue().toString());
+        predmet.setUslov(((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetFormCreate:createPredmetUslov")).getValue().toString());
+    }
 }

@@ -22,6 +22,7 @@ import java.util.Map;
 import javax.annotation.ManagedBean;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
+import javax.faces.component.UIOutput;
 import javax.inject.Named;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -59,7 +60,7 @@ public class FindPredmet implements Serializable {
         
         
         selectedVrstaINivoStudija = predmet.getVrstaINivoStudija();
-    //  ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetForm:inputPredmetVrstaINivoStudija")).setSubmittedValue(selectedVrstaINivoStudija.getNaziv());
+   
 
     }
 
@@ -173,6 +174,7 @@ public class FindPredmet implements Serializable {
         String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetForm:inputPredmetVrstaINivoStudija")).getSubmittedValue();
         restWSClient = new RestWSClient(Constants.VRSTA_I_NIVO_STUDIJA_CONTROLLER);
         this.selectedVrstaINivoStudija = restWSClient.getById_JSON(VrstaINivoStudijaDTO.class, id);
+        ((UIOutput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetForm:vinsValue")).setValue(selectedVrstaINivoStudija.getNaziv());
     }
 
     //</editor-fold>
