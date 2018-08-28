@@ -56,6 +56,13 @@ public class NastavnikConverter implements Converter{
     public String getAsString(FacesContext context, UIComponent component, Object value) {
    try{
         if (value != null) {
+            
+            if(value instanceof NastavnikDTO){
+                if(((NastavnikDTO) value).getNastavnikId()!= null){
+                  return String.valueOf(((NastavnikDTO) value).getNastavnikId()); 
+                }
+                return null;
+            }
             String naziv =  String.valueOf((Integer)((LinkedHashMap) value).get(Constants.NASTAVNIK_ID));
             return naziv;
         } else {

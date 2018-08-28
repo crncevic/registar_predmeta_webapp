@@ -41,6 +41,31 @@ public class VrstaINivoStudijaDTO implements Serializable{
     public void setNaziv(String naziv) {
         this.naziv = naziv;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + this.vrstaId;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final VrstaINivoStudijaDTO other = (VrstaINivoStudijaDTO) obj;
+        if (this.vrstaId != other.vrstaId) {
+            return false;
+        }
+        return true;
+    }
     
    
     

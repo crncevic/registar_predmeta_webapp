@@ -21,6 +21,7 @@ public class StudijskiProgramDTO implements Serializable{
     @NotNull
     @Size(min = 1, max = 150)
     private String naziv;
+    
 
     public Integer getStudijskiProgramId() {
         return studijskiProgramId;

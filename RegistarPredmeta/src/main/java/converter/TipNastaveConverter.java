@@ -48,14 +48,22 @@ public class TipNastaveConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        try{
-        if (value != null) {
-            String naziv =  String.valueOf((Integer)((LinkedHashMap) value).get(Constants.TIP_NASTAVE_ID));
-            return naziv;
-        } else {
-            return null;
-        }
-        }catch(Exception ex){
+        try {
+            if (value != null) {
+
+                if (value instanceof TipNastaveDTO) {
+                    if (((TipNastaveDTO) value).getTipnastaveId() != null) {
+                        return String.valueOf(((TipNastaveDTO) value).getTipnastaveId());
+                    }
+                    return null;
+                }
+
+                String naziv = String.valueOf((Integer) ((LinkedHashMap) value).get(Constants.TIP_NASTAVE_ID));
+                return naziv;
+            } else {
+                return null;
+            }
+        } catch (Exception ex) {
             return "";
         }
     }

@@ -66,5 +66,13 @@
         </navigation-case>
     
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>std_program_index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>find</from-outcome>
+            <to-view-id>std_program_find.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 
 </faces-config>

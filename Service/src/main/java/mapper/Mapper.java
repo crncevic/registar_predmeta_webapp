@@ -68,8 +68,8 @@ public class Mapper {
                 predmetDTO.setStudijskiIstrazivackiRad(predmet.getStudijskiIstrazivackiRad());
                 predmetDTO.setSadrzajTekst(predmet.getSadrzajTekst());
                 predmetDTO.setVrstaINivoStudija(
-                        new VrstaINivoStudijaDTO(predmet.getVrstaINivoStudija()== null ? 0:predmet.getVrstaINivoStudija().getVrstaId()
-                                , predmet.getVrstaINivoStudija() == null ?  "" : predmet.getVrstaINivoStudija().getNaziv()));
+                        new VrstaINivoStudijaDTO(predmet.getVrstaINivoStudija() == null ? 0 : predmet.getVrstaINivoStudija().getVrstaId(),
+                                predmet.getVrstaINivoStudija() == null ? "" : predmet.getVrstaINivoStudija().getNaziv()));
 
                 List<UdzbenikNaPredmetuDTO> udzbeniciDTO = new ArrayList<>();
 
@@ -387,18 +387,25 @@ public class Mapper {
                     predmetNaStudijskomProgramuDTO.setStudijskiProgramId(pnsp.getPredmetNaStudijskomProgramuPK().getStudijskiprogramId());
                     predmetNaStudijskomProgramuDTO.setStudijskiProgramDTO(toStudijskiProgramDTO(pnsp.getStudijskiProgram()));
                 }
+                    predmetNaStudijskomProgramuDTO.setStatusDTO(toStatusDTO(pnsp.getStatus()));
+                    predmetNaStudijskomProgramuDTO.setEspb(pnsp.getEspb() != null ? pnsp.getEspb() : 0);
+                    predmetNaStudijskomProgramuDTO.setSemestar(pnsp.getSemestar());
+                    predmetNaStudijskomProgramuDTO.setStudijskiProgramDTO(toStudijskiProgramDTO(pnsp.getStudijskiProgram()));
 
-                predmetNaStudijskomProgramuDTO.setStudijskiProgramDTO(toStudijskiProgramDTO(pnsp.getStudijskiProgram()));
+                    return predmetNaStudijskomProgramuDTO;
+                } else {
+                    return null;
+                }
 
-                return predmetNaStudijskomProgramuDTO;
-            } else {
-                return null;
-            }
-
-        } catch (Exception e) {
+            }catch (Exception e) {
             throw new Exception("Greska u mapiranju PredmetNaStudijskomProgramu->PredmetNaStudijskomProgramuDTO {" + e.getMessage() + "}");
         }
-    }
+        }
+    
+
+    
+
+    
 
     public static NastavnikNaPredmetuDTO toNastavnikNaPredmetuDTO(NastavnikNaPredmetu nastavnikNaPredmetu) throws Exception {
         try {
@@ -624,7 +631,7 @@ public class Mapper {
                 predmetNaStudijskomProgramu.setEspb(predmetNaStudijskomProgramu.getEspb());
                 predmetNaStudijskomProgramu.setSemestar(predmetNaStudijskomProgramuDTO.getSemestar());
                 predmetNaStudijskomProgramu.setStudijskiProgram(toStudijskiProgram(predmetNaStudijskomProgramuDTO.getStudijskiProgramDTO()));
-                predmetNaStudijskomProgramu.setStatusId(toStatus(predmetNaStudijskomProgramuDTO.getStatusDTO()));
+                predmetNaStudijskomProgramu.setStatus(toStatus(predmetNaStudijskomProgramuDTO.getStatusDTO()));
                 return predmetNaStudijskomProgramu;
             } else {
                 return null;

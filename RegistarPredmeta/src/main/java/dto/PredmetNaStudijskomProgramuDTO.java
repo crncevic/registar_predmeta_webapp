@@ -19,6 +19,7 @@ public class PredmetNaStudijskomProgramuDTO implements Serializable{
     private int semestar;
     private int espb;
     private StatusDTO statusDTO;
+      private PredmetDTO predmet;
 
     public int getEspb() {
         return espb;
@@ -67,5 +68,15 @@ public class PredmetNaStudijskomProgramuDTO implements Serializable{
     public void setStatusDTO(StatusDTO statusDTO) {
         this.statusDTO = statusDTO;
     }
+
+    public PredmetDTO getPredmet() {
+        return predmet;
+    }
+
+    public void setPredmet(PredmetDTO predmet) {
+        this.predmet = predmet;
+    }
+    
+    
 
 }

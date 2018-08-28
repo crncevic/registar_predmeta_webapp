@@ -6,6 +6,7 @@
 package logic;
 
 import constants.Constants;
+import domain.PredmetNaStudijskomProgramu;
 import domain.StudijskiProgram;
 import java.util.List;
 import javax.inject.Inject;
@@ -19,10 +20,11 @@ public class StudijskiProgramLogic extends AbstractLogicClass {
 
     @Inject
     private GenericRepository<StudijskiProgram> gr;
+    
 
     public List<StudijskiProgram> getAll() {
         try {
-            return gr.getAll(StudijskiProgram.class,Constants.STUDIJSKI_PROGRAM_FIND_ALL);
+            return gr.getAll(StudijskiProgram.class, Constants.STUDIJSKI_PROGRAM_FIND_ALL);
         } catch (Exception e) {
             throw e;
         }
@@ -35,4 +37,6 @@ public class StudijskiProgramLogic extends AbstractLogicClass {
             throw e;
         }
     }
+    
+    
 }

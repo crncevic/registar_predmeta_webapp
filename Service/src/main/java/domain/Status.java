@@ -46,7 +46,7 @@ public class Status implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "naziv")
     private String naziv;
-    @OneToMany(mappedBy = "statusId")
+    @OneToMany(mappedBy = "status")
     private List<PredmetNaStudijskomProgramu> predmetNaStudijskomProgramuList;
 
     public Status() {

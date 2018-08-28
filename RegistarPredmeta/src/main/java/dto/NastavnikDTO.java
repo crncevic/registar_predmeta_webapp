@@ -6,6 +6,7 @@
 package dto;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -96,6 +97,31 @@ public class NastavnikDTO implements Serializable{
 
     public void setKatedraDTO(KatedraDTO katedraDTO) {
         this.katedraDTO = katedraDTO;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 13 * hash + Objects.hashCode(this.nastavnikId);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final NastavnikDTO other = (NastavnikDTO) obj;
+        if (!Objects.equals(this.nastavnikId, other.nastavnikId)) {
+            return false;
+        }
+        return true;
     }
     
     

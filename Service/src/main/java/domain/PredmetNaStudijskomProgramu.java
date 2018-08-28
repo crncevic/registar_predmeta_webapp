@@ -10,6 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -45,8 +46,8 @@ public class PredmetNaStudijskomProgramu implements Serializable {
     @Column(name = "semestar")
     private int semestar;
     @JoinColumn(name = "statusId", referencedColumnName = "statusId")
-    @ManyToOne
-    private Status statusId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Status status;
     @JoinColumn(name = "studijski_programId", referencedColumnName = "studijskiProgramId", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private StudijskiProgram studijskiProgram;
@@ -94,12 +95,12 @@ public class PredmetNaStudijskomProgramu implements Serializable {
         this.semestar = semestar;
     }
 
-    public Status getStatusId() {
-        return statusId;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setStatusId(Status statusId) {
-        this.statusId = statusId;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public StudijskiProgram getStudijskiProgram() {

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Studijski programi</title>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="templ.xhtml">
+            <ui:define name="content">
+
+                <p:dataTable id="stddt" class="stdProgramDataTable" var="stdProgram" value="#{allStdProgram.stdProgrami}">
+                   
+                    <p:column headerText="ID" class="id">
+                        <h:outputText value="#{stdProgram.studijskiProgramId}" />
+                    </p:column>
+                    
+                    <p:column headerText="Naziv">
+                        <h:outputText value="#{stdProgram.naziv}" />
+                    </p:column>
+                   
+                    <p:column style="width:72px;text-align: center">
+                        <p:button outcome="find"  icon="ui-icon-search" title="View">
+                            <f:param name="studijskiprogramId" value="#{stdProgram.studijskiProgramId}"/>
+                        </p:button>
+                    </p:column>
+                </p:dataTable>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

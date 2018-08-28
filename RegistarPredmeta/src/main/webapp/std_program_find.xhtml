@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Predmet na std programu</title>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="templ.xhtml">
+            <ui:define name="content">
+
+                <p:dataTable id="stddt" class="stdProgramDataTable" var="predmetStdPr" value="#{findStdProgram.predmeti}">
+
+                    <h:outputText value="#{findStdProgram.stdProgram.naziv}" />
+
+                    <p:column headerText="Predmet" class="id">
+                        <h:outputText value="#{predmetStdPr.predmet.naziv}" />
+                    </p:column>
+                    <p:column headerText="Semestar">
+                        <h:outputText value="#{predmetStdPr.semestar}" />
+                    </p:column>
+
+                    <p:column headerText="Status">
+                        <h:outputText value="#{predmetStdPr.statusDTO.naziv}" />
+                    </p:column>
+
+                    <p:column headerText="ESPB">
+                        <h:outputText value="#{predmetStdPr.espb}" />
+                    </p:column>
+
+
+
+                    <p:column style="width:72px;text-align: center">
+                        <p:button outcome="find"  icon="ui-icon-search" title="View">
+
+                        </p:button>
+                    </p:column>
+                </p:dataTable>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

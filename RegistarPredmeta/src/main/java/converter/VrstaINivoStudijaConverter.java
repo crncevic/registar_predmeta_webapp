@@ -56,7 +56,7 @@ try {
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         try {
             if (value != null) {
-                String naziv = String.valueOf((Integer) ((LinkedHashMap) value).get(Constants.VRSTA_ID));
+                String naziv = String.valueOf((Integer) ((VrstaINivoStudijaDTO) value).getVrstaId());
                 return naziv;
             } else {
                 return null;
