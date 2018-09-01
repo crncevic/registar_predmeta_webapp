@@ -353,3 +353,28 @@ footer {
     text-align: center;
 }
 
+.ui-growl{
+    margin-top: 50px;
+}
+
+.stdProgram{
+    margin: 70px  345px 0 200px;
+    font-size: 22px;
+    font-weight: bold;
+}
+.dodajNoviPredmetNaStdProgram{
+    margin-left: 50px;
+}
+
+.predmetNaStdProgramuCreate{
+     height: 120%;
+    width:800px;
+    margin: 65px 0 100px 300px;
+    background-color: #9999ff; 
+}
+
+.predmetNaStdProgramDataTable{
+     height: 400px;
+    width: 70%;
+    margin: 30px 0 100px 200px;
+}

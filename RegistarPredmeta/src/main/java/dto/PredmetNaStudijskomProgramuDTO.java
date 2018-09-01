@@ -19,7 +19,7 @@ public class PredmetNaStudijskomProgramuDTO implements Serializable{
     private int semestar;
     private int espb;
     private StatusDTO statusDTO;
-      private PredmetDTO predmet;
+    public String nazivPredmeta;
 
     public int getEspb() {
         return espb;
@@ -69,13 +69,17 @@ public class PredmetNaStudijskomProgramuDTO implements Serializable{
         this.statusDTO = statusDTO;
     }
 
-    public PredmetDTO getPredmet() {
-        return predmet;
+    public String getNazivPredmeta() {
+        return nazivPredmeta;
     }
 
-    public void setPredmet(PredmetDTO predmet) {
-        this.predmet = predmet;
+    public void setNazivPredmeta(String nazivPredmeta) {
+        this.nazivPredmeta = nazivPredmeta;
     }
+
+   
+
+  
     
     
 

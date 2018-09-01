@@ -43,12 +43,16 @@ public class Constants {
     public static final String TIP_NASTAVE_ID = "tipnastaveId";
     public static final String OSOBA_ID = "osobaId";
     public static final String STATUS_ID = "statusId";
-    public static final String STUDIJSKI_PROGRAM_ID = "studijskiprogramId";
-    public static final String TEMATSKA_CELINA_ID = "tematskacelinaId";
+    public static final String STUDIJSKI_PROGRAM_ID = "studijskiProgramId";
+    public static final String TEMATSKA_CELINA_ID = "tematskacelinstudijskiprogramIdaId";
     public static final String UDZBENIK_ID = "udzbenikId";
     public static final String UDZBENIK_NAZIV = "naziv";
     public static final String ULOGA_ID = "ulogaId";
     
     public static final String VRSTA_ID = "vrstaId";
     public static final String VRSTA_NAZIV = "naziv";
+    
+      public static final String STATUS_PREDMET_NAZIV = "nazivPredmeta";
+    
+    
 }

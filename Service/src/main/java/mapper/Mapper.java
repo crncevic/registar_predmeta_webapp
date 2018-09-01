@@ -391,7 +391,7 @@ public class Mapper {
                     predmetNaStudijskomProgramuDTO.setEspb(pnsp.getEspb() != null ? pnsp.getEspb() : 0);
                     predmetNaStudijskomProgramuDTO.setSemestar(pnsp.getSemestar());
                     predmetNaStudijskomProgramuDTO.setStudijskiProgramDTO(toStudijskiProgramDTO(pnsp.getStudijskiProgram()));
-
+                    predmetNaStudijskomProgramuDTO.setNazivPredmeta(pnsp.getPredmet().getNaziv());
                     return predmetNaStudijskomProgramuDTO;
                 } else {
                     return null;

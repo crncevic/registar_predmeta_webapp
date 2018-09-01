@@ -5,11 +5,14 @@
  */
 package mb;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import constants.Constants;
 import dto.PredmetDTO;
 import dto.PredmetNaStudijskomProgramuDTO;
 import dto.StudijskiProgramDTO;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.ManagedBean;
@@ -26,13 +29,13 @@ import ws.client.RestWSClient;
 @ManagedBean
 @Named(value = "findStdProgram")
 @ViewScoped
-public class FindStdProgram implements Serializable{
+public class FindStdProgram implements Serializable {
 
     /**
      * Creates a new instance of FindStdProgram
      */
     private StudijskiProgramDTO stdProgram;
-    private List<PredmetNaStudijskomProgramuDTO> predmeti;
+    private List<PredmetNaStudijskomProgramuDTO> predmetiNaStdProgramu;
     private RestWSClient restWSClient;
 
     public FindStdProgram() {
@@ -50,20 +53,19 @@ public class FindStdProgram implements Serializable{
         this.stdProgram = stdProgram;
     }
 
-    public List<PredmetNaStudijskomProgramuDTO> getPredmeti() {
+    public List<PredmetNaStudijskomProgramuDTO> getPredmetiNaStdProgramu() {
         restWSClient = new RestWSClient(Constants.PREDMET_NA_STD_PROGRAMU_CONTROLLER);
-        predmeti = restWSClient.getById_JSON(List.class, String.valueOf(stdProgram.getStudijskiProgramId()));
-        restWSClient = new RestWSClient("predmet");
-        for (PredmetNaStudijskomProgramuDTO predmetNaStudijskomProgramuDTO : predmeti) {
-            predmetNaStudijskomProgramuDTO.setPredmet(restWSClient.getById_JSON(PredmetDTO.class, String.valueOf(predmetNaStudijskomProgramuDTO.getPredmetId())));
-        }
-
-        return predmeti;
+        predmetiNaStdProgramu = restWSClient.getById_JSON(List.class,String.valueOf(stdProgram.getStudijskiProgramId()));
+        return predmetiNaStdProgramu;
     }
 
-    public void setPredmeti(List<PredmetNaStudijskomProgramuDTO> predmeti) {
-
-        this.predmeti = predmeti;
+    public void setPredmetiNaStdProgramu(List<PredmetNaStudijskomProgramuDTO> predmetiNaStdProgramu) {
+        this.predmetiNaStdProgramu = predmetiNaStdProgramu;
     }
 
+    
+
+    
+
+   
 }

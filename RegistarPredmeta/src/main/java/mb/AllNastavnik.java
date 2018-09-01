@@ -30,6 +30,7 @@ public class AllNastavnik implements Serializable{
     
     private RestWSClient restWSClient;
     private List<NastavnikDTO> nastavnici; 
+    private List<NastavnikDTO> filteredNastavnici;
     
     public AllNastavnik() {
         restWSClient = new RestWSClient(Constants.NASTAVNIK_CONTROLLER);
@@ -43,6 +44,16 @@ public class AllNastavnik implements Serializable{
     public void setNastavnici(List<NastavnikDTO> nastavnici) {
         this.nastavnici = nastavnici;
     }
+
+    public List<NastavnikDTO> getFilteredNastavnici() {
+        return filteredNastavnici;
+    }
+
+    public void setFilteredNastavnici(List<NastavnikDTO> filteredNastavnici) {
+        this.filteredNastavnici = filteredNastavnici;
+    }
+    
+    
     
     
     
