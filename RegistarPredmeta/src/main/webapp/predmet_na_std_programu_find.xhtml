@@ -24,17 +24,17 @@ and open the template in the editor.
 
                     <div>
                         <p:outputLabel class="pnspCreate">Predmet:</p:outputLabel>
-                        <p:selectOneMenu class="pnspPredmetCreate" value="">
+                        <p:selectOneMenu class="pnspPredmetCreate" value="" disabled="true">
 
-                            <f:selectItems value="#{predmetNaStdProgramuFind.predmeti}" var="pnsp" itemLabel="#{pnsp.naziv}" />
+                            <f:selectItems value="#{predmetNaStdProgramuFind.predmeti}" var="predmet" itemLabel="#{predmet.naziv}" />
                         </p:selectOneMenu>
                     </div> 
 
                     <div>
                         <p:outputLabel class="pnspCreate">Status:</p:outputLabel>
-                        <p:selectOneMenu class="pnspStatusCreate" value="#{predmetNaStdProgramuFind.statusi}">
+                        <p:selectOneMenu class="pnspStatusCreate" value="#{predmetNaStdProgramuFind.predmetNaStdProgramu.statusDTO.statusId}">
 
-                            <f:selectItems value="#{predmetNaStdProgramuFind.statusi}" var="pnsp" itemLabel="#{pnsp.naziv}" itemValue="#{pnsp}" />
+                            <f:selectItems value="#{predmetNaStdProgramuFind.statusi}" var="status" itemLabel="#{status.naziv}" itemValue="#{status.statusId}" />
                         </p:selectOneMenu>
                     </div>
 
@@ -50,8 +50,8 @@ and open the template in the editor.
 
                     <hr/>
 
-                    <p:commandButton type="submit" actionListener="#{createUdzbenik.createUdzbenik}" value="Azuriraj" styleClass="ui-priority-primary" class="btn btn-primary" style="margin: 0 0 20px 150px" />
-                    <p:commandButton type="submit" actionListener="#{createUdzbenik.createUdzbenik}" value="Obrisi" styleClass="ui-priority-primary" class="btn btn-danger" style="margin: 0 0 20px 50px" />
+                    <p:commandButton type="submit" actionListener="#{predmetNaStdProgramuFind.onUpdate}" update=":predmetNaStdProgramuUpdate:msgs" value="Azuriraj" styleClass="ui-priority-primary" class="btn btn-primary" style="margin: 0 0 20px 150px" />
+                    <p:commandButton type="submit" actionListener="#{predmetNaStdProgramuFind.onDelete}" update=":predmetNaStdProgramuUpdate:msgs" value="Obrisi" styleClass="ui-priority-primary" class="btn btn-danger" style="margin: 0 0 20px 50px" />
 
                     <p:button outcome="std_program_find.xhtml" value="Odustani" styleClass="ui-priority-primary" class="btn btn-secondstyleClassary" style="margin: 0 0 20px 50px" >
                         <f:param name="studijskiProgramId" value="1"/>

@@ -97,9 +97,10 @@ public class PredmetNaStdProgramuController {
     }
 
     @PUT
+    @Path("/{stdProgramId}/{predmetId}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
-    public Response update(@NotNull PredmetNaStudijskomProgramuDTO pnspdto) {
+    public Response update(@NotNull PredmetNaStudijskomProgramuDTO pnspdto,@PathParam("stdProgramId") int stdProgramId, @PathParam("predmetId") int predmetId) {
         try {
 
             PredmetNaStudijskomProgramu predmetNaStudijskomProgramu = Mapper.toPredmetNaStudjskomProgramu(pnspdto);
@@ -117,7 +118,7 @@ public class PredmetNaStdProgramuController {
     @DELETE
     @Path("/{stdProgramId}/{predmetId}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
-    public Response delete(@NotNull @PathParam("stdProgramId") int stdProgramId, @NotNull @PathParam("predmetId") int predmetId) {
+    public Response delete(@PathParam("stdProgramId") @NotNull int stdProgramId, @PathParam("predmetId") @NotNull int predmetId) {
         try {
 
             PredmetNaStudijskomProgramuDTO pnspDTO = Mapper.toPredmetNaStudijskomProgramuDTO(pnspl.delete(stdProgramId, predmetId));

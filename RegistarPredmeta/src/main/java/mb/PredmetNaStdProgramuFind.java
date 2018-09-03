@@ -13,15 +13,15 @@ import dto.PredmetNaStudijskomProgramuDTO;
 import dto.StatusDTO;
 import dto.StudijskiProgramDTO;
 import java.io.Serializable;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.ws.rs.core.Response;
 import ws.client.RestWSClient;
 
 /**
@@ -106,7 +106,37 @@ public class PredmetNaStdProgramuFind implements Serializable {
     public void setStdProgram(StudijskiProgramDTO stdProgram) {
         this.stdProgram = stdProgram;
     }
-    
-    
 
+    public void onUpdate() {
+        restWSClient = new RestWSClient(Constants.PREDMET_NA_STD_PROGRAMU_CONTROLLER);
+
+        Response response = restWSClient.update_JSON(predmetNaStdProgramu, predmetNaStdProgramu.getStudijskiProgramId() + "/" + predmetNaStdProgramu.getPredmetId());
+
+        if (response.getStatusInfo() == Response.Status.BAD_REQUEST) {
+            FacesMessage msg = new FacesMessage(response.getEntity().toString());
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else if (response.getStatusInfo() == Response.Status.fromStatusCode(500)) {
+            FacesMessage msg = new FacesMessage("Dogodila se greska na serveru. Sistem ne moze da zapamti izmene za predmet na studijskom programu");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else if (response.getStatusInfo() == Response.Status.OK) {
+            FacesMessage msg = new FacesMessage("Predmet na studijskom programu je uspesno azuriran!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
+    public void onDelete() {
+        restWSClient = new RestWSClient(Constants.PREDMET_NA_STD_PROGRAMU_CONTROLLER);
+        Response response = restWSClient.delete(predmetNaStdProgramu.getStudijskiProgramId() + "/" + predmetNaStdProgramu.getPredmetId());
+
+        if (response.getStatusInfo() == Response.Status.BAD_REQUEST) {
+            FacesMessage msg = new FacesMessage(response.getEntity().toString());
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else if (response.getStatusInfo() == Response.Status.fromStatusCode(500)) {
+            FacesMessage msg = new FacesMessage("Dogodila se greska na serveru. Sistem ne moze da izbrise predmet na studijskom programu");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else if (response.getStatusInfo() == Response.Status.OK) {
+            FacesMessage msg = new FacesMessage("Predmet na studijskom programu je uspesno izbrisan!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
 }

@@ -79,6 +79,7 @@ public class PredmetNaStudijskomProgramuLogic extends AbstractLogicClass {
     public PredmetNaStudijskomProgramu update(PredmetNaStudijskomProgramu pnsp) {
         try {
             et.begin();
+            violations = validator.validate(pnsp);
             if (violations.size() > 0) {
                 throw new ConstraintViolationException(violations);
             }
