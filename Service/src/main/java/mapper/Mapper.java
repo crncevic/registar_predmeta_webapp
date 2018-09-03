@@ -391,7 +391,7 @@ public class Mapper {
                     predmetNaStudijskomProgramuDTO.setEspb(pnsp.getEspb() != null ? pnsp.getEspb() : 0);
                     predmetNaStudijskomProgramuDTO.setSemestar(pnsp.getSemestar());
                     predmetNaStudijskomProgramuDTO.setStudijskiProgramDTO(toStudijskiProgramDTO(pnsp.getStudijskiProgram()));
-                    predmetNaStudijskomProgramuDTO.setNazivPredmeta(pnsp.getPredmet().getNaziv());
+                    predmetNaStudijskomProgramuDTO.setNazivPredmeta(pnsp.getPredmet()!=null ? pnsp.getPredmet().getNaziv() : "");
                     return predmetNaStudijskomProgramuDTO;
                 } else {
                     return null;
@@ -628,7 +628,7 @@ public class Mapper {
             if (predmetNaStudijskomProgramuDTO != null) {
                 PredmetNaStudijskomProgramu predmetNaStudijskomProgramu = new PredmetNaStudijskomProgramu();
                 predmetNaStudijskomProgramu.setPredmetNaStudijskomProgramuPK(new PredmetNaStudijskomProgramuPK(predmetNaStudijskomProgramuDTO.getPredmetId(), predmetNaStudijskomProgramuDTO.getStudijskiProgramId()));
-                predmetNaStudijskomProgramu.setEspb(predmetNaStudijskomProgramu.getEspb());
+                predmetNaStudijskomProgramu.setEspb(predmetNaStudijskomProgramuDTO.getEspb());
                 predmetNaStudijskomProgramu.setSemestar(predmetNaStudijskomProgramuDTO.getSemestar());
                 predmetNaStudijskomProgramu.setStudijskiProgram(toStudijskiProgram(predmetNaStudijskomProgramuDTO.getStudijskiProgramDTO()));
                 predmetNaStudijskomProgramu.setStatus(toStatus(predmetNaStudijskomProgramuDTO.getStatusDTO()));
@@ -696,7 +696,7 @@ public class Mapper {
         try {
             if (statusDTO != null) {
                 Status status = new Status();
-                status.setStatusId(status.getStatusId());
+                status.setStatusId(statusDTO.getStatusId());
                 status.setNaziv(statusDTO.getNaziv());
 
                 return status;

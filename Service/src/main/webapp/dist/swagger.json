@@ -1170,6 +1170,70 @@
                 }
             }
         },
+        "/predmet-na-std-programu": {
+            "post": {
+                "tags": [
+                    "predmet na studijskom programu"
+                ],
+                "summary": "Creates predmet na std programu with form data",
+                "description": "",
+                "operationId": "create",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "predmetNaStudijskomProgramuDTO",
+                        "in": "formData",
+                        "description": "Data for new predmet na std programu",
+                        "required": true,
+                        "type": "PredmetNaStudijskomProgramuDTO"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Predmet na studijskom programu succesfully created"
+                    },
+                    "400": {
+                        "description": "Bad request. Model constraints are not satisfied"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+             "put": {
+                "tags": [
+                    "predmet na studijskom programu"
+                ],
+                "summary": "Updates predmet na std programu with form data",
+                "description": "",
+                "operationId": "update",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                   
+                ],
+                "responses": {
+                    "200": {
+                        "description": "predmet na studijskom programu succesfully updated"
+                    },
+                    "400": {
+                        "description": "Bad request. Model constraints are not satisfied"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+             }
+        },
         "/predmet-na-std-programu/{stdProgramId}": {
             "get": {
                 "tags": [
@@ -1204,7 +1268,7 @@
                 }
             }
         },
-        "predmet-na-std-programu/{stdProgramId}/{predmetId}":{
+        "predmet-na-std-programu/{stdProgramId}/{predmetId}": {
             "get": {
                 "tags": [
                     "predmet na studijskom programu"
@@ -1244,7 +1308,47 @@
                         "description": "Server error"
                     }
                 }
+            },
+            "delete": {
+                "tags": [
+                    "predmet na studijskom programu"
+                ],
+                "summary": "Deletes predmet na studijskom programu",
+                "description": "",
+                "operationId": "delete",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "stdProgramId",
+                        "in": "path",
+                        "description": "ID of the study program",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "predmetId",
+                        "in": "path",
+                        "description": "ID of the subject",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Predmet na studijskom programu  succesfully deleted"
+                    },
+                    "400": {
+                        "description": "Bad request. Model constraints are not satisfied"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
         }
     }
-}
 }

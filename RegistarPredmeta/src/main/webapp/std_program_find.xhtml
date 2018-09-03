@@ -19,7 +19,9 @@ and open the template in the editor.
             <ui:define name="content">
                 
                 <h:outputLabel value="#{findStdProgram.stdProgram.naziv}"  class="stdProgram"/>
-                <h:button value="Dodaj novi predmet" outcome="predmet_na_std_programu_create" class="dodajNoviPredmetNaStdProgram" styleClass="ui-priority-primary" />
+                <h:button value="Dodaj novi predmet"  outcome="predmet_na_std_programu_create" class="dodajNoviPredmetNaStdProgram" styleClass="ui-priority-primary" >
+                    <f:param name="studijskiProgramId" value="#{findStdProgram.stdProgram.studijskiProgramId}" />
+                </h:button>
 
                 <p:dataTable id="stddt" class="predmetNaStdProgramDataTable" var="predmetStdPr" value="#{findStdProgram.predmetiNaStdProgramu}">
 

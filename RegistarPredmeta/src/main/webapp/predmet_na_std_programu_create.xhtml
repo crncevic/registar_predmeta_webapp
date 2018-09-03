@@ -18,23 +18,23 @@ and open the template in the editor.
             <ui:define name="content">
                 <h:form id="predmetNaStdProgramuCreate">
                     <p:growl id="msgs" showDetail="true" />
-                    <p:outputLabel class="stdProgramTitleCreate">Kreiraj predmet na studijskom programu</p:outputLabel>
-
+                    <p:outputLabel class="stdProgramTitleCreate">Dodaj predmet</p:outputLabel>
+                    <p:outputLabel class="stdProgramTitleCreate" value="#{predmetNaStdProgramuCreate.stdProgram.naziv}"></p:outputLabel>
                     <div>
                         <p:outputLabel class="pnspCreate">Predmet:</p:outputLabel>
-                        <p:selectOneMenu class="pnspPredmetCreate" value="#{predmetNaStdProgramuCreate.predmeti}">
+                        <p:selectOneMenu class="pnspPredmetCreate" value="#{predmetNaStdProgramuCreate.newPredmetNaStdProgramu.predmetId}">
 
-                            <f:selectItems value="#{predmetNaStdProgramuCreate.predmeti}" var="pnsp" itemLabel="#{pnsp.naziv}" />
+                            <f:selectItems value="#{predmetNaStdProgramuCreate.predmeti}" var="predmet" itemLabel="#{predmet.naziv}" itemValue="#{predmet.predmetId}"/>
                         </p:selectOneMenu>
                     </div>
                     
                     <div>
                         <p:outputLabel class="pnspCreate">Status:</p:outputLabel>
-                        <p:selectOneMenu class="pnspStatusCreate" value="#{predmetNaStdProgramuCreate.statusi}">
+                        <p:selectOneMenu class="pnspStatusCreate" value="#{predmetNaStdProgramuCreate.newPredmetNaStdProgramu.statusDTO.statusId}">
 
-                            <f:selectItems value="#{predmetNaStdProgramuCreate.statusi}" var="pnsp" itemLabel="#{pnsp.naziv}" />
+                            <f:selectItems value="#{predmetNaStdProgramuCreate.statusi}" var="status" itemLabel="#{status.naziv}" itemValue="#{status.statusId}"/>
                         </p:selectOneMenu>
-                    </div>
+                    </div> 
                     
                     <div>
                           <p:outputLabel class="pnspCreate">ESPB:</p:outputLabel>
@@ -48,7 +48,7 @@ and open the template in the editor.
                     
                     <hr/>
                     
-                    <p:commandButton type="submit" actionListener="#{createUdzbenik.createUdzbenik}" value="Sacuvaj" styleClass="ui-priority-primary" class="btn btn-success" style="margin: 0 0 20px 250px" />
+                    <p:commandButton type="submit" actionListener="#{predmetNaStdProgramuCreate.onCreate}" update=":predmetNaStdProgramuCreate:msgs" value="Sacuvaj" styleClass="ui-priority-primary" class="btn btn-success" style="margin: 0 0 20px 250px" />
 
                     <p:button outcome="std_program_find.xhtml" value="Odustani" styleClass="ui-priority-primary" class="btn btn-secondstyleClassary" style="margin: 0 0 20px 70px" />
                     

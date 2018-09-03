@@ -19,15 +19,14 @@ import javax.ws.rs.core.Response;
  * [katedra]<br>
  * USAGE:
  * <pre>
-        RestWSClient client = new RestWSClient();
-        Object response = client.XXX(...);
-        // do whatever with response
-        client.close();
- </pre>
+ * RestWSClient client = new RestWSClient();
+ * Object response = client.XXX(...);
+ * // do whatever with response
+ * client.close();
+ * </pre>
  *
  * @author Petar
  */
-
 public class RestWSClient {
 
     protected WebTarget webTarget;
@@ -43,27 +42,29 @@ public class RestWSClient {
         WebTarget resource = webTarget;
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
-    
+
     public <T> T getById_JSON(Class<T> responseType, String id) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
-    
+
     public Response create_JSON(Object requestEntity) throws ClientErrorException {
         return webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
     }
-    
+
     public Response update_JSON(Object requestEntity, String id) throws ClientErrorException {
         return webTarget.path(java.text.MessageFormat.format("{0}", new Object[]{id})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).put(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
     }
-    
+
     public Response delete(String id) throws ClientErrorException {
         return webTarget.path(java.text.MessageFormat.format("{0}", new Object[]{id})).request().delete(Response.class);
     }
 
+    
+
     public void close() {
         client.close();
     }
-    
+
 }
