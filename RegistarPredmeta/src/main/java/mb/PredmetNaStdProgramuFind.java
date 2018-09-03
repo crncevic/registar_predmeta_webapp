@@ -11,6 +11,7 @@ import constants.Constants;
 import dto.PredmetDTO;
 import dto.PredmetNaStudijskomProgramuDTO;
 import dto.StatusDTO;
+import dto.StudijskiProgramDTO;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -37,6 +38,7 @@ public class PredmetNaStdProgramuFind implements Serializable {
     private List<PredmetNaStudijskomProgramuDTO> predmetiNaStdProgramu;
     private List<StatusDTO> statusi;
     private List<PredmetDTO> predmeti;
+    private StudijskiProgramDTO stdProgram;
     private ObjectMapper mapper;
 
     public PredmetNaStdProgramuFind() {
@@ -61,14 +63,15 @@ public class PredmetNaStdProgramuFind implements Serializable {
         predmetiNaStdProgramu = mapper.convertValue(restWSClient.getById_JSON(List.class, String.valueOf(stdProgramId)), new TypeReference<List<PredmetNaStudijskomProgramuDTO>>() {
         });
 
-        
-
         for (PredmetNaStudijskomProgramuDTO predmetNaStudijskomProgramuDTO : predmetiNaStdProgramu) {
             if (predmetNaStudijskomProgramuDTO.getPredmetId() == predmetId
                     && predmetNaStudijskomProgramuDTO.getStudijskiProgramId() == stdProgramId) {
                 predmetNaStdProgramu = predmetNaStudijskomProgramuDTO;
             }
         }
+
+        restWSClient = new RestWSClient(Constants.STUDIJSKI_PROGRAM_CONTROLLER);
+        stdProgram = restWSClient.getById_JSON(StudijskiProgramDTO.class, String.valueOf(predmetNaStdProgramu.getStudijskiProgramId()));
 
     }
 
@@ -95,5 +98,15 @@ public class PredmetNaStdProgramuFind implements Serializable {
     public void setPredmeti(List<PredmetDTO> predmeti) {
         this.predmeti = predmeti;
     }
+
+    public StudijskiProgramDTO getStdProgram() {
+        return stdProgram;
+    }
+
+    public void setStdProgram(StudijskiProgramDTO stdProgram) {
+        this.stdProgram = stdProgram;
+    }
+    
+    
 
 }

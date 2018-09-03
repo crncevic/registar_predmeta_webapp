@@ -19,8 +19,8 @@ and open the template in the editor.
             <ui:define name="content">
                 <h:form id="predmetNaStdProgramuUpdate">
                     <p:growl id="msgs" showDetail="true" />
-                    <p:outputLabel class="stdProgramTitleCreate">Softvesrko inzenjerstvo i racunarske nauke</p:outputLabel>
-                    <p:outputLabel class="stdProgramTitleCreate">Kvalitet softvera</p:outputLabel>
+                    <p:outputLabel class="stdProgramTitleCreate" value="#{predmetNaStdProgramuFind.stdProgram.naziv}" ></p:outputLabel>
+                    <p:outputLabel class="stdProgramTitleCreate" value="#{predmetNaStdProgramuFind.predmetNaStdProgramu.nazivPredmeta}"></p:outputLabel>
 
                     <div>
                         <p:outputLabel class="pnspCreate">Predmet:</p:outputLabel>
