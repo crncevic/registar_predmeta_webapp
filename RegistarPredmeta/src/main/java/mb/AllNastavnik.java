@@ -5,11 +5,14 @@
  */
 package mb;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.Constants;
 import dto.NastavnikDTO;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.view.ViewScoped;
@@ -22,19 +25,25 @@ import ws.client.RestWSClient;
 @ManagedBean
 @Named(value = "allNastavnik")
 @ViewScoped
-public class AllNastavnik implements Serializable{
+public class AllNastavnik implements Serializable {
 
     /**
      * Creates a new instance of AllNastavnik
      */
-    
     private RestWSClient restWSClient;
-    private List<NastavnikDTO> nastavnici; 
-    private List<NastavnikDTO> filteredNastavnici;
-    
+    private List<NastavnikDTO> nastavnici;
+    private ObjectMapper mapper;
+
     public AllNastavnik() {
+
+    }
+
+    @PostConstruct
+    private void init() {
+        mapper = new ObjectMapper();
         restWSClient = new RestWSClient(Constants.NASTAVNIK_CONTROLLER);
-        nastavnici = restWSClient.getAll_JSON(List.class);
+        nastavnici = mapper.convertValue(restWSClient.getAll_JSON(List.class), new TypeReference<List<NastavnikDTO>>() {
+        });
     }
 
     public List<NastavnikDTO> getNastavnici() {
@@ -45,16 +54,4 @@ public class AllNastavnik implements Serializable{
         this.nastavnici = nastavnici;
     }
 
-    public List<NastavnikDTO> getFilteredNastavnici() {
-        return filteredNastavnici;
-    }
-
-    public void setFilteredNastavnici(List<NastavnikDTO> filteredNastavnici) {
-        this.filteredNastavnici = filteredNastavnici;
-    }
-    
-    
-    
-    
-    
 }

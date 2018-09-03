@@ -5,11 +5,14 @@
  */
 package mb;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.Constants;
 import dto.PredmetDTO;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import ws.client.RestWSClient;
@@ -25,10 +28,17 @@ public class AllPredmet implements Serializable{
 
     private List<PredmetDTO> predmeti;
     private RestWSClient restWSClient;
+    private ObjectMapper mapper;
     
     public AllPredmet() {
-        restWSClient = new RestWSClient(Constants.PREDMET_CONTROLLER);
-        predmeti = restWSClient.getAll_JSON(List.class);
+       
+    }
+    
+    @PostConstruct
+    private void init(){
+        mapper = new ObjectMapper();
+         restWSClient = new RestWSClient(Constants.PREDMET_CONTROLLER);
+         predmeti = mapper.convertValue(restWSClient.getAll_JSON(List.class), new TypeReference<List<PredmetDTO>>() {});
     }
 
     public List<PredmetDTO> getPredmeti() {

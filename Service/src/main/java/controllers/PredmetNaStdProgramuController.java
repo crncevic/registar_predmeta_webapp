@@ -6,6 +6,7 @@
 package controllers;
 
 import domain.PredmetNaStudijskomProgramu;
+import domain.Status;
 import dto.PredmetNaStudijskomProgramuDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,24 @@ public class PredmetNaStdProgramuController {
 
     @Inject
     PredmetNaStudijskomProgramuLogic pnspl;
+    
+    @GET
+    @Path("/{stdProgramId}/{predmetId}")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+    public Response getById(@PathParam("stdProgramId") @NotNull int stdProgramId, @PathParam("predmetId") @NotNull int predmetId) {
+        try {
+            PredmetNaStudijskomProgramu pnsp = pnspl.getById(stdProgramId, predmetId);
+
+            if (pnsp == null) {
+                return Response.noContent().build();
+            }
+
+            return Response.ok(Mapper.toPredmetNaStudijskomProgramuDTO(pnsp)).build();
+
+        } catch (Exception e) {
+            return Response.serverError().type(MediaType.APPLICATION_JSON).build();
+        }
+    }
 
     @GET
     @Path("/{stdProgramId}")

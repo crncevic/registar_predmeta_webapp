@@ -5,11 +5,14 @@
  */
 package mb;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.Constants;
 import dto.KatedraDTO;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import ws.client.RestWSClient;
@@ -21,18 +24,24 @@ import ws.client.RestWSClient;
 @ManagedBean
 @ViewScoped
 @Named("allKatedra")
-public class AllKatedra implements Serializable{
+public class AllKatedra implements Serializable {
 
     /**
      * Creates a new instance of AllKatedra
      */
-    
     private RestWSClient restWSClient;
     private List<KatedraDTO> katedre;
-    
+    private ObjectMapper mapper;
+
     public AllKatedra() {
+       
+    }
+
+    @PostConstruct
+    private void init() {
         restWSClient = new RestWSClient(Constants.KATEDRA_CONTROLLER);
-        katedre = restWSClient.getAll_JSON(List.class);
+        mapper = new ObjectMapper();
+        katedre = mapper.convertValue(restWSClient.getAll_JSON(List.class), new TypeReference<List<KatedraDTO>>() {});
     }
 
     public List<KatedraDTO> getKatedre() {
@@ -42,7 +51,5 @@ public class AllKatedra implements Serializable{
     public void setKatedre(List<KatedraDTO> katedre) {
         this.katedre = katedre;
     }
-    
-    
-    
+
 }

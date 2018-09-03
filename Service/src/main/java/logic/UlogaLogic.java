@@ -23,7 +23,7 @@ public class UlogaLogic extends AbstractLogicClass {
 
     public List<Uloga> getAll() {
         try {
-            return gr.getAll(Uloga.class, Constants.ULOGA_FIND_ALL);
+            return gr.getAll(Constants.ULOGA_FIND_ALL);
         } catch (Exception e) {
             throw e;
         }
@@ -31,7 +31,10 @@ public class UlogaLogic extends AbstractLogicClass {
 
     public Uloga getById(int id) {
         try {
-            return gr.getSingleByParamFromNamedQuery(id, Uloga.class, Constants.ULOGA_FIND_BY_ID, Constants.ULOGA_ID);
+            return gr.getSingleByParamsFromNamedQuery(
+                   new Object[]{ id },
+                   Constants.ULOGA_FIND_BY_ID,
+                   new String[]{ Constants.ULOGA_ID});
         } catch (Exception e) {
             throw e;
         }

@@ -83,7 +83,7 @@ public class TematskaCelinaLogic extends AbstractLogicClass {
             //TODO : strukturna ogranicenja
             try {
                 et.begin();
-                TematskaCelina deletedTematskaCelina = gr.delete_SingleKey(id, TematskaCelina.class);
+                TematskaCelina deletedTematskaCelina = gr.delete_SingleKey(id);
                 et.commit();
                 return deletedTematskaCelina;
             } catch (Exception ex) {
@@ -98,7 +98,7 @@ public class TematskaCelinaLogic extends AbstractLogicClass {
 
     public List<TematskaCelina> getAll() {
         try {
-            return gr.getAll(TematskaCelina.class, Constants.TEMATSKA_CELINA_FIND_ALL);
+            return gr.getAll(Constants.TEMATSKA_CELINA_FIND_ALL);
         } catch (Exception e) {
             throw e;
         }
@@ -106,7 +106,9 @@ public class TematskaCelinaLogic extends AbstractLogicClass {
 
     public TematskaCelina getById(int id) {
         try {
-            return gr.getSingleByParamFromNamedQuery(id, TematskaCelina.class, Constants.TEMATSKA_CELINA_FIND_BY_ID, Constants.TEMATSKA_CELINA_ID);
+            return gr.getSingleByParamsFromNamedQuery(new Object[]{id},
+                    Constants.TEMATSKA_CELINA_FIND_BY_ID,
+                    new String []{ Constants.TEMATSKA_CELINA_ID});
         } catch (Exception e) {
             throw e;
         }
@@ -114,7 +116,9 @@ public class TematskaCelinaLogic extends AbstractLogicClass {
 
     public List<TematskaCelina> getByPredmetId(int predmetId) {
         try {
-            return gr.getListByParamFromNamedQuery(predmetId, TematskaCelina.class, Constants.TEMATSKA_CELINA_FIND_BY_PREDMET_ID, Constants.PREDMET_ID);
+            return gr.getListByParamsFromNamedQuery(new Object[]{ predmetId }
+                , Constants.TEMATSKA_CELINA_FIND_BY_PREDMET_ID,
+                new String[] { Constants.PREDMET_ID});
         } catch (Exception e) {
             throw e;
         }

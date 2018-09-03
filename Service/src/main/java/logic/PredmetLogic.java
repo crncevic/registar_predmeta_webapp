@@ -59,7 +59,7 @@ public class PredmetLogic extends AbstractLogicClass {
             }
 
             //TODO : strukturna ogranicenja
-            Predmet sameNamePredmet = grp.getSingleByParamFromNamedQuery(predmet.getNaziv(), Predmet.class, Constants.PREDMET_FIND_BY_NAZIV, Constants.PREDMET_NAZIV);
+            Predmet sameNamePredmet = grp.getSingleByParamsFromNamedQuery(new Object[]{predmet.getNaziv()}, Constants.PREDMET_FIND_BY_NAZIV, new String[]{Constants.PREDMET_NAZIV});
 
             if (sameNamePredmet != null) {
                 throw new ConstraintViolationException("Predmet sa nazivom : " + predmet.getNaziv() + " vec postoji u bazi!", null);
@@ -125,7 +125,7 @@ public class PredmetLogic extends AbstractLogicClass {
                 List<UdzbenikNaPredmetu> udzbeniciForDeletening = new ArrayList<>();
                 List<UdzbenikNaPredmetu> udzbeniciForInserting = new ArrayList<>();
                 List<UdzbenikNaPredmetu> oldUdzbenici
-                        = grunp.getListByParamFromNamedQuery(predmet.getPredmetId(), UdzbenikNaPredmetu.class, Constants.UDZBENIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID, Constants.PREDMET_ID);
+                        = grunp.getListByParamsFromNamedQuery(new Object[]{predmet.getPredmetId()}, Constants.UDZBENIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID, new String[]{Constants.PREDMET_ID});
 
                 for (UdzbenikNaPredmetu oldUdzbenik : oldUdzbenici) {
                     int counter = 0;
@@ -173,7 +173,7 @@ public class PredmetLogic extends AbstractLogicClass {
                 List<NastavnikNaPredmetu> nastavniciForInserting = new ArrayList<>();
 
                 List<NastavnikNaPredmetu> oldNastavniciNaPredmetu
-                        = grnnp.getListByParamFromNamedQuery(predmet.getPredmetId(), NastavnikNaPredmetu.class, Constants.NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID, Constants.PREDMET_ID);
+                        = grnnp.getListByParamsFromNamedQuery(new Object[]{predmet.getPredmetId()}, Constants.NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID, new String[]{Constants.PREDMET_ID});
 
                 for (NastavnikNaPredmetu oldNastavnik : oldNastavniciNaPredmetu) {
                     int counter = 0;
@@ -221,7 +221,7 @@ public class PredmetLogic extends AbstractLogicClass {
                 List<TematskaCelina> tematskeCelineFroInserting = new ArrayList<>();
 
                 List<TematskaCelina> oldTematskeCeline
-                        = grtc.getListByParamFromNamedQuery(predmet.getPredmetId(), TematskaCelina.class, Constants.TEMATSKA_CELINA_FIND_BY_PREDMET_ID, Constants.PREDMET_ID);
+                        = grtc.getListByParamsFromNamedQuery(new Object[]{predmet.getPredmetId()}, Constants.TEMATSKA_CELINA_FIND_BY_PREDMET_ID, new String[]{Constants.PREDMET_ID});
 
                 for (TematskaCelina oldTematskaCelina : oldTematskeCeline) {
                     int counter = 0;
@@ -251,7 +251,7 @@ public class PredmetLogic extends AbstractLogicClass {
 
                 // brisanje izbacenih tematskih celina
                 for (TematskaCelina tematskaCelina : tematskeCelineForDeleting) {
-                    grtc.delete_SingleKey(tematskaCelina.getTematskacelinaId(), TematskaCelina.class);
+                    grtc.delete_SingleKey(tematskaCelina.getTematskacelinaId());
                 }
 
                 //dodavanje novih tematskih celina u agregaciju
@@ -339,7 +339,7 @@ public class PredmetLogic extends AbstractLogicClass {
                 }
 
                 for (TematskaCelina tematskaCelina : deletedPredmet.getTematskaCelinaList()) {
-                    grtc.delete_SingleKey(tematskaCelina.getTematskacelinaId(), TematskaCelina.class);
+                    grtc.delete_SingleKey(tematskaCelina.getTematskacelinaId());
                 }
 
                 for (PredmetNaStudijskomProgramu predmetNaStudijskomProgramu : deletedPredmet.getPredmetNaStudijskomProgramuList()) {
@@ -349,7 +349,7 @@ public class PredmetLogic extends AbstractLogicClass {
                                 predmetNaStudijskomProgramu.getPredmetNaStudijskomProgramuPK().getStudijskiprogramId()});
                 }
 
-                grp.delete_SingleKey(id, Predmet.class);
+                grp.delete_SingleKey(id);
                 et.commit();
                 return deletedPredmet;
             } catch (Exception ex) {
@@ -364,7 +364,7 @@ public class PredmetLogic extends AbstractLogicClass {
 
     public List<Predmet> getAll() throws Exception {
         try {
-            return grp.getAll(Predmet.class, Constants.PREDMET_FIND_ALL);
+            return grp.getAll(Constants.PREDMET_FIND_ALL);
 
         } catch (Exception e) {
             throw e;
@@ -374,28 +374,48 @@ public class PredmetLogic extends AbstractLogicClass {
     public Predmet getById(int id) throws Exception {
         try {
 
-            Predmet predmet = grp.getSingleByParamFromNamedQuery(id, Predmet.class, Constants.PREDMET_FIND_BY_ID, Constants.PREDMET_ID);
+            Predmet predmet = grp.getSingleByParamsFromNamedQuery(
+                    new Object[]{id}, Constants.PREDMET_FIND_BY_ID, new String[]{Constants.PREDMET_ID});
 
             if (predmet != null) {
-                predmet.setUdzbenikList(grunp.getListByParamFromNamedQuery(id, UdzbenikNaPredmetu.class, Constants.UDZBENIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID, Constants.PREDMET_ID));
-                predmet.setNastavnikNaPredmetuList(grnnp.getListByParamFromNamedQuery(id, NastavnikNaPredmetu.class, Constants.NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID, Constants.PREDMET_ID));
+                predmet.setUdzbenikList(grunp.getListByParamsFromNamedQuery(
+                        new Object[]{id},
+                        Constants.UDZBENIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID,
+                        new String[]{Constants.PREDMET_ID}));
+                predmet.setNastavnikNaPredmetuList(grnnp.getListByParamsFromNamedQuery(
+                        new Object[]{id},
+                        Constants.NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID,
+                        new String[]{Constants.PREDMET_ID}));
 
                 for (UdzbenikNaPredmetu udzbenikNaPredmetu : predmet.getUdzbenikList()) {
                     udzbenikNaPredmetu.setUdzbenik(
-                            gru.getSingleByParamFromNamedQuery(
-                                    udzbenikNaPredmetu.getUdzbenikNaPredmetuPK().getUdzbenikId(), Udzbenik.class, Constants.UDZBENIK_FIND_BY_ID, Constants.UDZBENIK_ID));
+                            gru.getSingleByParamsFromNamedQuery(
+                                    new Object[]{udzbenikNaPredmetu.getUdzbenikNaPredmetuPK().getUdzbenikId()},
+                                    Constants.UDZBENIK_FIND_BY_ID,
+                                    new String[]{Constants.UDZBENIK_ID}));
                 }
 
                 for (NastavnikNaPredmetu nastavnikNaPredmetu : predmet.getNastavnikNaPredmetuList()) {
                     nastavnikNaPredmetu.setNastavnik(
-                            grn.getSingleByParamFromNamedQuery(nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getNastavnikId(), Nastavnik.class, Constants.NASTAVNIK_FIND_BY_ID, Constants.NASTAVNIK_ID));
+                            grn.getSingleByParamsFromNamedQuery(
+                                    new Object[]{nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getNastavnikId()},
+                                    Constants.NASTAVNIK_FIND_BY_ID,
+                                    new String[]{Constants.NASTAVNIK_ID}));
                     nastavnikNaPredmetu.setTipNastave(
-                            grtn.getSingleByParamFromNamedQuery(
-                                    nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getTipNastaveId(), TipNastave.class, Constants.TIP_NASTAVE_FIND_BY_ID, Constants.TIP_NASTAVE_ID));
+                            grtn.getSingleByParamsFromNamedQuery(
+                                    new Object[]{nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getTipNastaveId()},
+                                    Constants.TIP_NASTAVE_FIND_BY_ID,
+                                    new String[]{Constants.TIP_NASTAVE_ID}));
                 }
 
-                predmet.setPredmetNaStudijskomProgramuList(grpnsp.getListByParamFromNamedQuery(id, PredmetNaStudijskomProgramu.class, Constants.PREDMET_NA_STUDIJSKOM_PROGRAMU_FIND_BY_PREDMET_ID, Constants.PREDMET_ID));
-                predmet.setTematskaCelinaList(grtc.getListByParamFromNamedQuery(id, TematskaCelina.class, Constants.TEMATSKA_CELINA_FIND_BY_PREDMET_ID, Constants.PREDMET_ID));
+                predmet.setPredmetNaStudijskomProgramuList(
+                        grpnsp.getListByParamsFromNamedQuery(new Object[]{id},
+                        Constants.PREDMET_NA_STUDIJSKOM_PROGRAMU_FIND_BY_PREDMET_ID,
+                        new String[]{Constants.PREDMET_ID}));
+                predmet.setTematskaCelinaList(grtc.getListByParamsFromNamedQuery(
+                        new Object[]{id},
+                        Constants.TEMATSKA_CELINA_FIND_BY_PREDMET_ID,
+                        new String[]{Constants.PREDMET_ID}));
 
                 return predmet;
             } else {

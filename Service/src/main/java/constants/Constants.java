@@ -44,6 +44,7 @@ public class Constants {
     public static final String PREDMET_FIND_BY_NAZIV = "Predmet.findByNaziv";
 
     //predmet na studisjkom programu
+    public static final String PREDMET_NA_STUDIJSKOM_PROGRAMU_FIND_BY_COMPOSITE_KEY = "PredmetNaStudijskomProgramu.findByCompositeKey";
      public static final String PREDMET_NA_STUDIJSKOM_PROGRAMU_FIND_BY_STD_PROGRAM_ID = "PredmetNaStudijskomProgramu.findByStudijskiprogramId";
     public static final String PREDMET_NA_STUDIJSKOM_PROGRAMU_FIND_BY_PREDMET_ID = "PredmetNaStudijskomProgramu.findByPredmetId";
     public static final String PREDMET_NA_STUDIJSKOM_PROGRAMU_DELETE ="PredmetNaStudijskomProgramu.delete";
@@ -99,7 +100,7 @@ public class Constants {
     public static final String TIP_NASTAVE_ID = "tipnastaveId";
     public static final String OSOBA_ID = "osobaId";
     public static final String STATUS_ID = "statusId";
-    public static final String STUDIJSKI_PROGRAM_ID = "studijskiprogramId";
+    public static final String STUDIJSKI_PROGRAM_ID = "studijskiProgramId";
     public static final String TEMATSKA_CELINA_ID = "tematskacelinaId";
     public static final String UDZBENIK_ID = "udzbenikId";
     public static final String UDZBENIK_NAZIV = "naziv";

@@ -27,7 +27,7 @@ public class KatedraLogic extends AbstractLogicClass {
     public List<Katedra> getAll() throws Exception {
         try {
 
-            return gr.getAll(Katedra.class, Constants.KATEDRA_FIND_ALL);
+            return gr.getAll(Constants.KATEDRA_FIND_ALL);
 
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom ucitavanja svih katedri {" + e.getMessage() + "}");
@@ -36,7 +36,7 @@ public class KatedraLogic extends AbstractLogicClass {
 
     public Katedra getById(int id) throws Exception {
         try {
-            return gr.getSingleByParamFromNamedQuery(id, Katedra.class, Constants.KATEDRA_FIND_BY_ID, Constants.KATEDRA_ID);
+            return gr.getSingleByParamsFromNamedQuery(new Object[] {id},Constants.KATEDRA_FIND_BY_ID,new String[]{ Constants.KATEDRA_ID});
 
         } catch (Exception ex) {
             throw new Exception("Dogodila se greska prilikom ucitavanja katedre sa id : " + id + " . {" + ex.getMessage() + "}");

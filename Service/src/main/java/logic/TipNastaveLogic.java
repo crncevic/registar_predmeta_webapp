@@ -24,7 +24,7 @@ public class TipNastaveLogic extends AbstractLogicClass {
 
     public List<TipNastave> getAll() {
         try {
-            return gr.getAll(TipNastave.class, Constants.TIP_NASTAVE_FIND_ALL);
+            return gr.getAll(Constants.TIP_NASTAVE_FIND_ALL);
         } catch (Exception e) {
             throw e;
         }
@@ -32,7 +32,10 @@ public class TipNastaveLogic extends AbstractLogicClass {
 
     public TipNastave getById(int id) {
         try {
-            return gr.getSingleByParamFromNamedQuery(id, TipNastave.class, Constants.TIP_NASTAVE_FIND_BY_ID, Constants.TIP_NASTAVE_ID);
+            return gr.getSingleByParamsFromNamedQuery(
+                    new Object[] { id },
+                    Constants.TIP_NASTAVE_FIND_BY_ID,
+                    new String[] { Constants.TIP_NASTAVE_ID});
         } catch (Exception e) {
             throw e;
         }

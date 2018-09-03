@@ -80,7 +80,7 @@ public class KorisnikLogic extends AbstractLogicClass {
             //TODO strukturna ogranicenja
             try {
                 et.begin();
-                Korisnik deletedKorisnik = gr.delete_SingleKey(id, Korisnik.class);
+                Korisnik deletedKorisnik = gr.delete_SingleKey(id);
                 et.commit();
                 return deletedKorisnik;
 
@@ -97,7 +97,7 @@ public class KorisnikLogic extends AbstractLogicClass {
     public List<Korisnik> getAll() throws Exception {
         try {
            
-            return gr.getAll(Korisnik.class, Constants.KORISNIK_FIND_ALL);
+            return gr.getAll(Constants.KORISNIK_FIND_ALL);
 
         } catch (Exception ex) {
             throw new Exception("Dogodila se greska prilikom ucitavanja svih korisnika {" + ex.getMessage() + "}");
@@ -106,7 +106,7 @@ public class KorisnikLogic extends AbstractLogicClass {
 
     public Korisnik getById(int id) throws Exception {
         try {
-            return gr.getSingleByParamFromNamedQuery(id, Korisnik.class, Constants.KORISNIK_FIND_BY_ID, Constants.KORISNIK_ID);
+            return gr.getSingleByParamsFromNamedQuery(new Object[] {id}, Constants.KORISNIK_FIND_BY_ID,new String[]{ Constants.KORISNIK_ID});
 
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom ucitavanja korisnika sa id: " + id + "{" + e.getMessage() + "}");
@@ -115,7 +115,7 @@ public class KorisnikLogic extends AbstractLogicClass {
 
     public Korisnik getByUsername(String username) throws Exception {
         try {
-            return gr.getSingleByParamFromNamedQuery(username, Korisnik.class, Constants.KORISNIK_FIND_ALL, Constants.KORISNIK_USERNAME);
+            return gr.getSingleByParamsFromNamedQuery(new Object[] {username}, Constants.KORISNIK_FIND_ALL,new String[]{ Constants.KORISNIK_USERNAME});
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom ucitavanja korisnika sa username: " + username + "{" + e.getMessage() + "}");
         }

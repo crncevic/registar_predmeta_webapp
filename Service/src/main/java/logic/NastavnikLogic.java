@@ -7,11 +7,8 @@ package logic;
 
 import constants.Constants;
 import domain.Nastavnik;
-import dto.NastavnikDTO;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
-import mapper.Mapper;
 import repository.GenericRepository;
 
 /**
@@ -25,7 +22,7 @@ public class NastavnikLogic extends AbstractLogicClass {
 
     public List<Nastavnik> getAll() throws Exception {
         try {
-            return gr.getAll(Nastavnik.class, Constants.NASTAVNIK_FIND_ALL);
+            return gr.getAll(Constants.NASTAVNIK_FIND_ALL);
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom ucitavanja svih nastavnika  {" + e.getMessage() + "}");
         }
@@ -33,7 +30,7 @@ public class NastavnikLogic extends AbstractLogicClass {
 
     public Nastavnik getById(int id) throws Exception {
         try {
-            return gr.getSingleByParamFromNamedQuery(id, Nastavnik.class, Constants.NASTAVNIK_FIND_BY_ID, Constants.NASTAVNIK_ID);
+            return gr.getSingleByParamsFromNamedQuery(new Object[] {id}, Constants.NASTAVNIK_FIND_BY_ID,new String[]{ Constants.NASTAVNIK_ID});
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom ucitavanja nastavnika sa id : " + id + " {" + e.getMessage() + "}");
         }

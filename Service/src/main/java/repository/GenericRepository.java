@@ -23,6 +23,8 @@ public class GenericRepository<T> {
     protected static EntityManagerFactory emf = persistence.createEntityManagerFactory("SRP_PU");
     protected static EntityManager em = emf.createEntityManager();
     protected static EntityTransaction et;
+    
+    private Class<T> c;
 
     public T save(T entity) {
         em.persist(entity);
@@ -34,7 +36,7 @@ public class GenericRepository<T> {
         return entity;
     }
 
-    public T delete_SingleKey(Object id, Class c) {
+    public T delete_SingleKey(Object id) {
         T entityFromDb = (T) em.find(c, id);
         em.remove(entityFromDb);
         return entityFromDb;
@@ -42,22 +44,26 @@ public class GenericRepository<T> {
 
     //simulacija asocijativnih nizova, paramNames[i] odgovara paramValues[i]
     public int delete_CompositeKey(String namedQuery, String[] paramNames, int[] paramValues) {
-        Query query =(Query) em.createNamedQuery(namedQuery);
-       for (int i = 0; i < paramNames.length; i++) {
+        Query query = (Query) em.createNamedQuery(namedQuery);
+        for (int i = 0; i < paramNames.length; i++) {
             query.setParameter(paramNames[i], paramValues[i]);
         }
         return query.executeUpdate();
     }
 
-    public List<T> getAll(Class c, String namedQuery) {
+    public List<T> getAll(String namedQuery) {
         TypedQuery<T> query = em.createNamedQuery(namedQuery, c);
         return query.getResultList();
     }
 
-    public T getSingleByParamFromNamedQuery(Object paramValue, Class c, String namedQuery, String paramName) {
+    public T getSingleByParamsFromNamedQuery(Object[] paramValues, String namedQuery, String[] paramNames) {
 
         TypedQuery<T> query = em.createNamedQuery(namedQuery, c);
-        List<T> result = query.setParameter(paramName, paramValue).getResultList();
+        for (int i = 0; i < paramNames.length; i++) {
+            query.setParameter(paramNames[i], paramValues[i]);
+        }
+        
+        List<T> result = query.getResultList();
 
         if (result == null || result.isEmpty()) {
             return null;
@@ -65,9 +71,14 @@ public class GenericRepository<T> {
         return result.get(0);
     }
 
-    public List<T> getListByParamFromNamedQuery(Object paramValue, Class c, String namedQuery, String paramName) {
+    public List<T> getListByParamsFromNamedQuery(Object [] paramValues, String namedQuery, String []  paramNames) {
         TypedQuery<T> query = em.createNamedQuery(namedQuery, c);
-        return query.setParameter(paramName, paramValue).getResultList();
+        
+        for (int i = 0; i < paramNames.length; i++) {
+            query.setParameter(paramNames[i], paramValues[i]);
+        }
+        
+      return query.getResultList();
     }
 
     public static EntityTransaction getEntityTransactionInstance() {

@@ -5,6 +5,8 @@
  */
 package mb;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 import constants.Constants;
 import dto.PredmetDTO;
@@ -16,6 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.context.FacesContext;
@@ -37,12 +40,26 @@ public class FindStdProgram implements Serializable {
     private StudijskiProgramDTO stdProgram;
     private List<PredmetNaStudijskomProgramuDTO> predmetiNaStdProgramu;
     private RestWSClient restWSClient;
+    private ObjectMapper mapper;
 
     public FindStdProgram() {
+
+    }
+
+    @PostConstruct
+    private void init() {
+        mapper = new ObjectMapper();
         restWSClient = new RestWSClient(Constants.STUDIJSKI_PROGRAM_CONTROLLER);
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         int stdProgramId = Integer.parseInt(params.get(Constants.STUDIJSKI_PROGRAM_ID));
         stdProgram = restWSClient.getById_JSON(StudijskiProgramDTO.class, String.valueOf(stdProgramId));
+
+        restWSClient = new RestWSClient(Constants.PREDMET_NA_STD_PROGRAMU_CONTROLLER);
+        predmetiNaStdProgramu = mapper.convertValue(restWSClient.getById_JSON(
+                List.class, String.valueOf(stdProgram.getStudijskiProgramId())),
+                new TypeReference<List<PredmetNaStudijskomProgramuDTO>>() {
+        });
+
     }
 
     public StudijskiProgramDTO getStdProgram() {
@@ -54,8 +71,7 @@ public class FindStdProgram implements Serializable {
     }
 
     public List<PredmetNaStudijskomProgramuDTO> getPredmetiNaStdProgramu() {
-        restWSClient = new RestWSClient(Constants.PREDMET_NA_STD_PROGRAMU_CONTROLLER);
-        predmetiNaStdProgramu = restWSClient.getById_JSON(List.class,String.valueOf(stdProgram.getStudijskiProgramId()));
+
         return predmetiNaStdProgramu;
     }
 
@@ -63,9 +79,4 @@ public class FindStdProgram implements Serializable {
         this.predmetiNaStdProgramu = predmetiNaStdProgramu;
     }
 
-    
-
-    
-
-   
 }

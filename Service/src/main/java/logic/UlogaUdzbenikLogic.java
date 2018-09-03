@@ -24,7 +24,7 @@ public class UlogaUdzbenikLogic extends AbstractLogicClass {
 
     public List<UlogaUdzbenik> getAll() {
         try {
-            return gr.getAll(UlogaUdzbenik.class, Constants.ULOGA_UDZBENIK_FIND_ALL);
+            return gr.getAll(Constants.ULOGA_UDZBENIK_FIND_ALL);
         } catch (Exception e) {
             throw e;
         }
@@ -32,7 +32,10 @@ public class UlogaUdzbenikLogic extends AbstractLogicClass {
 
     public UlogaUdzbenik getById(int id) {
         try {
-            return gr.getSingleByParamFromNamedQuery(id, UlogaUdzbenik.class, Constants.ULOGA_FIND_BY_ID, Constants.ULOGA_ID);
+            return gr.getSingleByParamsFromNamedQuery(
+                    new Object[]{ id },
+                    Constants.ULOGA_FIND_BY_ID,
+                    new String[]{Constants.ULOGA_ID});
         } catch (Exception e) {
             throw e;
         }

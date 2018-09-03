@@ -29,10 +29,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "PredmetNaStudijskomProgramu.findAll", query = "SELECT p FROM PredmetNaStudijskomProgramu p")
     , @NamedQuery(name = "PredmetNaStudijskomProgramu.findByPredmetId", query = "SELECT p FROM PredmetNaStudijskomProgramu p WHERE p.predmetNaStudijskomProgramuPK.predmetId = :predmetId")
-    , @NamedQuery(name = "PredmetNaStudijskomProgramu.findByStudijskiprogramId", query = "SELECT p FROM PredmetNaStudijskomProgramu p WHERE p.predmetNaStudijskomProgramuPK.studijskiprogramId = :studijskiprogramId")
+    , @NamedQuery(name = "PredmetNaStudijskomProgramu.findByStudijskiprogramId", query = "SELECT p FROM PredmetNaStudijskomProgramu p WHERE p.predmetNaStudijskomProgramuPK.studijskiprogramId = :studijskiProgramId")
     , @NamedQuery(name = "PredmetNaStudijskomProgramu.findByEspb", query = "SELECT p FROM PredmetNaStudijskomProgramu p WHERE p.espb = :espb")
     , @NamedQuery(name = "PredmetNaStudijskomProgramu.findBySemestar", query = "SELECT p FROM PredmetNaStudijskomProgramu p WHERE p.semestar = :semestar")
-    , @NamedQuery(name = "PredmetNaStudijskomProgramu.delete",query = "DELETE FROM PredmetNaStudijskomProgramu pnsp WHERE pnsp.predmetNaStudijskomProgramuPK.predmetId=:predmetId AND pnsp.predmetNaStudijskomProgramuPK.studijskiprogramId=:studijskiProgramId")    
+    , @NamedQuery(name = "PredmetNaStudijskomProgramu.delete",query = "DELETE FROM PredmetNaStudijskomProgramu pnsp WHERE pnsp.predmetNaStudijskomProgramuPK.predmetId=:predmetId AND pnsp.predmetNaStudijskomProgramuPK.studijskiprogramId=:studijskiProgramId")
+    ,  @NamedQuery(name = "PredmetNaStudijskomProgramu.findByCompositeKey", query = "SELECT p FROM PredmetNaStudijskomProgramu p WHERE p.predmetNaStudijskomProgramuPK.predmetId = :predmetId AND p.predmetNaStudijskomProgramuPK.studijskiprogramId =:studijskiProgramId")  
 })
 public class PredmetNaStudijskomProgramu implements Serializable {
 

@@ -27,15 +27,17 @@ and open the template in the editor.
                 <p:dataTable var="predmet" value="#{allPredmet.predmeti}" 
                              paginator="true" styleClass="predmetDataTable" scrollable="true" rows="5"
                              rowsPerPageTemplate="5,10,15">
+                    
+                    
                     <p:column headerText="Id" class="datatableColumn"  >
                         <h:outputText value="#{predmet.predmetId}" />
                     </p:column>
 
-                    <p:column headerText="Naziv" class="datatableColumn" >
+                    <p:column  headerText="Naziv" class="datatableColumn" >
                         <h:outputText value="#{predmet.naziv}" />
                     </p:column>
 
-                    <p:column headerText="Uslov" class="datatableColumn" >
+                    <p:column  headerText="Uslov" class="datatableColumn" >
                         <h:outputText value="#{predmet.uslov}" />
                     </p:column>
 

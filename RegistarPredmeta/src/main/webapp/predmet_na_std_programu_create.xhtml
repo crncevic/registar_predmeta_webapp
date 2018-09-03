@@ -17,7 +17,42 @@ and open the template in the editor.
         <ui:composition template="templ.xhtml">
             <ui:define name="content">
                 <h:form id="predmetNaStdProgramuCreate">
+                    <p:growl id="msgs" showDetail="true" />
+                    <p:outputLabel class="stdProgramTitleCreate">Kreiraj predmet na studijskom programu</p:outputLabel>
+
+                    <div>
+                        <p:outputLabel class="pnspCreate">Predmet:</p:outputLabel>
+                        <p:selectOneMenu class="pnspPredmetCreate" value="#{predmetNaStdProgramuCreate.predmeti}">
+
+                            <f:selectItems value="#{predmetNaStdProgramuCreate.predmeti}" var="pnsp" itemLabel="#{pnsp.naziv}" />
+                        </p:selectOneMenu>
+                    </div>
                     
+                    <div>
+                        <p:outputLabel class="pnspCreate">Status:</p:outputLabel>
+                        <p:selectOneMenu class="pnspStatusCreate" value="#{predmetNaStdProgramuCreate.statusi}">
+
+                            <f:selectItems value="#{predmetNaStdProgramuCreate.statusi}" var="pnsp" itemLabel="#{pnsp.naziv}" />
+                        </p:selectOneMenu>
+                    </div>
+                    
+                    <div>
+                          <p:outputLabel class="pnspCreate">ESPB:</p:outputLabel>
+                          <p:spinner class="pnspESPB" value="#{predmetNaStdProgramuCreate.newPredmetNaStdProgramu.espb}" stepFactor="1" />
+                    </div>
+                    
+                     <div>
+                          <p:outputLabel class="pnspCreate">Semestar:</p:outputLabel>
+                          <p:spinner class="pnspSemestar" value="#{predmetNaStdProgramuCreate.newPredmetNaStdProgramu.semestar}" stepFactor="1" />
+                    </div>
+                    
+                    <hr/>
+                    
+                    <p:commandButton type="submit" actionListener="#{createUdzbenik.createUdzbenik}" value="Sacuvaj" styleClass="ui-priority-primary" class="btn btn-success" style="margin: 0 0 20px 250px" />
+
+                    <p:button outcome="std_program_find.xhtml" value="Odustani" styleClass="ui-priority-primary" class="btn btn-secondstyleClassary" style="margin: 0 0 20px 70px" />
+                    
+                  
                 </h:form>
             </ui:define>
         </ui:composition>

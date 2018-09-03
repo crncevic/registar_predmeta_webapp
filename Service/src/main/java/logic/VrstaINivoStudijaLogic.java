@@ -22,7 +22,7 @@ public class VrstaINivoStudijaLogic extends AbstractLogicClass {
 
     public List<VrstaINivoStudija> getAll() {
         try {
-            return gr.getAll(VrstaINivoStudija.class, Constants.VRSTA_I_NIVO_STUDIJA_FIND_ALL);
+            return gr.getAll(Constants.VRSTA_I_NIVO_STUDIJA_FIND_ALL);
         } catch (Exception e) {
             throw e;
         }
@@ -30,7 +30,10 @@ public class VrstaINivoStudijaLogic extends AbstractLogicClass {
 
     public VrstaINivoStudija getById(int id) {
         try {
-            return gr.getSingleByParamFromNamedQuery(id, VrstaINivoStudija.class, Constants.VRSTA_I_NIVO_STUDIJA_FIND_BY_ID, Constants.VRSTA_ID);
+            return gr.getSingleByParamsFromNamedQuery(
+                   new Object[] {id},
+                   Constants.VRSTA_I_NIVO_STUDIJA_FIND_BY_ID,
+                   new String[]{ Constants.VRSTA_ID});
         } catch (Exception e) {
             throw e;
         }

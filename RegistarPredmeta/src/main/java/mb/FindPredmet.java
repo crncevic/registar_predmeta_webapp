@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIOutput;
@@ -52,16 +53,16 @@ public class FindPredmet implements Serializable {
     private VrstaINivoStudijaDTO selectedVrstaINivoStudija;
 
     public FindPredmet() {
+    }
 
+    @PostConstruct
+    private void init() {
         restWSClient = new RestWSClient(Constants.PREDMET_CONTROLLER);
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         int predmetId = Integer.parseInt(params.get(Constants.PREDMET_ID));
         predmet = restWSClient.getById_JSON(PredmetDTO.class, String.valueOf(predmetId));
-        
-        
-        selectedVrstaINivoStudija = predmet.getVrstaINivoStudija();
-   
 
+        selectedVrstaINivoStudija = predmet.getVrstaINivoStudija();
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters and setters">
@@ -145,12 +146,8 @@ public class FindPredmet implements Serializable {
     public void setSelectedVrstaINivoStudija(VrstaINivoStudijaDTO selectedVrstaINivoStudija) {
         this.selectedVrstaINivoStudija = selectedVrstaINivoStudija;
     }
-    
-    
 
     //</editor-fold>
-    
-    
     //<editor-fold defaultstate="collapsed" desc="Listeneri">
     public void selectedTipNastaveListener(AjaxBehaviorEvent event) {
         String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetForm:inputPredmetTipNastave")).getSubmittedValue();
@@ -178,8 +175,6 @@ public class FindPredmet implements Serializable {
     }
 
     //</editor-fold>
-    
-    
     public void onAddNewNastavnikNaPredmetu() {
 
         if (selectedNastavnik == null) {
@@ -255,8 +250,12 @@ public class FindPredmet implements Serializable {
         udzbenikDTO.setPredmetId(predmet.getPredmetId());
 
         predmet.getUdzbenici().remove(udzbenikDTO);
-        FacesMessage msg = new FacesMessage(udzbenikDTO.getUdzbenikDTO().getNaziv() + " izbrisan sa predmeta : " + udzbenikDTO.getUdzbenikDTO().getNaziv());
+
+        FacesMessage msg = new FacesMessage("Sistem ne moze da zapamti predmet!");
         FacesContext.getCurrentInstance().addMessage(null, msg);
+
+//        FacesMessage msg = new FacesMessage(udzbenikDTO.getUdzbenikDTO().getNaziv() + " izbrisan sa predmeta : " + udzbenikDTO.getUdzbenikDTO().getNaziv());
+//        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public String onUpdate() {

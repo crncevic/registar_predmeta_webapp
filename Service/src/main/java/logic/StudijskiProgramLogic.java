@@ -24,7 +24,7 @@ public class StudijskiProgramLogic extends AbstractLogicClass {
 
     public List<StudijskiProgram> getAll() {
         try {
-            return gr.getAll(StudijskiProgram.class, Constants.STUDIJSKI_PROGRAM_FIND_ALL);
+            return gr.getAll(Constants.STUDIJSKI_PROGRAM_FIND_ALL);
         } catch (Exception e) {
             throw e;
         }
@@ -32,7 +32,9 @@ public class StudijskiProgramLogic extends AbstractLogicClass {
 
     public StudijskiProgram getById(int id) {
         try {
-            return gr.getSingleByParamFromNamedQuery(id, StudijskiProgram.class, Constants.STUDIJSKI_PROGRAM_FIND_BY_ID, Constants.STUDIJSKI_PROGRAM_ID);
+            return gr.getSingleByParamsFromNamedQuery( new Object [] {id},
+                  Constants.STUDIJSKI_PROGRAM_FIND_BY_ID,
+                  new String[]{ Constants.STUDIJSKI_PROGRAM_ID});
         } catch (Exception e) {
             throw e;
         }

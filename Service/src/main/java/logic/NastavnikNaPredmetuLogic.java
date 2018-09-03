@@ -59,7 +59,7 @@ public class NastavnikNaPredmetuLogic extends AbstractLogicClass {
             //TODO strukturna ogranicenja
             try {
                 et.begin();
-                NastavnikNaPredmetu nnp = gr.delete_SingleKey(nastavnikNaPredmetuPK, NastavnikNaPredmetu.class);
+                NastavnikNaPredmetu nnp = gr.delete_SingleKey(nastavnikNaPredmetuPK);
                 et.commit();
                 return nnp;
             } catch (Exception ex) {
@@ -73,7 +73,7 @@ public class NastavnikNaPredmetuLogic extends AbstractLogicClass {
 
     public List<NastavnikNaPredmetu> getAllByNastavnikId(int nastavnikId) {
         try {
-            return gr.getListByParamFromNamedQuery(String.valueOf(nastavnikId), NastavnikNaPredmetu.class, Constants.NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_NASTAVNIK_ID, Constants.NASTAVNIK_ID);
+            return gr.getListByParamsFromNamedQuery(new Object[] { nastavnikId }, Constants.NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_NASTAVNIK_ID,new String[] { Constants.NASTAVNIK_ID});
         } catch (Exception e) {
             throw e;
         }
@@ -81,7 +81,7 @@ public class NastavnikNaPredmetuLogic extends AbstractLogicClass {
 
     public List<NastavnikNaPredmetu> getAllByPredmetId(int predmetId) {
         try {
-            return gr.getListByParamFromNamedQuery(predmetId, NastavnikNaPredmetu.class, Constants.NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID, Constants.PREDMET_ID);
+            return gr.getListByParamsFromNamedQuery(new Object[]{ predmetId}, Constants.NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_PREDMET_ID, new String[] { Constants.PREDMET_ID });
 
         } catch (Exception e) {
             throw e;
@@ -90,7 +90,7 @@ public class NastavnikNaPredmetuLogic extends AbstractLogicClass {
 
     public List<NastavnikNaPredmetu> getAllByTipNastaveId(int tipNastaveId) {
         try {
-            return gr.getListByParamFromNamedQuery(tipNastaveId, NastavnikNaPredmetu.class, Constants.NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_TIP_NASTAVE_ID, Constants.TIP_NASTAVE_ID);
+            return gr.getListByParamsFromNamedQuery(new Object[]{ tipNastaveId }, Constants.NASTAVNIK_NA_PREDMETU_FIND_ALL_BY_TIP_NASTAVE_ID,new String[]{ Constants.TIP_NASTAVE_ID});
         } catch (Exception e) {
             throw e;
         }

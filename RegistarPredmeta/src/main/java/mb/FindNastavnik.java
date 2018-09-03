@@ -10,6 +10,7 @@ import dto.NastavnikDTO;
 import java.io.Serializable;
 import java.util.Map;
 import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.context.FacesContext;
@@ -23,13 +24,17 @@ import ws.client.RestWSClient;
 @ManagedBean
 @Named(value = "findNastavnik")
 @ViewScoped
-public class FindNastavnik implements Serializable{
+public class FindNastavnik implements Serializable {
 
     private NastavnikDTO nastavnik;
     private RestWSClient restWSClient;
-    
-    
+
     public FindNastavnik() {
+
+    }
+
+    @PostConstruct
+    private void init() {
         restWSClient = new RestWSClient(Constants.NASTAVNIK_CONTROLLER);
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         int nastavnikId = Integer.parseInt(params.get(Constants.NASTAVNIK_ID));
@@ -43,5 +48,5 @@ public class FindNastavnik implements Serializable{
     public void setNastavnik(NastavnikDTO nastavnik) {
         this.nastavnik = nastavnik;
     }
-    
+
 }

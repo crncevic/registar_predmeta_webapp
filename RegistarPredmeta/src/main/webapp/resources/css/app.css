@@ -366,15 +366,51 @@ footer {
     margin-left: 50px;
 }
 
-.predmetNaStdProgramuCreate{
-     height: 120%;
-    width:800px;
-    margin: 65px 0 100px 300px;
+#predmetNaStdProgramuCreate{
+    height: 80%;
+    width:600px;
+    margin: 65px 0 100px 400px;
     background-color: #9999ff; 
 }
 
 .predmetNaStdProgramDataTable{
-     height: 400px;
+    height: 400px;
     width: 70%;
     margin: 30px 0 100px 200px;
+}
+
+.stdProgramTitleCreate{
+    margin: 30px  0 0 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.pnspCreate{
+    margin: 20px 40px 0 30px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.pnspStatusCreate{
+    width: 305px;
+    margin:10px 0 0 32.5px;
+}
+.pnspPredmetCreate{
+    width: 300px;
+    margin:10px 0 0 15px;
+}
+
+.pnspESPB{
+    margin:0 0 10px 40px;
+}
+
+.pnspSemestar{
+    margin:0 0 10px 10px;
+}
+
+#predmetNaStdProgramuUpdate{
+    height: 80%;
+    width:600px;
+    margin: 65px 0 100px 400px;
+    background-color: #9999ff;  
 }

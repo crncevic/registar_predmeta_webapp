@@ -22,7 +22,7 @@ public class StatusLogic extends AbstractLogicClass {
 
     public List<Status> getAll() {
         try {
-            return gr.getAll(Status.class, Constants.STATUS_FIND_ALL);
+            return gr.getAll(Constants.STATUS_FIND_ALL);
         } catch (Exception e) {
             throw e;
         }
@@ -30,7 +30,9 @@ public class StatusLogic extends AbstractLogicClass {
 
     public Status getById(int id) {
         try {
-            return gr.getSingleByParamFromNamedQuery(id, Status.class, Constants.STUDIJSKI_PROGRAM_FIND_BY_ID, Constants.STATUS_ID);
+            return gr.getSingleByParamsFromNamedQuery(new Object[]{ id },
+                    Constants.STUDIJSKI_PROGRAM_FIND_BY_ID, 
+                   new String[]{ Constants.STATUS_ID});
         } catch (Exception e) {
             throw e;
         }

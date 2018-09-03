@@ -37,6 +37,13 @@ and open the template in the editor.
                     <p:column headerText="ESPB">
                         <h:outputText value="#{predmetStdPr.espb}" />
                     </p:column>
+                    
+                      <p:column style="width:72px;text-align: center">
+                        <p:button outcome="predmet_na_std_programu_find.xhtml"  icon="ui-icon-search" title="View">
+                            <f:param name="studijskiProgramId" value="#{predmetStdPr.studijskiProgramId}"/>
+                            <f:param name="predmetId" value="#{predmetStdPr.predmetId}"/>
+                        </p:button>
+                    </p:column>
 
                 </p:dataTable>
                 

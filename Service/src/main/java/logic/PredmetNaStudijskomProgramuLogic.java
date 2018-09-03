@@ -23,15 +23,31 @@ public class PredmetNaStudijskomProgramuLogic extends AbstractLogicClass {
     private GenericRepository<PredmetNaStudijskomProgramu> grpnsp;
     @Inject
     private GenericRepository<Predmet> grp;
-    
+
+    public PredmetNaStudijskomProgramu getById(int stdProgramId, int predmetId) {
+        try {
+            PredmetNaStudijskomProgramu pnsp = grpnsp.getSingleByParamsFromNamedQuery(
+                    new Object[]{stdProgramId, predmetId}, Constants.PREDMET_NA_STUDIJSKOM_PROGRAMU_FIND_BY_COMPOSITE_KEY,
+                    new String[]{Constants.STUDIJSKI_PROGRAM_ID, Constants.PREDMET_ID});
+            pnsp.setPredmet(grp.getSingleByParamsFromNamedQuery(new Object[]{pnsp.getPredmetNaStudijskomProgramuPK().getPredmetId()},
+                    Constants.PREDMET_FIND_BY_ID, new String[]{Constants.PREDMET_ID}));
+            return pnsp;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
     public List<PredmetNaStudijskomProgramu> getByStdProgramId(int stdProgramId) {
         try {
-            List<PredmetNaStudijskomProgramu> list = grpnsp.getListByParamFromNamedQuery(stdProgramId, PredmetNaStudijskomProgramu.class, Constants.PREDMET_NA_STUDIJSKOM_PROGRAMU_FIND_BY_STD_PROGRAM_ID, Constants.STUDIJSKI_PROGRAM_ID);
+            List<PredmetNaStudijskomProgramu> list = grpnsp.getListByParamsFromNamedQuery(
+                    new Object[]{stdProgramId},
+                    Constants.PREDMET_NA_STUDIJSKOM_PROGRAMU_FIND_BY_STD_PROGRAM_ID,
+                    new String[]{Constants.STUDIJSKI_PROGRAM_ID});
 
             for (PredmetNaStudijskomProgramu pnsp : list) {
                 pnsp.setPredmet(
-                        grp.getSingleByParamFromNamedQuery(pnsp.getPredmetNaStudijskomProgramuPK().getPredmetId(), Predmet.class, Constants.PREDMET_FIND_BY_ID, Constants.PREDMET_ID));
+                        grp.getSingleByParamsFromNamedQuery(new Object[]{pnsp.getPredmetNaStudijskomProgramuPK().getPredmetId()},
+                        Constants.PREDMET_FIND_BY_ID, new String[]{Constants.PREDMET_ID}));
             }
             return list;
         } catch (Exception e) {

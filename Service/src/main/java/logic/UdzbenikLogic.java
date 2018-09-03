@@ -79,8 +79,10 @@ public class UdzbenikLogic extends AbstractLogicClass {
                 List<OsobaUVeziSaUdzbenikom> osobeForInserting = new ArrayList<>();
 
                 List<OsobaUVeziSaUdzbenikom> oldOsobe
-                        = grouvsu.getListByParamFromNamedQuery(udzbenik.getUdzbenikId(), OsobaUVeziSaUdzbenikom.class, Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_UDZBENIK_ID,
-                                Constants.UDZBENIK_ID);
+                        = grouvsu.getListByParamsFromNamedQuery(
+                                new Object[]{ udzbenik.getUdzbenikId()},
+                                Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_UDZBENIK_ID,
+                                new String []{ Constants.UDZBENIK_ID});
 
                 for (OsobaUVeziSaUdzbenikom oldOsoba : oldOsobe) {
                     int counter = 0;
@@ -110,7 +112,7 @@ public class UdzbenikLogic extends AbstractLogicClass {
 
                 //brisanje izbacenih prilikom azuriranja
                 for (OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom : osobeForDeleting) {
-                    grouvsu.delete_SingleKey(osobaUVeziSaUdzbenikom.getOsobaId(), OsobaUVeziSaUdzbenikom.class);
+                    grouvsu.delete_SingleKey(osobaUVeziSaUdzbenikom.getOsobaId());
                 }
 
                 //dodavanje novih prilikom azuriranja
@@ -144,13 +146,16 @@ public class UdzbenikLogic extends AbstractLogicClass {
                 et.begin();
 
                 List<OsobaUVeziSaUdzbenikom> osobeForDeleting
-                        = grouvsu.getListByParamFromNamedQuery(id, OsobaUVeziSaUdzbenikom.class, Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_UDZBENIK_ID, Constants.UDZBENIK_ID);
+                        = grouvsu.getListByParamsFromNamedQuery(
+                                new Object[]{ id },
+                                Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_UDZBENIK_ID,
+                                new String[]{ Constants.UDZBENIK_ID});
 
                 for (OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom : osobeForDeleting) {
-                    grouvsu.delete_SingleKey(osobaUVeziSaUdzbenikom.getOsobaId(), OsobaUVeziSaUdzbenikom.class);
+                    grouvsu.delete_SingleKey(osobaUVeziSaUdzbenikom.getOsobaId());
                 }
 
-                Udzbenik deletedUdzbenik = gru.delete_SingleKey(id, Udzbenik.class);
+                Udzbenik deletedUdzbenik = gru.delete_SingleKey(id);
                 et.commit();
                 return deletedUdzbenik;
             } catch (Exception ex) {
@@ -165,7 +170,7 @@ public class UdzbenikLogic extends AbstractLogicClass {
 
     public List<Udzbenik> getAll() {
         try {
-            List<Udzbenik> udzbenici = gru.getAll(Udzbenik.class, Constants.UDZBENIK_FIND_ALL);
+            List<Udzbenik> udzbenici = gru.getAll(Constants.UDZBENIK_FIND_ALL);
             List<Udzbenik> udzbeniciForRetreiving = new ArrayList<>();
             for (Udzbenik udzbenik : udzbenici) {
                 udzbeniciForRetreiving.add(getById(udzbenik.getUdzbenikId()));
@@ -179,10 +184,16 @@ public class UdzbenikLogic extends AbstractLogicClass {
 
     public Udzbenik getById(int id) {
         try {
-            Udzbenik udzbenik = gru.getSingleByParamFromNamedQuery(id, Udzbenik.class, Constants.UDZBENIK_FIND_BY_ID, Constants.UDZBENIK_ID);
+            Udzbenik udzbenik = gru.getSingleByParamsFromNamedQuery(
+                   new Object[]{ id },
+                    Constants.UDZBENIK_FIND_BY_ID,
+                    new String []{Constants.UDZBENIK_ID});
             if(udzbenik!=null){
             udzbenik.
-                    setOsobaUVeziSaUdzbenikomList(grouvsu.getListByParamFromNamedQuery(id, OsobaUVeziSaUdzbenikom.class, Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_UDZBENIK_ID, Constants.UDZBENIK_ID));
+                    setOsobaUVeziSaUdzbenikomList(grouvsu.getListByParamsFromNamedQuery(
+                            new Object[]{id}, 
+                            Constants.OSOBA_U_VEZI_SA_UDZBENIKOM_FIND_BY_UDZBENIK_ID,
+                            new String[]{Constants.UDZBENIK_ID}));
 
             return udzbenik;
             }else{

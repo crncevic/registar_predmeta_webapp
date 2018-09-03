@@ -5,6 +5,8 @@
  */
 package mb;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.Constants;
 import dto.OsobaUVeziSaUdzbenikomDTO;
 import dto.UdzbenikDTO;
@@ -15,6 +17,7 @@ import java.util.Map;
 import java.util.Random;
 import javax.faces.application.FacesMessage;
 import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -37,18 +40,23 @@ public class FindUdzbenik implements Serializable {
     private RestWSClient restWSClient;
     private UdzbenikDTO udzbenik;
     private List<UlogaUdzbenikDTO> ulogeNaUdzbeniku;
-    private final List<OsobaUVeziSaUdzbenikomDTO> oldOsobe;
+    private List<OsobaUVeziSaUdzbenikomDTO> oldOsobe;
+    private ObjectMapper mapper;
 
     public FindUdzbenik() {
-
-        restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
+    }
+    
+    @PostConstruct
+    private void init(){
+        mapper = new ObjectMapper();
+         restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         int udzbenikId = Integer.parseInt(params.get(Constants.UDZBENIK_ID));
         udzbenik = restWSClient.getById_JSON(UdzbenikDTO.class, String.valueOf(udzbenikId));
 
         //uloge udzbenik
         restWSClient = new RestWSClient(Constants.ULOGA_UDZBENIK_CONTROLLER);
-        ulogeNaUdzbeniku = restWSClient.getAll_JSON(List.class);
+        ulogeNaUdzbeniku = mapper.convertValue(restWSClient.getAll_JSON(List.class), new TypeReference<List<UlogaUdzbenikDTO>>(){});
         oldOsobe = udzbenik.getOsobaUVeziSaUdzbenikomList();
     }
 

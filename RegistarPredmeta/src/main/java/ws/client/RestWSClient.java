@@ -30,9 +30,9 @@ import javax.ws.rs.core.Response;
 
 public class RestWSClient {
 
-    private WebTarget webTarget;
-    private Client client;
-    private static final String BASE_URI = "http://localhost:8080/Service-1.0-SNAPSHOT/api";
+    protected WebTarget webTarget;
+    protected Client client;
+    protected static final String BASE_URI = "http://localhost:8080/Service-1.0-SNAPSHOT/api";
 
     public RestWSClient(String path) {
         client = javax.ws.rs.client.ClientBuilder.newClient();
@@ -49,8 +49,6 @@ public class RestWSClient {
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
-    
-   
     
     public Response create_JSON(Object requestEntity) throws ClientErrorException {
         return webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), Response.class);
