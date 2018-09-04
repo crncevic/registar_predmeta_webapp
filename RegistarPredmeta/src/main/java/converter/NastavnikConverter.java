@@ -63,7 +63,7 @@ public class NastavnikConverter implements Converter{
                 }
                 return null;
             }
-            String naziv =  String.valueOf((Integer)((LinkedHashMap) value).get(Constants.NASTAVNIK_ID));
+            String naziv =  String.valueOf(((NastavnikDTO) value).getNastavnikId());
             return naziv;
         } else {
             return null;

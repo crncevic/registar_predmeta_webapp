@@ -129,8 +129,12 @@ footer {
 }
 
 .dodajOsobuNaUdzbeniku{
-    margin:0 0 0px 50px;
+    margin:10px 0 0px 50px;
 
+}
+
+.dodajNastavnikaNaPredmet{
+     margin:10px 0 0px 540px;
 }
 
 #nastavnikSection{
@@ -232,7 +236,7 @@ footer {
 }
 
 .NastavnikNaPredmetuDataTable{
-    margin:0 0 20px 135px;
+    margin:0 0 20px 80px;
     width:500px;
 }
 
@@ -249,13 +253,13 @@ footer {
 }
 
 .inputPredmetUdbzenikDataTable{
-    margin:20px 0 20px 135px;
+    margin:20px 0 20px 80px;
     width:500px;
 }
 
 .inputPredmetUdzbenik{
     margin-top: 10px;
-    margin-left: -35px;
+    margin-left: 70px;
     width:250px;
 }
 
@@ -328,10 +332,7 @@ footer {
     font-weight: bold;
 }
 
-.inputPredmetVrstaINivoStudija{
-    margin: 10px 0px 0 0px;
-    width:280px;
-}
+
 
 #predmetFormCreate{
 
@@ -414,4 +415,10 @@ footer {
     width:600px;
     margin: 65px 0 100px 400px;
     background-color: #9999ff;  
+}
+
+.tabViewPredmetCreate{
+    background-color: #cccccc;
+    width: 90%;
+    margin-left: 5%;
 }

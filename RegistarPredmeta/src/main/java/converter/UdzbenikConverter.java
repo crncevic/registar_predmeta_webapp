@@ -56,7 +56,7 @@ public class UdzbenikConverter implements Converter {
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         try {
             if (value != null) {
-                String naziv = String.valueOf((Integer) ((LinkedHashMap) value).get(Constants.UDZBENIK_ID));
+                String naziv = String.valueOf( ((UdzbenikDTO) value).getUdzbenikId());
                 return naziv;
             } else {
                 return null;

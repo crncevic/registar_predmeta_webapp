@@ -17,7 +17,7 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="templ.xhtml">
             <ui:define name="content">
-                
+
                 <h:form id="predmetFormCreate"> 
                     <p:growl class="growl" id="msgs"  showDetail="true"/>
 
@@ -65,10 +65,10 @@ and open the template in the editor.
 
                     <div>
                         <p:outputLabel class="udzbenikTitle" value="Vrsta i nivo studija" />
-                        <p:selectOneMenu class="inputPredmetVrstaINivoStudija" value="#{createPredmet.selectedVrstaINivoStudija}"
-                                         id="createInputPredmetVrstaINivoStudija"  converter="vrstaINivoStudijaConverter">
+                        <p:selectOneMenu class="inputPredmetVrstaINivoStudija" value="#{createPredmet.newPredmet.vrstaINivoStudija.vrstaId}"
+                                         id="createInputPredmetVrstaINivoStudija" >
 
-                            <f:selectItems  value="#{createPredmet.vrsteINivoiStudija}"  var="vrsta" itemLabel="#{vrsta.naziv}" itemValue="#{vrsta}" />
+                            <f:selectItems  value="#{createPredmet.vrsteINivoiStudija}"  var="vrsta" itemLabel="#{vrsta.naziv}" itemValue="#{vrsta.vrstaId}" />
                             <p:ajax event="change" listener="#{createPredmet.selectedVrstaINivoStudijaListener}" process="@this" immediate="true" />
                         </p:selectOneMenu>
 
@@ -99,122 +99,126 @@ and open the template in the editor.
                         <h:outputText class="inputPredmetCilj" id="display3" />
                     </div>
 
-                   <p:outputLabel class="udzbenikTitle"  value="Nastavnici na predmetu"/>
+                    <p:tabView class="tabViewPredmetCreate" id="tabview">
+                        <p:tab title="Nastavnici na predmetu">
+                            <div class="ui-g">
+                                <div class="ui-g-12">
 
-                    <div class="ui-g">
-                        <div class="ui-g-12">
+                                    <p:outputLabel class="nastavnikTitle" value="Nastavnik: " />
 
-                            <p:outputLabel class="nastavnikTitle" value="Nastavnik: " />
+                                    <p:selectOneMenu class="inputPredmetNastavnikNaPredmetuSelectItem"  id="createInputPredmetNastavnik"
+                                                     value="#{createPredmet.selectedNastavnik.nastavnikId}" >
+                                        <f:selectItem itemLabel="Izaberite nastavnika" itemValue="" />
+                                        <f:selectItems value="#{createPredmet.nastavnici}" var="nastavnik" itemLabel="#{nastavnik.ime} #{nastavnik.prezime}" itemValue="#{nastavnik.nastavnikId}" />
+                                        <p:ajax event="change" listener="#{createPredmet.selectedNastavnikListener}" process="@this" immediate="true"/>
+                                    </p:selectOneMenu>
 
-                            <p:selectOneMenu class="inputPredmetNastavnikNaPredmetuSelectItem"  id="createInputPredmetNastavnik"
-                                             value="#{createPredmet.selectedNastavnik}" converter="nastavnikConverter">
-                                <f:selectItem itemLabel="Izaberite nastavnika" itemValue="" />
-                                <f:selectItems value="#{createPredmet.nastavnici}" var="nastavnik" itemLabel="#{nastavnik.ime} #{nastavnik.prezime}" itemValue="#{nastavnik}" />
-                                <p:ajax event="change" listener="#{createPredmet.selectedNastavnikListener}" process="@this" immediate="true"/>
-                            </p:selectOneMenu>
+                                    <p:outputLabel class="tipNastaveTitle" value="Tip nastave:" />
+                                    <p:selectOneMenu class="inputPredmetTipNastave"  id="createInputPredmetTipNastave" 
+                                                     value="#{createPredmet.selectedTipNastave.tipnastaveId}" > 
 
-                            <p:outputLabel class="tipNastaveTitle" value="Tip nastave:" />
-                            <p:selectOneMenu class="inputPredmetTipNastave"  id="createInputPredmetTipNastave" 
-                                             value="#{createPredmet.selectedTipNastave}" converter="tipNastaveConverter" > 
+                                        <f:selectItem itemLabel="Izaberite tip nastave" itemValue="" />
+                                        <f:selectItems value="#{createPredmet.tipoviNastave}"  id="createInputPredmetTipNastaveItem"  var="tip" itemLabel="#{tip.naziv}" itemValue="#{tip.tipnastaveId}" />
 
-                                <f:selectItem itemLabel="Izaberite tip nastave" itemValue="" />
-                                <f:selectItems value="#{createPredmet.tipoviNastave}"  id="createInputPredmetTipNastaveItem"  var="tip" itemLabel="#{tip.naziv}" itemValue="#{tip}" />
-
-                                <p:ajax event="change" listener="#{createPredmet.selectedTipNastaveListener}" process="@this" immediate="true" />
-                            </p:selectOneMenu> 
-
-
-                            <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetFormCreate:msgs nnpdt"
-                                             class="dodajOsobuNaUdzbeniku"  actionListener="#{createPredmet.onAddNewNastavnikNaPredmetu()}"  />
-
-                        </div>
-                    </div>
-
-                    <p:dataTable var="nastavnikNaPredmetu" class="NastavnikNaPredmetuDataTable"
-                                 value="#{createPredmet.newPredmet.nastavnici}" editable="false"
-                                 id="nnpdt" widgetVar="nnpdt">
-
-                        <p:column headerText="Ime">
-
-                            <h:outputText value="#{nastavnikNaPredmetu.nastavnikDTO.ime}" />
-
-                        </p:column>
-
-                        <p:column headerText="Prezime">
-
-                            <h:outputText value="#{nastavnikNaPredmetu.nastavnikDTO.prezime}" />
-
-                        </p:column>
-
-                        <p:column headerText="Tip nastave">
-
-                            <h:outputText value="#{nastavnikNaPredmetu.tipNastaveDTO.naziv}" />
+                                        <p:ajax event="change" listener="#{createPredmet.selectedTipNastaveListener}" process="@this" immediate="true" />
+                                    </p:selectOneMenu> 
 
 
-                        </p:column>
+                                    <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetFormCreate:msgs nnpdt"
+                                                     class="dodajNastavnikaNaPredmet"  actionListener="#{createPredmet.onAddNewNastavnikNaPredmetu()}"  />
 
-                        <p:column style="width:70px">
-                            <p:commandButton value="X" styleClass="ui-priority-primary" process="@this"  actionListener="#{createPredmet.onDeleteNastavnikNaPredmetu(nastavnikNaPredmetu)}" update=":predmetFormCreate:msgs nnpdt"  />
-                        </p:column>
+                                </div>
+                            </div>
 
+                            <p:dataTable var="nastavnikNaPredmetu" class="NastavnikNaPredmetuDataTable"
+                                         value="#{createPredmet.newPredmet.nastavnici}" editable="false"
+                                         id="nnpdt" widgetVar="nnpdt">
 
-                    </p:dataTable>
+                                <p:column headerText="Ime">
 
+                                    <h:outputText value="#{nastavnikNaPredmetu.nastavnikDTO.ime}" />
 
-                    <div class="emptyDiv"></div>
+                                </p:column>
 
-                    <div class="ui-g">
-                        <div class="ui-g-12">
+                                <p:column headerText="Prezime">
 
-                            <p:outputLabel class="udzbenikTitle" value="Udzbenici:" />
-                            <p:selectOneMenu class="inputPredmetUdzbenik"  id="createInputPredmetUdzbenik" 
-                                             value="#{createPredmet.selectedUdzbenik}" converter="udzbenikConverter" > 
+                                    <h:outputText value="#{nastavnikNaPredmetu.nastavnikDTO.prezime}" />
 
-                                <f:selectItem itemLabel="Izaberite udzbenik" itemValue="" />
-                                <f:selectItems value="#{createPredmet.udzbenici}"  id="inputPredmetUdzbenikItem"  var="udzbenik" itemLabel="#{udzbenik.naziv}" itemValue="#{udzbenik}" />
+                                </p:column>
 
-                                <p:ajax event="change" listener="#{createPredmet.selectedUdzbenikListener}" process="@this" immediate="true"/>
-                            </p:selectOneMenu> 
+                                <p:column headerText="Tip nastave">
 
-                            <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetFormCreate:msgs unpdt"
-                                             class="dodajOsobuNaUdzbeniku"  actionListener="#{createPredmet.onAddNewUdzbenikNaPredmetu()}"  />
-
-                        </div>
-                    </div>
+                                    <h:outputText value="#{nastavnikNaPredmetu.tipNastaveDTO.naziv}" />
 
 
+                                </p:column>
+
+                                <p:column style="width:70px">
+                                    <p:commandButton value="X" styleClass="ui-priority-primary" process="@this"  actionListener="#{createPredmet.onDeleteNastavnikNaPredmetu(nastavnikNaPredmetu)}" update=":predmetFormCreate:msgs nnpdt"  />
+                                </p:column>
 
 
-                    <p:dataTable var="udzbenik" class="inputPredmetUdbzenikDataTable"
-                                 value="#{createPredmet.newPredmet.udzbenici}" editable="false"
-                                 id="unpdt" widgetVar="unpdt">
+                            </p:dataTable>
+
+
+                        </p:tab>
+
+                        <p:tab title="Udzbenici">
+
+                            <div class="ui-g">
+                                <div class="ui-g-12">
+
+                                    <p:selectOneMenu class="inputPredmetUdzbenik"  id="createInputPredmetUdzbenik" 
+                                                     value="#{createPredmet.selectedUdzbenik.udzbenikId}"  > 
+
+                                        <f:selectItem itemLabel="Izaberite udzbenik" itemValue="" />
+                                        <f:selectItems value="#{createPredmet.udzbenici}"  id="inputPredmetUdzbenikItem"  var="udzbenik" itemLabel="#{udzbenik.naziv}" itemValue="#{udzbenik.udzbenikId}" />
+
+                                        <p:ajax event="change" listener="#{createPredmet.selectedUdzbenikListener}" process="@this" immediate="true"/>
+                                    </p:selectOneMenu> 
+
+                                    <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":predmetFormCreate:msgs unpdt"
+                                                     class="dodajOsobuNaUdzbeniku"  actionListener="#{createPredmet.onAddNewUdzbenikNaPredmetu()}"  />
+
+                                </div>
+                            </div>
 
 
 
-                        <p:column headerText="Naziv">
-                            <h:outputText value="#{udzbenik.udzbenikDTO.naziv}" />
-                        </p:column>
 
-                        <p:column headerText="Godina izdanja">
+                            <p:dataTable var="udzbenik" class="inputPredmetUdbzenikDataTable"
+                                         value="#{createPredmet.newPredmet.udzbenici}" editable="false"
+                                         id="unpdt" widgetVar="unpdt">
 
-                            <h:outputText value="#{udzbenik.udzbenikDTO.godinaIzdanja}" />
 
-                        </p:column>
 
-                        <p:column headerText="Izdavac">
-                            <h:outputText value="#{udzbenik.udzbenikDTO.izdavac}" />
-                        </p:column>
+                                <p:column headerText="Naziv">
+                                    <h:outputText value="#{udzbenik.udzbenikDTO.naziv}" />
+                                </p:column>
 
-                        <p:column style="width:70px">
-                            <p:commandButton value="X" styleClass="ui-priority-primary" process="@this"  actionListener="#{createPredmet.onDeleteUdzbenikNaPredmetu(udzbenik)}" update=":predmetFormCreate:msgs unpdt"  />
-                        </p:column>
+                                <p:column headerText="Godina izdanja">
 
-                    </p:dataTable>
+                                    <h:outputText value="#{udzbenik.udzbenikDTO.godinaIzdanja}" />
+
+                                </p:column>
+
+                                <p:column headerText="Izdavac">
+                                    <h:outputText value="#{udzbenik.udzbenikDTO.izdavac}" />
+                                </p:column>
+
+                                <p:column style="width:70px">
+                                    <p:commandButton value="X" styleClass="ui-priority-primary" process="@this"  actionListener="#{createPredmet.onDeleteUdzbenikNaPredmetu(udzbenik)}" update=":predmetFormCreate:msgs unpdt"  />
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:tab>
+
+                    </p:tabView>
 
                     <hr/>
-               
 
-                    <p:commandButton process="@this"  actionListener="#{createPredmet.onCreate}" value="Sacuvaj" styleClass="ui-priority-primary" class="btn btn-success" style="margin: 0 0 20px 120px" />
+
+                    <p:commandButton type="submit" actionListener="#{createPredmet.onCreate}" value="Sacuvaj" styleClass="ui-priority-primary" class="btn btn-success" style="margin: 0 0 20px 120px" />
 
                     <p:button outcome="predmet_index.xhtml" value="Odustani" styleClass="ui-priority-primary" class="btn btn-secondstyleClassary" style="margin: 0 0 20px 70px" />
 

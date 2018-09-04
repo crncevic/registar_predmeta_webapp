@@ -501,7 +501,7 @@ public class Mapper {
                 if (predmetDTO.getUdzbenici() != null) {
                     for (UdzbenikNaPredmetuDTO udzbenikNaPredmetuDTO : predmetDTO.getUdzbenici()) {
                         UdzbenikNaPredmetu unp = new UdzbenikNaPredmetu();
-                        unp.setUdzbenikNaPredmetuPK(new UdzbenikNaPredmetuPK(udzbenikNaPredmetuDTO.getUdzbenikId(), predmet.getPredmetId()));
+                        unp.setUdzbenikNaPredmetuPK(new UdzbenikNaPredmetuPK(udzbenikNaPredmetuDTO.getUdzbenikId(), predmet.getPredmetId() != null ? predmet.getPredmetId() :0));
                         udzbeniciNaPredmetu.add(unp);
                     }
                 }
@@ -513,7 +513,7 @@ public class Mapper {
                 if (predmetDTO.getNastavnici() != null) {
 
                     for (NastavnikNaPredmetuDTO nnpdto : predmetDTO.getNastavnici()) {
-                        NastavnikNaPredmetu nnp = new NastavnikNaPredmetu(nnpdto.getNastavnikId(), predmet.getPredmetId(), nnpdto.getNastavnikId());
+                        NastavnikNaPredmetu nnp = new NastavnikNaPredmetu(nnpdto.getNastavnikId(), predmet.getPredmetId() != null ? predmet.getPredmetId() : 0, nnpdto.getNastavnikId());
                         nastavniciNaPredmetu.add(nnp);
                     }
                 }

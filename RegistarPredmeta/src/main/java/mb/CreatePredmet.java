@@ -5,6 +5,8 @@
  */
 package mb;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import constants.Constants;
 import dto.NastavnikDTO;
 import dto.NastavnikNaPredmetuDTO;
@@ -53,18 +55,40 @@ public class CreatePredmet implements Serializable {
     private TipNastaveDTO selectedTipNastave;
     private VrstaINivoStudijaDTO selectedVrstaINivoStudija;
 
-    // atributi predmeta
+    private ObjectMapper mapper;
+
     public CreatePredmet() {
     }
 
     @PostConstruct
     private void init() {
+        mapper = new ObjectMapper();
+
         newPredmet = new PredmetDTO();
         newPredmet.setUdzbenici(new ArrayList());
         newPredmet.setNastavnici(new ArrayList());
         newPredmet.setTematskaCeline(new ArrayList());
         newPredmet.setVrstaINivoStudija(new VrstaINivoStudijaDTO());
 
+        selectedNastavnik = new NastavnikDTO();
+        selectedTipNastave = new TipNastaveDTO();
+        selectedUdzbenik = new UdzbenikDTO();
+
+        restWSClient = new RestWSClient(Constants.VRSTA_I_NIVO_STUDIJA_CONTROLLER);
+        vrsteINivoiStudija = mapper.convertValue(restWSClient.getAll_JSON(List.class), new TypeReference<List<VrstaINivoStudijaDTO>>() {
+        });
+
+        restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
+        udzbenici = mapper.convertValue(restWSClient.getAll_JSON(List.class), new TypeReference<List<UdzbenikDTO>>() {
+        });
+
+        restWSClient = new RestWSClient(Constants.NASTAVNIK_CONTROLLER);
+        nastavnici = mapper.convertValue(restWSClient.getAll_JSON(List.class), new TypeReference<List<NastavnikDTO>>() {
+        });
+
+        restWSClient = new RestWSClient(Constants.TIP_NASTAVE_CONTROLLER);
+        tipoviNastave = mapper.convertValue(restWSClient.getAll_JSON(List.class), new TypeReference<List<TipNastaveDTO>>() {
+        });
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getters and setters">
@@ -77,8 +101,6 @@ public class CreatePredmet implements Serializable {
     }
 
     public List<UdzbenikDTO> getUdzbenici() {
-        restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
-        udzbenici = restWSClient.getAll_JSON(List.class);
         return udzbenici;
     }
 
@@ -87,8 +109,6 @@ public class CreatePredmet implements Serializable {
     }
 
     public List<NastavnikDTO> getNastavnici() {
-        restWSClient = new RestWSClient(Constants.NASTAVNIK_CONTROLLER);
-        nastavnici = restWSClient.getAll_JSON(List.class);
         return nastavnici;
     }
 
@@ -97,11 +117,8 @@ public class CreatePredmet implements Serializable {
     }
 
     public List<VrstaINivoStudijaDTO> getVrsteINivoiStudija() {
-//        restWSClient = new RestWSClient(Constants.VRSTA_I_NIVO_STUDIJA_CONTROLLER);
-//      vrsteINivoiStudija = Mapper.fromJsonToListVrstaINivoStudijaDTO((ArrayList<LinkedHashMap>)restWSClient.getAll_JSON(List.class));
-//        
-//        return vrsteINivoiStudija;
-        return null;
+
+        return vrsteINivoiStudija;
     }
 
     public void setVrsteINivoiStudija(List<VrstaINivoStudijaDTO> vrsteINivoiStudija) {
@@ -109,8 +126,6 @@ public class CreatePredmet implements Serializable {
     }
 
     public List<TipNastaveDTO> getTipoviNastave() {
-        restWSClient = new RestWSClient(Constants.TIP_NASTAVE_CONTROLLER);
-        tipoviNastave = restWSClient.getAll_JSON(List.class);
         return tipoviNastave;
     }
 
@@ -153,19 +168,19 @@ public class CreatePredmet implements Serializable {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Listeneri">
     public void selectedTipNastaveListener(AjaxBehaviorEvent event) {
-        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetFormCreate:createInputPredmetTipNastave")).getSubmittedValue();
+        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetFormCreate:tabview:createInputPredmetTipNastave")).getSubmittedValue();
         restWSClient = new RestWSClient(Constants.TIP_NASTAVE_CONTROLLER);
         this.selectedTipNastave = restWSClient.getById_JSON(TipNastaveDTO.class, id);
     }
 
     public void selectedNastavnikListener(AjaxBehaviorEvent event) {
-        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetFormCreate:createInputPredmetNastavnik")).getSubmittedValue();
+        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetFormCreate:tabview:createInputPredmetNastavnik")).getSubmittedValue();
         restWSClient = new RestWSClient(Constants.NASTAVNIK_CONTROLLER);
         this.selectedNastavnik = restWSClient.getById_JSON(NastavnikDTO.class, id);
     }
 
     public void selectedUdzbenikListener(AjaxBehaviorEvent event) {
-        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetFormCreate:createInputPredmetUdzbenik")).getSubmittedValue();
+        String id = (String) ((UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(":predmetFormCreate:tabview:createInputPredmetUdzbenik")).getSubmittedValue();
         restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
         this.selectedUdzbenik = restWSClient.getById_JSON(UdzbenikDTO.class, id);
     }
@@ -261,8 +276,15 @@ public class CreatePredmet implements Serializable {
 
         Response response = restWSClient.create_JSON(newPredmet);
 
-        if (response.getStatusInfo() == Response.Status.OK) {
-            FacesMessage msg = new FacesMessage("Predmet uspesno kreiran!");
+        if (response.getStatusInfo() == Response.Status.BAD_REQUEST) {
+            FacesMessage msg = new FacesMessage(response.getEntity().toString());
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return "success";
+        } else if (response.getStatusInfo() == Response.Status.fromStatusCode(500)) {
+            FacesMessage msg = new FacesMessage("Dogodila se greska u sistemu. Sistem nije u stanju da zapamti predmet!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else if (response.getStatusInfo() == Response.Status.OK) {
+            FacesMessage msg = new FacesMessage("Sistem je uspesno zapamtio novi predmet");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return "success";
         }

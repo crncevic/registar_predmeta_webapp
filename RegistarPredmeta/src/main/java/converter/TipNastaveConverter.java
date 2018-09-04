@@ -58,7 +58,7 @@ public class TipNastaveConverter implements Converter {
                     return null;
                 }
 
-                String naziv = String.valueOf((Integer) ((LinkedHashMap) value).get(Constants.TIP_NASTAVE_ID));
+                String naziv = String.valueOf( ((TipNastaveDTO) value).getTipnastaveId());
                 return naziv;
             } else {
                 return null;

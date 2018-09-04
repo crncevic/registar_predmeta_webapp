@@ -56,7 +56,7 @@ try {
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         try {
             if (value != null) {
-                String naziv = String.valueOf((Integer) ((VrstaINivoStudijaDTO) value).getVrstaId());
+                String naziv = String.valueOf(((VrstaINivoStudijaDTO) value).getVrstaId());
                 return naziv;
             } else {
                 return null;
