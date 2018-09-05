@@ -18,9 +18,11 @@ import repository.GenericRepository;
  */
 public class StudijskiProgramLogic extends AbstractLogicClass {
 
-    @Inject
     private GenericRepository<StudijskiProgram> gr;
-    
+
+    public StudijskiProgramLogic() {
+        gr = new GenericRepository(StudijskiProgram.class);
+    }
 
     public List<StudijskiProgram> getAll() {
         try {
@@ -32,13 +34,12 @@ public class StudijskiProgramLogic extends AbstractLogicClass {
 
     public StudijskiProgram getById(int id) {
         try {
-            return gr.getSingleByParamsFromNamedQuery( new Object [] {id},
-                  Constants.STUDIJSKI_PROGRAM_FIND_BY_ID,
-                  new String[]{ Constants.STUDIJSKI_PROGRAM_ID});
+            return gr.getSingleByParamsFromNamedQuery(new Object[]{id},
+                    Constants.STUDIJSKI_PROGRAM_FIND_BY_ID,
+                    new String[]{Constants.STUDIJSKI_PROGRAM_ID});
         } catch (Exception e) {
             throw e;
         }
     }
-    
-    
+
 }

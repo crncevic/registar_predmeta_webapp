@@ -107,7 +107,7 @@ public class PredmetNaStdProgramuFind implements Serializable {
         this.stdProgram = stdProgram;
     }
 
-    public void onUpdate() {
+    public String onUpdate() {
         restWSClient = new RestWSClient(Constants.PREDMET_NA_STD_PROGRAMU_CONTROLLER);
 
         Response response = restWSClient.update_JSON(predmetNaStdProgramu, predmetNaStdProgramu.getStudijskiProgramId() + "/" + predmetNaStdProgramu.getPredmetId());
@@ -119,12 +119,14 @@ public class PredmetNaStdProgramuFind implements Serializable {
             FacesMessage msg = new FacesMessage("Dogodila se greska na serveru. Sistem ne moze da zapamti izmene za predmet na studijskom programu");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.OK) {
-            FacesMessage msg = new FacesMessage("Predmet na studijskom programu je uspesno azuriran!");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            FacesMessage msg = new FacesMessage("Predmet na studijskom programu je uspesno azuriran!");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return "success_update_pnsp";
         }
+        return "failure";
     }
 
-    public void onDelete() {
+    public String onDelete() {
         restWSClient = new RestWSClient(Constants.PREDMET_NA_STD_PROGRAMU_CONTROLLER);
         Response response = restWSClient.delete(predmetNaStdProgramu.getStudijskiProgramId() + "/" + predmetNaStdProgramu.getPredmetId());
 
@@ -135,8 +137,11 @@ public class PredmetNaStdProgramuFind implements Serializable {
             FacesMessage msg = new FacesMessage("Dogodila se greska na serveru. Sistem ne moze da izbrise predmet na studijskom programu");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.OK) {
-            FacesMessage msg = new FacesMessage("Predmet na studijskom programu je uspesno izbrisan!");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            FacesMessage msg = new FacesMessage("Predmet na studijskom programu je uspesno izbrisan!");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return "success_delete_pnsp";
         }
+
+        return "failure";
     }
 }

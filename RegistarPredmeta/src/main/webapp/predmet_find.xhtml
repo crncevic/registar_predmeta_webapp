@@ -217,12 +217,12 @@ and open the template in the editor.
 
                     <hr/>
 
-                    <p:commandButton type="submit" process="@this"  actionListener="#{findPredmet.onUpdate}" value="Azuriraj" styleClass="ui-priority-primary" class="btn btn-primary" update=":predmetForm:msgs" style="margin: 0 0 20px 120px" >
+                    <p:commandLink  process="@this"  actionListener="#{findPredmet.onUpdate}" value="Azuriraj" styleClass="ui-priority-primary" class="btn btn-primary" update=":predmetForm:msgs" style="margin: 0 0 20px 120px" >
                         <f:ajax execute="@form" render="@form" />
-                    </p:commandButton>
-                    <p:commandButton type="submit" process="@this" actionListener="#{findPredmet.onDelete}" value="Obrisi" styleClass="ui-priority-primary" class="btn btn-danger" update=":predmetForm:msgs" style="margin: 0 0 20px 70px" >
+                    </p:commandLink>
+                    <p:commandLink  process="@this" actionListener="#{findPredmet.onDelete}" value="Obrisi" styleClass="ui-priority-primary" class="btn btn-danger" update=":predmetForm:msgs" style="margin: 0 0 20px 70px" >
                         <f:ajax execute="@form"  render="@form" />                    
-                    </p:commandButton>
+                    </p:commandLink>
                     <p:button outcome="predmet_index.xhtml" value="Odustani" styleClass="ui-priority-primary" class="btn btn-secondstyleClassary" style="margin: 0 0 20px 70px" />
 
 

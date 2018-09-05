@@ -17,8 +17,11 @@ import repository.GenericRepository;
  */
 public class TipNastaveLogic extends AbstractLogicClass {
 
-    @Inject
     private GenericRepository<TipNastave> gr;
+
+    public TipNastaveLogic() {
+       gr = new GenericRepository(TipNastave.class);
+    }
 
     
 

@@ -17,8 +17,13 @@ import repository.GenericRepository;
  */
 public class NastavnikLogic extends AbstractLogicClass {
 
-    @Inject
     private GenericRepository<Nastavnik> gr;
+
+    public NastavnikLogic() {
+       gr = new GenericRepository(Nastavnik.class);
+    }
+    
+    
 
     public List<Nastavnik> getAll() throws Exception {
         try {

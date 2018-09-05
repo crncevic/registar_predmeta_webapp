@@ -300,6 +300,37 @@
                 }
             }
         },
+         "/korisnik/username/{username}": {
+            "get": {
+                "tags": [
+                    "korisnik"
+                ],
+                "summary": "Find korisnik by username",
+                "description": "Returns a single korisnik",
+                "operationId": "getByUsername",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "username",
+                        "in": "path",
+                        "description": "Username of korisnik to return",
+                        "required": true,
+                        "type": "String",
+                        "format": "-"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+         },
         "/osoba-udzbenik": {
             "get": {
                 "tags": [

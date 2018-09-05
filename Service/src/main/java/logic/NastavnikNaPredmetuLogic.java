@@ -22,9 +22,14 @@ import repository.GenericRepository;
  */
 public class NastavnikNaPredmetuLogic extends AbstractLogicClass {
 
-    @Inject
     private GenericRepository<NastavnikNaPredmetu> gr;
     private Set<ConstraintViolation<NastavnikNaPredmetu>> violations;
+
+    public NastavnikNaPredmetuLogic() {
+       gr = new GenericRepository(NastavnikNaPredmetu.class);
+    }
+    
+    
 
     public NastavnikNaPredmetu create(NastavnikNaPredmetu nastavnikNaPredmetu) throws Exception {
         try {
@@ -59,7 +64,7 @@ public class NastavnikNaPredmetuLogic extends AbstractLogicClass {
             //TODO strukturna ogranicenja
             try {
                 et.begin();
-                NastavnikNaPredmetu nnp = gr.delete_SingleKey(nastavnikNaPredmetuPK);
+                NastavnikNaPredmetu nnp = gr.delete(nastavnikNaPredmetuPK);
                 et.commit();
                 return nnp;
             } catch (Exception ex) {

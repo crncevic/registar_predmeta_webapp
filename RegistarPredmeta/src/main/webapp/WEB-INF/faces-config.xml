@@ -7,6 +7,26 @@
 
    
    
+    <navigation-rule>
+        <navigation-case>
+            <from-action>#{findUdzbenik.onUpdate}</from-action>
+            <from-outcome>success_update_udzbenik</from-outcome>
+            <to-view-id>udzbenik_index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{findUdzbenik.onDelete}</from-action>
+            <from-outcome>success_delete_udzbenik</from-outcome>
+            <to-view-id>udzbenik_index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{createUdzbenik.createUdzbenik}</from-action>
+            <from-outcome>success_create_udzbenik</from-outcome>
+            <to-view-id>udzbenik_index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
     
     <navigation-rule>
         <from-view-id>udzbenik_index.xhtml</from-view-id>
@@ -17,12 +37,51 @@
     </navigation-rule>
     
     <navigation-rule>
-        <from-view-id>udzbenik_find.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{findUdzbenik.onUpdate}</from-action>
-            <from-outcome>successupdate</from-outcome>
-            <to-view-id>udzbenik_index.xhtml</to-view-id>
+            <from-action>#{createPredmet.onCreate}</from-action>
+            <from-outcome>success_create_predmet</from-outcome>
+            <to-view-id>predmet_index.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
+        
+         <navigation-case>
+            <from-action>#{findPredmet.onUpdate}</from-action>
+            <from-outcome>success_update_predmet</from-outcome>
+            <to-view-id>predmet_index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+         <navigation-case>
+            <from-action>#{findPredmet.onDelete}</from-action>
+            <from-outcome>success_delete_predmet</from-outcome>
+            <to-view-id>predmet_index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-action>#{predmetNaStdProgramuCreate.onCreate}</from-action>
+            <from-outcome>success_create_pnsp</from-outcome>
+            <to-view-id>std_program_index.xhtml</to-view-id>
+             <redirect/>
+        </navigation-case>
+        
+         <navigation-case>
+            <from-action>#{predmetNaStdProgramuFind.onUpdate}</from-action>
+            <from-outcome>success_update_pnsp</from-outcome>
+            <to-view-id>std_program_index.xhtml</to-view-id>
+             <redirect/>
+        </navigation-case>
+        
+         <navigation-case>
+            <from-action>#{predmetNaStdProgramuFind.onDelete}</from-action>
+            <from-outcome>success_delete_pnsp</from-outcome>
+            <to-view-id>std_program_index.xhtml</to-view-id>
+             <redirect/>
+        </navigation-case>
+        
     </navigation-rule>
     
     <navigation-rule>
@@ -33,19 +92,7 @@
         </navigation-case>
     </navigation-rule>
     
-    <navigation-rule>
-        <from-view-id>udzbenik_create.xhtml</from-view-id>
-        <navigation-case>
-            <from-action>#{createUdzbenik.createUdzbenik}</from-action>
-            <from-outcome>success-create</from-outcome>
-            <to-view-id>/udzbenik_index.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-action>#{createUdzbenik.createUdzbenik}</from-action>
-            <from-outcome>failure-create</from-outcome>
-            <to-view-id>udzbenik_create.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
+    
     
     <navigation-rule>
         <from-view-id>predmet_find.xhtml</from-view-id>

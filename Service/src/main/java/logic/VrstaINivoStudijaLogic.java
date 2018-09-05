@@ -17,8 +17,13 @@ import repository.GenericRepository;
  */
 public class VrstaINivoStudijaLogic extends AbstractLogicClass {
 
-    @Inject
     private GenericRepository<VrstaINivoStudija> gr;
+
+    public VrstaINivoStudijaLogic() {
+       gr = new GenericRepository(VrstaINivoStudija.class);
+    }
+    
+    
 
     public List<VrstaINivoStudija> getAll() {
         try {

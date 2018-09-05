@@ -17,8 +17,11 @@ import repository.GenericRepository;
  */
 public class UlogaUdzbenikLogic extends AbstractLogicClass {
 
-    @Inject
     private GenericRepository<UlogaUdzbenik> gr;
+
+    public UlogaUdzbenikLogic() {
+      gr = new GenericRepository(UlogaUdzbenik.class);
+    }
 
    
 

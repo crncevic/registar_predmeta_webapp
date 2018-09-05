@@ -20,14 +20,10 @@ and open the template in the editor.
                 <h:form id="predmetNaStdProgramuUpdate">
                     <p:growl id="msgs" showDetail="true" />
                     <p:outputLabel class="stdProgramTitleCreate" value="#{predmetNaStdProgramuFind.stdProgram.naziv}" ></p:outputLabel>
-                    <p:outputLabel class="stdProgramTitleCreate" value="#{predmetNaStdProgramuFind.predmetNaStdProgramu.nazivPredmeta}"></p:outputLabel>
 
                     <div>
                         <p:outputLabel class="pnspCreate">Predmet:</p:outputLabel>
-                        <p:selectOneMenu class="pnspPredmetCreate" value="" disabled="true">
-
-                            <f:selectItems value="#{predmetNaStdProgramuFind.predmeti}" var="predmet" itemLabel="#{predmet.naziv}" />
-                        </p:selectOneMenu>
+                        <p:inputText disabled="true" value="#{predmetNaStdProgramuFind.predmetNaStdProgramu.nazivPredmeta}" />
                     </div> 
 
                     <div>
@@ -50,13 +46,16 @@ and open the template in the editor.
 
                     <hr/>
 
-                    <p:commandButton type="submit" actionListener="#{predmetNaStdProgramuFind.onUpdate}" update=":predmetNaStdProgramuUpdate:msgs" value="Azuriraj" styleClass="ui-priority-primary" class="btn btn-primary" style="margin: 0 0 20px 150px" />
-                    <p:commandButton type="submit" actionListener="#{predmetNaStdProgramuFind.onDelete}" update=":predmetNaStdProgramuUpdate:msgs" value="Obrisi" styleClass="ui-priority-primary" class="btn btn-danger" style="margin: 0 0 20px 50px" />
-
+                    <p:commandButton  action="#{predmetNaStdProgramuFind.onUpdate}" update=":predmetNaStdProgramuUpdate:msgs" value="Azuriraj" styleClass="ui-priority-primary" class="btn btn-primary" style="margin: 0 0 20px 150px" >
+                        <f:param name="studijskiProgramId" value="#{predmetNaStdProgramuFind.stdProgram.studijskiProgramId}"/>
+                    </p:commandButton>
+                    <p:commandButton  action="#{predmetNaStdProgramuFind.onDelete}" update=":predmetNaStdProgramuUpdate:msgs" value="Obrisi" styleClass="ui-priority-primary" class="btn btn-danger" style="margin: 0 0 20px 50px" >
+                        <f:param name="studijskiProgramId" value="#{predmetNaStdProgramuFind.stdProgram.studijskiProgramId}"/>
+                    </p:commandButton>
                     <p:button outcome="std_program_find.xhtml" value="Odustani" styleClass="ui-priority-primary" class="btn btn-secondstyleClassary" style="margin: 0 0 20px 50px" >
-                        <f:param name="studijskiProgramId" value="1"/>
+                        <f:param name="studijskiProgramId" value="#{predmetNaStdProgramuFind.stdProgram.studijskiProgramId}"/>
                     </p:button>
-
+                    <f:param name="studijskiProgramId" value="#{predmetNaStdProgramuFind.stdProgram.studijskiProgramId}"/>
 
                 </h:form>
             </ui:define>

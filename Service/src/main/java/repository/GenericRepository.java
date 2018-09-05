@@ -23,8 +23,12 @@ public class GenericRepository<T> {
     protected static EntityManagerFactory emf = persistence.createEntityManagerFactory("SRP_PU");
     protected static EntityManager em = emf.createEntityManager();
     protected static EntityTransaction et;
-    
+
     private Class<T> c;
+
+    public GenericRepository(Class<T> c) {
+        this.c = c;
+    }
 
     public T save(T entity) {
         em.persist(entity);
@@ -36,7 +40,7 @@ public class GenericRepository<T> {
         return entity;
     }
 
-    public T delete_SingleKey(Object id) {
+    public T delete(Object id) {
         T entityFromDb = (T) em.find(c, id);
         em.remove(entityFromDb);
         return entityFromDb;
@@ -44,11 +48,17 @@ public class GenericRepository<T> {
 
     //simulacija asocijativnih nizova, paramNames[i] odgovara paramValues[i]
     public int delete_CompositeKey(String namedQuery, String[] paramNames, int[] paramValues) {
+
         Query query = (Query) em.createNamedQuery(namedQuery);
+
         for (int i = 0; i < paramNames.length; i++) {
+
             query.setParameter(paramNames[i], paramValues[i]);
+
         }
+
         return query.executeUpdate();
+
     }
 
     public List<T> getAll(String namedQuery) {
@@ -62,7 +72,7 @@ public class GenericRepository<T> {
         for (int i = 0; i < paramNames.length; i++) {
             query.setParameter(paramNames[i], paramValues[i]);
         }
-        
+
         List<T> result = query.getResultList();
 
         if (result == null || result.isEmpty()) {
@@ -71,14 +81,14 @@ public class GenericRepository<T> {
         return result.get(0);
     }
 
-    public List<T> getListByParamsFromNamedQuery(Object [] paramValues, String namedQuery, String []  paramNames) {
+    public List<T> getListByParamsFromNamedQuery(Object[] paramValues, String namedQuery, String[] paramNames) {
         TypedQuery<T> query = em.createNamedQuery(namedQuery, c);
-        
+
         for (int i = 0; i < paramNames.length; i++) {
             query.setParameter(paramNames[i], paramValues[i]);
         }
-        
-      return query.getResultList();
+
+        return query.getResultList();
     }
 
     public static EntityTransaction getEntityTransactionInstance() {

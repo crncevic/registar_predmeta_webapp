@@ -159,13 +159,11 @@ public class FindUdzbenik implements Serializable {
         Response response = restWSClient.update_JSON(udzbenik, udzbenik.getUdzbenikId().toString());
 
         if (response.getStatusInfo() == Response.Status.OK) {
-            FacesMessage msg = new FacesMessage("Udzbenik uspesno azuriran");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "success-update";
+            return "success_update_udzbenik";
         }
-        FacesMessage msg = new FacesMessage("Greska prilikom azuriranja udzbenika!");
+      FacesMessage msg = new FacesMessage("Greska prilikom azuriranja udzbenika!");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        return "failure-update";
+        return "";
 
     }
 
@@ -174,9 +172,7 @@ public class FindUdzbenik implements Serializable {
         Response response = restWSClient.delete(udzbenik.getUdzbenikId().toString());
 
         if (response.getStatusInfo() == Response.Status.OK) {
-            FacesMessage msg = new FacesMessage("Udzbenik uspesno obrisan");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "success-delete";
+            return "success_delete_udzbenik";
         }
         FacesMessage msg = new FacesMessage("Greska  prilikom  brisanja udzbenika");
         FacesContext.getCurrentInstance().addMessage(null, msg);

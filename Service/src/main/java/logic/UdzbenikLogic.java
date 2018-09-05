@@ -22,11 +22,14 @@ import repository.GenericRepository;
  */
 public class UdzbenikLogic extends AbstractLogicClass {
 
-    @Inject
     private GenericRepository<Udzbenik> gru;
-    @Inject
     private GenericRepository<OsobaUVeziSaUdzbenikom> grouvsu;
     private Set<ConstraintViolation<Udzbenik>> violations;
+
+    public UdzbenikLogic() {
+      gru = new GenericRepository(Udzbenik.class);
+      grouvsu = new GenericRepository(OsobaUVeziSaUdzbenikom.class);
+    }
 
     
 
@@ -112,7 +115,7 @@ public class UdzbenikLogic extends AbstractLogicClass {
 
                 //brisanje izbacenih prilikom azuriranja
                 for (OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom : osobeForDeleting) {
-                    grouvsu.delete_SingleKey(osobaUVeziSaUdzbenikom.getOsobaId());
+                    grouvsu.delete(osobaUVeziSaUdzbenikom.getOsobaId());
                 }
 
                 //dodavanje novih prilikom azuriranja
@@ -152,10 +155,10 @@ public class UdzbenikLogic extends AbstractLogicClass {
                                 new String[]{ Constants.UDZBENIK_ID});
 
                 for (OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom : osobeForDeleting) {
-                    grouvsu.delete_SingleKey(osobaUVeziSaUdzbenikom.getOsobaId());
+                    grouvsu.delete(osobaUVeziSaUdzbenikom.getOsobaId());
                 }
 
-                Udzbenik deletedUdzbenik = gru.delete_SingleKey(id);
+                Udzbenik deletedUdzbenik = gru.delete(id);
                 et.commit();
                 return deletedUdzbenik;
             } catch (Exception ex) {

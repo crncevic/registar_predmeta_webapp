@@ -130,8 +130,8 @@ and open the template in the editor.
 
                     <hr  />
 
-                    <p:commandButton type="submit" actionListener="#{findUdzbenik.onUpdate}" value="Azuriraj" styleClass="ui-priority-primary" class="btn btn-primary" style="margin: 0 0 20px 120px" />
-                    <p:commandButton type="submit" actionListener="#{findUdzbenik.onDelete}" value="Obrisi" styleClass="ui-priority-primary" class="btn btn-danger" style="margin: 0 0 20px 70px" />
+                    <p:commandLink  action="#{findUdzbenik.onUpdate}"  value="Azuriraj" styleClass="ui-priority-primary" class="btn btn-primary"  style="margin: 0 0 20px 120px" />
+                    <p:commandLink  action="#{findUdzbenik.onDelete}" value="Obrisi" styleClass="ui-priority-primary"  class="btn btn-danger" style="margin: 0 0 20px 70px" />
                     <p:button outcome="udzbenik_index.xhtml" value="Odustani" styleClass="ui-priority-primary" class="btn btn-secondstyleClassary" style="margin: 0 0 20px 70px" />
                 </h:form>
 

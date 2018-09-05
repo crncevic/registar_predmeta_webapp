@@ -36,10 +36,8 @@ public class KorisnikController {
     @Inject
     private KorisnikLogic kl;
 
-   
-
     @GET
-    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     public Response getAll() {
         try {
             List<Korisnik> korisnici = kl.getAll();
@@ -62,7 +60,7 @@ public class KorisnikController {
 
     @GET
     @Path("/{id}")
-    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     public Response getById(@PathParam("id") @NotNull int id) {
         try {
             Korisnik korisnik = kl.getById(id);
@@ -78,9 +76,23 @@ public class KorisnikController {
         }
     }
 
+    @GET
+    @Path("/username/{username}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getByUsername(@PathParam("username") @NotNull String username) {
+        try {
+
+            KorisnikDTO korisnikDTO = Mapper.toKorisnikDTO(kl.getByUsername(username));
+            
+            return Response.ok(korisnikDTO).build();
+        } catch (Exception e) {
+            return Response.serverError().type(MediaType.TEXT_PLAIN).entity(e).build();
+        }
+    }
+
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     public Response create(@NotNull KorisnikDTO korisnikDTO) {
         try {
             Korisnik korisnik = Mapper.toKorisnik(korisnikDTO);
@@ -96,7 +108,7 @@ public class KorisnikController {
     @PUT
     @Path("/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     public Response update(@PathParam("id") @NotNull int id, @NotNull KorisnikDTO korisnikDTO) {
         try {
             if (id != korisnikDTO.getKorisnikId()) {
@@ -116,7 +128,7 @@ public class KorisnikController {
 
     @DELETE
     @Path("/{id}")
-    @Produces({MediaType.APPLICATION_JSON,MediaType.TEXT_PLAIN})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     public Response delete(@PathParam("id") @NotNull int id) {
         try {
 

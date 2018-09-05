@@ -17,8 +17,13 @@ import repository.GenericRepository;
  */
 public class UlogaLogic extends AbstractLogicClass {
 
-    @Inject
     private GenericRepository<Uloga> gr;
+
+    public UlogaLogic() {
+         gr = new GenericRepository(Uloga.class);
+    }
+    
+    
 
 
     public List<Uloga> getAll() {

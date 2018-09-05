@@ -67,12 +67,11 @@ public class CreateUdzbenik implements Serializable {
         Response response = restWSClient.create_JSON(newUdzbenik);
 
         if (response.getStatusInfo() == Response.Status.OK) {
-            FacesMessage msg = new FacesMessage("Udzbenik uspesno kreiran!");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "success-create";
-
+            return "success_create_udzbenik";
         }
-        return "failure-create";
+        FacesMessage msg = new FacesMessage("Udzbenik uspesno kreiran!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        return "failure_create";
 
     }
 }

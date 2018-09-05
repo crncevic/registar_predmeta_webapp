@@ -490,6 +490,7 @@ public class Mapper {
                 predmet.setBrCasovaVezbiNedeljno(predmetDTO.getBrCasovaVezbiNedeljno());
                 predmet.setCilj(predmetDTO.getCilj());
                 predmet.setUslov(predmetDTO.getUslov());
+                predmet.setIshod(predmetDTO.getIshod());
                 predmet.setOstaliCasovi(predmetDTO.getOstaliCasovi());
                 predmet.setSadrzajTekst(predmetDTO.getSadrzajTekst());
                 predmet.setVrstaINivoStudija(toVrstaINivoStudija(predmetDTO.getVrstaINivoStudija()));

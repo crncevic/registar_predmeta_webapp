@@ -8,8 +8,10 @@ package logic;
 import constants.Constants;
 import domain.Predmet;
 import domain.PredmetNaStudijskomProgramu;
+import domain.PredmetNaStudijskomProgramuPK;
 import domain.Status;
 import domain.StudijskiProgram;
+import domain.UdzbenikNaPredmetuPK;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
@@ -24,15 +26,18 @@ import repository.GenericRepository;
  */
 public class PredmetNaStudijskomProgramuLogic extends AbstractLogicClass {
 
-    @Inject
     private GenericRepository<PredmetNaStudijskomProgramu> grpnsp;
-    @Inject
     private GenericRepository<Predmet> grp;
-    @Inject
     private GenericRepository<StudijskiProgram> grsp;
-    @Inject
     private GenericRepository<Status> grs;
     private Set<ConstraintViolation<PredmetNaStudijskomProgramu>> violations;
+
+    public PredmetNaStudijskomProgramuLogic() {
+        grp = new GenericRepository(Predmet.class);
+        grs = new GenericRepository(Status.class);
+        grpnsp = new GenericRepository(PredmetNaStudijskomProgramu.class);
+        grsp = new GenericRepository(StudijskiProgram.class);
+    }
 
     public PredmetNaStudijskomProgramu create(PredmetNaStudijskomProgramu pnsp) {
         try {
@@ -104,6 +109,7 @@ public class PredmetNaStudijskomProgramuLogic extends AbstractLogicClass {
     public PredmetNaStudijskomProgramu delete(int stdProgramId, int predmetId) throws Exception {
         try {
             et.begin();
+            PredmetNaStudijskomProgramu deletedPnsp = getById(stdProgramId, predmetId);
             Predmet predmet = grp.getSingleByParamsFromNamedQuery(new Object[]{predmetId},
                     Constants.PREDMET_FIND_BY_ID, new String[]{Constants.PREDMET_ID});
 
@@ -120,18 +126,17 @@ public class PredmetNaStudijskomProgramuLogic extends AbstractLogicClass {
                 throw new ConstraintViolationException("Studijski program ne postoji u bazi", null);
             }
 
-            PredmetNaStudijskomProgramu deletedPnsp = getById(stdProgramId, predmetId);
+           int result =  grpnsp.delete_CompositeKey(
+                     Constants.PREDMET_NA_STUDIJSKOM_PROGRAMU_DELETE,
+                     new String[]{Constants.STUDIJSKI_PROGRAM_ID,Constants.PREDMET_ID},
+                     new int[] {stdProgramId,predmetId});
+           if(result == 1){
+            et.commit();
+            return deletedPnsp;
+           }  
+           
+           throw new Exception("Db operation did not execute");
 
-            int result = grpnsp.delete_CompositeKey(Constants.PREDMET_NA_STUDIJSKOM_PROGRAMU_DELETE,
-                    new String[]{Constants.PREDMET_ID, Constants.STUDIJSKI_PROGRAM_ID},
-                    new int[]{predmetId, stdProgramId});
-
-            if (result == 1) {
-                et.commit();
-                return deletedPnsp;
-            } else {
-                throw new Exception("DB did not delete entry");
-            }
         } catch (ConstraintViolationException cve) {
             et.rollback();
             throw cve;

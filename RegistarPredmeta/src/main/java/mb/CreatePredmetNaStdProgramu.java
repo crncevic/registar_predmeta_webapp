@@ -71,7 +71,6 @@ public class CreatePredmetNaStdProgramu implements Serializable {
     }
 
     //<editor-fold defaultstate="collapsed" desc="getters and setters">
-    
     public List<PredmetDTO> getPredmeti() {
         return predmeti;
     }
@@ -103,10 +102,9 @@ public class CreatePredmetNaStdProgramu implements Serializable {
     public void setStdProgram(StudijskiProgramDTO stdProgram) {
         this.stdProgram = stdProgram;
     }
-    
-    //</editor-fold>
 
-    public void onCreate() {
+    //</editor-fold>
+    public String onCreate() {
 
         restWSClient = new RestWSClient(Constants.PREDMET_NA_STD_PROGRAMU_CONTROLLER);
         Response response = restWSClient.create_JSON(newPredmetNaStdProgramu);
@@ -118,10 +116,11 @@ public class CreatePredmetNaStdProgramu implements Serializable {
             FacesMessage msg = new FacesMessage("Dogodila se greska na serveru. Sistem ne moze da zapamti novi predmet na studijskomm programu");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.OK) {
-            FacesMessage msg = new FacesMessage("Predmet na studijskom programu je uspesno sacuvan!");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+//            FacesMessage msg = new FacesMessage("Predmet na studijskom programu je uspesno sacuvan!");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return "success_create_pnsp";
         }
-
+        return "failure";
     }
 
 }

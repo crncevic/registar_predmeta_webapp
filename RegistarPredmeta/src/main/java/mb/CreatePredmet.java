@@ -279,14 +279,13 @@ public class CreatePredmet implements Serializable {
         if (response.getStatusInfo() == Response.Status.BAD_REQUEST) {
             FacesMessage msg = new FacesMessage(response.getEntity().toString());
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "success";
         } else if (response.getStatusInfo() == Response.Status.fromStatusCode(500)) {
             FacesMessage msg = new FacesMessage("Dogodila se greska u sistemu. Sistem nije u stanju da zapamti predmet!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.OK) {
-            FacesMessage msg = new FacesMessage("Sistem je uspesno zapamtio novi predmet");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "success";
+//            FacesMessage msg = new FacesMessage("Sistem je uspesno zapamtio novi predmet");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+            return "success_create_predmet";
         }
         FacesMessage msg = new FacesMessage("Dogodila se greska prilikom kreiranja predmeta!");
         FacesContext.getCurrentInstance().addMessage(null, msg);

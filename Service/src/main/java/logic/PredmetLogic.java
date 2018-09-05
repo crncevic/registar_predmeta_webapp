@@ -30,25 +30,31 @@ import repository.GenericRepository;
  */
 public class PredmetLogic extends AbstractLogicClass {
 
-    @Inject
     private GenericRepository<Predmet> grp;
-    @Inject
     private GenericRepository<UdzbenikNaPredmetu> grunp;
-    @Inject
     private GenericRepository<NastavnikNaPredmetu> grnnp;
-    @Inject
     private GenericRepository<Nastavnik> grn;
-    @Inject
     private GenericRepository<PredmetNaStudijskomProgramu> grpnsp;
-    @Inject
     private GenericRepository<TematskaCelina> grtc;
-    @Inject
     private GenericRepository<Udzbenik> gru;
-    @Inject
     private GenericRepository<TipNastave> grtn;
 
     private Set<ConstraintViolation<Predmet>> violations;
 
+    public PredmetLogic() {
+      grn = new GenericRepository(Nastavnik.class);
+      grnnp = new GenericRepository(NastavnikNaPredmetu.class);
+      grp = new GenericRepository(Predmet.class);
+      grpnsp = new GenericRepository(PredmetNaStudijskomProgramu.class);
+      grtn = new GenericRepository(TipNastave.class);
+      grtc = new GenericRepository(TematskaCelina.class);
+      grunp = new GenericRepository(UdzbenikNaPredmetu.class);
+      gru = new GenericRepository(Udzbenik.class);
+    }
+
+    
+    
+    
     public Predmet create(Predmet predmet) throws Exception {
         try {
             //provera vrednosnih ogranicenja
@@ -157,9 +163,7 @@ public class PredmetLogic extends AbstractLogicClass {
 
                 //brisanje izbacenih iz agregacije
                 for (UdzbenikNaPredmetu udzbenikNaPredmetu : udzbeniciForDeletening) {
-                    grunp.delete_CompositeKey(Constants.UDZBENIK_NA_PREDMETU_DELETE,
-                            new String[]{Constants.UDZBENIK_ID, Constants.PREDMET_ID},
-                            new int[]{udzbenikNaPredmetu.getUdzbenikNaPredmetuPK().getUdzbenikId(), udzbenikNaPredmetu.getUdzbenikNaPredmetuPK().getPredmetId()});
+                    grunp.delete(udzbenikNaPredmetu.getUdzbenikNaPredmetuPK());
                 }
 
                 // dodavanje novih udzbenika na predmetu
@@ -205,9 +209,7 @@ public class PredmetLogic extends AbstractLogicClass {
 
                 //brisanje iz agregacije 
                 for (NastavnikNaPredmetu nastavnikNaPredmetu : nastavniciForDeleting) {
-                    grnnp.delete_CompositeKey(Constants.NASTAVNIK_NA_PREDMETU_DELETE,
-                            new String[]{Constants.NASTAVNIK_ID, Constants.PREDMET_ID, Constants.TIP_NASTAVE_ID},
-                            new int[]{nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getNastavnikId(), nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getPredmetId(), nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getTipNastaveId()});
+                    grnnp.delete(nastavnikNaPredmetu.getNastavnikNaPredmetuPK());
                 }
 
                 //dodavanje u agregaciju novih nastavnika na predmetu
@@ -251,7 +253,7 @@ public class PredmetLogic extends AbstractLogicClass {
 
                 // brisanje izbacenih tematskih celina
                 for (TematskaCelina tematskaCelina : tematskeCelineForDeleting) {
-                    grtc.delete_SingleKey(tematskaCelina.getTematskacelinaId());
+                    grtc.delete(tematskaCelina.getTematskacelinaId());
                 }
 
                 //dodavanje novih tematskih celina u agregaciju
@@ -295,7 +297,7 @@ public class PredmetLogic extends AbstractLogicClass {
 //
 //                //brisanje iz agregacije
 //                for (PredmetNaStudijskomProgramu predmetNaStudijskomProgramu : predmetNaStudijskomProgramuForDeleting) {
-//                    grpnsp.delete_SingleKey(predmetNaStudijskomProgramu.getPredmetNaStudijskomProgramuPK(), PredmetNaStudijskomProgramu.class);
+//                    grpnsp.delete(predmetNaStudijskomProgramu.getPredmetNaStudijskomProgramuPK(), PredmetNaStudijskomProgramu.class);
 //                }
 //
 //                //dodavanje novih u agregaciju 
@@ -326,30 +328,22 @@ public class PredmetLogic extends AbstractLogicClass {
                 et.begin();
 
                 for (UdzbenikNaPredmetu udzbenikNaPredmetu : deletedPredmet.getUdzbenikList()) {
-                    grunp.delete_CompositeKey(Constants.UDZBENIK_NA_PREDMETU_DELETE,
-                            new String[]{Constants.UDZBENIK_ID, Constants.PREDMET_ID},
-                            new int[]{udzbenikNaPredmetu.getUdzbenikNaPredmetuPK().getUdzbenikId(), udzbenikNaPredmetu.getUdzbenikNaPredmetuPK().getPredmetId()});
+                       grunp.delete(udzbenikNaPredmetu.getUdzbenikNaPredmetuPK());
                 }
 
                 for (NastavnikNaPredmetu nastavnikNaPredmetu : deletedPredmet.getNastavnikNaPredmetuList()) {
-                    grnnp.delete_CompositeKey(Constants.NASTAVNIK_NA_PREDMETU_DELETE,
-                            new String[]{Constants.NASTAVNIK_ID, Constants.PREDMET_ID, Constants.TIP_NASTAVE_ID},
-                            new int[]{nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getNastavnikId(),
-                                nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getPredmetId(), nastavnikNaPredmetu.getNastavnikNaPredmetuPK().getTipNastaveId()});
+                    grnnp.delete(nastavnikNaPredmetu.getNastavnikNaPredmetuPK());
                 }
 
                 for (TematskaCelina tematskaCelina : deletedPredmet.getTematskaCelinaList()) {
-                    grtc.delete_SingleKey(tematskaCelina.getTematskacelinaId());
+                    grtc.delete(tematskaCelina.getTematskacelinaId());
                 }
 
                 for (PredmetNaStudijskomProgramu predmetNaStudijskomProgramu : deletedPredmet.getPredmetNaStudijskomProgramuList()) {
-                    grpnsp.delete_CompositeKey(Constants.PREDMET_NA_STUDIJSKOM_PROGRAMU_DELETE,
-                            new String[]{Constants.PREDMET_ID, Constants.STUDIJSKI_PROGRAM_ID},
-                            new int[]{predmetNaStudijskomProgramu.getPredmetNaStudijskomProgramuPK().getPredmetId(),
-                                predmetNaStudijskomProgramu.getPredmetNaStudijskomProgramuPK().getStudijskiprogramId()});
+                    grpnsp.delete(predmetNaStudijskomProgramu.getPredmetNaStudijskomProgramuPK());
                 }
 
-                grp.delete_SingleKey(id);
+                grp.delete(id);
                 et.commit();
                 return deletedPredmet;
             } catch (Exception ex) {

@@ -20,9 +20,14 @@ import repository.GenericRepository;
  */
 public class TematskaCelinaLogic extends AbstractLogicClass {
 
-    @Inject
     private GenericRepository<TematskaCelina> gr;
     private Set<ConstraintViolation<TematskaCelina>> violations;
+
+    public TematskaCelinaLogic() {
+       gr = new GenericRepository(TematskaCelina.class);
+    }
+    
+    
 
 
     public TematskaCelina create(TematskaCelina tematskaCelina) {
@@ -83,7 +88,7 @@ public class TematskaCelinaLogic extends AbstractLogicClass {
             //TODO : strukturna ogranicenja
             try {
                 et.begin();
-                TematskaCelina deletedTematskaCelina = gr.delete_SingleKey(id);
+                TematskaCelina deletedTematskaCelina = gr.delete(id);
                 et.commit();
                 return deletedTematskaCelina;
             } catch (Exception ex) {

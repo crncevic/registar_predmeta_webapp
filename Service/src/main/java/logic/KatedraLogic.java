@@ -19,10 +19,11 @@ import repository.GenericRepository;
 @RequestScoped
 public class KatedraLogic extends AbstractLogicClass {
 
-    @Inject
     private GenericRepository<Katedra> gr;
 
-   
+   public KatedraLogic(){
+     gr = new GenericRepository(Katedra.class);
+   }
 
     public List<Katedra> getAll() throws Exception {
         try {

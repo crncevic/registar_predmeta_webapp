@@ -23,10 +23,15 @@ import repository.GenericRepository;
  */
 public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogicClass {
 
-    @Inject
     private GenericRepository<OsobaUVeziSaUdzbenikom> gr;
     private Set<ConstraintViolation<OsobaUVeziSaUdzbenikom>> violations;
 
+    public OsobaUVeziSaUdzbenikomLogic() {
+        gr = new GenericRepository(OsobaUVeziSaUdzbenikom.class);
+    }
+
+    
+    
     public OsobaUVeziSaUdzbenikom create(OsobaUVeziSaUdzbenikom ouvsu) throws Exception {
         try {
             violations = validator.validate(ouvsu);
@@ -83,7 +88,7 @@ public class OsobaUVeziSaUdzbenikomLogic extends AbstractLogicClass {
             //TODO strukturna ogranicenja
             try {
                 et.begin();
-                OsobaUVeziSaUdzbenikom deletedOsoba = gr.delete_SingleKey(id);
+                OsobaUVeziSaUdzbenikom deletedOsoba = gr.delete(id);
                 et.commit();
                 return deletedOsoba;
             } catch (Exception ex) {
