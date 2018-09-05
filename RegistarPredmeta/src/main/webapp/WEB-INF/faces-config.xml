@@ -44,14 +44,14 @@
             <redirect/>
         </navigation-case>
         
-         <navigation-case>
+        <navigation-case>
             <from-action>#{findPredmet.onUpdate}</from-action>
             <from-outcome>success_update_predmet</from-outcome>
             <to-view-id>predmet_index.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         
-         <navigation-case>
+        <navigation-case>
             <from-action>#{findPredmet.onDelete}</from-action>
             <from-outcome>success_delete_predmet</from-outcome>
             <to-view-id>predmet_index.xhtml</to-view-id>
@@ -65,21 +65,21 @@
             <from-action>#{predmetNaStdProgramuCreate.onCreate}</from-action>
             <from-outcome>success_create_pnsp</from-outcome>
             <to-view-id>std_program_index.xhtml</to-view-id>
-             <redirect/>
+            <redirect/>
         </navigation-case>
         
-         <navigation-case>
+        <navigation-case>
             <from-action>#{predmetNaStdProgramuFind.onUpdate}</from-action>
             <from-outcome>success_update_pnsp</from-outcome>
             <to-view-id>std_program_index.xhtml</to-view-id>
-             <redirect/>
+            <redirect/>
         </navigation-case>
         
-         <navigation-case>
+        <navigation-case>
             <from-action>#{predmetNaStdProgramuFind.onDelete}</from-action>
             <from-outcome>success_delete_pnsp</from-outcome>
             <to-view-id>std_program_index.xhtml</to-view-id>
-             <redirect/>
+            <redirect/>
         </navigation-case>
         
     </navigation-rule>
@@ -93,32 +93,35 @@
     </navigation-rule>
     
     
-    
     <navigation-rule>
-        <from-view-id>predmet_find.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{findPredmet.onUpdate}</from-action>
-            <from-outcome>success</from-outcome>
-            <to-view-id>predmet_index.xhtml</to-view-id>
+            <from-action>#{userManager.signIn}</from-action>
+            <from-outcome>success_sign_in</from-outcome>
+            <to-view-id>index.xhtml</to-view-id>
         </navigation-case>
-    
     </navigation-rule>
     
     <navigation-rule>
-        <from-view-id>predmet_find.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{findPredmet.onDelete}</from-action>
-            <from-outcome>success</from-outcome>
-            <to-view-id>predmet_index.xhtml</to-view-id>
+            <from-action>#{userManager.signOut}</from-action>
+            <from-outcome>signed_out</from-outcome>
+            <to-view-id>index.xhtml</to-view-id>
         </navigation-case>
-    
     </navigation-rule>
     
+
     <navigation-rule>
         <from-view-id>std_program_index.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>find</from-outcome>
             <to-view-id>std_program_find.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+     <navigation-rule>
+        <navigation-case>
+            <from-outcome>signin</from-outcome>
+            <to-view-id>sign_in.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Udzbenik</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="templ.xhtml">
+            <ui:define name="content">
+                <h:form id="udzbenikForm">
+                    <p:growl class="growl"  id="msgs" showDetail="true"/>
+                    <p:outputLabel class="udzbenikTitle">Udzbenik</p:outputLabel>
+                    <div>
+                        <p:outputLabel class="udzbenikTitle"  value="Id"/>
+                        <p:inputText class="inputUdzbenikId" value="#{findUdzbenik.udzbenik.udzbenikId}" disabled="true"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Naziv"/>
+                        <p:inputText class="inputUdzbenikNaziv"  value="#{findUdzbenik.udzbenik.naziv}" disabled="true"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Godina izdanja"/>
+                        <p:inputText class="inputUdzbenikGodinaIzdanja"  value="#{findUdzbenik.udzbenik.godinaIzdanja}" disabled="true"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Izdavac"/>
+                        <p:inputText class="inputUdzbenikIzdavac" value="#{findUdzbenik.udzbenik.izdavac}" disabled="true"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Rbr izdanja"/>
+                        <p:inputText  class="inputUdzbenikRbrIzdanja" value="#{findUdzbenik.udzbenik.rbrIzdanja}" disabled="true"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Stampa"/>
+                        <p:inputText class="inputUdzbenikStampa" value="#{findUdzbenik.udzbenik.stampa}" disabled="true"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="Tiraz"/>
+                        <p:inputText class="inputUdzbenikTiraz" value="#{findUdzbenik.udzbenik.tiraz}" disabled="true"/>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="udzbenikTitle" value="ISBN"/>
+                        <p:inputText class="inputUdzbenikISBN" value="#{findUdzbenik.udzbenik.isbn}" disabled="true"/>
+                    </div>
+
+
+                    <p:outputLabel class="udzbenikTitle" value="Autori i recenzenti"/>
+                    <p:dataTable var="osoba" class="osobaUVezuSaUdzbenikomDataTable"
+                                 value="#{findUdzbenik.udzbenik.osobaUVeziSaUdzbenikomList}" editable="true"
+                                 id="dt" widgetVar="dt">
+
+                        <p:column headerText="Id">
+                            <h:outputText value="#{osoba.osobaId}" />
+                        </p:column>
+
+                        <p:column headerText="Ime">
+                           
+                                <f:facet name="output"><h:outputText value="#{osoba.ime}" /></f:facet>
+                        </p:column>
+
+                        <p:column headerText="Prezime">
+                                <f:facet name="output"> <h:outputText value="#{osoba.prezime}" /></f:facet>
+                        </p:column>
+
+                        <p:column headerText="Titula">
+                                <f:facet name="output"> <h:outputText value="#{osoba.titula}" /></f:facet>
+                        </p:column>
+
+                        <p:column headerText="Uloga">
+                                <f:facet name="output"> <h:outputText value="#{osoba.ulogaDTO.naziv}" /></f:facet>
+                        </p:column>
+
+                      
+
+                       
+                    </p:dataTable>
+
+                    <div class="emptyDiv"></div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

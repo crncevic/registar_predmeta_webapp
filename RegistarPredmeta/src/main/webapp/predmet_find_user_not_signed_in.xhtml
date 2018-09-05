@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Predmet</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="templ.xhtml">
+
+            <ui:define name="content">
+
+                <ui:fragment rendered="#{not userManager.userSignedIn}">
+                    <h:form id="predmetForm" > 
+                        <p:growl class="growl" id="msgs"  showDetail="true"/>
+
+                        <p:outputLabel class="udzbenikTitle">Predmet</p:outputLabel>
+
+                        <div>
+                            <p:outputLabel class="udzbenikTitle"  value="Id"/>
+                            <p:inputText class="inputPredmetId" id="predmetId" value="#{findPredmet.predmet.predmetId}" disabled="true"/>
+                        </div>
+
+                        <div>
+                            <p:outputLabel class="udzbenikTitle"  value="Naziv"/>
+                            <p:inputText class="inputPredmetNaziv" id="predmetNaziv" value="#{findPredmet.predmet.naziv}" disabled="true"/>
+                        </div>
+
+                        <div>
+                            <p:outputLabel class="udzbenikTitle"  value="Uslov"/>
+                            <p:inputText class="inputPredmetUslov" id="predmetUslov" value="#{findPredmet.predmet.uslov}" disabled="true" />
+                        </div>
+
+                        <div>
+                            <p:outputLabel class="udzbenikTitle"  value="Broj casova predavanja nedeljno" />
+                            <p:spinner class="inputPredmetBrCasPredavanja" id="predmetBrPredavanja" value="#{findPredmet.predmet.brCasovaPredavanjaNedeljno}" disabled="true" />
+                        </div>
+
+                        <div>
+                            <p:outputLabel class="udzbenikTitle"  value="Broj casova vezbi nedeljno"/>
+                            <p:spinner class="inputPredmetBrCasVezbi" id="predmetBrVezbi" value="#{findPredmet.predmet.brCasovaVezbiNedeljno}" disabled="true" />
+                        </div>
+
+                        <div>
+                            <p:outputLabel class="udzbenikTitle"  value="Ostali casovi"/>
+                            <p:spinner class="inputPredmetOstaliCasovi" id="predmetBrOstali" value="#{findPredmet.predmet.ostaliCasovi}" disabled="true" />
+                        </div>
+
+                        <div>
+                            <p:outputLabel class="udzbenikTitle"  value="Studijski istrazivacki rad"/>
+                            <p:inputText class="inputPredmetStdIstrRad" id="predmetStdIstrRad"   value="#{findPredmet.predmet.studijskiIstrazivackiRad}" disabled="true" />
+                        </div>
+
+                        <div>
+                            <p:outputLabel class="udzbenikTitle"  value="Drugi oblici nastave"/>
+                            <p:inputText class="inputPredmetDrObliciNastave" value="#{findPredmet.predmet.drugiObliciNastave}" disabled="true" />
+                        </div>
+
+                        <div>
+                            <p:outputLabel class="inputPredmetVrstaINivoStudijaTitle" value="Vrsta i nivo studija:"  />
+                            <p:selectOneMenu class="inputPredmetVrstaINivoStudijaUpdate" value="#{findPredmet.selectedVrstaINivoStudija.vrstaId}"
+                                             id="inputPredmetVrstaINivoStudija" disabled="true" >
+
+                                <f:selectItems  value="#{findPredmet.vrsteINivoiStudija}"  var="vrsta" itemLabel="#{vrsta.naziv}" itemValue="#{vrsta.vrstaId}" />
+                                <p:ajax event="change" listener="#{findPredmet.selectedVrstaINivoStudijaListener}" update=":predmetForm:inputPredmetVrstaINivoStudija" process="@this" immediate="true" />
+                            </p:selectOneMenu>
+
+                        </div>
+
+                        <div>
+                            <p:outputLabel class="udzbenikTitle"  value="Cilj"/>
+                            <div>
+                                <p:inputTextarea class="inputPredmetCilj" rows="8" cols="70"  maxlength="500"  autoResize="false" value="#{findPredmet.predmet.cilj}" disabled="true"/>
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <p:outputLabel class="udzbenikTitle"  value="Ishod"/>
+                            <div>
+                                <p:inputTextarea class="inputPredmetCilj" id="inputPredmetIshod" rows="8" cols="70"  maxlength="500"  autoResize="false" value="#{findPredmet.predmet.ishod}" disabled="true"/>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p:outputLabel class="udzbenikTitle"  value="Sadrzaj tekst"/>
+                            <div>
+                                <p:inputTextarea class="inputPredmetCilj" id="inputPredmetSadrzajTekst" rows="10" cols="70"  maxlength="1000"  autoResize="false" value="#{findPredmet.predmet.sadrzajTekst}" disabled="true" />
+                            </div>
+                        </div>
+
+                        <p:tabView class="tabViewPredmetCreate" id="tabview">
+                            <p:tab title=" Nastavnici na predmetu">
+
+
+
+                                <p:dataTable var="nastavnikNaPredmetu" class="NastavnikNaPredmetuDataTable"
+                                             value="#{findPredmet.predmet.nastavnici}" editable="false"
+                                             id="dt" widgetVar="dt">
+
+                                    <p:column headerText="Ime">
+
+                                        <h:outputText value="#{nastavnikNaPredmetu.nastavnikDTO.ime}" />
+
+                                    </p:column>
+
+                                    <p:column headerText="Prezime">
+
+                                        <h:outputText value="#{nastavnikNaPredmetu.nastavnikDTO.prezime}" />
+
+                                    </p:column>
+
+                                    <p:column headerText="Tip nastave">
+
+                                        <h:outputText value="#{nastavnikNaPredmetu.tipNastaveDTO.naziv}" />
+
+
+                                    </p:column>
+
+                                </p:dataTable>
+
+
+                            </p:tab>
+
+                            <p:tab title="Udzbenici">
+
+                                <p:dataTable var="udzbenik" class="inputPredmetUdbzenikDataTable"
+                                             value="#{findPredmet.predmet.udzbenici}" editable="false"
+                                             id="dt2" widgetVar="dt2">
+
+
+
+                                    <p:column headerText="Naziv">
+                                        <h:outputText value="#{udzbenik.udzbenikDTO.naziv}" />
+                                    </p:column>
+
+                                    <p:column headerText="Godina izdanja">
+
+                                        <h:outputText value="#{udzbenik.udzbenikDTO.godinaIzdanja}" />
+
+                                    </p:column>
+
+                                    <p:column headerText="Izdavac">
+                                        <h:outputText value="#{udzbenik.udzbenikDTO.izdavac}" />
+                                    </p:column>
+
+                                </p:dataTable>
+                            </p:tab>
+                        </p:tabView>
+
+                        <div class="emptyDiv"></div>
+
+                    </h:form>
+                </ui:fragment>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

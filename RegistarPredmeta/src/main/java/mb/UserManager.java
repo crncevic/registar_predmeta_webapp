@@ -14,6 +14,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import ws.client.RestWSClient;
 
 /**
@@ -30,12 +31,17 @@ public class UserManager implements Serializable {
      */
     private RestWSClient restWSClient;
     private KorisnikDTO currentUser;
+    private String username;
+    private String password;
 
     public UserManager() {
+
     }
 
     @PostConstruct
     private void init() {
+        username = "";
+        password = "";
         restWSClient = new RestWSClient(Constants.KORISNIK_CONTROLLER);
     }
 
@@ -43,17 +49,45 @@ public class UserManager implements Serializable {
         return currentUser != null;
     }
 
-    public void signIn() {
-        KorisnikDTO user = restWSClient.getByParam_JSON(KorisnikDTO.class, Constants.KORISNIK_USERNAME, currentUser.getUsername());
-        if(!user.getPassword().equals(currentUser.getPassword())){
+    public String signIn() {
+        KorisnikDTO user = restWSClient.getByParam_JSON(KorisnikDTO.class, Constants.KORISNIK_USERNAME, username);
+        if (!user.getPassword().equals(password)) {
             FacesMessage msg = new FacesMessage("Pogresno korisnicko ime ili password. Pokusajte ponovo");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            return "";
         }
+        currentUser = user;
+        return "success_sign_in";
     }
 
-    public void signOut() {
-     currentUser = null;
-     FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+    public String signOut() {
+        currentUser = null;
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "signed_out";
+    }
+
+    public KorisnikDTO getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(KorisnikDTO currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }

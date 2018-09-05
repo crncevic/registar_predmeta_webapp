@@ -38,44 +38,44 @@ and open the template in the editor.
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <ui:fragment rendered="#{true}">
+
+                        <li class="nav-item">
+                            <p:link outcome="predmet_index.xhtml" value="Predmeti" class="nav-link js-scroll-trigger">
+
+                            </p:link> 
+                        </li>
+                        <li class="nav-item">
+                            <p:link outcome="udzbenik_index.xhtml" value="Udzbenici" class="nav-link js-scroll-trigger">
+
+                            </p:link>
+                        </li>
+                        <li class="nav-item">
+                            <p:link outcome="nastavnik_index.xhtml" value="Nastavnici" class="nav-link js-scroll-trigger">
+
+                            </p:link>
+                        </li>
+                        <li class="nav-item">
+                            <p:link  outcome="katedra_index.xhtml" value="Katedre" class="nav-link js-scroll-trigger">
+
+                            </p:link>
+                        </li>
+
+                        <li class="nav-item">
+                            <p:link  outcome="std_program_index.xhtml" value="Studijski programi" class="nav-link js-scroll-trigger">
+
+                            </p:link>
+                        </li>
+                        <ui:fragment rendered="#{userManager.userSignedIn}">
                             <li class="nav-item">
-                                <p:link outcome="predmet_index.xhtml" value="Predmeti" class="nav-link js-scroll-trigger">
+                                <p:commandLink  action="#{userManager.signOut}" value="Log out" class="nav-link js-scroll-trigger">
 
-                                </p:link> 
-                            </li>
-                            <li class="nav-item">
-                                <p:link outcome="udzbenik_index.xhtml" value="Udzbenici" class="nav-link js-scroll-trigger">
-
-                                </p:link>
-                            </li>
-                            <li class="nav-item">
-                                <p:link outcome="nastavnik_index.xhtml" value="Nastavnici" class="nav-link js-scroll-trigger">
-
-                                </p:link>
-                            </li>
-                            <li class="nav-item">
-                                <p:link  outcome="katedra_index.xhtml" value="Katedre" class="nav-link js-scroll-trigger">
-
-                                </p:link>
-                            </li>
-
-                            <li class="nav-item">
-                                <p:link  outcome="std_program_index.xhtml" value="Studijski programi" class="nav-link js-scroll-trigger">
-
-                                </p:link>
-                            </li>
-
-                            <li class="nav-item">
-                                <p:link  outcome="std_program_index.xhtml" value="Log out" class="nav-link js-scroll-trigger">
-
-                                </p:link>
+                                </p:commandLink>
                             </li>
                         </ui:fragment>
 
-                        <ui:fragment rendered="#{false}">
+                        <ui:fragment rendered="#{not userManager.userSignedIn}">
                             <li class="nav-item">
-                                <p:link  outcome="sign_in.xhtml" value="Log out" class="nav-link js-scroll-trigger">
+                                <p:link  outcome="sign_in.xhtml" value="Log in" class="nav-link js-scroll-trigger">
 
                                 </p:link>
                             </li>

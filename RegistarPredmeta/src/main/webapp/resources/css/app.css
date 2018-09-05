@@ -67,14 +67,16 @@ footer {
     height: 120%;
     width:600px;
     margin: 65px 0 100px 400px;
-    background-color: #9999ff; 
+    background-color: #cccccc; 
+    border-radius: 10px;
 }
 
 #predmetForm{
     height: 120%;
     width:800px;
     margin: 65px 0 100px 300px;
-    background-color: #9999ff; 
+    background-color: #cccccc; 
+    border-radius: 10px;
 }
 
 /* udzbenik form*/
@@ -134,14 +136,15 @@ footer {
 }
 
 .dodajNastavnikaNaPredmet{
-     margin:10px 0 0px 540px;
+    margin:10px 0 0px 540px;
 }
 
 #nastavnikSection{
     height: 650px;
     width:600px;
     margin: -100px 0 100px 400px;
-    background-color: #9999ff; 
+    background-color: #cccccc; 
+    border-radius: 10px;
 }
 
 
@@ -344,8 +347,8 @@ footer {
     height: 120%;
     width:800px;
     margin: 65px 0 100px 300px;
-    background-color: #9999ff; 
-
+    background-color: #cccccc; 
+    border-radius: 10px;
 }
 
 .stdProgramDataTable{
@@ -376,7 +379,8 @@ footer {
     height: 80%;
     width:600px;
     margin: 65px 0 100px 400px;
-    background-color: #9999ff; 
+    background-color: #cccccc; 
+    border-radius: 10px;
 }
 
 .predmetNaStdProgramDataTable{
@@ -389,7 +393,7 @@ footer {
     margin: 30px  0 0 20px;
     font-size: 22px;
     font-weight: bold;
-    
+
 }
 
 .pnspCreate{
@@ -419,11 +423,53 @@ footer {
     height: 80%;
     width:600px;
     margin: 65px 0 100px 400px;
-    background-color: #9999ff;  
+    background-color: #cccccc;
+    border-radius: 10px;
 }
 
 .tabViewPredmetCreate{
     background-color: #cccccc;
     width: 90%;
     margin-left: 5%;
+}
+
+#signInForm{
+    margin: 100px 0 0 475px;
+    background-color: #cccccc;
+    height: 270px;
+    width: 450px;
+    border-radius: 10px;
+}
+
+#signInForm .signInPassword{
+    width: 175px !important;
+}
+
+.signInTitle{
+    margin:30px 0 15px 150px;
+    font-size: 20px;
+    font-weight: bold;
+}
+#signInForm #divUsername{
+    margin-top: 10px;
+    margin-left: 15px;
+    font-weight: bold;
+}
+#ulogujSeButton{
+    margin-left: 120px;
+}
+
+#ulogujSeButtonDiv{
+    margin-top: 10px;
+}
+
+.userNotSignedIn{
+    margin: 100px 0 0 475px;
+    background-color: #cccccc;
+    height: 270px;
+    width: 450px;
+}
+
+.fromHeader{
+    height: 70px;
 }

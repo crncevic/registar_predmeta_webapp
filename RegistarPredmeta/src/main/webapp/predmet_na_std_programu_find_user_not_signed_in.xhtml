@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Predmet na studijskom programu</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="templ.xhtml">
+            <ui:define name="content">
+
+                <h:form id="predmetNaStdProgramuUpdate">
+                    <p:growl id="msgs" showDetail="true" />
+                    <p:outputLabel class="stdProgramTitleCreate" value="#{predmetNaStdProgramuFind.stdProgram.naziv}" ></p:outputLabel>
+
+                    <div>
+                        <p:outputLabel class="pnspCreate">Predmet:</p:outputLabel>
+                        <p:inputText disabled="true" value="#{predmetNaStdProgramuFind.predmetNaStdProgramu.nazivPredmeta}" />
+                    </div> 
+
+                    <div>
+                        <p:outputLabel class="pnspCreate">Status:</p:outputLabel>
+                        <p:selectOneMenu class="pnspStatusCreate" value="#{predmetNaStdProgramuFind.predmetNaStdProgramu.statusDTO.statusId}" disabled="true">
+
+                            <f:selectItems value="#{predmetNaStdProgramuFind.statusi}" var="status" itemLabel="#{status.naziv}" itemValue="#{status.statusId}" />
+                        </p:selectOneMenu>
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="pnspCreate">ESPB:</p:outputLabel>
+                        <p:spinner class="pnspESPB" value="#{predmetNaStdProgramuFind.predmetNaStdProgramu.espb}" stepFactor="1" disabled="true" />
+                    </div>
+
+                    <div>
+                        <p:outputLabel class="pnspCreate">Semestar:</p:outputLabel>
+                        <p:spinner class="pnspSemestar" value="#{predmetNaStdProgramuFind.predmetNaStdProgramu.semestar}" stepFactor="1" disabled="true" />
+                    </div>
+                    <div class="emptyDiv"></div>
+                </h:form>
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

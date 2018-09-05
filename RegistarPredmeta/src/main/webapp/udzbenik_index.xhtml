@@ -14,11 +14,15 @@
 
 
             <ui:define name="content">
-                
-                <p:button styleClass="ui-priority-primary" style="margin: 70px 0 20px 200px;display: inline" class="btn btn-primary" value="Kreiraj" outcome="udzbenik_create.xhtml"/>
-                    
-              
-                
+                <ui:fragment rendered="#{userManager.userSignedIn}">
+                    <p:button styleClass="ui-priority-primary" style="margin: 70px 0 20px 200px;display: inline" class="btn btn-primary" value="Kreiraj" outcome="udzbenik_create.xhtml"/>
+                </ui:fragment>
+
+                <ui:fragment rendered="#{not userManager.userSignedIn}">
+                    <div class="fromHeader"></div>
+                </ui:fragment>
+
+
                 <p:dataTable var="udzbenik" value="#{allUdzbeniks.udzbenici}" 
                              paginator="true" styleClass="udzbenikDataTable" scrollable="true" rows="5"
                              rowsPerPageTemplate="5,10,15">
@@ -39,11 +43,19 @@
                     </p:column>
 
                     <p:column headerText="Detaljnije" class="datatableColumn" width="20px">
-                   
-                        <p:button outcome="find"  icon="ui-icon-search" >
-                            <f:param name="udzbenikId" value="#{udzbenik.udzbenikId}"  />
-                        </p:button> 
-                      
+
+                        <ui:fragment rendered="#{userManager.userSignedIn}">
+                            <p:button outcome="find"  icon="ui-icon-search" >
+                                <f:param name="udzbenikId" value="#{udzbenik.udzbenikId}"  />
+                            </p:button> 
+                        </ui:fragment>
+
+                        <ui:fragment rendered="#{not userManager.userSignedIn}">
+                            <p:button outcome="udzbenik_find_user_not_signed_in.xhtml"  icon="ui-icon-search" >
+                                <f:param name="udzbenikId" value="#{udzbenik.udzbenikId}"  />
+                            </p:button> 
+                        </ui:fragment>
+
                     </p:column>
 
                 </p:dataTable>

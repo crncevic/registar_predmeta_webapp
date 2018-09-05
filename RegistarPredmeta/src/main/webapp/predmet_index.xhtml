@@ -13,22 +13,28 @@ and open the template in the editor.
       >
     <h:head>
         <title>Predmeti</title>
-      
+
     </h:head>
     <h:body>
-        
-        
-        
+
+
+
         <ui:composition  template="templ.xhtml">
             <ui:define name="content">
-                
-                  <p:button styleClass="ui-priority-primary" style="margin: 70px 0 20px 200px;display: inline" class="btn btn-primary" value="Kreiraj" outcome="predmet_create.xhtml"/>
-                
+
+                <ui:fragment rendered="#{userManager.userSignedIn}">
+                    <p:button styleClass="ui-priority-primary" style="margin: 70px 0 20px 200px;display: inline" class="btn btn-primary" value="Kreiraj" outcome="predmet_create.xhtml"/>
+                </ui:fragment>
+
+                <ui:fragment rendered="#{not userManager.userSignedIn}">
+                    <div class="fromHeader"></div>
+                </ui:fragment>
+
                 <p:dataTable var="predmet" value="#{allPredmet.predmeti}" 
                              paginator="true" styleClass="predmetDataTable" scrollable="true" rows="5"
                              rowsPerPageTemplate="5,10,15">
-                    
-                    
+
+
                     <p:column headerText="Id" class="datatableColumn"  >
                         <h:outputText value="#{predmet.predmetId}" />
                     </p:column>
@@ -46,11 +52,18 @@ and open the template in the editor.
                     </p:column>
 
                     <p:column headerText="Detaljnije" class="datatableColumn" width="20px">
-                      
-                        <p:button outcome="predmet_find.xhtml"  icon="ui-icon-search" >
-                            <f:param name="predmetId" value="#{predmet.predmetId}"/>
-                        </p:button>
-                       
+                        <ui:fragment rendered="#{userManager.userSignedIn}">
+                            <p:button outcome="predmet_find.xhtml"  icon="ui-icon-search" >
+                                <f:param name="predmetId" value="#{predmet.predmetId}"/>
+                            </p:button>
+                        </ui:fragment>
+
+                        <ui:fragment rendered="#{not userManager.userSignedIn}">
+                            <p:button outcome="predmet_find_user_not_signed_in.xhtml"  icon="ui-icon-search" >
+                                <f:param name="predmetId" value="#{predmet.predmetId}"/>
+                            </p:button>
+                        </ui:fragment>
+
                     </p:column>
 
                 </p:dataTable>

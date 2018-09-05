@@ -305,6 +305,9 @@ public class PredmetLogic extends AbstractLogicClass {
 //                    grpnsp.update(predmetNaStudijskomProgramu);
 //                }
                 //</editor-fold>
+                predmet.setUdzbenikList(null);
+                predmet.setNastavnikNaPredmetuList(null);
+                predmet.setTematskaCelinaList(null);
                 Predmet updatedPredmet = grp.update(predmet);
                 et.commit();
                 return updatedPredmet;

@@ -118,7 +118,7 @@ public class KorisnikLogic extends AbstractLogicClass {
 
     public Korisnik getByUsername(String username) throws Exception {
         try {
-            return gr.getSingleByParamsFromNamedQuery(new Object[]{username}, Constants.KORISNIK_FIND_ALL, new String[]{Constants.KORISNIK_USERNAME});
+            return gr.getSingleByParamsFromNamedQuery(new Object[]{username}, Constants.KORISNIK_FIND_BY_USERNAME, new String[]{Constants.KORISNIK_USERNAME});
         } catch (Exception e) {
             throw new Exception("Dogodila se greska prilikom ucitavanja korisnika sa username: " + username + "{" + e.getMessage() + "}");
         }

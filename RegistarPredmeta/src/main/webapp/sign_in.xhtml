@@ -25,6 +25,7 @@ and open the template in the editor.
         <!-- Custom styles for this template -->
         <link href="resources/css/scrolling-nav.css" rel="stylesheet"></link>
         <link href="resources/css/app.css" rel="stylesheet"></link>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"/>
     </h:head>
     <h:body>
 
@@ -40,21 +41,48 @@ and open the template in the editor.
             </div>
         </nav>
 
-        <div class="ui-g ui-fluid">
-            <div class="ui-g-12 ui-md-4">
-                <div class="ui-inputgroup">
-                    <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
-                    <p:inputText placeholder="Username" />      
+        <h:form id="signInForm">
+
+            <div class="row">
+                <p:outputLabel class="signInTitle" value="Ulogujte se" />
+            </div>
+            <div class="row">
+
+                <div class="ui-g-12 ui-md-3" id="divUsername">
+                    <p:outputLabel value="Username :" />
                 </div>
-                
-                <div class="ui-g-12 ui-md-4">
-                <div class="ui-inputgroup">
-                    <span class="ui-inputgroup-addon"><i class="fa fa-password"></i></span>
-                    <p:inputText type="password" placeholder="Password" />      
+
+                <div class="ui-g-12 ui-md-5">
+
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                        <p:inputText placeholder="Username" value="#{userManager.username}"/>      
+                    </div>
                 </div>
             </div>
+
+            <div class="row">
+
+                <div class="ui-g-12 ui-md-3" id="divUsername">
+                    <p:outputLabel value="Password :" />
+                </div>
+
+                <div class="ui-g-12 ui-md-5">
+
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon"><i class="fas fa-key"></i></span>
+                        <p:inputText type="password" placeholder="Password" value="#{userManager.password}" />      
+                    </div>
+                </div>
             </div>
-        </div>
+
+            <div class="row" id="ulogujSeButtonDiv">
+                <div class="col-lg-7"/>
+                <div class="col-lg-2">
+                    <p:commandButton  id ="ulogujSeButton" action="#{userManager.signIn}" class="btn btn-info" value="Uloguj se" />
+                </div>
+            </div>
+        </h:form>
 
         <footer class="bg-dark">
             <div class="container" id="fot">

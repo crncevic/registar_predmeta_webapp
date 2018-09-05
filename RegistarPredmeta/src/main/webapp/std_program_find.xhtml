@@ -17,11 +17,14 @@ and open the template in the editor.
     <h:body>
         <ui:composition template="templ.xhtml">
             <ui:define name="content">
-                
+
                 <h:outputLabel value="#{findStdProgram.stdProgram.naziv}"  class="stdProgram"/>
-                <h:button value="Dodaj novi predmet"  outcome="predmet_na_std_programu_create" class="dodajNoviPredmetNaStdProgram" styleClass="ui-priority-primary" >
-                    <f:param name="studijskiProgramId" value="#{findStdProgram.stdProgram.studijskiProgramId}" />
-                </h:button>
+
+                <ui:fragment rendered="#{userManager.userSignedIn}">
+                    <h:button value="Dodaj novi predmet"  outcome="predmet_na_std_programu_create" class="dodajNoviPredmetNaStdProgram" styleClass="ui-priority-primary" >
+                        <f:param name="studijskiProgramId" value="#{findStdProgram.stdProgram.studijskiProgramId}" />
+                    </h:button>
+                </ui:fragment>
 
                 <p:dataTable id="stddt" class="predmetNaStdProgramDataTable" var="predmetStdPr" value="#{findStdProgram.predmetiNaStdProgramu}">
 
@@ -39,16 +42,28 @@ and open the template in the editor.
                     <p:column headerText="ESPB">
                         <h:outputText value="#{predmetStdPr.espb}" />
                     </p:column>
-                    
-                      <p:column style="width:72px;text-align: center">
-                        <p:button outcome="predmet_na_std_programu_find.xhtml"  icon="ui-icon-search" title="View">
-                            <f:param name="studijskiProgramId" value="#{predmetStdPr.studijskiProgramId}"/>
-                            <f:param name="predmetId" value="#{predmetStdPr.predmetId}"/>
-                        </p:button>
+
+
+                    <p:column style="width:72px;text-align: center">
+                        <ui:fragment rendered="#{userManager.userSignedIn}">
+                            <p:button outcome="predmet_na_std_programu_find.xhtml"  icon="ui-icon-search" title="View">
+                                <f:param name="studijskiProgramId" value="#{predmetStdPr.studijskiProgramId}"/>
+                                <f:param name="predmetId" value="#{predmetStdPr.predmetId}"/>
+                            </p:button>
+                        </ui:fragment>
+
+                        <ui:fragment rendered="#{not userManager.userSignedIn}">
+                            <p:button outcome="predmet_na_std_programu_find_user_not_signed_in.xhtml"  icon="ui-icon-search" title="View">
+                                <f:param name="studijskiProgramId" value="#{predmetStdPr.studijskiProgramId}"/>
+                                <f:param name="predmetId" value="#{predmetStdPr.predmetId}"/>
+                            </p:button>
+                        </ui:fragment>
                     </p:column>
 
+                    
+
                 </p:dataTable>
-                
+
 
             </ui:define>
         </ui:composition>
