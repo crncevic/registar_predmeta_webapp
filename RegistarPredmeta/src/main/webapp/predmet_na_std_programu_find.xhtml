@@ -36,12 +36,16 @@ and open the template in the editor.
 
                     <div>
                         <p:outputLabel class="pnspCreate">ESPB:</p:outputLabel>
-                        <p:spinner class="pnspESPB" value="#{predmetNaStdProgramuFind.predmetNaStdProgramu.espb}" stepFactor="1" />
+                        <p:spinner class="pnspESPB" value="#{predmetNaStdProgramuFind.predmetNaStdProgramu.espb}" stepFactor="1">
+                            <f:validator validatorId="validators.espbValidator" />
+                        </p:spinner>
                     </div>
 
                     <div>
                         <p:outputLabel class="pnspCreate">Semestar:</p:outputLabel>
-                        <p:spinner class="pnspSemestar" value="#{predmetNaStdProgramuFind.predmetNaStdProgramu.semestar}" stepFactor="1" />
+                        <p:spinner class="pnspSemestar" value="#{predmetNaStdProgramuFind.predmetNaStdProgramu.semestar}" stepFactor="1" >
+                            <f:validator validatorId="validators.semestarValidator" />
+                        </p:spinner>
                     </div>
 
                     <hr/>

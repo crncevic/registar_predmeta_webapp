@@ -31,12 +31,16 @@ and open the template in the editor.
 
                         <div>
                             <p:outputLabel class="udzbenikTitle" value="Naziv"/>
-                            <p:inputText class="inputUdzbenikNaziv"  value="#{findUdzbenik.udzbenik.naziv}"/>
+                            <p:inputText class="inputUdzbenikNaziv"  value="#{findUdzbenik.udzbenik.naziv}">
+                                <f:validator validatorId="validators.nazivUdzbenikaValidator" />
+                            </p:inputText>
                         </div>
 
                         <div>
                             <p:outputLabel class="udzbenikTitle" value="Godina izdanja"/>
-                            <p:inputText class="inputUdzbenikGodinaIzdanja"  value="#{findUdzbenik.udzbenik.godinaIzdanja}"/>
+                            <p:inputText class="inputUdzbenikGodinaIzdanja"  value="#{findUdzbenik.udzbenik.godinaIzdanja}">
+                                <f:validator validatorId="validators.godinaIzdanjaValidator" />
+                            </p:inputText>
                         </div>
 
                         <div>
@@ -46,7 +50,9 @@ and open the template in the editor.
 
                         <div>
                             <p:outputLabel class="udzbenikTitle" value="Rbr izdanja"/>
-                            <p:inputText  class="inputUdzbenikRbrIzdanja" value="#{findUdzbenik.udzbenik.rbrIzdanja}"/>
+                            <p:inputText  class="inputUdzbenikRbrIzdanja" value="#{findUdzbenik.udzbenik.rbrIzdanja}" >
+                                <f:validator validatorId="validators.rbrIzdanjaValidator" />
+                            </p:inputText>
                         </div>
 
                         <div>
@@ -56,12 +62,16 @@ and open the template in the editor.
 
                         <div>
                             <p:outputLabel class="udzbenikTitle" value="Tiraz"/>
-                            <p:inputText class="inputUdzbenikTiraz" value="#{findUdzbenik.udzbenik.tiraz}"/>
+                            <p:inputText class="inputUdzbenikTiraz" value="#{findUdzbenik.udzbenik.tiraz}">
+                                <f:validator validatorId="validators.tirazValidator" />
+                            </p:inputText>
                         </div>
 
                         <div>
                             <p:outputLabel class="udzbenikTitle" value="ISBN"/>
-                            <p:inputText class="inputUdzbenikISBN" value="#{findUdzbenik.udzbenik.isbn}"/>
+                            <p:inputText class="inputUdzbenikISBN" value="#{findUdzbenik.udzbenik.isbn}">
+                                <f:validator validatorId="validators.isbnValidator" />
+                            </p:inputText>
                         </div>
 
 

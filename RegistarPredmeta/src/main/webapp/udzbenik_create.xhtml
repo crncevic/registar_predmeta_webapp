@@ -29,12 +29,16 @@ and open the template in the editor.
 
                         <div>
                             <p:outputLabel class="udzbenikTitle" value="Naziv"/>
-                            <p:inputText class="inputUdzbenikNaziv"  value="#{createUdzbenik.newUdzbenik.naziv}"/>
+                            <p:inputText class="inputUdzbenikNaziv"  value="#{createUdzbenik.newUdzbenik.naziv}">
+                                <f:validator validatorId="validators.nazivUdzbenikaValidator" />
+                            </p:inputText>
                         </div>
 
                         <div>
                             <p:outputLabel class="udzbenikTitle" value="Godina izdanja"/>
-                            <p:inputText class="inputUdzbenikGodinaIzdanja"  value="#{createUdzbenik.newUdzbenik.godinaIzdanja}"/>
+                            <p:inputText class="inputUdzbenikGodinaIzdanja"  value="#{createUdzbenik.newUdzbenik.godinaIzdanja}">
+                                <f:validator validatorId="validators.godinaIzdanjaValidator" />
+                            </p:inputText>
                         </div>
 
                         <div>
@@ -44,7 +48,9 @@ and open the template in the editor.
 
                         <div>
                             <p:outputLabel class="udzbenikTitle" value="Rbr izdanja"/>
-                            <p:inputText  class="inputUdzbenikRbrIzdanja" value="#{createUdzbenik.newUdzbenik.rbrIzdanja}"/>
+                            <p:inputText  class="inputUdzbenikRbrIzdanja" value="#{createUdzbenik.newUdzbenik.rbrIzdanja}">
+                                <f:validator validatorId="validators.rbrIzdanjaValidator" />
+                            </p:inputText>
                         </div>
 
                         <div>
@@ -54,12 +60,16 @@ and open the template in the editor.
 
                         <div>
                             <p:outputLabel class="udzbenikTitle" value="Tiraz"/>
-                            <p:inputText class="inputUdzbenikTiraz" value="#{createUdzbenik.newUdzbenik.tiraz}"/>
+                            <p:inputText class="inputUdzbenikTiraz" value="#{createUdzbenik.newUdzbenik.tiraz}" >
+                                <f:validator validatorId="validators.tirazValidator" />
+                            </p:inputText>
                         </div>
 
                         <div>
                             <p:outputLabel class="udzbenikTitle" value="ISBN"/>
-                            <p:inputText class="inputUdzbenikISBN" value="#{createUdzbenik.newUdzbenik.isbn}"/>
+                            <p:inputText class="inputUdzbenikISBN" value="#{createUdzbenik.newUdzbenik.isbn}">
+                                <f:validator validatorId="validators.isbnValidator" />
+                            </p:inputText>
                         </div>
 
 
@@ -130,7 +140,7 @@ and open the template in the editor.
 
                         <hr  />
 
-                        <p:commandLink type="submit" action="#{createUdzbenik.createUdzbenik}" value="Sacuvaj" styleClass="ui-priority-primary" class="btn btn-success" style="margin: 0 0 20px 120px" />
+                        <p:commandLink type="submit" action="#{createUdzbenik.createUdzbenik}" update=":udzbenikForm:msgs" value="Sacuvaj" styleClass="ui-priority-primary" class="btn btn-success" style="margin: 0 0 20px 120px" />
 
                         <p:button outcome="udzbenik_index.xhtml" value="Odustani" styleClass="ui-priority-primary" class="btn btn-secondstyleClassary" style="margin: 0 0 20px 70px" />
                     </h:form>

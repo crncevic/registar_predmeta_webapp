@@ -31,7 +31,9 @@ and open the template in the editor.
 
                         <div>
                             <p:outputLabel class="udzbenikTitle"  value="Naziv"/>
-                            <p:inputText class="inputPredmetNaziv" id="predmetNaziv" value="#{findPredmet.predmet.naziv}"/>
+                            <p:inputText class="inputPredmetNaziv" id="predmetNaziv" value="#{findPredmet.predmet.naziv}">
+                                <f:validator validatorId="validators.nazivPredmetValidator" />
+                            </p:inputText>
                         </div>
 
                         <div>
@@ -41,17 +43,23 @@ and open the template in the editor.
 
                         <div>
                             <p:outputLabel class="udzbenikTitle"  value="Broj casova predavanja nedeljno"/>
-                            <p:spinner class="inputPredmetBrCasPredavanja" id="predmetBrPredavanja" value="#{findPredmet.predmet.brCasovaPredavanjaNedeljno}" />
+                            <p:spinner class="inputPredmetBrCasPredavanja" id="predmetBrPredavanja" value="#{findPredmet.predmet.brCasovaPredavanjaNedeljno}">
+                                <f:validator validatorId="validators.brCasovaValidator"/>
+                            </p:spinner>
                         </div>
 
                         <div>
                             <p:outputLabel class="udzbenikTitle"  value="Broj casova vezbi nedeljno"/>
-                            <p:spinner class="inputPredmetBrCasVezbi" id="predmetBrVezbi" value="#{findPredmet.predmet.brCasovaVezbiNedeljno}" />
+                            <p:spinner class="inputPredmetBrCasVezbi" id="predmetBrVezbi" value="#{findPredmet.predmet.brCasovaVezbiNedeljno}" >
+                                <f:validator validatorId="validators.brCasovaValidator"/>
+                            </p:spinner>
                         </div>
 
                         <div>
                             <p:outputLabel class="udzbenikTitle"  value="Ostali casovi"/>
-                            <p:spinner class="inputPredmetOstaliCasovi" id="predmetBrOstali" value="#{findPredmet.predmet.ostaliCasovi}" />
+                            <p:spinner class="inputPredmetOstaliCasovi" id="predmetBrOstali" value="#{findPredmet.predmet.ostaliCasovi}">
+                                <f:validator validatorId="validators.brCasovaValidator"/>
+                            </p:spinner>
                         </div>
 
                         <div>
@@ -228,8 +236,8 @@ and open the template in the editor.
 
                     </h:form>
                 </ui:fragment>
-                
-                 <ui:fragment rendered="#{not userManager.userSignedIn}">
+
+                <ui:fragment rendered="#{not userManager.userSignedIn}">
 
                     <div class="userNotSignedIn">
                         <p:outputLabel>Da bi ste nastavili dalje molimo vas da se <h:link outcome="signin">prijavite</h:link> na sistem</p:outputLabel>

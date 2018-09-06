@@ -41,48 +41,54 @@ and open the template in the editor.
             </div>
         </nav>
 
-        <h:form id="signInForm">
-            <p:growl id="msgs" showDetail="true" />
-            <div class="row">
-                <p:outputLabel class="signInTitle" value="Ulogujte se" />
-            </div>
-            <div class="row">
-
-                <div class="ui-g-12 ui-md-3" id="divUsername">
-                    <p:outputLabel value="Username :" />
+        <section class="signInSection">
+            <h:form id="signInForm">
+                <p:growl id="msgs" showDetail="true" />
+                <div class="row">
+                    <p:outputLabel class="signInTitle" value="Ulogujte se" />
                 </div>
+                <div class="row">
 
-                <div class="ui-g-12 ui-md-5">
+                    <div class="ui-g-12 ui-md-3" id="divUsername">
+                        <p:outputLabel value="Username :" />
+                    </div>
 
-                    <div class="ui-inputgroup">
-                        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
-                        <p:inputText placeholder="Username" value="#{userManager.username}"/>      
+                    <div class="ui-g-12 ui-md-5">
+
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                            <p:inputText id="username" placeholder="Username" value="#{userManager.username}" >
+                                <f:validator validatorId="validators.usernameValidator" />
+                            </p:inputText>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
+                <div class="row">
 
-                <div class="ui-g-12 ui-md-3" id="divUsername">
-                    <p:outputLabel value="Password :" />
-                </div>
+                    <div class="ui-g-12 ui-md-3" id="divUsername">
+                        <p:outputLabel value="Password :" />
+                    </div>
 
-                <div class="ui-g-12 ui-md-5">
+                    <div class="ui-g-12 ui-md-5">
 
-                    <div class="ui-inputgroup">
-                        <span class="ui-inputgroup-addon"><i class="fas fa-key"></i></span>
-                        <p:inputText type="password" placeholder="Password" value="#{userManager.password}" />      
+                        <div class="ui-inputgroup">
+                            <span class="ui-inputgroup-addon"><i class="fas fa-key"></i></span>
+                            <p:inputText type="password" placeholder="Password" value="#{userManager.password}" >
+                               <f:validator validatorId="validators.passwordValidator" />
+                            </p:inputText>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row" id="ulogujSeButtonDiv">
-                <div class="col-lg-7"/>
-                <div class="col-lg-2">
-                    <p:commandButton  id ="ulogujSeButton" action="#{userManager.signIn}" class="btn btn-info" value="Uloguj se" update=":signInForm:msgs" />
+                <div class="row" id="ulogujSeButtonDiv">
+                    <div class="col-lg-7"/>
+                    <div class="col-lg-2">
+                        <p:commandButton id ="ulogujSeButton" action="#{userManager.signIn}" class="btn btn-info" value="Uloguj se" update=":signInForm:msgs" />
+                    </div>
                 </div>
-            </div>
-        </h:form>
+            </h:form>
+        </section>
 
         <footer class="bg-dark">
             <div class="container" id="fot">

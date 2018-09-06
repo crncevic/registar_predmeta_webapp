@@ -56,6 +56,7 @@ public class UserManager implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             FacesMessage msg = new FacesMessage("Pogresno korisnicko ime ili password. Pokusajte ponovo");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            resetValues();
 
             return "failure_sign_in";
         }
@@ -91,6 +92,11 @@ public class UserManager implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    private void resetValues() {
+        username = "";
+        password = "";
     }
 
 }
