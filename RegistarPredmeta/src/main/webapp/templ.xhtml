@@ -30,7 +30,7 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <!-- Navigation -->
-        <nav  class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <nav  class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav" style="z-index: 1">
             <div class="container">
                 <a class="navbar-brand js-scroll-trigger" href="index.xhtml">Registar predmeta</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,11 +65,13 @@ and open the template in the editor.
 
                             </p:link>
                         </li>
-                        <ui:fragment rendered="#{userManager.userSignedIn}">
-                            <li class="nav-item">
-                                <p:commandLink  action="#{userManager.signOut}" value="Log out" class="nav-link js-scroll-trigger">
 
-                                </p:commandLink>
+
+                        <ui:fragment rendered="#{userManager.userSignedIn}" >
+                            <li class="nav-item">
+                                <h:form>
+                                    <p:commandLink action="#{userManager.signOut}" value="Log out" partialSubmit="true" class="nav-link js-scroll-trigger" />
+                                </h:form>
                             </li>
                         </ui:fragment>
 
@@ -84,11 +86,12 @@ and open the template in the editor.
                 </div>
             </div>
         </nav>
-
+        
         <ui:insert name="content"/>
 
 
-        <footer class="bg-dark">
+
+        <footer class="bg-dark" >
             <div class="container" id="fot">
                 <p class="m-0 text-center text-white"> Registar predmeta web app</p>
             </div>

@@ -21,28 +21,23 @@ and open the template in the editor.
             <ui:define name="content">
                 <p:dataTable class="nastavnikDataTable" var="nastavnik" value="#{allNastavnik.nastavnici}"
                              paginator="true" scrollable="true" rows="5"
-                             rowsPerPageTemplate="5,10,15" widgetVar="ndt"   filteredValue="#{allNastavnik.filteredNastavnici}"
-                            emptyMessage="Sistem ne moze da nadje nastavnike po zaatoj vrednosti"  >
+                             rowsPerPageTemplate="5,10,15" widgetVar="ndt"
+                             emptyMessage="Sistem ne moze da nadje nastavnike po zaatoj vrednosti"  >
 
-                    <f:facet name="header">
-                        <p:outputPanel>
-                            <h:outputText value="Pretrazite sva polja:" />
-                            <p:inputText id="globalFilter" onkeyup="PF('ndt').filter()" style="width:150px" placeholder="Unesite pojam:"/>
-                        </p:outputPanel>
-                    </f:facet>
-                    <p:column filterBy="#{nastavnik.nastavnikId}"  headerText="Id" class="datatableColumn" filterMatchMode="contains">
+
+                    <p:column   headerText="Id" class="datatableColumn" >
                         <h:outputText value="#{nastavnik.nastavnikId}" />
                     </p:column>
 
-                    <p:column filterBy="#{nastavnik.ime} " headerText="Ime i prezime" class="datatableColumn" >
+                    <p:column  headerText="Ime i prezime" class="datatableColumn" >
                         <h:outputText value="#{nastavnik.ime} #{nastavnik.prezime}" />
                     </p:column>
 
-                    <p:column filterBy="#{nastavnik.zvanje}" headerText="Zvanje" class="datatableColumn" filterMatchMode="contains">
+                    <p:column  headerText="Zvanje" class="datatableColumn" >
                         <h:outputText value="#{nastavnik.zvanje}" />
                     </p:column>
 
-                    <p:column filterBy="#{nastavnik.katedraDTO.naziv}" headerText="Katedra" class="datatableColumn" filterMatchMode="contains">
+                    <p:column  headerText="Katedra" class="datatableColumn" filterMatchMode="contains">
                         <h:outputText value="#{nastavnik.katedraDTO.naziv}" />
                     </p:column>
 

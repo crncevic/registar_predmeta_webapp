@@ -14,6 +14,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.view.ViewScoped;
 import ws.client.RestWSClient;
 
@@ -51,10 +52,12 @@ public class UserManager implements Serializable {
 
     public String signIn() {
         KorisnikDTO user = restWSClient.getByParam_JSON(KorisnikDTO.class, Constants.KORISNIK_USERNAME, username);
-        if (!user.getPassword().equals(password)) {
+        if (user == null || !user.getPassword().equals(password)) {
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
             FacesMessage msg = new FacesMessage("Pogresno korisnicko ime ili password. Pokusajte ponovo");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "";
+
+            return "failure_sign_in";
         }
         currentUser = user;
         return "success_sign_in";

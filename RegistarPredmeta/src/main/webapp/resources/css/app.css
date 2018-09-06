@@ -140,9 +140,9 @@ footer {
 }
 
 #nastavnikSection{
-    height: 650px;
+    height: 500px;
     width:600px;
-    margin: -100px 0 100px 400px;
+    margin: 70px 0 100px 400px;
     background-color: #cccccc; 
     border-radius: 10px;
 }

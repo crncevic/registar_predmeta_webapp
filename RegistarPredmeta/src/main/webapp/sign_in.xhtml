@@ -42,7 +42,7 @@ and open the template in the editor.
         </nav>
 
         <h:form id="signInForm">
-
+            <p:growl id="msgs" showDetail="true" />
             <div class="row">
                 <p:outputLabel class="signInTitle" value="Ulogujte se" />
             </div>
@@ -79,7 +79,7 @@ and open the template in the editor.
             <div class="row" id="ulogujSeButtonDiv">
                 <div class="col-lg-7"/>
                 <div class="col-lg-2">
-                    <p:commandButton  id ="ulogujSeButton" action="#{userManager.signIn}" class="btn btn-info" value="Uloguj se" />
+                    <p:commandButton  id ="ulogujSeButton" action="#{userManager.signIn}" class="btn btn-info" value="Uloguj se" update=":signInForm:msgs" />
                 </div>
             </div>
         </h:form>
