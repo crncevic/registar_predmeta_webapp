@@ -25,23 +25,23 @@ and open the template in the editor.
                              emptyMessage="Sistem ne moze da nadje nastavnike po zaatoj vrednosti"  >
 
 
-                    <p:column   headerText="Id" class="datatableColumn" >
-                        <h:outputText value="#{nastavnik.nastavnikId}" />
+                    <p:column  style="width: inherit;" headerText="Id" class="datatableColumn" sortBy="#{nastavnik.nastavnikId}">
+                        <h:outputText   value="#{nastavnik.nastavnikId}" />
                     </p:column>
 
-                    <p:column  headerText="Ime i prezime" class="datatableColumn" >
+                    <p:column style="width: inherit;" headerText="Ime i prezime" class="datatableColumn" sortBy="#{nastavnik.prezime}">
                         <h:outputText value="#{nastavnik.ime} #{nastavnik.prezime}" />
                     </p:column>
 
-                    <p:column  headerText="Zvanje" class="datatableColumn" >
-                        <h:outputText value="#{nastavnik.zvanje}" />
+                    <p:column style="width: inherit;"  headerText="Zvanje" class="datatableColumn" sortBy="#{nastavnik.zvanje}">
+                        <h:outputText value="#{nastavnik.zvanje}"  />
                     </p:column>
 
-                    <p:column  headerText="Katedra" class="datatableColumn" filterMatchMode="contains">
+                    <p:column style="width: inherit;"  headerText="Katedra" class="datatableColumn" sortBy="#{nastavnik.katedraDTO.naziv}">
                         <h:outputText value="#{nastavnik.katedraDTO.naziv}" />
                     </p:column>
 
-                    <p:column headerText="Detaljnije" class="datatableColumn" width="20px">
+                    <p:column style="width: inherit;" headerText="Detaljnije" class="datatableColumn" width="20px">
 
                         <p:button outcome="find"  icon="ui-icon-search" >
                             <f:param name="nastavnikId" value="#{nastavnik.nastavnikId}"/>

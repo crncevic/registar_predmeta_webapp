@@ -26,23 +26,23 @@
                 <p:dataTable var="udzbenik" value="#{allUdzbeniks.udzbenici}" 
                              paginator="true" styleClass="udzbenikDataTable" scrollable="true" rows="5"
                              rowsPerPageTemplate="5,10,15">
-                    <p:column headerText="Id" class="datatableColumn"  >
+                    <p:column style="width: inherit;" headerText="Id" class="datatableColumn" sortBy="#{udzbenik.udzbenikId}" >
                         <h:outputText value="#{udzbenik.udzbenikId}" />
                     </p:column>
 
-                    <p:column headerText="Naziv" class="datatableColumn" >
+                    <p:column style="width: inherit;"  headerText="Naziv" class="datatableColumn" sortBy="#{udzbenik.naziv}" >
                         <h:outputText value="#{udzbenik.naziv}" />
                     </p:column>
 
-                    <p:column headerText="Godina izdanja" class="datatableColumn" >
+                    <p:column style="width: inherit;" headerText="Godina izdanja" class="datatableColumn" sortBy="#{udzbenik.godinaIzdanja}" >
                         <h:outputText value="#{udzbenik.godinaIzdanja}" />
                     </p:column>
 
-                    <p:column headerText="Izdavac" class="datatableColumn" >
+                    <p:column style="width: inherit;" headerText="Izdavac" class="datatableColumn" sortBy="#{udzbenik.izdavac}" >
                         <h:outputText value="#{udzbenik.izdavac}" />
                     </p:column>
 
-                    <p:column headerText="Detaljnije" class="datatableColumn" width="20px">
+                    <p:column style="width: inherit;" headerText="Detaljnije" class="datatableColumn" width="20px">
 
                         <ui:fragment rendered="#{userManager.userSignedIn}">
                             <p:button outcome="find"  icon="ui-icon-search" >

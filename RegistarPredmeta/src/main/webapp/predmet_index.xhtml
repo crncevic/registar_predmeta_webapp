@@ -35,23 +35,21 @@ and open the template in the editor.
                              rowsPerPageTemplate="5,10,15">
 
 
-                    <p:column headerText="Id" class="datatableColumn"  >
+                    <p:column style="width: inherit;" headerText="Id" class="datatableColumn" sortBy="#{predmet.predmetId}" >
                         <h:outputText value="#{predmet.predmetId}" />
                     </p:column>
 
-                    <p:column  headerText="Naziv" class="datatableColumn" >
+                    <p:column style="width: inherit;" headerText="Naziv" class="datatableColumn" sortBy="#{predmet.naziv}">
                         <h:outputText value="#{predmet.naziv}" />
                     </p:column>
 
-                    <p:column  headerText="Uslov" class="datatableColumn" >
+                    <p:column style="width: inherit;" headerText="Uslov" class="datatableColumn" sortBy="#{predmet.uslov}" >
                         <h:outputText value="#{predmet.uslov}" />
                     </p:column>
 
-                    <p:column headerText="Studijski programi" class="datatableColumn" >
-                        <h:outputText value="#{allPredmet.getStudijskiProgramForPredmet(predmet.predmetId)}" />
-                    </p:column>
 
-                    <p:column headerText="Detaljnije" class="datatableColumn" width="20px">
+
+                    <p:column style="width: inherit;" headerText="Detaljnije" class="datatableColumn" width="20px">
                         <ui:fragment rendered="#{userManager.userSignedIn}">
                             <p:button outcome="predmet_find.xhtml"  icon="ui-icon-search" >
                                 <f:param name="predmetId" value="#{predmet.predmetId}"/>

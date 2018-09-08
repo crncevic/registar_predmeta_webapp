@@ -477,3 +477,7 @@ footer {
 .signInSection{
     margin: -100px 0 0 0;
 }
+
+.ui-datatable-tablewrapper {
+  overflow-x: auto;
+}
