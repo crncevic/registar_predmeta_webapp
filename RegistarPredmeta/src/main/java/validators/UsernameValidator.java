@@ -21,10 +21,28 @@ public class UsernameValidator implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        String username = (String) value;
-        
-        if(username.trim().length() == 0){
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,"Niste uneli username!",null));
+        try {
+
+            if(value == null){
+                    throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Niste uneli username!", null));
+            }
+            String username="";
+            try{
+            username = (String) value;
+            }catch(Exception ex){
+                    throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username mora imati bar jedan karakter !", null));
+            }
+
+            if (username.trim().length() == 0) {
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Niste uneli username!", null));
+            }
+        } catch (ValidatorException ve) {
+            throw ve;
+        } catch (Exception ex) {
+            throw new ValidatorException(
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Greska u sistemu prilikom validacije!", null));
         }
     }
 

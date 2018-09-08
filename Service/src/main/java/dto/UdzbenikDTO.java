@@ -37,7 +37,7 @@ public class UdzbenikDTO implements Serializable{
     
     private Integer tiraz;
    
-    private Integer isbn;
+    private String isbn;
   
    
    
@@ -99,11 +99,11 @@ public class UdzbenikDTO implements Serializable{
         this.tiraz = tiraz;
     }
 
-    public Integer getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Integer isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 

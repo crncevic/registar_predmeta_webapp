@@ -21,26 +21,38 @@ public class BrCasovaValidator implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-       
-        if(((String)value).trim().length() == 0){
-            return;
-        }
-        
-        int brCas = 0;
-        try {
-            brCas = (int) value;
-        } catch (Exception ex) {
-            throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Br casova mora biti ceo broj!", null));
-        }
-        if (brCas < 0) {
-            throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Br casova ne sme biti manji od 0!", null));
-        }
 
-        if (brCas > 50) {
-            throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Br casova ne moze biti veci od 50!", null));
+        try {
+            if (value == null) {
+                return;
+            }
+
+            if (value instanceof String) {
+                if (((String) value).trim().length() == 0) {
+                    return;
+                }
+            }
+
+            int brCas = 0;
+            try {
+                brCas = (int) value;
+            } catch (Exception ex) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Br casova mora biti ceo broj!", null));
+            }
+            if (brCas < 0) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Br casova ne sme biti manji od 0!", null));
+            }
+
+            if (brCas > 50) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Br casova ne moze biti veci od 50!", null));
+            }
+        } catch (ValidatorException ve) {
+            throw ve;
+        } catch (Exception e) {
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_FATAL,"Greska u sistemu  prilikom validacije!",null));
         }
     }
 

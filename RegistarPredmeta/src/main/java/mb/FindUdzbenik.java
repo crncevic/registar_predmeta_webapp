@@ -12,6 +12,7 @@ import dto.OsobaUVeziSaUdzbenikomDTO;
 import dto.UdzbenikDTO;
 import dto.UlogaUdzbenikDTO;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -45,19 +46,24 @@ public class FindUdzbenik implements Serializable {
 
     public FindUdzbenik() {
     }
-    
+
     @PostConstruct
-    private void init(){
+    private void init() {
         mapper = new ObjectMapper();
-         restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
+        restWSClient = new RestWSClient(Constants.UDZBENIK_CONTROLLER);
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         int udzbenikId = Integer.parseInt(params.get(Constants.UDZBENIK_ID));
         udzbenik = restWSClient.getById_JSON(UdzbenikDTO.class, String.valueOf(udzbenikId));
 
         //uloge udzbenik
         restWSClient = new RestWSClient(Constants.ULOGA_UDZBENIK_CONTROLLER);
-        ulogeNaUdzbeniku = mapper.convertValue(restWSClient.getAll_JSON(List.class), new TypeReference<List<UlogaUdzbenikDTO>>(){});
-        oldOsobe = udzbenik.getOsobaUVeziSaUdzbenikomList();
+        ulogeNaUdzbeniku = mapper.convertValue(restWSClient.getAll_JSON(List.class), new TypeReference<List<UlogaUdzbenikDTO>>() {
+        });
+        oldOsobe = new ArrayList<>();
+        for (OsobaUVeziSaUdzbenikomDTO osobaUVeziSaUdzbenikomDTO : udzbenik.getOsobaUVeziSaUdzbenikomList()) {
+            oldOsobe.add(osobaUVeziSaUdzbenikomDTO);
+        }
+        udzbenik.getOsobaUVeziSaUdzbenikomList();
     }
 
     public UdzbenikDTO getUdzbenik() {
@@ -85,7 +91,13 @@ public class FindUdzbenik implements Serializable {
                 osobaUVeziSaUdzbenikomDTO.setIme(updatedOsoba.getIme());
                 osobaUVeziSaUdzbenikomDTO.setPrezime(updatedOsoba.getPrezime());
                 osobaUVeziSaUdzbenikomDTO.setTitula(updatedOsoba.getTitula());
-                osobaUVeziSaUdzbenikomDTO.setUlogaDTO(updatedOsoba.getUlogaDTO());
+                osobaUVeziSaUdzbenikomDTO.setUdzbenikId(udzbenik.getUdzbenikId());
+                for (UlogaUdzbenikDTO ulogaUdzbenikDTO : ulogeNaUdzbeniku) {
+                    if (ulogaUdzbenikDTO.getUlogaId() == osobaUVeziSaUdzbenikomDTO.getUlogaDTO().getUlogaId()) {
+                        osobaUVeziSaUdzbenikomDTO.setUlogaDTO(ulogaUdzbenikDTO);
+                    }
+                }
+
             }
         }
 
@@ -103,8 +115,8 @@ public class FindUdzbenik implements Serializable {
         if (udzbenik.getOsobaUVeziSaUdzbenikomList().size() > 0 && isLastOsobaEmpty(udzbenik.getOsobaUVeziSaUdzbenikomList())) {
             FacesMessage msg = new FacesMessage("Niste uneli podatke!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
-            if(udzbenik.getOsobaUVeziSaUdzbenikomList().size() > 1){
-            udzbenik.getOsobaUVeziSaUdzbenikomList().remove(udzbenik.getOsobaUVeziSaUdzbenikomList().size()-1);
+            if (udzbenik.getOsobaUVeziSaUdzbenikomList().size() > 1) {
+                udzbenik.getOsobaUVeziSaUdzbenikomList().remove(udzbenik.getOsobaUVeziSaUdzbenikomList().size() - 1);
             }
             return;
         }
@@ -127,6 +139,7 @@ public class FindUdzbenik implements Serializable {
 
         OsobaUVeziSaUdzbenikomDTO newOsoba = new OsobaUVeziSaUdzbenikomDTO();
         newOsoba.setOsobaId(temporaryId);
+        newOsoba.setUlogaDTO(new UlogaUdzbenikDTO());
         udzbenik.getOsobaUVeziSaUdzbenikomList().add(newOsoba);
         FacesMessage msg = new FacesMessage("Nova osoba dodata");
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -151,7 +164,7 @@ public class FindUdzbenik implements Serializable {
                     counter++;
                 }
             }
-            if (counter == oldOsobe.size()) {
+            if (counter == oldOsobe.size() || oldOsobe.isEmpty()) {
                 osobaUVeziSaUdzbenikomDTO.setOsobaId(null);
             }
         }
@@ -161,7 +174,7 @@ public class FindUdzbenik implements Serializable {
         if (response.getStatusInfo() == Response.Status.OK) {
             return "success_update_udzbenik";
         }
-      FacesMessage msg = new FacesMessage("Greska prilikom azuriranja udzbenika!");
+        FacesMessage msg = new FacesMessage("Greska prilikom azuriranja udzbenika!");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         return "";
 
@@ -182,7 +195,7 @@ public class FindUdzbenik implements Serializable {
     private boolean isLastOsobaEmpty(List<OsobaUVeziSaUdzbenikomDTO> osobaUVeziSaUdzbenikomList) {
         OsobaUVeziSaUdzbenikomDTO ouvsudto = osobaUVeziSaUdzbenikomList.get(osobaUVeziSaUdzbenikomList.size() - 1);
 
-        if ( (ouvsudto.getIme()==null || ouvsudto.getIme().trim().length() == 0) && (ouvsudto.getPrezime() == null || ouvsudto.getPrezime().trim().length() == 0)
+        if ((ouvsudto.getIme() == null || ouvsudto.getIme().trim().length() == 0) && (ouvsudto.getPrezime() == null || ouvsudto.getPrezime().trim().length() == 0)
                 && (ouvsudto.getTitula() == null || ouvsudto.getTitula().trim().length() == 0)) {
             return true;
         }

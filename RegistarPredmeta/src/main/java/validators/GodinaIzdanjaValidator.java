@@ -24,21 +24,36 @@ public class GodinaIzdanjaValidator implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        if (((String) value).trim().length() == 0) {
-            return;
-        }
-        int year = 0;
         try {
-            year = (int) value;
-        } catch (Exception ex) {
-            throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Godina izdanja mora biti ceo broj!", null));
+
+            if (value == null) {
+                return;
+            }
+
+            if (value instanceof String) {
+                if (((String) value).trim().length() == 0) {
+                    return;
+                }
+            }
+
+            int year = 0;
+            try {
+                year = (int) value;
+            } catch (Exception ex) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Godina izdanja mora biti ceo broj!", null));
+            }
+
+            if (year < 0 || year > Year.now().getValue()) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Godina izdanja mora biti izmedju 0 i " + Year.now().getValue(), null));
+            }
+        } catch (ValidatorException ve) {
+            throw ve;
+        } catch(Exception e){
+             throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_FATAL, "Greska u sistemu prilikom validacije!", null));
         }
 
-        if (year < 0 || year > Year.now().getValue()) {
-            throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Godina izdanja mora biti izmedju 0 i " + Year.now().getValue(), null));
-        }
     }
-
 }

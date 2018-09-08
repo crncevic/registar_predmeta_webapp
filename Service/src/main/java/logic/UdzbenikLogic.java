@@ -44,12 +44,14 @@ public class UdzbenikLogic extends AbstractLogicClass {
             //TODO : strukturna ogranicenja
             try {
                 et.begin();
+                
+                Udzbenik createdUdzbenik = gru.save(udzbenik);
 
                 for (OsobaUVeziSaUdzbenikom osobaUVeziSaUdzbenikom : udzbenik.getOsobaUVeziSaUdzbenikomList()) {
-                    osobaUVeziSaUdzbenikom.setUdzbenik(udzbenik);
+                    osobaUVeziSaUdzbenikom.setUdzbenik(createdUdzbenik);
                     grouvsu.save(osobaUVeziSaUdzbenikom);
                 }
-                Udzbenik createdUdzbenik = gru.save(udzbenik);
+             
                 et.commit();
 
                 return createdUdzbenik;

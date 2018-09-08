@@ -21,20 +21,33 @@ public class EspbValidator implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        if (((String) value).trim().length() == 0) {
-            return;
-        }
-        int espb = 0;
         try {
-            espb = (int) value;
+            if (value == null) {
+                return;
+            }
+
+            if (value instanceof String) {
+                if (((String) value).trim().length() == 0) {
+                    return;
+                }
+            }
+            int espb = 0;
+            try {
+                espb = (int) value;
+            } catch (Exception ex) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "ESPB mora biti ceo broj!", null));
+            }
+
+            if (espb < 0) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "ESPB mora biti veci od 0!", null));
+            }
+        } catch (ValidatorException ve) {
+            throw ve;
         } catch (Exception ex) {
             throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "ESPB mora biti ceo broj!", null));
-        }
-
-        if (espb < 0) {
-            throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "ESPB mora biti veci od 0!", null));
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Greska u sistemu prilikom validacije!", NOT_IN_RANGE_MESSAGE_ID));
         }
 
     }

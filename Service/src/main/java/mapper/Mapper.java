@@ -253,6 +253,7 @@ public class Mapper {
                 osobaUVeziSaUdzbenikomDTO.setPrezime(osobaUVeziSaUdzbenikom.getPrezime());
                 osobaUVeziSaUdzbenikomDTO.setOsobaId(osobaUVeziSaUdzbenikom.getOsobaId());
                 osobaUVeziSaUdzbenikomDTO.setTitula(osobaUVeziSaUdzbenikom.getTitula());
+                osobaUVeziSaUdzbenikomDTO.setUdzbenikId(osobaUVeziSaUdzbenikom.getUdzbenik().getUdzbenikId());
 
                 if (osobaUVeziSaUdzbenikom.getUloga() != null) {
                     osobaUVeziSaUdzbenikomDTO.setUlogaDTO(toUlogaUdzbenikDTO(osobaUVeziSaUdzbenikom.getUloga()));
@@ -650,6 +651,9 @@ public class Mapper {
                 osobaUVeziSaUdzbenikom.setIme(osobaUVeziSaUdzbenikomDTO.getIme());
                 osobaUVeziSaUdzbenikom.setPrezime(osobaUVeziSaUdzbenikomDTO.getPrezime());
                 osobaUVeziSaUdzbenikom.setTitula(osobaUVeziSaUdzbenikomDTO.getTitula());
+                Udzbenik udzbenik = new Udzbenik();
+                udzbenik.setUdzbenikId(osobaUVeziSaUdzbenikomDTO.getUdzbenikId());
+                osobaUVeziSaUdzbenikom.setUdzbenik(udzbenik);
                 if (osobaUVeziSaUdzbenikomDTO.getUlogaDTO() != null) {
                     osobaUVeziSaUdzbenikom.setUloga(toUlogaNaUdzbeniku(osobaUVeziSaUdzbenikomDTO.getUlogaDTO()));
                 }

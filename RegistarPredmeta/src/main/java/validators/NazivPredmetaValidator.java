@@ -24,22 +24,33 @@ public class NazivPredmetaValidator implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        try {
+            if (value == null) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Morate uneti naziv predmeta!", null));
+            }
+            String naziv = "";
+            try {
+                naziv = (String) value;
+            } catch (Exception e) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_FATAL, "Naziv predmeta nije validan!", null));
+            }
 
-        if (value == null) {
-            throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,"Morate uneti naziv predmeta!",null));
-        }
+            if (naziv.trim().length() == 0) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Morate uneti naziv predmeta!", null));
+            }
 
-        String naziv = (String) value;
-
-        if (naziv.trim().length() == 0) {
-            throw new ValidatorException(
-                   new FacesMessage(FacesMessage.SEVERITY_ERROR,"Morate uneti naziv predmeta!",null));
-        }
-
-        if (naziv.trim().length() < 3) {
-            throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,"Naziv predmeta mora imati bar 3 slova!",null));
+            if (naziv.trim().length() < 3) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Naziv predmeta mora imati bar 3 slova!", null));
+            }
+        }catch(ValidatorException ve){
+            throw ve;
+        }catch(Exception e){
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_FATAL, "Greska u sistemu prilikom validacije!", null));
         }
     }
 

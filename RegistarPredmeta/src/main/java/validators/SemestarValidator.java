@@ -17,26 +17,39 @@ import javax.faces.validator.ValidatorException;
  * @author Petar
  */
 @FacesValidator("validators.semestarValidator")
-public class SemestarValidator implements Validator{
+public class SemestarValidator implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-      if (((String) value).trim().length() == 0) {
-            return;
-        }
-        int semestar = 0;
         try {
-            semestar = (int) value;
+            if (value == null) {
+                return;
+            }
+
+            if (value instanceof String) {
+                if (((String) value).trim().length() == 0) {
+                    return;
+                }
+            }
+            int semestar = 0;
+            try {
+                semestar = (int) value;
+            } catch (Exception ex) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Semestar mora biti ceo broj!", null));
+            }
+
+            if (semestar < 0) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Semestar mora biti veci od 0!", null));
+            }
+        } catch (ValidatorException ve) {
+            throw ve;
         } catch (Exception ex) {
             throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Semestar mora biti ceo broj!", null));
-        }
-
-        if (semestar < 0) {
-            throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Semestar mora biti veci od 0!", null));
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Greska u sistemu prilikom validacije!", null));
         }
 
     }
-    
+
 }

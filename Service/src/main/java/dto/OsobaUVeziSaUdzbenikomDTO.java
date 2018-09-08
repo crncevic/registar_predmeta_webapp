@@ -29,6 +29,9 @@ public class OsobaUVeziSaUdzbenikomDTO implements Serializable{
    
     @NotNull
     private UlogaUdzbenikDTO ulogaDTO;
+    
+    @NotNull
+    private int udzbenikId;
 
     public Integer getOsobaId() {
         return osobaId;
@@ -68,6 +71,14 @@ public class OsobaUVeziSaUdzbenikomDTO implements Serializable{
 
     public void setUlogaDTO(UlogaUdzbenikDTO ulogaDTO) {
         this.ulogaDTO = ulogaDTO;
+    }
+
+    public int getUdzbenikId() {
+        return udzbenikId;
+    }
+
+    public void setUdzbenikId(int udzbenikId) {
+        this.udzbenikId = udzbenikId;
     }
    
     

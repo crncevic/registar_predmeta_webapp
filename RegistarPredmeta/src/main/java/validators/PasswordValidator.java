@@ -17,14 +17,35 @@ import javax.faces.validator.ValidatorException;
  * @author Petar
  */
 @FacesValidator("validators.passwordValidator")
-public class PasswordValidator implements Validator{
- @Override
+public class PasswordValidator implements Validator {
+
+    @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-        String password = (String) value;
-        
-        if(password.trim().length() == 0){
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Niste uneli password!", null));
+        try {
+
+            if (value == null) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Niste uneli password!", null));
+            }
+
+            String password = "";
+
+            try {
+                password = (String) value;
+            } catch (Exception ex) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password mora imati bar jedan karakter!", null));
+            }
+
+            if (password.trim().length() == 0) {
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Niste uneli password!", null));
+            }
+        } catch (ValidatorException ve) {
+            throw ve;
+        } catch (Exception ex) {
+            throw new ValidatorException(
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Greska u sistemu prilikom validacije!", null));
         }
     }
-    
+
 }

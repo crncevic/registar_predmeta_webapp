@@ -75,7 +75,7 @@ public class Udzbenik implements Serializable {
     @Column(name = "tiraz")
     private Integer tiraz;
     @Column(name = "isbn")
-    private Integer isbn;
+    private String isbn;
     @OneToMany (cascade = CascadeType.ALL, mappedBy = "udzbenik",fetch = FetchType.LAZY)
     private List<UdzbenikNaPredmetu> predmetList;
     @OneToMany(mappedBy = "udzbenik")
@@ -149,11 +149,11 @@ public class Udzbenik implements Serializable {
         this.tiraz = tiraz;
     }
 
-    public Integer getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(Integer isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 

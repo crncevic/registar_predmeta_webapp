@@ -21,22 +21,34 @@ public class RbrIzdanjaValidator implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-     
-        if(((String)value).trim().length() == 0){
-            return;
-        }
-        
-        int rbr = 0;
         try {
-            rbr = (int) value;
-        } catch (Exception ex) {
-            throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Redni broj izdanja mora biti ceo broj!", null));
-        }
+            if (value == null) {
+                return;
+            }
 
-        if (rbr < 0) {
+            if (value instanceof String) {
+                if (((String) value).trim().length() == 0) {
+                    return;
+                }
+            }
+
+            int rbr = 0;
+            try {
+                rbr = (int) value;
+            } catch (Exception ex) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Redni broj izdanja mora biti ceo broj!", null));
+            }
+
+            if (rbr < 0) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Redni broj izdanja mora biti veci od 0!", null));
+            }
+        } catch (ValidatorException ve) {
+            throw ve;
+        } catch (Exception e) {
             throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Redni broj izdanja mora biti veci od 0!", null));
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Greska u sistemu prilikom validacije!", null));
         }
     }
 

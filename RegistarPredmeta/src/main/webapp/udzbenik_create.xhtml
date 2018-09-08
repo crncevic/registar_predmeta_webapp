@@ -113,8 +113,8 @@ and open the template in the editor.
                                 <p:cellEditor>
                                     <f:facet name="output"> <h:outputText value="#{osoba.ulogaDTO.naziv}" /></f:facet>
                                     <f:facet name="input">
-                                        <h:selectOneMenu value="#{osoba.ulogaDTO.naziv}" style="width:100%">
-                                            <f:selectItems value="#{findUdzbenik.ulogeNaUdzbeniku}" var="uloga" itemLabel="#{uloga.naziv}" itemValue="#{uloga.naziv}" />
+                                        <h:selectOneMenu value="#{osoba.ulogaDTO.ulogaId}" style="width:100%">
+                                            <f:selectItems value="#{createUdzbenik.ulogeNaUdzbeniku}" var="uloga" itemLabel="#{uloga.naziv}" itemValue="#{uloga.ulogaId}" />
                                         </h:selectOneMenu>
                                     </f:facet>
                                 </p:cellEditor>
@@ -125,14 +125,14 @@ and open the template in the editor.
                             </p:column>
 
                             <p:column style="width:32px">
-                                <p:commandLink value="X" timeout="2000" action="#{findUdzbenik.onDeleteRow(osoba)}" update=":udzbenikForm:msgs dt" process="@this" />
+                                <p:commandLink value="X"  action="#{createUdzbenik.onDeleteRow(osoba)}" update=":udzbenikForm:msgs dt" process="@this" />
                             </p:column>
                         </p:dataTable>
 
                         <div class="ui-g">
                             <div class="ui-g-12">
                                 <p:commandButton value="Dodaj" styleClass="ui-priority-primary" process="@this" update=":udzbenikForm:msgs dt"
-                                                 class="dodajOsobuNaUdzbeniku"  actionListener="#{findUdzbenik.onAddNew()}"  />
+                                                 class="dodajOsobuNaUdzbeniku"  actionListener="#{createUdzbenik.onAddNew()}"  />
 
                             </div>
                         </div>

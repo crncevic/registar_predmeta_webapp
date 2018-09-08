@@ -115,8 +115,8 @@ and open the template in the editor.
                                 <p:cellEditor>
                                     <f:facet name="output"> <h:outputText value="#{osoba.ulogaDTO.naziv}" /></f:facet>
                                     <f:facet name="input">
-                                        <h:selectOneMenu value="#{osoba.ulogaDTO.naziv}" style="width:100%">
-                                            <f:selectItems value="#{findUdzbenik.ulogeNaUdzbeniku}" var="uloga" itemLabel="#{uloga.naziv}" itemValue="#{uloga.naziv}" />
+                                        <h:selectOneMenu value="#{osoba.ulogaDTO.ulogaId}" style="width:100%">
+                                            <f:selectItems value="#{findUdzbenik.ulogeNaUdzbeniku}" var="uloga" itemLabel="#{uloga.naziv}" itemValue="#{uloga.ulogaId}" />
                                         </h:selectOneMenu>
                                     </f:facet>
                                 </p:cellEditor>

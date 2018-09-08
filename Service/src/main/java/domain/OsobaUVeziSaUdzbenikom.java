@@ -62,7 +62,7 @@ public class OsobaUVeziSaUdzbenikom implements Serializable {
     private UlogaUdzbenik uloga;
     @JoinColumn(name = "udzbenikId", referencedColumnName = "udzbenikId")
     @ManyToOne
-    private Udzbenik udzbenik;
+    private Udzbenik  udzbenik;
     
 
     public OsobaUVeziSaUdzbenikom() {

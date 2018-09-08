@@ -21,22 +21,33 @@ public class TirazValidator implements Validator {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-       
-        if(((String)value).trim().length() == 0){
-            return;
-        }
-        
-        int tiraz = 0;
         try {
-            tiraz = (int) value;
-        } catch (Exception e) {
+            if (value == null) {
+                return;
+            }
+
+            if (value instanceof String) {
+                if (((String) value).trim().length() == 0) {
+                    return;
+                }
+            }
+            int tiraz = 0;
+            try {
+                tiraz = (int) value;
+            } catch (Exception e) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Tiraz mora biti ceo broj!", null));
+            }
+
+            if (tiraz < 0) {
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Tiraz ne sme biti manji od 0!", null));
+            }
+        } catch (ValidatorException ve) {
+            throw ve;
+        } catch (Exception ex) {
             throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Tiraz mora biti ceo broj!", null));
-        }
-        
-        if(tiraz < 0){
-             throw new ValidatorException(
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Tiraz ne sme biti manji od 0!", null));
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, "Greska u sistemu prilikom validacije!", null));
         }
     }
 
