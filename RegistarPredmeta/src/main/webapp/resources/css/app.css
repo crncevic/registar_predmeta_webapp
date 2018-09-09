@@ -403,7 +403,7 @@ footer {
 }
 
 .pnspStatusCreate{
-    width: 305px;
+    width: 225px;
     margin:10px 0 0 32.5px;
 }
 .pnspPredmetCreate{
@@ -480,4 +480,9 @@ footer {
 
 .ui-datatable-tablewrapper {
   overflow-x: auto;
+}
+
+.pnspPredmetCreateDisabled{
+    margin-left: 15px;
+    width: 225px;
 }

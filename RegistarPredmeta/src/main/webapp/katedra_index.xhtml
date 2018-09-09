@@ -24,23 +24,23 @@ and open the template in the editor.
                              paginator="true" scrollable="true" rows="5"
                              rowsPerPageTemplate="5,10,15"
                              >
-                    <p:column headerText="Id" class="datatableColumn" sortBy="#{katedra.katedraId}">
+                    <p:column style="width: inherit" headerText="Id" class="datatableColumn" sortBy="#{katedra.katedraId}">
                         <h:outputText value="#{katedra.katedraId}" />
                     </p:column>
 
-                    <p:column headerText="Naziv" class="datatableColumn" sortBy="#{katedra.naziv}">
+                    <p:column style="width: inherit" headerText="Naziv" class="datatableColumn" sortBy="#{katedra.naziv}">
                         <h:outputText value="#{katedra.naziv}" />
                     </p:column>
 
-                    <p:column headerText="Sef" class="datatableColumn">
+                    <p:column style="width: inherit" headerText="Sef" class="datatableColumn">
                         <h:outputText value="#{katedra.sef}" />
                     </p:column>
 
-                    <p:column headerText="Zamenik sefa" class="datatableColumn">
+                    <p:column style="width: inherit" headerText="Zamenik sefa" class="datatableColumn">
                         <h:outputText value="#{katedra.zamenikSefa}" />
                     </p:column>
                     
-                     <p:column headerText="Sekretar" class="datatableColumn">
+                     <p:column style="width: inherit" headerText="Sekretar" class="datatableColumn">
                          <h:outputText value="#{katedra.sekretar}" />
                     </p:column>
                 </p:dataTable>
