@@ -13,6 +13,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import repository.GenericRepository;
+import util.EntityManagerSingleton;
 
 /**
  *
@@ -24,7 +25,7 @@ public abstract class AbstractLogicClass {
 
     protected Validator validator =  vf.getValidator();
     
-    protected EntityTransaction et = GenericRepository.getEntityTransactionInstance();
+    protected EntityTransaction et = EntityManagerSingleton.getInstance().getTransaction();
 
     
 

@@ -7,11 +7,9 @@ package repository;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import util.EntityManagerSingleton;
 
 /**
  *
@@ -19,10 +17,7 @@ import javax.persistence.TypedQuery;
  */
 public class GenericRepository<T> {
 
-    protected static Persistence persistence = new Persistence();
-    protected static EntityManagerFactory emf = persistence.createEntityManagerFactory("SRP_PU");
-    protected static EntityManager em = emf.createEntityManager();
-    protected static EntityTransaction et;
+    private EntityManager em = EntityManagerSingleton.getInstance();
 
     private Class<T> c;
 
@@ -91,10 +86,5 @@ public class GenericRepository<T> {
         return query.getResultList();
     }
 
-    public static EntityTransaction getEntityTransactionInstance() {
-        if (et == null) {
-            et = em.getTransaction();
-        }
-        return et;
-    }
+   
 }
