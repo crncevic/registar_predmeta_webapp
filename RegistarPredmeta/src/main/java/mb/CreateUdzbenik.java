@@ -18,7 +18,6 @@ import java.util.Random;
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -88,7 +87,7 @@ public class CreateUdzbenik implements Serializable {
                     }
                 }
 
-                FacesMessage msg = new FacesMessage("Osoba uspesno azurirana");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Osoba uspesno azurirana !", null);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return;
             }
@@ -96,14 +95,14 @@ public class CreateUdzbenik implements Serializable {
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Dodavanje otkazano");
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Dodavanje otkazano", null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void onAddNew() {
 
         if (newUdzbenik.getOsobaUVeziSaUdzbenikomList().size() > 0 && isLastOsobaEmpty(newUdzbenik.getOsobaUVeziSaUdzbenikomList())) {
-            FacesMessage msg = new FacesMessage("Niste uneli podatke!");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Niste uneli podatke!", null);
             FacesContext.getCurrentInstance().addMessage(null, msg);
             if (newUdzbenik.getOsobaUVeziSaUdzbenikomList().size() > 1) {
                 newUdzbenik.getOsobaUVeziSaUdzbenikomList().remove(newUdzbenik.getOsobaUVeziSaUdzbenikomList().size() - 1);
@@ -131,13 +130,13 @@ public class CreateUdzbenik implements Serializable {
         newOsoba.setOsobaId(temporaryId);
         newOsoba.setUlogaDTO(new UlogaUdzbenikDTO());
         newUdzbenik.getOsobaUVeziSaUdzbenikomList().add(newOsoba);
-        FacesMessage msg = new FacesMessage("Nova osoba dodata");
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nova osoba dodata", null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void onDeleteRow(OsobaUVeziSaUdzbenikomDTO ouvsudto) {
 
-        FacesMessage msg = new FacesMessage("Red x izbrisan");
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Red izbrisan", null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
 
         newUdzbenik.getOsobaUVeziSaUdzbenikomList().remove(ouvsudto);
@@ -153,10 +152,16 @@ public class CreateUdzbenik implements Serializable {
 
         Response response = restWSClient.create_JSON(newUdzbenik);
 
-        if (response.getStatusInfo() == Response.Status.OK) {
+        if (response.getStatusInfo() == Response.Status.BAD_REQUEST) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Greska (HTTP 400) ", "Uzrok: " + response.getEntity().toString());
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else if (response.getStatusInfo() == Response.Status.fromStatusCode(500)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Greska na serveru(HTTP 500)", "Dogodila se greska u sistemu. Sistem nije u stanju da zapamti udzbenik!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else if (response.getStatusInfo() == Response.Status.OK) {
             return "success_create_udzbenik";
         }
-        FacesMessage msg = new FacesMessage("Udzbenik uspesno kreiran!");
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal Error!", "Dogodila se greska prilikom kreiranja udzbenika!");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         return "failure_create";
 

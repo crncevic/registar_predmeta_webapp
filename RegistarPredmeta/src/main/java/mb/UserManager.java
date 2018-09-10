@@ -54,7 +54,7 @@ public class UserManager implements Serializable {
         KorisnikDTO user = restWSClient.getByParam_JSON(KorisnikDTO.class, Constants.KORISNIK_USERNAME, username);
         if (user == null || !user.getPassword().equals(password)) {
             FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-            FacesMessage msg = new FacesMessage("Pogresno korisnicko ime ili password. Pokusajte ponovo");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Pogresno korisnicko ime ili password. Pokusajte ponovo",null);
             FacesContext.getCurrentInstance().addMessage(null, msg);
             resetValues();
 

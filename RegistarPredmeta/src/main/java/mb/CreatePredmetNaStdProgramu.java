@@ -7,7 +7,6 @@ package mb;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.corba.se.impl.orbutil.closure.Constant;
 import constants.Constants;
 import dto.PredmetDTO;
 import dto.PredmetNaStudijskomProgramuDTO;
@@ -19,7 +18,6 @@ import java.util.Map;
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -110,10 +108,10 @@ public class CreatePredmetNaStdProgramu implements Serializable {
         Response response = restWSClient.create_JSON(newPredmetNaStdProgramu);
 
         if (response.getStatusInfo() == Response.Status.BAD_REQUEST) {
-            FacesMessage msg = new FacesMessage(response.getEntity().toString());
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Greska (HTTP 400) ", "Uzrok: "+response.getEntity().toString());
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.fromStatusCode(500)) {
-            FacesMessage msg = new FacesMessage("Dogodila se greska na serveru. Sistem ne moze da zapamti novi predmet na studijskomm programu");
+           FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Greska na serveru(HTTP 500)" ,"Dogodila se greska u sistemu. Sistem nije u stanju da zapamti predmet na stujskom programu!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.OK) {
 //            FacesMessage msg = new FacesMessage("Predmet na studijskom programu je uspesno sacuvan!");

@@ -197,13 +197,13 @@ public class FindPredmet implements Serializable {
     public void onAddNewNastavnikNaPredmetu() {
 
         if (selectedNastavnik == null) {
-            FacesMessage msg = new FacesMessage("Niste izabrali nastavnika");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Niste izabrali nastavnika", null);
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return;
         }
 
         if (selectedTipNastave == null) {
-            FacesMessage msg = new FacesMessage("Niste izabrali tip nastave");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN,"Niste izabrali tip nastave",null);
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return;
         }
@@ -218,7 +218,7 @@ public class FindPredmet implements Serializable {
         for (NastavnikNaPredmetuDTO nastavnikNaPredmetuDTO : predmet.getNastavnici()) {
             if (nastavnikNaPredmetuDTO.getNastavnikDTO().getNastavnikId() == nnpdto.getNastavnikDTO().getNastavnikId()
                     && nastavnikNaPredmetuDTO.getTipNastaveDTO().getTipnastaveId() == nnpdto.getTipNastaveDTO().getTipnastaveId()) {
-                FacesMessage msg = new FacesMessage("Taj nastavnik i taj tip nastave vec postoje");
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Taj nastavnik i taj tip nastave vec postoje",null);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return;
             }
@@ -226,7 +226,7 @@ public class FindPredmet implements Serializable {
 
         predmet.getNastavnici().add(nnpdto);
 
-        FacesMessage msg = new FacesMessage(nnpdto.getNastavnikDTO().getIme() + " " + nnpdto.getNastavnikDTO().getPrezime() + " drzi " + nnpdto.getTipNastaveDTO().getNaziv());
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, nnpdto.getNastavnikDTO().getIme() + " " + nnpdto.getNastavnikDTO().getPrezime() + " drzi " + nnpdto.getTipNastaveDTO().getNaziv(),null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
 
     }
@@ -235,14 +235,14 @@ public class FindPredmet implements Serializable {
 
         predmet.getNastavnici().remove(nnpdto);
 
-        FacesMessage msg = new FacesMessage(nnpdto.getNastavnikDTO().getIme() + " " + nnpdto.getNastavnikDTO().getPrezime() + " vise ne drzi " + nnpdto.getTipNastaveDTO().getNaziv());
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, nnpdto.getNastavnikDTO().getIme() + " " + nnpdto.getNastavnikDTO().getPrezime() + " vise ne drzi " + nnpdto.getTipNastaveDTO().getNaziv(),null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
 
     }
 
     public void onAddNewUdzbenikNaPredmetu() {
         if (selectedUdzbenik == null) {
-            FacesMessage msg = new FacesMessage("Niste izabrali udzbenik");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Niste izabrali udzbenik", null);
             FacesContext.getCurrentInstance().addMessage(null, msg);
             return;
         }
@@ -254,14 +254,14 @@ public class FindPredmet implements Serializable {
 
         for (UdzbenikNaPredmetuDTO udzbenikNaPredmetuDTO : predmet.getUdzbenici()) {
             if (udzbenikNaPredmetuDTO.getUdzbenikDTO().getUdzbenikId() == unpdto.getUdzbenikDTO().getUdzbenikId()) {
-                FacesMessage msg = new FacesMessage(unpdto.getUdzbenikDTO().getNaziv() + " vec postoji na predmetu  " + predmet.getNaziv());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, unpdto.getUdzbenikDTO().getNaziv() + " vec postoji na predmetu  " + predmet.getNaziv(),null);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
                 return;
             }
         }
 
         predmet.getUdzbenici().add(unpdto);
-        FacesMessage msg = new FacesMessage(unpdto.getUdzbenikDTO().getNaziv() + " dodat na predmet : " + predmet.getNaziv());
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, unpdto.getUdzbenikDTO().getNaziv() + " dodat na predmet : " + predmet.getNaziv(),null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
@@ -284,17 +284,17 @@ public class FindPredmet implements Serializable {
         Response response = restWSClient.update_JSON(predmet, String.valueOf(predmet.getPredmetId()));
 
         if (response.getStatusInfo() == Response.Status.BAD_REQUEST) {
-            FacesMessage msg = new FacesMessage(response.getEntity().toString());
+           FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Greska (HTTP 400) ", "Uzrok: "+response.getEntity().toString());
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.fromStatusCode(500)) {
-            FacesMessage msg = new FacesMessage("Dogodila se greska u sistemu. Sistem nije u stanju da zapamti predmet!");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Greska na serveru(HTTP 500)" ,"Dogodila se greska u sistemu. Sistem nije u stanju da azurira predmet!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.OK) {
 //            FacesMessage msg = new FacesMessage("Sistem je uspesno zapamtio  predmet");
 //            FacesContext.getCurrentInstance().addMessage(null, msg);
             return "success_update_predmet";
         }
-        FacesMessage msg = new FacesMessage("Dogodila se greska prilikom azuriranja predmeta!");
+         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL,"Fatal Error!","Dogodila se greska prilikom azuriranja predmeta!");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         return "failure";
     }
@@ -305,16 +305,15 @@ public class FindPredmet implements Serializable {
         Response response = restWSClient.delete(String.valueOf(predmet.getPredmetId()));
 
         if (response.getStatusInfo() == Response.Status.BAD_REQUEST) {
-            FacesMessage msg = new FacesMessage(response.getEntity().toString());
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Greska (HTTP 400) ", "Uzrok: "+response.getEntity().toString());
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.fromStatusCode(500)) {
-            FacesMessage msg = new FacesMessage("Dogodila se greska u sistemu. Sistem nije u stanju da obrise predmet!");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Greska na serveru(HTTP 500)" ,"Dogodila se greska u sistemu. Sistem nije u stanju da obrise predmet!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.OK) {
- 
             return "success_delete_predmet";
         }
-        FacesMessage msg = new FacesMessage("Dogodila se greska prilikom brisanja predmeta!");
+         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL,"Fatal Error!","Dogodila se greska prilikom brisanja predmeta!");
         FacesContext.getCurrentInstance().addMessage(null, msg);
         return "failure";
     }

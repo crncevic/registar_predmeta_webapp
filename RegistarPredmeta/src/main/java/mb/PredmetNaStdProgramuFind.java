@@ -113,16 +113,16 @@ public class PredmetNaStdProgramuFind implements Serializable {
         Response response = restWSClient.update_JSON(predmetNaStdProgramu, predmetNaStdProgramu.getStudijskiProgramId() + "/" + predmetNaStdProgramu.getPredmetId());
 
         if (response.getStatusInfo() == Response.Status.BAD_REQUEST) {
-            FacesMessage msg = new FacesMessage(response.getEntity().toString());
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Greska (HTTP 400) ", "Uzrok: "+response.getEntity().toString());
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.fromStatusCode(500)) {
-            FacesMessage msg = new FacesMessage("Dogodila se greska na serveru. Sistem ne moze da zapamti izmene za predmet na studijskom programu");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Greska na serveru(HTTP 500)" ,"Dogodila se greska u sistemu. Sistem nije u stanju da azurira predmet na studijskom programu!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.OK) {
-//            FacesMessage msg = new FacesMessage("Predmet na studijskom programu je uspesno azuriran!");
-//            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "success_update_pnsp";
+            return "success_delete_predmet";
         }
+         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL,"Fatal Error!","Dogodila se greska prilikom azuriranja predmeta na studijskom programu!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
         return "failure";
     }
 
@@ -130,18 +130,17 @@ public class PredmetNaStdProgramuFind implements Serializable {
         restWSClient = new RestWSClient(Constants.PREDMET_NA_STD_PROGRAMU_CONTROLLER);
         Response response = restWSClient.delete(predmetNaStdProgramu.getStudijskiProgramId() + "/" + predmetNaStdProgramu.getPredmetId());
 
-        if (response.getStatusInfo() == Response.Status.BAD_REQUEST) {
-            FacesMessage msg = new FacesMessage(response.getEntity().toString());
+         if (response.getStatusInfo() == Response.Status.BAD_REQUEST) {
+             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Greska (HTTP 400) ", "Uzrok: "+response.getEntity().toString());
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.fromStatusCode(500)) {
-            FacesMessage msg = new FacesMessage("Dogodila se greska na serveru. Sistem ne moze da izbrise predmet na studijskom programu");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Greska na serveru(HTTP 500)" ,"Dogodila se greska u sistemu. Sistem nije u stanju da obrise predmet na studijskom programu!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.OK) {
-//            FacesMessage msg = new FacesMessage("Predmet na studijskom programu je uspesno izbrisan!");
-//            FacesContext.getCurrentInstance().addMessage(null, msg);
-            return "success_delete_pnsp";
+            return "success_delete_predmet";
         }
-
+         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL,"Fatal Error!","Dogodila se greska prilikom brisanja predmeta na studijskom programu!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
         return "failure";
     }
 }
