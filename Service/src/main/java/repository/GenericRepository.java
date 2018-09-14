@@ -41,20 +41,7 @@ public class GenericRepository<T> {
         return entityFromDb;
     }
 
-    //simulacija asocijativnih nizova, paramNames[i] odgovara paramValues[i]
-    public int delete_CompositeKey(String namedQuery, String[] paramNames, int[] paramValues) {
-
-        Query query = (Query) em.createNamedQuery(namedQuery);
-
-        for (int i = 0; i < paramNames.length; i++) {
-
-            query.setParameter(paramNames[i], paramValues[i]);
-
-        }
-
-        return query.executeUpdate();
-
-    }
+    
 
     public List<T> getAll(String namedQuery) {
         TypedQuery<T> query = em.createNamedQuery(namedQuery, c);

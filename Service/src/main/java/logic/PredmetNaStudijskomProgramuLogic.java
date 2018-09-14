@@ -126,16 +126,10 @@ public class PredmetNaStudijskomProgramuLogic extends AbstractLogicClass {
                 throw new ConstraintViolationException("Studijski program ne postoji u bazi", null);
             }
 
-           int result =  grpnsp.delete_CompositeKey(
-                     Constants.PREDMET_NA_STUDIJSKOM_PROGRAMU_DELETE,
-                     new String[]{Constants.STUDIJSKI_PROGRAM_ID,Constants.PREDMET_ID},
-                     new int[] {stdProgramId,predmetId});
-           if(result == 1){
+            grpnsp.delete(deletedPnsp.getPredmetNaStudijskomProgramuPK());
+
             et.commit();
             return deletedPnsp;
-           }  
-           
-           throw new Exception("Db operation did not execute");
 
         } catch (ConstraintViolationException cve) {
             et.rollback();
