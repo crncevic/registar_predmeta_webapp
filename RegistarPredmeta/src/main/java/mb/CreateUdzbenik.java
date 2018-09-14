@@ -130,7 +130,7 @@ public class CreateUdzbenik implements Serializable {
         newOsoba.setOsobaId(temporaryId);
         newOsoba.setUlogaDTO(new UlogaUdzbenikDTO());
         newUdzbenik.getOsobaUVeziSaUdzbenikomList().add(newOsoba);
-        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Nova osoba dodata", null);
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Nova osoba dodata", null);
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 

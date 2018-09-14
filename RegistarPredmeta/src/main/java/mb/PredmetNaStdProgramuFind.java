@@ -119,7 +119,7 @@ public class PredmetNaStdProgramuFind implements Serializable {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Greska na serveru(HTTP 500)" ,"Dogodila se greska u sistemu. Sistem nije u stanju da azurira predmet na studijskom programu!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         } else if (response.getStatusInfo() == Response.Status.OK) {
-            return "success_delete_predmet";
+            return "success_delete_pnsp";
         }
          FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL,"Fatal Error!","Dogodila se greska prilikom azuriranja predmeta na studijskom programu!");
         FacesContext.getCurrentInstance().addMessage(null, msg);

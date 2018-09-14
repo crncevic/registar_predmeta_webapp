@@ -515,7 +515,7 @@ public class Mapper {
                 if (predmetDTO.getNastavnici() != null) {
 
                     for (NastavnikNaPredmetuDTO nnpdto : predmetDTO.getNastavnici()) {
-                        NastavnikNaPredmetu nnp = new NastavnikNaPredmetu(nnpdto.getNastavnikId(), predmet.getPredmetId() != null ? predmet.getPredmetId() : 0, nnpdto.getNastavnikId());
+                        NastavnikNaPredmetu nnp = new NastavnikNaPredmetu(nnpdto.getNastavnikId(), predmet.getPredmetId() != null ? predmet.getPredmetId() : 0, nnpdto.getTipNastaveId());
                         nastavniciNaPredmetu.add(nnp);
                     }
                 }
